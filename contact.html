@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — Loem Layheng</title>
+<link rel="stylesheet" href="shared.css" />
+<style>
+.contact-grid { display: grid; grid-template-columns: 1fr 0.5px 340px; gap: 0; }
+.contact-main { padding-right: 64px; }
+.contact-divider { background: var(--ink-faint); }
+.contact-side { padding-left: 56px; }
+
+.contact-intro { font-size: 16px; line-height: 1.9; color: var(--ink-soft); font-weight: 300; max-width: 500px; margin-bottom: 56px; }
+
+.contact-methods { display: flex; flex-direction: column; gap: 0; max-width: 520px; }
+.contact-method {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 28px 0; border-bottom: 0.5px solid var(--ink-faint);
+  text-decoration: none; transition: background 0.2s;
+  gap: 24px;
+}
+.contact-method:first-child { border-top: 0.5px solid var(--ink-faint); }
+.contact-method:hover .method-arrow { opacity: 1; transform: translate(0,0); }
+.method-left { display: flex; flex-direction: column; gap: 6px; }
+.method-label { font-size: 9px; letter-spacing: 4px; color: var(--accent); text-transform: uppercase; }
+.method-title { font-family: 'Noto Serif', serif; font-size: 22px; font-weight: 400; color: var(--ink); }
+.method-title em { font-style: italic; color: var(--ink-soft); }
+.method-desc { font-size: 13px; color: var(--ink-muted); font-weight: 300; margin-top: 4px; }
+.method-arrow { font-size: 18px; color: var(--accent); opacity: 0; transform: translate(-8px, 0); transition: all 0.25s; flex-shrink: 0; }
+
+.availability-box {
+  background: var(--blockquote-bg);
+  border: 0.5px solid var(--ink-faint);
+  padding: 28px 32px;
+  margin-top: 48px;
+  max-width: 520px;
+}
+.avail-label { font-size: 9px; letter-spacing: 4px; color: var(--accent); text-transform: uppercase; margin-bottom: 12px; }
+.avail-status { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.avail-dot { width: 7px; height: 7px; border-radius: 50%; background: #5a9e6f; }
+.avail-text { font-family: 'Noto Serif', serif; font-size: 18px; font-weight: 400; color: var(--ink); }
+.avail-desc { font-size: 13px; line-height: 1.7; color: var(--ink-muted); font-weight: 300; }
+
+.side-section { margin-bottom: 48px; }
+.side-label { font-size: 9px; letter-spacing: 4px; color: var(--accent); text-transform: uppercase; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 0.5px solid var(--ink-faint); }
+.side-text { font-size: 14px; line-height: 1.8; color: var(--ink-soft); font-weight: 300; margin-bottom: 16px; }
+
+.detail-row { padding: 14px 0; border-bottom: 0.5px solid var(--ink-faint); }
+.detail-row:first-of-type { border-top: 0.5px solid var(--ink-faint); }
+.detail-key { font-size: 9px; letter-spacing: 3px; color: var(--ink-faint); text-transform: uppercase; margin-bottom: 4px; }
+.detail-val { font-family: 'Noto Serif', serif; font-size: 14px; color: var(--ink); }
+.detail-val em { font-style: italic; color: var(--accent); }
+
+.cv-box {
+  margin-top: 40px; padding: 24px 28px;
+  border: 0.5px solid var(--ink);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.cv-label { font-size: 9px; letter-spacing: 4px; color: var(--ink-muted); text-transform: uppercase; }
+.cv-title { font-family: 'Noto Serif', serif; font-size: 18px; font-weight: 400; color: var(--ink); }
+.cv-desc { font-size: 12px; color: var(--ink-muted); font-weight: 300; line-height: 1.6; }
+.cv-btn {
+  display: inline-block; padding: 11px 0; font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--ink); text-decoration: none;
+  border-bottom: 0.5px solid var(--ink); align-self: flex-start; transition: color 0.2s;
+}
+.cv-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+@media (max-width: 900px) {
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-divider { display: none; }
+  .contact-main { padding-right: 0; margin-bottom: 48px; }
+  .contact-side { padding-left: 0; }
+}
+</style>
+<script src="theme.js"></script>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">Loem Layheng</a>
+  <ul class="nav-links">
+    <li><a href="work.html">Work</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+  <div class="nav-right"><button id="theme-toggle" title="Toggle dark mode"></button><a class="nav-cv" href="Loem Layheng_CV.pdf" target="_blank" rel="noopener">Download CV</a></div>
+</nav>
+
+<div class="page-shell">
+  <div class="page-index reveal d1">
+    <span class="page-index-num">05</span>
+    <div class="page-index-line"></div>
+    <span class="page-index-vert">Contact</span>
+  </div>
+  <div class="page-content">
+    <div class="page-header reveal d2">
+      <div class="page-eyebrow">Let's connect</div>
+      <h1 class="page-title">Get in <em>Touch</em></h1>
+      <div class="page-rule"></div>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-main">
+        <p class="contact-intro reveal d3">Whether you have a project in mind, want a free consultation on your business workflows, or just want to connect — I'm always open to a conversation.</p>
+
+        <div class="contact-methods reveal d3">
+          <a class="contact-method" href="https://t.me/LayhengLoem" target="_blank" rel="noopener">
+            <div class="method-left">
+              <div class="method-label">Preferred</div>
+              <div class="method-title">Telegram <em>Message</em></div>
+              <div class="method-desc">@LayhengLoem · Fastest response</div>
+            </div>
+            <span class="method-arrow">→</span>
+          </a>
+          <a class="contact-method" href="Loem Layheng_CV.pdf" target="_blank" rel="noopener">
+            <div class="method-left">
+              <div class="method-label">CV / Resume</div>
+              <div class="method-title">Download <em>Resume</em></div>
+              <div class="method-desc">PDF · Full work history &amp; skills</div>
+            </div>
+            <span class="method-arrow">↓</span>
+          </a>
+        </div>
+
+        <div class="availability-box reveal d4">
+          <div class="avail-label">Current Status</div>
+          <div class="avail-status">
+            <span class="avail-dot"></span>
+            <span class="avail-text">Available for opportunities</span>
+          </div>
+          <div class="avail-desc">Open to freelance projects, part-time roles, and consultations. Based in Phnom Penh — comfortable working remotely or on-site locally.</div>
+        </div>
+      </div>
+
+      <div class="contact-divider"></div>
+
+      <div class="contact-side reveal d4">
+        <div class="side-section">
+          <div class="side-label">Quick Info</div>
+          <div class="detail-row"><div class="detail-key">Location</div><div class="detail-val">Phnom Penh, <em>Cambodia</em></div></div>
+          <div class="detail-row"><div class="detail-key">Telegram</div ><div class="detail-val"><em>@LayhengLoem</em></div></div>
+          <div class="detail-row"><div class="detail-key">Response time</div><div class="detail-val">Within <em>24 hours</em></div></div>
+          <div class="detail-row"><div class="detail-key">Availability</div><div class="detail-val"><em>Open</em> to work</div></div>
+          <div class="detail-row"><div class="detail-key">Consultation</div><div class="detail-val"><em>Free</em> first session</div></div>
+        </div>
+
+        <div class="cv-box reveal d5">
+          <div class="cv-label">Resume</div>
+          <div class="cv-title">Download Resume</div>
+          <div class="cv-desc">Full workem Layhen history, project details, education, and skills — all in one document.</div>
+          <a class="cv-btn" href="Loem Layheng_CV.pdf" download="Loem_Layheng_CV.pdf" target="_blank" rel="noopener">Download PDF →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-copy">© 2025 Loem Layheng</span>
+  <div class="footer-links">
+    <a href="work.html">Work</a><a href="experience.html">Experience</a>
+    <a href="about.html">About</a><a href="contact.html">Contact</a>
+  </div>
+</footer>
+</body>
+</html>
