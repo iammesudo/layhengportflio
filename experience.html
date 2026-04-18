@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Experience — Loem Layheng</title>
+<link rel="stylesheet" href="shared.css" />
+<style>
+.exp-list { max-width: 740px; }
+.exp-item {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 40px;
+  padding: 40px 0;
+  border-bottom: 0.5px solid var(--ink-faint);
+}
+.exp-item:first-child { border-top: 0.5px solid var(--ink-faint); }
+.exp-left { padding-top: 4px; }
+.exp-period { font-size: 10px; letter-spacing: 2px; color: var(--ink-muted); margin-bottom: 8px; }
+.exp-company { font-family: 'Noto Serif', serif; font-size: 13px; color: var(--accent); font-style: italic; }
+.exp-right {}
+.exp-role { font-family: 'Noto Serif', serif; font-size: 22px; font-weight: 400; color: var(--ink); margin-bottom: 12px; line-height: 1.2; }
+.exp-role em { font-style: italic; color: var(--ink-soft); }
+.exp-desc { font-size: 14px; line-height: 1.85; color: var(--ink-soft); font-weight: 300; margin-bottom: 20px; }
+.exp-points { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.exp-points li { font-size: 13px; line-height: 1.7; color: var(--ink-muted); font-weight: 300; padding-left: 16px; position: relative; }
+.exp-points li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 11px; }
+.exp-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px; }
+.exp-tag { font-size: 9px; letter-spacing: 2px; color: var(--ink-muted); text-transform: uppercase; padding: 4px 10px; border: 0.5px solid var(--ink-faint); }
+
+.edu-section { margin-top: 64px; }
+.edu-label { font-size: 9px; letter-spacing: 5px; color: var(--accent); text-transform: uppercase; margin-bottom: 32px; padding-bottom: 12px; border-bottom: 0.5px solid var(--ink-faint); }
+.edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; max-width: 740px; border-top: 0.5px solid var(--ink-faint); }
+.edu-item { padding: 28px 0 28px; border-bottom: 0.5px solid var(--ink-faint); }
+.edu-item:nth-child(odd) { padding-right: 40px; border-right: 0.5px solid var(--ink-faint); }
+.edu-item:nth-child(even) { padding-left: 40px; }
+.edu-period { font-size: 9px; letter-spacing: 3px; color: var(--ink-faint); text-transform: uppercase; margin-bottom: 8px; }
+.edu-school { font-family: 'Noto Serif', serif; font-size: 16px; font-weight: 400; color: var(--ink); margin-bottom: 4px; }
+.edu-degree { font-size: 13px; color: var(--ink-muted); font-weight: 300; }
+
+.ongoing-section { margin-top: 64px; max-width: 740px; }
+.ongoing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 0.5px solid var(--ink-faint); }
+.ongoing-item { padding: 20px 0; border-bottom: 0.5px solid var(--ink-faint); display: flex; align-items: flex-start; gap: 14px; }
+.ongoing-item:nth-child(odd) { padding-right: 40px; border-right: 0.5px solid var(--ink-faint); }
+.ongoing-item:nth-child(even) { padding-left: 40px; }
+.ongoing-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); margin-top: 7px; flex-shrink: 0; }
+.ongoing-text { font-size: 13px; line-height: 1.6; color: var(--ink-soft); font-weight: 300; }
+
+@media (max-width: 700px) {
+  .exp-item { grid-template-columns: 1fr; gap: 8px; }
+  .edu-grid, .ongoing-grid { grid-template-columns: 1fr; }
+  .edu-item:nth-child(odd), .edu-item:nth-child(even) { padding-left: 0; padding-right: 0; border-right: none; }
+  .ongoing-item:nth-child(odd), .ongoing-item:nth-child(even) { padding-left: 0; padding-right: 0; border-right: none; }
+}
+</style>
+<script src="theme.js"></script>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">Loem Layheng</a>
+  <ul class="nav-links">
+    <li><a href="work.html">Work</a></li>
+    <li><a href="experience.html" class="active">Experience</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right"><button class="theme-toggle-btn" title="Toggle dark mode"></button><a class="nav-cv" href="Loem Layheng_CV.pdf" download="Loem_Layheng_CV.pdf" target="_blank" rel="noopener">Download CV</a></div>
+<button class="nav-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav-overlay"></div>
+<div class="mobile-nav-panel">
+  <div class="mobile-nav-header">
+    <span class="mobile-nav-header-label">Menu</span>
+    <button class="mobile-nav-close" aria-label="Close menu">×</button>
+  </div>
+  <ul class="mobile-nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="work.html">Work</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="mobile-nav-footer">
+    <div class="mobile-nav-toggle-row">
+      <span class="mobile-nav-toggle-label">Day / Night</span>
+      <button class="theme-toggle-btn" title="Toggle dark mode"></button>
+    </div>
+    <a class="mobile-nav-cv" href="Loem Layheng_CV.pdf" target="_blank" rel="noopener">Download CV</a>
+  </div>
+</div>
+
+<div class="page-shell">
+  <div class="page-index reveal d1">
+    <span class="page-index-num">03</span>
+    <div class="page-index-line"></div>
+    <span class="page-index-vert">Experience</span>
+  </div>
+  <div class="page-content">
+    <div class="page-header reveal d2">
+      <div class="page-eyebrow">Career Journey — 2022–Present</div>
+      <h1 class="page-title">The <em>Journey</em></h1>
+      <div class="page-rule"></div>
+    </div>
+
+    <div class="exp-list">
+
+      <!-- Product Owner -->
+      <div class="exp-item reveal d3">
+        <div class="exp-left">
+          <div class="exp-period">Dec 2025 – Present</div>
+          <div class="exp-company">Youding</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-role"><em>Product Owner</em></div>
+          <p class="exp-desc">Own the product roadmap for Youding's POS ecosystem serving F&amp;B and retail merchants, covering software, hardware, online menus, and ordering platforms.</p>
+          <ul class="exp-points">
+            <li>Identify and analyse merchant pain points through direct engagement; define and prioritise solutions with the dev team</li>
+            <li>Design UI/UX wireframes and high-fidelity Figma prototypes independently, bridging product requirements and visual delivery</li>
+            <li>Led end-to-end redesign of EZorder F&amp;B 2.0 — from user journey mapping to interactive prototype delivery</li>
+            <li>Defined product specification for Youding's in-app AI chatbot to automate POS troubleshooting and reduce CS ticket volume</li>
+            <li>Collaborate cross-functionally with engineering, customer success, and sales to ensure aligned product delivery</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Product Ownership</span>
+            <span class="exp-tag">Figma</span>
+            <span class="exp-tag">UX/UI</span>
+            <span class="exp-tag">Roadmap</span>
+            <span class="exp-tag">POS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Junior Customer Success -->
+      <div class="exp-item reveal d3">
+        <div class="exp-left">
+          <div class="exp-period">Jun 2025 – Feb 2026</div>
+          <div class="exp-company">Youding</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-role">Junior <em>Customer Success</em></div>
+          <p class="exp-desc">First professional role — joined Youding's CS team supporting merchants using the POS platform. Built internal tools that saved the team significant time and opened the door to product ownership.</p>
+          <ul class="exp-points">
+            <li>Supported merchants across the full POS ecosystem via live chat, calls, and onboarding sessions</li>
+            <li>Built an internal CS tool automating bulk image processing and QR code extraction — reducing product setup time by up to 75%</li>
+            <li>Created reusable internal resources including video guides, documentation, and workflow templates</li>
+            <li>Escalated bugs via Jira and translated complex system issues into simple merchant-friendly guidance</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Customer Success</span>
+            <span class="exp-tag">POS</span>
+            <span class="exp-tag">Jira</span>
+            <span class="exp-tag">No-Code</span>
+            <span class="exp-tag">Merchant Support</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Freelance Web Designer -->
+      <div class="exp-item reveal d4">
+        <div class="exp-left">
+          <div class="exp-period">Dec 2024 – Present</div>
+          <div class="exp-company">Self-Employed</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-role">Freelance <em>Web Designer</em></div>
+          <p class="exp-desc">Design and deploy websites for small businesses in Cambodia — restaurants, tech retail, and e-commerce — managing the full client lifecycle from proposal to delivery.</p>
+          <ul class="exp-points">
+            <li>Prospected 25+ businesses with pre-built site demos; closed and delivered multiple projects</li>
+            <li>Handled full client lifecycle: proposal, design, revisions, deployment, and handoff</li>
+            <li>Worked across industries including F&amp;B, retail, and e-commerce</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Web Design</span>
+            <span class="exp-tag">No-Code</span>
+            <span class="exp-tag">Client Work</span>
+            <span class="exp-tag">Freelance</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dropshipping -->
+      <div class="exp-item reveal d4">
+        <div class="exp-left">
+          <div class="exp-period">2023 – 2024</div>
+          <div class="exp-company">Self-founded</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-role">Dropshipping <em>Business Owner</em></div>
+          <p class="exp-desc">Ran a solo e-commerce operation end-to-end — product sourcing, pricing, marketing, fulfilment, and customer service — from scratch.</p>
+          <ul class="exp-points">
+            <li>Managed end-to-end e-commerce operations independently</li>
+            <li>Ran paid social media campaigns and analysed performance data to optimise spend</li>
+            <li>Gained first-hand understanding of how online businesses operate at every level</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">E-Commerce</span>
+            <span class="exp-tag">Marketing</span>
+            <span class="exp-tag">Operations</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Entry -->
+      <div class="exp-item reveal d4">
+        <div class="exp-left">
+          <div class="exp-period">2022</div>
+          <div class="exp-company">Part-time</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-role">Data Entry <em>Specialist</em></div>
+          <p class="exp-desc">Early professional experience building the foundations of systematic thinking — data accuracy, organisation, and process discipline.</p>
+          <ul class="exp-points">
+            <li>Maintained and cleaned large datasets with high accuracy under tight deadlines</li>
+            <li>Developed strong attention to detail and structured data handling habits</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Data Entry</span>
+            <span class="exp-tag">Operations</span>
+            <span class="exp-tag">Accuracy</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Education -->
+    <div class="edu-section reveal d5">
+      <div class="edu-label">Education</div>
+      <div class="edu-grid">
+        <div class="edu-item">
+          <div class="edu-period">2023 – Present</div>
+          <div class="edu-school">National University of Management</div>
+          <div class="edu-degree">Bachelor's in Management · Year 3</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-period">2023 – Present</div>
+          <div class="edu-school">Institute of Foreign Language</div>
+          <div class="edu-degree">Bachelor's in English · Year 3</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ongoing -->
+    <div class="ongoing-section reveal d6">
+      <div class="edu-label">Ongoing Projects &amp; Learning</div>
+      <div class="ongoing-grid">
+        <div class="ongoing-item"><span class="ongoing-dot"></span><span class="ongoing-text">Online Ordering Mobile App UI Development</span></div>
+        <div class="ongoing-item"><span class="ongoing-dot"></span><span class="ongoing-text">Fully Functional Chatbot Agent with Real-time Interaction</span></div>
+        <div class="ongoing-item"><span class="ongoing-dot"></span><span class="ongoing-text">Report Generation Automation</span></div>
+        <div class="ongoing-item"><span class="ongoing-dot"></span><span class="ongoing-text">Social Media Content Automation</span></div>
+        <div class="ongoing-item"><span class="ongoing-dot"></span><span class="ongoing-text">Automated Message Response System</span></div>
+        <div class="ongoing-item"><span class="ongoing-dot"></span><span class="ongoing-text">Learning n8n Workflow Automation</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <span class="footer-copy">© 2025 Loem Layheng</span>
+  
+</footer>
+</body>
+</html>
