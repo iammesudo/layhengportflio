@@ -1,0 +1,65 @@
+{
+  "cleanUrls": false,
+  "redirects": [
+    {
+      "source": "/about.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/experience.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/work.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/project-ezorder.html",
+      "destination": "/#ezorder",
+      "permanent": true
+    },
+    {
+      "source": "/project-chatbot.html",
+      "destination": "/#chatbot",
+      "permanent": true
+    },
+    {
+      "source": "/project-cstool.html",
+      "destination": "/#qrtool",
+      "permanent": true
+    },
+    {
+      "source": "/project-poster.html",
+      "destination": "/#poster",
+      "permanent": true
+    },
+    {
+      "source": "/Loem Layheng_CV.pdf",
+      "destination": "/Loem_Layheng_CV.pdf",
+      "permanent": true
+    },
+    {
+      "source": "/Loem Layheng_Resume.pdf",
+      "destination": "/Loem_Layheng_CV.pdf",
+      "permanent": true
+    },
+    {
+      "source": "/Loem%20Layheng_CV.pdf",
+      "destination": "/Loem_Layheng_CV.pdf",
+      "permanent": true
+    },
+    {
+      "source": "/Loem%20Layheng_Resume.pdf",
+      "destination": "/Loem_Layheng_CV.pdf",
+      "permanent": true
+    }
+  ]
+}
