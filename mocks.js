@@ -216,25 +216,43 @@ const mocks = {
     `, 'flows · builder');
   },
 
-  qrPhone: c => phone(`
-    ${T(90, 54, 10, 700, '#111', 'Product setup', 'middle')}${T(90, 68, 7.5, 400, '#888', 'Step 2 of 3 · QR codes', 'middle')}
-    ${R(20, 78, 140, 4, 2, '#ECE9E2')}${R(20, 78, 94, 4, 2, c)}
-    ${R(40, 96, 100, 100, 12, '#fff', 'stroke="#E2DED5"')}
-    ${Array.from({ length: 81 }, (_, i) => { const x = i % 9, y = Math.floor(i / 9); const corner = (x < 3 && y < 3) || (x > 5 && y < 3) || (x < 3 && y > 5); return (corner || ((x * 7 + y * 3 + x * y) % 3 === 0)) ? R(50 + x * 9, 106 + y * 9, 8, 8, 1.2, '#111') : ''; }).join('')}
-    ${R(18, 212, 144, 40, 10, '#fff', 'stroke="#E2DED5"')}${R(26, 220, 24, 24, 6, '#E9DCCB')}${T(58, 230, 8, 600, '#111', 'Iced latte')}${T(58, 241, 7, 400, c, 'QR matched ✓')}
-    ${R(18, 258, 144, 40, 10, '#fff', 'stroke="#E2DED5"')}${R(26, 266, 24, 24, 6, '#D9E4DC')}${T(58, 276, 8, 600, '#111', 'Green tea')}${T(58, 287, 7, 400, c, 'QR matched ✓')}
-    ${R(18, 314, 144, 28, 14, c)}${T(90, 331.5, 8.5, 700, '#fff', 'Save all products', 'middle')}
+  // Dropship Store: sample Shopify-style store (illustrative, no real shop or logo)
+  shopPhone: c => phone(`
+    ${T(20, 52, 12, 800, '#111', 'LUMA')}${T(62, 52, 6.5, 500, '#999', 'home goods')}
+    <path d="M146 44h12l-1.5 9h-9z" fill="none" stroke="#111" stroke-width="1.3" stroke-linejoin="round"/><path d="M149 44a3 3 0 0 1 6 0" fill="none" stroke="#111" stroke-width="1.3"/>
+    <circle cx="159" cy="42" r="5" fill="${c}"/>${T(159, 44.3, 6, 700, '#fff', '1', 'middle')}
+    ${R(14, 62, 152, 128, 14, '#F4EEE4')}
+    <ellipse cx="90" cy="172" rx="34" ry="5" fill="#000" opacity=".08"/>
+    <circle cx="90" cy="138" r="18" fill="#FFE7A8" opacity=".7"/>
+    <path d="M90 104l-20 26h40z" fill="${c}"/><rect x="88" y="130" width="4" height="34" fill="#3b3b3b"/><rect x="74" y="162" width="32" height="6" rx="3" fill="#3b3b3b"/>
+    ${[0, 1, 2].map(i => `<circle cx="${82 + i * 8}" cy="182" r="2.2" fill="${i ? '#d6cfc3' : '#111'}"/>`).join('')}
+    ${T(16, 210, 10, 700, '#111', 'Mini Desk Lamp')}
+    ${[0, 1, 2, 3, 4].map(i => `<path d="M${19 + i * 9} 216.5l1.3 2.6 2.9.4-2.1 2 .5 2.9-2.6-1.4-2.6 1.4.5-2.9-2.1-2 2.9-.4z" fill="${i < 4 ? '#F2B53A' : '#E2DED5'}"/>`).join('')}
+    ${T(66, 223.5, 6.5, 500, '#888', '128 reviews')}
+    ${T(16, 246, 14, 800, '#111', '$24.90')}${T(78, 246, 8, 500, '#aaa', '$39.00')}<path d="M78 243.5h24" stroke="#aaa" stroke-width=".9"/>
+    ${R(110, 236, 34, 13, 6.5, c, 'opacity=".14"')}${T(127, 245, 6.5, 700, c, '-36%', 'middle')}
+    ${T(16, 266, 6.8, 600, '#888', 'COLOUR')}
+    ${['#111', c, '#E9E3D7'].map((col, i) => `<circle cx="${24 + i * 20}" cy="280" r="7" fill="${col}" stroke="${i ? '#d6cfc3' : c}" stroke-width="${i ? 1 : 2}"/>`).join('')}
+    ${R(16, 298, 148, 26, 13, '#111')}${T(90, 314.5, 8.5, 700, '#fff', 'Add to cart', 'middle')}
+    ${T(90, 337, 6.2, 500, '#888', 'Free shipping · arrives in 7 to 12 days', 'middle')}
   `),
-  qrWeb: c => web('Bulk upload', `
-    ${R(352, 42, 104, 22, 11, c)}${T(404, 56, 8, 600, '#fff', 'Process all', 'middle')}
-    ${R(24, 74, 432, 40, 10, 'none', `stroke="${c}" stroke-dasharray="5 4"`)}${T(240, 98, 8.5, 500, '#666', 'Drop product images here · JPG, PNG', 'middle')}
-    ${Array.from({ length: 12 }, (_, i) => {
-      const x = 24 + (i % 6) * 73, y = 126 + Math.floor(i / 6) * 86, done = i < 9;
-      return `${R(x, y, 66, 54, 8, ['#E9DCCB', '#D9E4DC', '#E2DDEA', '#F0D9D2', '#DCE4EE', '#EFE6CF'][i % 6])}
-        ${bar(x, y + 62, 48, '#C9C4BA', 4.5)}
-        ${done ? `<circle cx="${x + 58}" cy="${y + 8}" r="6" fill="${c}"/>${T(x + 58, y + 10.5, 7, 700, '#fff', '✓', 'middle')}` : `${R(x, y + 72, 66, 4, 2, '#E2DED5')}${R(x, y + 72, 30 + i * 3, 4, 2, c)}`}`;
+  shopWeb: c => web('Store overview', `
+    ${R(352, 42, 104, 22, 11, c)}${T(404, 56, 8, 600, '#fff', '+ New campaign', 'middle')}
+    ${R(24, 74, 214, 220, 10, '#fff', 'stroke="#E2DED5"')}${T(36, 94, 9, 700, '#111', 'Recent orders')}
+    ${[['#1042', 'Paid', '#2E8B57'], ['#1041', 'Fulfilling', '#C98A1B'], ['#1040', 'Shipped', '#3B6FD8'], ['#1039', 'Shipped', '#3B6FD8'], ['#1038', 'Delivered', '#2E8B57']].map(([n, s, col], i) => {
+      const y = 106 + i * 36;
+      return `${R(34, y, 194, 30, 7, i % 2 ? '#fff' : '#F7F5F0')}${R(40, y + 6, 18, 18, 5, ['#F4EEE4', '#E9E3D7', '#F0D9D2', '#DCE4EE', '#E6F4EA'][i])}
+        ${T(64, y + 13, 7.2, 700, '#111', n)}${bar(64, y + 18, 50, '#E2DED5', 4)}
+        ${R(162, y + 8, 58, 14, 7, col, 'opacity=".14"')}${T(191, y + 18, 6.6, 600, col, s, 'middle')}`;
     }).join('')}
-  `, 'cs-tools · upload'),
+    ${R(248, 74, 208, 220, 10, '#fff', 'stroke="#E2DED5"')}${T(260, 94, 9, 700, '#111', 'Ad campaigns')}
+    ${[['Facebook', '#1877F2', 'Active', .78], ['Instagram', '#D6457B', 'Active', .62], ['TikTok', '#111', 'Testing', .35]].map(([ch, col, st, p], i) => {
+      const y = 108 + i * 58;
+      return `${R(258, y, 188, 50, 8, '#F7F5F0')}<circle cx="273" cy="${y + 16}" r="7" fill="${col}"/>
+        ${T(286, y + 19, 7.6, 700, '#111', ch)}${R(392, y + 9, 46, 14, 7, st === 'Active' ? '#2E8B57' : '#C98A1B', 'opacity=".15"')}${T(415, y + 19, 6.4, 600, st === 'Active' ? '#2E8B57' : '#C98A1B', st, 'middle')}
+        ${T(266, y + 38, 6.2, 500, '#888', 'Spend')}${R(292, y + 34, 146, 5, 2.5, '#E2DED5')}${R(292, y + 34, 146 * p, 5, 2.5, c)}`;
+    }).join('')}
+  `, 'admin · sample store'),
 
   posterPhone: c => phone(`
     ${T(20, 54, 15, 700, '#111', 'New brief')}${T(20, 68, 7.5, 400, '#888', 'Fill in once, get every size')}

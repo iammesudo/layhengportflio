@@ -33,7 +33,7 @@
     },
     {
       "source": "/project-cstool.html",
-      "destination": "/#qrtool",
+      "destination": "/",
       "permanent": true
     },
     {

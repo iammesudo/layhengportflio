@@ -256,7 +256,7 @@
   .shot .frame { height: clamp(340px, 40vw, 600px); padding: 6% 6% 64px; scale: 1.12; transition: scale 1.6s var(--ease); }
   .shot.in { clip-path: inset(0 round 10px); }
   .shot.in .frame { scale: 1; }
-  .shot svg { height: 100%; width: auto; filter: drop-shadow(0 18px 30px rgba(0,0,0,.18)); transform: translateY(calc(var(--par, 0) * 1px)); transition: transform .2s linear; }
+  .shot svg { height: 100%; width: auto; filter: drop-shadow(0 18px 30px rgba(0,0,0,.18)); transform: translate3d(0, calc(var(--par, 0) * 1px), 0); will-change: transform; backface-visibility: hidden; }
   .shot .wide svg { width: 100%; height: auto; }
   .note { position: absolute; left: 16px; right: 16px; bottom: 12px; font-size: 12.5px; font-style: italic; color: #4a4a4a; line-height: 1.35; }
 
@@ -316,7 +316,6 @@
 <main class="stage">
   <div class="home">
     <h1 class="sr">Loem Layheng, Product Owner</h1>
-    <p class="hi">Loem Layheng · Product Owner at Smart Axiata, Phnom Penh. Selected work below.</p>
     <ol class="list" id="list"></ol>
   </div>
 </main>
@@ -390,15 +389,16 @@ const projects = [
     results: [['chat', 'Instant first answers', 'Routine POS questions get answered right away, any time of day.'],
               ['route', 'Smart escalation', 'Hard cases reach a person, with the context already attached.'],
               ['refresh', 'Keeps improving', 'Feedback shows which answers need work, so quality goes up over time.']] },
-  { id: 'qrtool', name: 'Bulk QR Tool', tag: 'Internal Tool', color: '#0284C7',
-    meta: ['Builder', 'Youding', '2025'], shots: ['qrPhone', 'qrWeb'], note: 'Illustrative mock-up. The internal tool can’t be shown due to company privacy policy.',
-    intro: 'An internal tool that *processes product images in bulk* and pulls out QR codes, making new merchant setups *up to 75% faster*.',
-    did: [['Workflow study', 'Watched the merchant setup workflow and timed every manual step.'],
-          ['Built the tool', 'Built a tool that batches the image editing and QR extraction in one run.'],
-          ['Team rollout', 'Trained the CS team on it and improved it from their feedback.']],
-    results: [['clock', 'Up to 75% faster', 'Merchant product setup takes a fraction of the time it used to.'],
-              ['layers', 'Less manual work', 'Image editing and QR extraction run as one batch instead of one by one.'],
-              ['users', 'Adopted by the team', 'The CS team uses it day to day and shaped it with their feedback.']] },
+  { id: 'store', name: 'Dropship Store', tag: 'E-commerce', color: '#D97706',
+    meta: ['Founder', 'Self-employed', '2023 to 2024'], shots: ['shopPhone', 'shopWeb'], note: 'Illustrative mock-up with a sample store. Not the real shop.',
+    intro: 'I ran *my own Shopify store* end to end: finding products, building the shop, running ads and *getting every order delivered* to buyers abroad.',
+    did: [['Store build', 'Set up the Shopify store myself: theme, product pages, checkout and the apps that tie it together.'],
+          ['Product research', 'Found trending products for international buyers, tested them, and set prices that left a real margin.'],
+          ['Digital marketing', 'Ran Facebook, Instagram and TikTok ad campaigns, plus short video content, to bring buyers to the store.'],
+          ['Fulfilment and support', 'Placed supplier orders, tracked shipping and answered customer questions until every order arrived.']],
+    results: [['bolt', 'Built from zero', 'Took a store from an empty Shopify account to taking real orders, on my own.'],
+              ['trend', 'Learned what sells', 'Testing products and ads taught me to read the data and drop what doesn’t work, fast.'],
+              ['users', 'The customer’s view', 'Seeing every step a buyer takes now shapes how I plan features at Smart.']] },
   { id: 'poster', name: 'Poster AI', tag: 'Automation', color: '#E11D48',
     meta: ['Builder', 'Freelance agency', '2025'], shots: ['posterPhone', 'posterWeb'], note: 'Illustrative mock-up with a sample brand. Client work can’t be shared due to confidentiality.',
     intro: 'Turns *one client brief* into a *full set of on-brand posters* in a single run.',
@@ -432,6 +432,7 @@ const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc = ch => ch === ' ' ? '&nbsp;' : ch;
 const letters = (s, r = 0) => `<span class="roll">${[...s].map((ch, i) => `<span class="l" style="--i:${i};--r:${r}"><span class="c" style="--i:${i}">${esc(ch)}</span></span>`).join('')}</span>`;
 const HOVER = matchMedia('(hover: hover)').matches;
+const PARALLAX = HOVER && matchMedia('(min-width: 1100px)').matches;
 // big project title: letters animate, but a word never breaks in the middle
 const titleHTML = name => { let i = 0; return name.split(' ').map(w => `<span class="wd">${[...w].map(ch => `<span class="l" style="--i:${i++}">${ch}</span>`).join('')}</span>`).join(' '); };
 const rollify = el => el.innerHTML = [...el.textContent].map((ch, i) => `<span class="c" style="--i:${i}">${esc(ch)}</span>`).join('');
@@ -595,6 +596,7 @@ proj.addEventListener('scroll', () => {
   progEl.style.setProperty('--p', max ? (y / max).toFixed(4) : 0);
   if (reduce()) return;
   inner.style.setProperty('--sy', Math.min(y, 700).toFixed(0));
+  if (!PARALLAX) return;   // phones/tablets: no parallax, it made the mock shadows flicker
   inner.querySelectorAll('.shot').forEach(s => {
     const b = s.getBoundingClientRect();
     s.style.setProperty('--par', ((b.top + b.height / 2 - innerHeight / 2) * -.05).toFixed(1));
