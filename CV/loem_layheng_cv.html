@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loem Layheng — CV (Two Column)</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1A1A2E;
+    --accent: #1A1A2E;
+    --accent-light: #EAF1F8;
+    --muted: #6B7280;
+    --rule: #D1D9E0;
+    --bg: #F0EFEB;
+    --paper: #FFFFFF;
+  }
+
+  body {
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    padding: 40px 20px;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--paper);
+    box-shadow: 0 2px 40px rgba(0,0,0,0.10);
+    padding: 36px 60px;
+    position: relative;
+  }
+
+  .page::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 5px; height: 100%;
+    background: var(--accent);
+  }
+
+  /* HEADER */
+  .header { margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--rule); }
+
+  .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 50px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .title-tag {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .contacts { display: flex; flex-wrap: wrap; gap: 0; font-size: 13px; color: var(--muted); }
+  .contacts a { color: var(--accent); text-decoration: none; margin-right: 20px; }
+  .contacts a:hover { text-decoration: underline; }
+  .contacts span { margin-right: 20px; }
+
+  /* LAYOUT */
+  .body { display: grid; grid-template-columns: 1fr 210px; gap: 0 44px; }
+
+  /* SECTION */
+  .section { margin-bottom: 30px; }
+
+  .section-title {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding-bottom: 7px;
+    border-bottom: 1px solid var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .profile-text { font-size: 13.5px; line-height: 1.8; color: #3D4451; }
+
+  /* ENTRY */
+  .entry { margin-bottom: 20px; }
+  .entry:last-child { margin-bottom: 0; }
+
+  .entry-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 3px;
+  }
+
+  .entry-role { font-size: 14.5px; font-weight: 500; color: var(--ink); }
+  .entry-date { font-size: 12px; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
+  .entry-company { font-size: 12.5px; color: var(--muted); font-style: italic; margin-bottom: 8px; }
+
+  .bullets { padding-left: 14px; font-size: 13px; line-height: 1.75; color: #3D4451; }
+  .bullets li { margin-bottom: 3px; }
+
+  /* SIDE */
+  .side-section { margin-bottom: 28px; }
+  .side-section .section-title { font-size: 9.5px; }
+
+  .skills-list { list-style: none; font-size: 13px; }
+  .skills-list li { padding: 6px 0; border-bottom: 1px solid var(--rule); color: #3D4451; }
+  .skills-list li:last-child { border-bottom: none; }
+
+  .edu-item { margin-bottom: 14px; }
+  .edu-inst { font-size: 13px; font-weight: 500; color: var(--ink); }
+  .edu-deg { font-size: 12px; color: var(--muted); font-style: italic; margin: 2px 0; }
+  .edu-date { font-size: 11px; color: var(--muted); }
+
+  .lang-item { font-size: 13px; margin-bottom: 9px; color: #3D4451; }
+  .lang-level { font-size: 11px; color: var(--muted); display: block; }
+
+  /* REFERENCES — full width below grid */
+  .refs-full { margin-top: 10px; }
+  .ref-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px 24px; margin-top: 6px; }
+  .ref-card { font-size: 12.5px; line-height: 1.65; color: #3D4451; }
+  .ref-name { font-weight: 500; font-size: 13px; color: var(--ink); margin-bottom: 2px; }
+  .ref-role { font-size: 12px; color: var(--muted); font-style: italic; margin-bottom: 5px; }
+  .ref-contact { font-size: 12px; color: #3D4451; }
+
+  @media print {
+    @page { margin: 0; }
+    body { background: white; padding: 0; margin: 0; }
+    .page { box-shadow: none; padding: 24px 48px; margin: 0; max-width: 100%; }
+    .page::before { display: none; }
+  }
+
+  @media (max-width: 620px) {
+    .page { padding: 28px 20px; }
+    .body { grid-template-columns: 1fr; }
+    .side { border-top: 1px solid var(--rule); padding-top: 20px; }
+    .name { font-size: 34px; }
+    .ref-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="header">
+    <h1 class="name">Loem Layheng</h1>
+    <p class="title-tag">Product Owner</p>
+    <div class="contacts">
+      <a href="mailto:loemlayheng@gmail.com">loemlayheng@gmail.com</a>
+      <a href="https://t.me/LayhengLoem" target="_blank">t.me/LayhengLoem</a>
+      <span>Phnom Penh, Cambodia</span>
+    </div>
+  </header>
+
+  <div class="body">
+    <main>
+
+      <div class="section">
+        <p class="section-title">Profile</p>
+        <p class="profile-text">Results-driven Product Owner with hands-on experience in a POS ecosystem, combining product strategy with UI/UX execution. Skilled at identifying system pain points, translating merchant feedback into actionable product improvements, and delivering end-to-end solutions under limited resources. Comfortable working across product, design, and customer-facing functions simultaneously.</p>
+      </div>
+
+      <div class="section">
+        <p class="section-title">Experience</p>
+
+        <div class="entry">
+          <div class="entry-top">
+            <span class="entry-role">Product Owner</span>
+            <span class="entry-date">Dec 2025 – Present</span>
+          </div>
+          <p class="entry-company">Youding (Cambodia) Co., Ltd. — Phnom Penh</p>
+          <ul class="bullets">
+            <li>Own the product roadmap for a POS ecosystem serving F&amp;B and retail merchants, covering software, hardware, online menus, and ordering platforms.</li>
+            <li>Identify and analyze pain points through direct merchant engagement, define requirements, and prioritize solutions with the development team.</li>
+            <li>Design UI/UX wireframes and high-fidelity Figma prototypes independently, bridging the gap between product requirements and visual delivery.</li>
+            <li>Led end-to-end redesign of EZorder F&amp;B 2.0 from user journey mapping to interactive prototype delivery.</li>
+            <li>Defined product specification for Youding's in-app AI chatbot to automate POS troubleshooting and reduce CS ticket volume.</li>
+            <li>Collaborate cross-functionally with engineering, customer success, and sales to ensure aligned product delivery.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-top">
+            <span class="entry-role">Junior Customer Success</span>
+            <span class="entry-date">Jun 2025 – Febuary</span>
+          </div>
+          <p class="entry-company">Youding (Cambodia) Co., Ltd. — Phnom Penh</p>
+          <ul class="bullets">
+            <li>Support merchants across the full POS ecosystem via live chat, calls, and onboarding sessions.</li>
+            <li>Built an internal CS tool automating bulk image processing and QR code extraction — reducing product setup time by up to 75%.</li>
+            <li>Created reusable internal resources including video guides, documentation, and workflow templates.</li>
+            <li>Escalated bugs via Jira and translated complex system issues into simple merchant-friendly guidance.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-top">
+            <span class="entry-role">Freelance Web Designer</span>
+            <span class="entry-date">Dec 2024 – Present</span>
+          </div>
+          <p class="entry-company">Self-Employed — Phnom Penh</p>
+          <ul class="bullets">
+            <li>Designed and deployed websites for small businesses across restaurants, tech retail, and e-commerce.</li>
+            <li>Managed full client lifecycle from proposal to delivery; prospected 25+ businesses with pre-built sites.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-top">
+            <span class="entry-role">Dropshipping Business Owner</span>
+            <span class="entry-date">2023 – 2024</span>
+          </div>
+          <p class="entry-company">Self-Employed</p>
+          <ul class="bullets">
+            <li>Managed end-to-end e-commerce operations including product sourcing, pricing, and fulfillment.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section">
+        <p class="section-title">Key Projects</p>
+
+        <div class="entry">
+          <div class="entry-top">
+            <span class="entry-role">EZorder F&amp;B 2.0 — QR Ordering Redesign</span>
+            <span class="entry-date">Dec 2025 – Febuary</span>
+          </div>
+          <ul class="bullets">
+            <li>Led full UX/UI redesign; delivered brand identity, user journey maps, and high-fidelity Figma prototype for a QR-based dine-in ordering platform.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-top">
+            <span class="entry-role">Youding In-App AI Chatbot</span>
+            <span class="entry-date">2025</span>
+          </div>
+          <ul class="bullets">
+            <li>Defined product requirements and user flows for a POS-integrated AI chatbot to automate troubleshooting and reduce support load.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-top">
+            <span class="entry-role">AI Poster Generation Tool</span>
+            <span class="entry-date">2025</span>
+          </div>
+          <ul class="bullets">
+            <li>Built an AI-driven marketing asset generator enabling high-volume, brand-consistent poster production for a freelance marketing agency.</li>
+          </ul>
+        </div>
+      </div>
+
+    </main>
+
+    <aside class="side">
+
+      <div class="side-section">
+        <p class="section-title">Skills</p>
+        <ul class="skills-list">
+          <li>Product Ownership</li>
+          <li>Product Research</li>
+          <li>UX / UI Design</li>
+          <li>Figma &amp; FigJam</li>
+          <li>Wireframing &amp; Prototyping</li>
+          <li>User Journey Mapping</li>
+          <li>User Story Writing</li>
+          <li>Jira</li>
+          <li>No-Code Development</li>
+          <li>Workflow Automation (n8n)</li>
+          <li>AI Tools</li>
+          <li>Google Workspace</li>
+        </ul>
+      </div>
+
+      <div class="side-section">
+        <p class="section-title">Education</p>
+        <div class="edu-item">
+          <p class="edu-inst">NUM</p>
+          <p class="edu-deg">BBA — Management</p>
+          <p class="edu-date">2023 – Present</p>
+        </div>
+        <div class="edu-item">
+          <p class="edu-inst">IFL</p>
+          <p class="edu-deg">BA — English</p>
+          <p class="edu-date">2023 – Present</p>
+        </div>
+      </div>
+
+      <div class="side-section">
+        <p class="section-title">Languages</p>
+        <div class="lang-item">Khmer<span class="lang-level">Native</span></div>
+        <div class="lang-item">English<span class="lang-level">Professional proficiency</span></div>
+      </div>
+
+      <div class="side-section">
+        <p class="section-title">Portfolio</p>
+        <p style="font-size: 12px; line-height: 1.6;">
+          <a href="https://layhengportflio.vercel.app/" target="_blank" style="color: var(--accent); text-decoration: none;">View Portfolio →</a>
+        </p>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- REFERENCES — full width -->
+  <div class="refs-full">
+    <p class="section-title" style="margin-top: 28px;">References</p>
+    <div class="ref-grid">
+      <div class="ref-card">
+        <div class="ref-name">Pisey Pove</div>
+        <div class="ref-role">Customer Success Manager<br>Youding (Cambodia) Co., Ltd.</div>
+        <div class="ref-contact">pisey@youdingapp.com<br>Telegram: @Pisey_Pove</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-name">Voleak Heng (Nai Emeric)</div>
+        <div class="ref-role">Sales &amp; Marketing Manager<br>Youding (Cambodia) Co., Ltd.</div>
+        <div class="ref-contact">voleak@youdingapp.com<br>Telegram: @nai_emeric</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-name">Liratanak Ann</div>
+        <div class="ref-role">Tech Lead<br>Youding (Cambodia) Co., Ltd.</div>
+        <div class="ref-contact">liratanak@youdingapp.com<br>Telegram: @liratanak</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

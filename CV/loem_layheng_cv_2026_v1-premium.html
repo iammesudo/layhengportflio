@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loem Layheng CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #121417;
+    --body: #3A3F47;
+    --muted: #7A808A;
+    --rule: #E4E1DA;
+    --accent: #9A7B4F;      /* bronze */
+    --accent-soft: #F4EFE6;
+    --rail: #F7F5F0;
+    --desk: #E9E7E2;
+  }
+
+  @page { size: A4; margin: 0; }
+
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body {
+    background: var(--desk);
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--body);
+    font-size: 9.4pt;
+    line-height: 1.55;
+    padding: 32px 0;
+  }
+
+  /* One sheet = one A4 page */
+  .sheet {
+    width: 210mm;
+    height: 297mm;
+    margin: 0 auto 32px;
+    background: #fff;
+    box-shadow: 0 10px 40px rgba(18,20,23,.10), 0 1px 3px rgba(18,20,23,.06);
+    display: grid;
+    grid-template-columns: 1fr 62mm;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .main { padding: 14mm 11mm 14mm 16mm; }
+  .rail { background: var(--rail); padding: 14mm 10mm 14mm 9mm; border-left: 1px solid var(--rule); }
+
+  /* Header */
+  .eyebrow {
+    font-size: 7pt; font-weight: 500; letter-spacing: .24em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 3mm;
+  }
+  .name {
+    font-family: 'Instrument Serif', serif; font-weight: 400;
+    font-size: 40pt; line-height: .95; color: var(--ink); letter-spacing: -.01em;
+  }
+  .name em { font-style: italic; color: var(--accent); }
+  .role {
+    margin-top: 3.5mm; font-size: 10.5pt; font-weight: 500; color: var(--ink);
+  }
+  .role span { color: var(--muted); font-weight: 400; }
+
+  .summary {
+    margin-top: 5mm; padding-top: 4mm; border-top: 1px solid var(--rule);
+    font-size: 9.6pt; line-height: 1.65; color: var(--body);
+  }
+  .summary strong { color: var(--ink); font-weight: 600; }
+
+  /* Section */
+  .section { margin-top: 6mm; }
+  .h {
+    display: flex; align-items: center; gap: 3mm;
+    font-size: 7pt; font-weight: 600; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--ink); margin-bottom: 4mm;
+  }
+  .h::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+  .h b { color: var(--accent); font-weight: 600; }
+
+
+  /* Entries */
+  .entry { margin-bottom: 5mm; }
+  .entry:last-child { margin-bottom: 0; }
+  .entry-top { display: flex; justify-content: space-between; align-items: baseline; gap: 3mm; }
+  .entry-role { font-size: 10.4pt; font-weight: 600; color: var(--ink); }
+  .entry-date { font-size: 7.8pt; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .entry-co { font-size: 8.6pt; color: var(--accent); margin: .4mm 0 2mm; font-weight: 500; }
+  .entry-co span { color: var(--muted); font-weight: 400; }
+
+  ul.b { list-style: none; }
+  ul.b li { position: relative; padding-left: 4mm; margin-bottom: 1.2mm; font-size: 9pt; line-height: 1.55; }
+  ul.b li::before {
+    content: ''; position: absolute; left: 0; top: .62em;
+    width: 1.6mm; height: 1px; background: var(--accent);
+  }
+  ul.b li strong { color: var(--ink); font-weight: 600; }
+
+  .badge {
+    display: inline-block; font-size: 6.4pt; letter-spacing: .16em; text-transform: uppercase;
+    background: var(--accent-soft); color: var(--accent); padding: .6mm 2mm; border-radius: 99px;
+    margin-left: 2mm; vertical-align: 1.5px; font-weight: 600;
+  }
+
+  /* Rail */
+  .r-sec { margin-bottom: 7mm; }
+  .r-h {
+    font-size: 6.8pt; font-weight: 600; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 3mm; padding-bottom: 2mm; border-bottom: 1px solid var(--rule);
+  }
+  .contact { list-style: none; font-size: 8.4pt; }
+  .contact li { margin-bottom: 2.4mm; line-height: 1.35; }
+  .contact small { display: block; font-size: 6.6pt; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .contact a { color: var(--ink); text-decoration: none; word-break: break-word; }
+
+  .skill-group { margin-bottom: 3.5mm; }
+  .skill-group h4 { font-size: 8.2pt; font-weight: 600; color: var(--ink); margin-bottom: 1.4mm; }
+  .tags { display: flex; flex-wrap: wrap; gap: 1.3mm; }
+  .tags span {
+    font-size: 7.4pt; padding: .7mm 2mm; border-radius: 1mm;
+    background: #fff; border: 1px solid var(--rule); color: var(--body);
+  }
+  .tags span.hl { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+  .edu { margin-bottom: 3mm; }
+  .edu b { display: block; font-size: 8.8pt; font-weight: 600; color: var(--ink); }
+  .edu span { display: block; font-size: 8.2pt; }
+  .edu small { font-size: 7.4pt; color: var(--muted); }
+
+  .lang { display: flex; justify-content: space-between; font-size: 8.6pt; margin-bottom: 1.6mm; }
+  .lang span { color: var(--muted); font-size: 7.6pt; }
+
+
+  /* Page 2 */
+  .p2-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-bottom: 3mm; border-bottom: 1px solid var(--rule);
+  }
+  .p2-head .n { font-family: 'Instrument Serif', serif; font-size: 16pt; color: var(--ink); }
+  .p2-head .n em { color: var(--accent); }
+  .p2-head small { font-size: 7pt; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+
+  .proj { display: grid; grid-template-columns: 1fr; gap: 3mm; }
+  .proj-card { border: 1px solid var(--rule); border-radius: 2mm; padding: 3.5mm 4mm; }
+  .proj-card .entry-top { margin-bottom: 1mm; }
+  .proj-card p { font-size: 8.9pt; }
+
+  .refs { display: grid; grid-template-columns: 1fr; gap: 3.5mm; }
+  .ref b { display: block; font-size: 8.8pt; color: var(--ink); font-weight: 600; }
+  .ref span { display: block; font-size: 7.8pt; color: var(--muted); line-height: 1.4; }
+  .ref a, .ref em { display: block; font-style: normal; font-size: 7.8pt; color: var(--body); text-decoration: none; }
+
+  .footer {
+    position: absolute; bottom: 7mm; left: 16mm; right: 72mm;
+    display: flex; justify-content: space-between;
+    font-size: 6.8pt; letter-spacing: .18em; text-transform: uppercase; color: #B4B8BE;
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .sheet { margin: 0; box-shadow: none; page-break-after: always; break-after: page; }
+    .sheet:last-child { page-break-after: auto; break-after: auto; }
+  }
+
+  /* Phone view (screen only) */
+  @media screen and (max-width: 820px) {
+    body { padding: 0; font-size: 10pt; }
+    .sheet { width: 100%; height: auto; grid-template-columns: 1fr; margin: 0 0 12px; box-shadow: none; }
+    .main, .rail { padding: 24px 16px; }
+    .rail { border-left: 0; border-top: 1px solid var(--rule); }
+    .name { font-size: 34pt; }
+    .footer { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== PAGE 1 ===================== -->
+<section class="sheet">
+  <main class="main">
+    <p class="eyebrow">Curriculum Vitae · 2026</p>
+    <h1 class="name">Loem <em>Layheng</em></h1>
+    <p class="role">Digital Touchpoint Officer <span>· Product Owner, SmartNas</span></p>
+
+    <p class="summary">
+      Product Owner for <strong>all SmartNas digital channels at Smart Axiata</strong>, with a background in POS
+      products, UX/UI design and customer success. I work <strong>prototype-first</strong>: with vibe coding (AI-assisted
+      coding) I build the layout and a sample UI, check feasibility, and present a clickable demo instead of a written
+      proposal. This makes my work <strong>easy to see, test and measure</strong> on both mobile and web.
+    </p>
+
+
+    <div class="section">
+      <p class="h">Experience</p>
+
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-role">Digital Touchpoint Officer<span class="badge">Current</span></span>
+          <span class="entry-date">2026 – Present</span>
+        </div>
+        <p class="entry-co">Smart Axiata Co., Ltd. <span>· Phnom Penh · Product Owner, SmartNas digital channels</span></p>
+        <ul class="b">
+          <li><strong>Plan and develop features inside SmartNas</strong>: shape the backlog, write requirements and work with development teams from idea to release.</li>
+          <li><strong>Own complaints, issues and inquiries</strong> coming from every Smart digital channel. Triage, find the root cause and drive fixes with the right teams.</li>
+          <li><strong>Lead partner integrations</strong> into Smart’s digital channels. Align scope and user flows with partners and internal teams through to launch.</li>
+          <li><strong>Present features as working prototypes</strong> for mobile and web (layout, sample UI and feasibility check), so decisions are faster and results are measurable.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-role">Product Owner</span>
+          <span class="entry-date">Dec 2025 – 2026</span>
+        </div>
+        <p class="entry-co">Youding (Cambodia) Co., Ltd. <span>· Phnom Penh</span></p>
+        <ul class="b">
+          <li>Owned the roadmap for a POS ecosystem serving F&amp;B and retail merchants: software, hardware, online menus and ordering.</li>
+          <li>Turned merchant pain points into requirements and priorities with the development team.</li>
+          <li>Designed wireframes and high-fidelity Figma prototypes; led the end-to-end redesign of <strong>EZorder F&amp;B 2.0</strong>.</li>
+        </ul>
+      </div>
+
+
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-role">Junior Customer Success</span>
+          <span class="entry-date">Jun 2025 – Feb 2026</span>
+        </div>
+        <p class="entry-co">Youding (Cambodia) Co., Ltd. <span>· Phnom Penh</span></p>
+        <ul class="b">
+          <li>Built an internal CS tool for bulk image processing and QR extraction, which <strong>cut product setup time by up to 75%</strong>.</li>
+          <li>Supported merchants via chat, calls and onboarding; escalated bugs through Jira in plain, merchant-friendly language.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-role">Freelance Web Designer</span>
+          <span class="entry-date">Dec 2024 – Present</span>
+        </div>
+        <p class="entry-co">Self-Employed <span>· Phnom Penh</span></p>
+        <ul class="b">
+          <li>Designed and shipped websites for small businesses in food, tech retail and e-commerce.</li>
+          <li>Ran the full client cycle from proposal to delivery; pitched 25+ businesses with pre-built sample sites, prototype-first from day one.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer"><span>Loem Layheng</span><span>01 / 02</span></div>
+  </main>
+
+  <aside class="rail">
+    <div class="r-sec">
+      <p class="r-h">Contact</p>
+      <ul class="contact">
+        <li><small>Email</small><a href="mailto:loemlayheng@gmail.com">loemlayheng@gmail.com</a></li>
+        <li><small>Telegram</small><a href="https://t.me/LayhengLoem">t.me/LayhengLoem</a></li>
+        <li><small>Portfolio</small><a href="https://layhengportflio.vercel.app/">layhengportflio.vercel.app</a></li>
+        <li><small>Based in</small>Phnom Penh, Cambodia</li>
+      </ul>
+    </div>
+
+    <div class="r-sec">
+      <p class="r-h">Expertise</p>
+      <div class="skill-group">
+        <h4>Product</h4>
+        <div class="tags">
+          <span>Product Ownership</span><span>Feature Planning</span><span>Backlog &amp; User Stories</span>
+          <span>Partner Integration</span><span>Feasibility Study</span><span>Issue &amp; Complaint Mgmt</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Prototyping</h4>
+        <div class="tags">
+          <span class="hl">Vibe Coding</span><span class="hl">Mobile UI</span><span class="hl">Web UI</span>
+          <span>HTML / CSS / JS</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Design</h4>
+        <div class="tags">
+          <span>UX / UI</span><span>Wireframing</span><span>User Journeys</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Tools</h4>
+        <div class="tags">
+          <span>Figma</span><span>FigJam</span><span>Claude</span><span>Claude Code</span>
+          <span>Jira</span><span>Confluence</span><span>n8n</span><span>Google Workspace</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="r-sec">
+      <p class="r-h">Education</p>
+      <div class="edu"><b>National University of Management</b><span>BBA, Management</span><small>2023 – Present</small></div>
+      <div class="edu"><b>Institute of Foreign Languages</b><span>BA, English</span><small>2023 – Present</small></div>
+    </div>
+
+  </aside>
+</section>
+
+<!-- ===================== PAGE 2 ===================== -->
+<section class="sheet">
+  <main class="main">
+    <div class="p2-head">
+      <span class="n">Loem <em>Layheng</em></span>
+      <small>Digital Touchpoint Officer</small>
+    </div>
+
+    <div class="section">
+      <p class="h">Earlier Experience</p>
+
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-role">Dropshipping Business Owner</span>
+          <span class="entry-date">2023 – 2024</span>
+        </div>
+        <p class="entry-co">Self-Employed</p>
+        <ul class="b">
+          <li>Ran end-to-end e-commerce operations: product sourcing, pricing and fulfilment.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <p class="h">Selected Projects</p>
+      <div class="proj">
+        <div class="proj-card">
+          <div class="entry-top"><span class="entry-role">EZorder F&amp;B 2.0: QR Ordering Redesign</span><span class="entry-date">Dec 2025 – Feb 2026</span></div>
+          <p>Full UX/UI redesign of a QR dine-in ordering platform: brand identity, user journey maps and a high-fidelity Figma prototype.</p>
+        </div>
+        <div class="proj-card">
+          <div class="entry-top"><span class="entry-role">Youding In-App AI Chatbot</span><span class="entry-date">2025</span></div>
+          <p>Product requirements and user flows for a POS-integrated AI chatbot that automates troubleshooting and reduces support load.</p>
+        </div>
+        <div class="proj-card">
+          <div class="entry-top"><span class="entry-role">CS Bulk Image &amp; QR Tool</span><span class="entry-date">2025</span></div>
+          <p>Internal tool that automates bulk image processing and QR code extraction, making merchant product setup up to 75% faster.</p>
+        </div>
+        <div class="proj-card">
+          <div class="entry-top"><span class="entry-role">AI Poster Generation Tool</span><span class="entry-date">2025</span></div>
+          <p>AI-driven generator for high-volume, on-brand marketing posters, built for a freelance marketing agency.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer"><span>Loem Layheng</span><span>02 / 02</span></div>
+  </main>
+
+  <aside class="rail">
+    <div class="r-sec">
+      <p class="r-h">References</p>
+      <div class="refs">
+        <div class="ref">
+          <b>Pisey Pove</b>
+          <span>Customer Success Manager<br>Youding (Cambodia) Co., Ltd.</span>
+          <a href="mailto:pisey@youdingapp.com">pisey@youdingapp.com</a>
+          <em>Telegram: @Pisey_Pove</em>
+        </div>
+        <div class="ref">
+          <b>Voleak Heng (Nai Emeric)</b>
+          <span>Sales &amp; Marketing Manager<br>Youding (Cambodia) Co., Ltd.</span>
+          <a href="mailto:voleak@youdingapp.com">voleak@youdingapp.com</a>
+          <em>Telegram: @nai_emeric</em>
+        </div>
+        <div class="ref">
+          <b>Liratanak Ann</b>
+          <span>Tech Lead<br>Youding (Cambodia) Co., Ltd.</span>
+          <a href="mailto:liratanak@youdingapp.com">liratanak@youdingapp.com</a>
+          <em>Telegram: @liratanak</em>
+        </div>
+      </div>
+    </div>
+
+    <div class="r-sec">
+      <p class="r-h">Languages</p>
+      <div class="lang">Khmer <span>Native</span></div>
+      <div class="lang">English <span>Professional</span></div>
+    </div>
+
+  </aside>
+</section>
+
+</body>
+</html>
