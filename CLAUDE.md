@@ -12,6 +12,7 @@ This repo (`iammesudo/layhengportflio`, public) is the whole project. Clone it, 
 | `CV/loem_layheng_cv_2026_v1-premium.*` | Earlier "premium" CV design | Backup only |
 | `CV/loem_layheng_cv.html` | Old CV (Youding era) | Archive |
 | `Portfolio 2026/` | **Current website** (the only folder Vercel serves) | Live |
+| `Archive/Portfolio 2026 classic/` | Previous site (light, big-type list) kept for rollback | Backup only |
 | `vercel.json` | Tells Vercel to serve `Portfolio 2026/` and holds the old-URL redirects | Keep |
 | `.claude/launch.json` | Local preview server config for the Claude desktop app | Optional |
 
@@ -19,13 +20,17 @@ The old website (`Portfolio Website/`) is not in the repo. It lives in git histo
 
 ## Website (`Portfolio 2026/`)
 
-- `index.html`: all CSS + JS inline. Project content (text, "What I did", results) is the `projects` array near the top of the script. Wrap words in `*stars*` in `intro` to get the highlighter sweep.
-- `mocks.js`: the mock screens as SVG strings. SmartNas uses telco-style screens (`telHome`, `telInternet`, `telProfile`); Dropship Store uses a sample shop "LUMA" (`shopPhone`, `shopWeb`). To use a real screenshot, swap a mock for `<img>`.
-- Projects (in order): SmartNas, EZorder, AI Chatbot, Dropship Store (Shopify, Facebook/Instagram/TikTok ads, international buyers, 2023 to 2024), Poster AI. Bulk QR Tool was removed (it was a vibe-coded tool).
-- `fonts/`: self-hosted loader fonts (MiSans Khmer, MiSans Latin, Zen Kaku Gothic New + IBM Plex Sans KR subsets). Main font is Inter from Google Fonts.
+Redesigned Nov 2026 for creative-agency applications (Melon Rouge, Phnom Penh). The design is "Option B · Corridor": dark, image-led. The previous site is kept in `Archive/Portfolio 2026 classic/` (not served) and in git history before this change.
+
+- `index.html`: all CSS + JS inline. Home = huge cropped name "Layheng" + "designs it, then builds it", then 5 room panels in a sideways corridor (wheel or drag on desktop, stacked on phones). Content lives in arrays near the top of the script: `ROOMS`, `BUILDS`, `THEMES`, `TOOLS`, `XP`, `CASES`.
+- Rooms (hash routes): `#built` (live vibe-coded sites: menu platform, 520 Staycation, EasySurvey, the Odile sample), `#design` (the 6 menu themes as design systems, cards link to the live demos), `#work` (product cases, each at `#work/<id>`; old `#smartnas` links redirect), `#toolkit`, `#experience` (CV timeline).
+- `samples/odile/`: "Option A · Index" built as a portfolio for an invented designer, Odile Rask. Everything in it is fictional and every page carries a "Fictional sample" ribbon. Keep it labelled.
+- `img/`: webp screenshots of the live sites (captured with Playwright). The Phsar Toch logo is blurred. Re-capture if the live sites change.
+- `mocks.js`: SVG mock screens for the Product work cases (unchanged).
+- Motion: one curve (`--io`) with 4 durations (.3/.5/.7/.9s) plus expo-out for reveals. Khmer/English hello loader (once per visit, hard-cut word swaps), curtain page transition in the room colour, word-mask title reveals, blend cursor with labels, magnetic buttons (desktop only). Reduced motion turns it all off.
+- Fonts: Bricolage Grotesque + Instrument Serif (Google Fonts); theme display fonts load subset to the shop names; loader fonts self-hosted in `fonts/`.
 - `Loem_Layheng_CV.pdf`: copy of the current CV. **Re-copy it from `CV/` whenever the CV changes.**
-- Features: Khmer + English hello loader (once per visit), project list with hover previews, project pages with title fly-in (View Transitions), About/Contact panel, 3 colour moods (Paper default, Forest, Cobalt). No intro text above the project list (user removed it).
-- Mock parallax runs only on desktop (hover + ≥1100px). On phones/tablets it is off because it made the mock shadows flicker while scrolling.
+- Not shown on purpose: Learn Here, Everything (owner's choice), menu platform pricing and business plan.
 
 ### Run locally
 `python -m http.server 5173 --directory "Portfolio 2026"` (also in `.claude/launch.json` as `portfolio`). Open http://localhost:5173.

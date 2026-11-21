@@ -1,346 +1,373 @@
 <!DOCTYPE html>
-<html lang="en" data-mood="Paper">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Layheng · Product Owner</title>
-<meta name="description" content="Loem Layheng, Product Owner in Phnom Penh. Selected work across digital channels, mobile and web.">
+<title>Layheng · Product designer</title>
+<meta name="description" content="Loem Layheng, product designer and product owner in Phnom Penh. Designs products, then builds them with Figma and vibe coding.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Loem Layheng · Product Owner">
-<meta property="og:description" content="Product Owner at Smart Axiata, Phnom Penh. Prototype-first product work for mobile and web.">
+<meta property="og:title" content="Loem Layheng · Product designer">
+<meta property="og:description" content="Designs it, then builds it. Live sites, design systems and product work from Phnom Penh.">
 <meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#F1EEE7">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='38' fill='%23F1EEE7'%3EL%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#121210">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23121210'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='40' fill='%23F2B544'%3EL%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="preload" href="fonts/MiSansKhmer-Medium.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-  /* Loader fonts, served from this site's own fonts/ folder (no outside servers) */
   @font-face { font-family: MiSansKhmer; font-weight: 500; font-display: swap; src: url("fonts/MiSansKhmer-Medium.woff2") format("woff2"); }
   @font-face { font-family: MiSansLatin; font-weight: 500; font-display: swap; src: url("fonts/MiSansLatin-Medium.woff2") format("woff2"); }
   @font-face { font-family: "Zen Kaku Gothic New"; font-weight: 500; font-display: swap; src: url("fonts/ZenKakuGothicNew-Subset.woff2") format("woff2"); }
   @font-face { font-family: "IBM Plex Sans KR"; font-weight: 500; font-display: swap; src: url("fonts/IBMPlexSansKR-Subset.woff2") format("woff2"); }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+  /* Motion system: 4 durations on one in-out curve, plus one expo-out for reveals */
   :root {
-    --bg: #F1EEE7; --ink: #111111; --hover: #111111;
-    --gutter: clamp(16px, 2.6vw, 44px);
-    --ease: cubic-bezier(.16, 1, .3, 1);
-    --roll: 1.1em;
+    --bg: #121210; --ink: #EDE9DF; --mute: #EDE9DFa6; --line: #EDE9DF26; --sun: #F2B544;
+    --g: clamp(16px, 2.4vw, 40px);
+    --io: cubic-bezier(.7, 0, .3, 1); --out: cubic-bezier(.16, 1, .3, 1); --pop: cubic-bezier(.34, 1.4, .64, 1);
+    --t1: .3s; --t2: .5s; --t3: .7s; --t4: .9s;
+    --serif: "Instrument Serif", Georgia, serif;
   }
-  html, body { height: 100%; }
-  body {
-    background: var(--bg); color: var(--ink);
-    font-family: Inter, MiSansKhmer, system-ui, sans-serif; font-size: 16px; line-height: 1.5;
-    -webkit-font-smoothing: antialiased; overflow: hidden;
-  }
+  html { -webkit-text-size-adjust: 100%; }
+  body { background: var(--bg); color: var(--ink); font: 500 15px/1.45 "Bricolage Grotesque", MiSansKhmer, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body.lock { overflow: hidden; }
   a, button { color: inherit; font: inherit; background: none; border: 0; cursor: pointer; text-decoration: none; text-align: inherit; }
-  button:focus-visible, a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
-  ::selection { background: var(--ink); color: var(--bg); }
+  :focus-visible { outline: 2px solid var(--sun); outline-offset: 4px; }
+  ::selection { background: var(--sun); color: #121210; }
+  em, .serif { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.01em; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-  /* ---------- View transitions ---------- */
-  html.vt-mood::view-transition-old(root), html.vt-mood::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
-  html.vt-nav::view-transition-old(root) { animation: none; }
-  html.vt-nav::view-transition-new(root) { animation: vtwipe .8s cubic-bezier(.16, 1, .3, 1); }
-  @keyframes vtwipe { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0); } }
-  ::view-transition-group(ptitle) { animation-duration: .9s; animation-timing-function: cubic-bezier(.16, 1, .3, 1); }
+  /* text that rolls on hover: a copy sits below and both slide up */
+  .roll { display: inline-block; overflow: hidden; vertical-align: top; line-height: 1.2; height: 1.2em; }
+  .roll > span { display: block; transition: transform var(--t3) var(--out); }
+  .roll > span::after { content: attr(data-t); display: block; }
+  a:hover > .roll > span, button:hover > .roll > span, a:focus-visible > .roll > span { transform: translateY(-50%); }
 
-  /* ---------- Loader ---------- */
-  .loader {
-    position: fixed; inset: 0; z-index: 100; background: var(--ink); color: var(--bg);
-    display: grid; place-items: center; font-size: clamp(34px, 4.6vw, 60px); letter-spacing: -.03em;
-    transition: transform 1.05s var(--ease);
-  }
-  .loader::after { content: ''; position: absolute; left: -10%; width: 120%; top: calc(100% - 1px); height: 22vh; background: inherit; border-radius: 0 0 50% 50%; transition: height 1.05s var(--ease); }
-  .loader p { display: flex; align-items: center; gap: .35em; }
-  .loader i { width: .2em; height: .2em; border-radius: 50%; background: currentColor; }
-  .loader.out { transform: translateY(calc(-100% - 22vh)); }
+  /* line mask reveal: word boxes clip, words rise */
+  .w { display: inline-block; overflow: clip; vertical-align: top; padding: 0 .02em .12em; margin: 0 -.02em -.12em; }
+  .w > span { display: inline-block; transform: translateY(115%); transition: transform 1.4s var(--out); transition-delay: calc(var(--d, 0s) + var(--i) * 45ms); }
+  .shown .w > span, .w.shown > span { transform: none; }
+
+  /* ---------- Loader (Khmer and English hello) ---------- */
+  .loader { position: fixed; inset: 0; z-index: 100; background: #0A0A09; color: var(--ink); display: grid; place-items: center; font-size: clamp(34px, 4.6vw, 60px); letter-spacing: -.03em; transition: transform 1s var(--io); }
+  .loader::after { content: ''; position: absolute; left: -10%; width: 120%; top: calc(100% - 1px); height: 12vh; background: inherit; border-radius: 0 0 50% 50%; transition: height 1s var(--io); }
+  .loader p { display: flex; align-items: center; gap: .35em; opacity: 0; animation: lin .8s var(--out) .25s forwards; }
+  @keyframes lin { to { opacity: 1; } }
+  .loader i { width: .2em; height: .2em; border-radius: 50%; background: var(--sun); }
+  .loader.out { transform: translateY(calc(-100% - 12vh)); }
   .loader.out::after { height: 0; }
   .loader.gone { display: none; }
 
-  /* ---------- Cursor label ---------- */
-  .cursor {
-    position: fixed; left: 0; top: 0; z-index: 90; pointer-events: none;
-    padding: 8px 14px; border-radius: 99px; background: var(--ink); color: var(--bg);
-    font-size: 13px; font-weight: 500; letter-spacing: -.01em; white-space: nowrap;
-    transform: translate(18px, 20px) scale(0); transform-origin: 0 0; transition: transform .35s var(--ease);
-  }
-  .cursor.on { transform: translate(18px, 20px) scale(1); }
-  @media not (hover: hover) { .cursor { display: none; } }
+  /* ---------- Cursor: blend dot that stretches with speed, label pill on targets ---------- */
+  .cur { position: fixed; left: 0; top: 0; z-index: 95; pointer-events: none; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: #fff; mix-blend-mode: difference; transition: width var(--t2) var(--out), height var(--t2) var(--out), margin var(--t2) var(--out), opacity var(--t1); }
+  .cur.hide { opacity: 0; }
+  .cur.big { width: 88px; height: 88px; margin: -44px 0 0 -44px; mix-blend-mode: normal; background: var(--sun); }
+  .cur b { position: absolute; inset: 0; display: grid; place-items: center; font-size: 13px; font-weight: 500; color: #121210; opacity: 0; transition: opacity var(--t1); white-space: nowrap; }
+  .cur.big b { opacity: 1; transition-delay: .12s; }
+  @media not (hover: hover) { .cur { display: none; } }
 
-  /* ---------- Rolling text ---------- */
-  .roll { display: inline-flex; overflow: hidden; line-height: var(--roll); height: var(--roll); vertical-align: top; }
-  .roll .c { display: inline-block; white-space: pre; text-shadow: 0 var(--roll) currentColor; transition: transform .55s var(--ease); transition-delay: calc(var(--i) * 16ms); }
-  a:hover > .roll .c, button:hover > .roll .c, .row:hover .roll .c, .p-next:hover .roll .c, a:focus-visible > .roll .c { transform: translateY(calc(-1 * var(--roll))); }
+  /* ---------- Top bar ---------- */
+  .top { position: fixed; z-index: 50; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; align-items: center; padding: 18px var(--g); font-size: 14px; color: var(--ink); }
+  .top nav { display: flex; gap: 22px; }
+  .top .home-l { display: flex; gap: .5em; align-items: center; }
+  .top .home-l i { width: 7px; height: 7px; border-radius: 50%; background: var(--sun); }
+  .top { transition: transform var(--t3) var(--io), background-color var(--t2); }
+  body.lock .top.solid { background: #121210; }
+  body.lock .top.away { transform: translateY(-100%); }
+  .top > * { transition: transform 1s var(--out) .5s, opacity 1s var(--out) .5s; }
+  body:not(.ready) .top > * { transform: translateY(-120%); opacity: 0; }
 
-  /* ---------- Bars ---------- */
-  .bar {
-    position: fixed; left: 0; right: 0; z-index: 26;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 0 var(--gutter); font-size: clamp(16px, 1.55vw, 24px); letter-spacing: -.04em;
-  }
-  .top { top: 0; height: 76px; }
-  .bottom { bottom: 0; height: 64px; font-size: clamp(15px, 1.4vw, 22px); }
-  .bar > * { transition: transform 1.1s var(--ease) .35s, opacity 1.1s var(--ease) .35s; }
-  body:not(.ready) .top > * { transform: translateY(-140%); opacity: 0; }
-  body:not(.ready) .bottom > * { transform: translateY(140%); opacity: 0; }
-  .brand { display: flex; gap: .5em; align-items: center; text-transform: uppercase; }
-  .brand b { font-weight: 700; }
-  .top > button { text-transform: uppercase; }
-  .mood { display: flex; align-items: center; gap: .5em; }
-  .mood i { width: .55em; height: .55em; border-radius: 50%; background: var(--ink); animation: pulse 2.4s var(--ease) infinite; }
-  @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ink) 45%, transparent); } 60% { box-shadow: 0 0 0 .45em transparent; } }
-  .mid { position: absolute; left: 50%; translate: -50% 0; font-size: 14px; letter-spacing: 0; }
-  body.open .bar { background: var(--bg); }
-  .progress { position: fixed; z-index: 27; left: 0; right: 0; top: 76px; height: 2px; background: var(--acc, var(--ink)); transform-origin: left; transform: scaleX(var(--p, 0)); opacity: 0; transition: opacity .4s; }
-  body.open .progress { opacity: 1; }
+  /* ---------- Home: the corridor ---------- */
+  .home { min-height: 100svh; display: flex; flex-direction: column; padding-top: 96px; }
+  .name { position: relative; z-index: 2; pointer-events: none; font-weight: 700; font-size: 19vw; letter-spacing: -.065em; line-height: .86; padding-left: calc(var(--g) - .04em); white-space: nowrap; margin-top: 4vh; user-select: none; }
+  .name .l { display: inline-block; transform: translateY(105%); transition: transform 1.3s var(--out); transition-delay: calc(var(--i) * 50ms + .15s); }
+  .name .clip { display: inline-block; overflow: clip; padding-bottom: .1em; margin-bottom: -.1em; }
+  .ready .name .l { transform: none; }
+  .tag { position: absolute; left: 47vw; top: -.3em; font: italic 400 .3em/1 var(--serif); letter-spacing: -.02em; color: var(--sun); transform: rotate(-6deg); transform-origin: 0 100%; white-space: nowrap; }
+  .tag span { display: inline-block; clip-path: inset(0 100% 0 0); transition: clip-path 1.6s var(--io) .9s; }
+  .ready .tag span { clip-path: inset(0 -5% 0 0); }
 
-  /* ---------- Project list ---------- */
-  .stage { height: 100%; display: flex; flex-direction: column; overflow-y: auto; overscroll-behavior: contain; transition: filter .7s var(--ease), opacity .7s var(--ease); }
-  .home { margin: auto 0; padding: 96px var(--gutter) 84px max(var(--gutter), calc(50vw - 330px)); }
-  .list { list-style: none; }
-  .hi { font-size: 14px; line-height: 1.5; margin-bottom: 26px; max-width: 34ch; opacity: .75; transition: opacity 1s var(--ease) .9s, transform 1s var(--ease) .9s; }
-  body:not(.ready) .hi { opacity: 0; transform: translateY(10px); }
-  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .row {
-    position: relative; display: inline-flex; align-items: flex-start; gap: 10px;
-    font-size: clamp(42px, 5.2vw, 84px); letter-spacing: -.045em; --roll: 1.08em;
-    transition: opacity .45s var(--ease);
-  }
-  .list:has(.row:hover) .row:not(:hover) { opacity: .25; }
-  .row .n, .row .t { font-size: 14px; letter-spacing: 0; line-height: 1; padding-top: .95em; white-space: nowrap; transition: opacity .8s var(--ease), transform .45s var(--ease), color .3s; }
-  .row .n { transition-delay: calc(var(--r) * 90ms + .45s), 0s, 0s; }
-  .row .t { transition-delay: calc(var(--r) * 90ms + .6s), 0s, 0s; }
-  body:not(.ready) .row .n, body:not(.ready) .row .t { opacity: 0; }
-  .row:hover .t { transform: translateX(6px); }
-  .row:hover .name, .row:hover .n, .row:hover .t { color: var(--hover); }
-  html[data-mood="Paper"] .row:hover .name { color: var(--pc); }
-  html[data-mood="Paper"] .row:hover :is(.n, .t) { color: color-mix(in srgb, var(--pc) 70%, #000); }
-  .name { transition: color .3s; }
-  .name .l { display: inline-block; transition: transform 1.1s var(--ease); transition-delay: calc(var(--i) * 24ms + var(--r) * 90ms); }
-  body:not(.ready) .name .l { transform: translateY(110%); }
+  .corridor { position: relative; z-index: 1; margin-top: -3.2vw; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; cursor: grab; overscroll-behavior-x: contain; }
+  .corridor::-webkit-scrollbar { display: none; }
+  .corridor.drag { cursor: grabbing; }
+  .corridor.drag a { pointer-events: none; }
+  .rooms { display: flex; gap: 14px; padding: 0 var(--g); width: max-content; }
+  .room { position: relative; flex: none; width: 20vw; height: max(42vh, 330px); border-radius: 6px; overflow: hidden; color: #fff; background: var(--rc); transition: width var(--t3) var(--io), transform 1.2s var(--out), clip-path 1.2s var(--out); transition-delay: 0s, calc(var(--k) * 70ms + .55s), calc(var(--k) * 70ms + .55s); }
+  body:not(.ready) .room { transform: translateY(30%); clip-path: inset(30% 0 0 0 round 6px); }
+  .room.wide { width: 31vw; }
+  .room::after { content: ''; position: absolute; inset: 55% 0 0; background: linear-gradient(transparent, #0000004d); pointer-events: none; }
+  .room .n { position: absolute; right: 14px; top: 12px; font-size: 13px; z-index: 2; }
+  .room h2 { position: absolute; left: 14px; right: 14px; bottom: 12px; z-index: 2; font-size: clamp(22px, 2.1vw, 34px); font-weight: 700; letter-spacing: -.045em; line-height: 1; text-shadow: 0 1px 16px #0005; }
+  .room h2 small { display: block; font: italic 400 16px/1.3 var(--serif); letter-spacing: 0; opacity: .88; margin-top: 6px; }
+  .room img { position: absolute; border-radius: 8px; box-shadow: 0 18px 40px -14px #000a; transition: transform var(--t4) var(--io); }
+  .room .shot1 { width: 80%; left: 10%; top: 15%; }
+  .room .shot2 { width: 26%; right: 5%; top: 29%; border-radius: 12px; }
+  .room .fan { width: 40%; top: 12%; border-radius: 12px; }
+  .room .fan:nth-of-type(1) { left: 6%; transform: rotate(-6deg); } .room .fan:nth-of-type(2) { left: 30%; top: 8%; } .room .fan:nth-of-type(3) { left: 54%; transform: rotate(6deg); }
+  .room:hover .fan:nth-of-type(1) { transform: rotate(-11deg) translate(-8px, 6px); } .room:hover .fan:nth-of-type(3) { transform: rotate(11deg) translate(8px, 6px); } .room:hover .fan:nth-of-type(2) { transform: translateY(-8px); }
+  .room:hover .shot1 { transform: translateY(-6px) scale(1.02); } .room:hover .shot2 { transform: translate(6px, -12px) rotate(3deg); }
+  .room .big-t { position: absolute; left: 14px; right: 14px; top: 96px; font: italic 400 clamp(26px, 2.6vw, 44px)/1.02 var(--serif); }
+  .room ul { position: absolute; left: 14px; top: 96px; list-style: none; font-size: 15px; line-height: 1.7; }
+  .room ul li { transition: transform var(--t2) var(--out); transition-delay: calc(var(--j) * 30ms); }
+  .room:hover ul li { transform: translateX(8px); }
+  .room .end { width: 14vw; background: transparent; border: 1px dashed var(--line); color: var(--mute); }
+  .hint { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 18px var(--g) 22px; font-size: 13px; color: var(--mute); margin-top: auto; }
+  .bar { flex: 1; max-width: 260px; height: 1px; background: var(--line); position: relative; }
+  .bar i { position: absolute; left: 0; top: 0; height: 1px; width: 100%; background: var(--ink); transform-origin: left; transform: scaleX(var(--p, .2)); }
+  .hint > * { transition: opacity 1s var(--out) 1.2s; } body:not(.ready) .hint > * { opacity: 0; }
 
-  .thumbs {
-    position: absolute; left: calc(100% + 22px); top: 50%; display: none; gap: 12px; pointer-events: none;
-    translate: calc(var(--mx, 0) * .06px) calc(-50% + var(--my, 0) * .35px); transition: translate .5s var(--ease);
-  }
-  .thumb { width: 150px; height: 120px; border-radius: 6px; overflow: hidden; clip-path: inset(100% 0 0 0); transition: clip-path .7s var(--ease); }
-  .thumb + .thumb { width: 190px; transition-delay: .07s; }
-  .thumb .frame { height: 100%; scale: 1.25; transition: scale 1s var(--ease); }
-  .thumb + .thumb .frame { transition-delay: .07s; }
-  @media (hover: hover) and (min-width: 1100px) {
-    .thumbs { display: flex; }
-    .row:hover .thumb { clip-path: inset(0); }
-    .row:hover .thumb .frame { scale: 1; }
+  /* ---------- Curtain between pages (curved edge, room name) ---------- */
+  .curtain { position: fixed; inset: 0; z-index: 70; pointer-events: none; background: var(--cc, #222); color: #fff; display: grid; place-items: center; transform: translateY(105%); visibility: hidden; }
+  .curtain::before, .curtain::after { content: ''; position: absolute; left: -10%; width: 120%; height: 10vh; background: inherit; border-radius: 50%; }
+  .curtain::before { bottom: calc(100% - 5vh); } .curtain::after { top: calc(100% - 5vh); }
+  .curtain p { font-size: clamp(40px, 7vw, 110px); font-weight: 700; letter-spacing: -.05em; display: flex; align-items: center; gap: .3em; }
+  .curtain p i { width: .16em; height: .16em; border-radius: 50%; background: currentColor; }
+  .curtain.in { visibility: visible; transform: translateY(0); transition: transform .55s var(--io); }
+  .curtain.out { visibility: visible; transform: translateY(-110%); transition: transform .8s var(--io); }
+
+  /* ---------- Room and case pages (one scroller) ---------- */
+  .view { position: fixed; inset: 0; z-index: 40; background: var(--bg); overflow-y: auto; overscroll-behavior: contain; visibility: hidden; }
+  .view.on { visibility: visible; }
+  .view:focus { outline: none; }
+  .hero { background: var(--rc); color: #fff; padding: 130px var(--g) 40px; position: relative; min-height: 72svh; display: flex; flex-direction: column; justify-content: flex-end; }
+  .hero .crumb { position: absolute; top: 74px; left: var(--g); font-size: 14px; }
+  .hero h1 { font-weight: 700; font-size: clamp(64px, 14vw, 230px); letter-spacing: -.065em; line-height: .88; }
+  .hero .sub { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-top: 26px; border-top: 1px solid #ffffff40; padding-top: 16px; }
+  .hero .sub p { font-size: clamp(20px, 2vw, 30px); line-height: 1.2; letter-spacing: -.02em; max-width: 30ch; }
+  .hero .sub span { font-size: 13px; opacity: .8; text-align: right; }
+  .sec { padding: 0 var(--g); }
+  .rv { opacity: 0; transform: translateY(40px); transition: opacity 1.4s var(--out), transform 1.6s var(--out); transition-delay: var(--d, 0s); }
+  .rv.shown { opacity: 1; transform: none; }
+  .k { font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+
+  /* Built by me: feature blocks */
+  .build { display: grid; grid-template-columns: 5fr 7fr; gap: 40px; padding: 14vh 0 0; }
+  .build:nth-of-type(even) { grid-template-columns: 7fr 5fr; }
+  .build:nth-of-type(even) .txt { order: 2; }
+  .build .txt { position: sticky; top: 90px; align-self: start; }
+  .build .num { font-size: 13px; color: var(--mute); }
+  .build h3 { font-size: clamp(40px, 5vw, 84px); letter-spacing: -.055em; line-height: .95; margin: 10px 0 18px; font-weight: 700; }
+  .build .lede { font-size: clamp(19px, 1.6vw, 24px); line-height: 1.3; letter-spacing: -.015em; max-width: 34ch; }
+  .build ul { list-style: none; margin: 26px 0; border-top: 1px solid var(--line); font-size: 15px; }
+  .build ul li { padding: 11px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 26px 1fr; color: var(--mute); }
+  .build ul li b { color: var(--ink); font-weight: 500; }
+  .build .note { font: italic 400 15px/1.4 var(--serif); color: var(--mute); max-width: 44ch; }
+  .pill { display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; padding: 14px 22px; border-radius: 99px; background: var(--ink); color: #121210; font-size: 15px; position: relative; overflow: hidden; isolation: isolate; }
+  .pill::before { content: ''; position: absolute; z-index: -1; left: 50%; top: 100%; width: 140%; aspect-ratio: 1; translate: -50% 0; border-radius: 50%; background: var(--sun); transition: top var(--t2) var(--io), border-radius .9s var(--io); }
+  .pill:hover::before { top: -20%; border-radius: 0; }
+  .pill .arr { transition: transform var(--t2) var(--io); } .pill:hover .arr { transform: rotate(-45deg); }
+  .media { display: grid; gap: 14px; }
+  .browser { border-radius: 8px; overflow: hidden; background: #1d1d1b; box-shadow: 0 40px 80px -40px #000; clip-path: inset(12% 0 0 0 round 8px); transition: clip-path 1.6s var(--out); }
+  .browser.shown { clip-path: inset(0 round 8px); }
+  .browser .chrome { display: flex; align-items: center; gap: 6px; padding: 10px 12px; font-size: 11.5px; color: var(--mute); }
+  .browser .chrome i { width: 9px; height: 9px; border-radius: 50%; background: #3a3a37; }
+  .browser .chrome span { margin-left: 12px; padding: 3px 12px; border-radius: 6px; background: #2a2a27; }
+  .browser img { display: block; width: 100%; height: auto; }
+  .phones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .phones img { width: 100%; border-radius: 14px; display: block; box-shadow: 0 30px 60px -30px #000; }
+  .phones.two { grid-template-columns: 1fr 1fr; }
+  .next-up { padding: 18vh var(--g) 0; }
+  .next-up p { font: italic 400 clamp(28px, 3.4vw, 54px)/1.1 var(--serif); max-width: 22ch; }
+
+  /* Design systems: theme wall */
+  .ds-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 12vh 0 8vh; font-size: clamp(19px, 1.6vw, 24px); line-height: 1.3; letter-spacing: -.015em; }
+  .themes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .theme { position: relative; border-radius: 8px; overflow: hidden; background: var(--tb); color: var(--tt); padding: 18px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 14px; min-height: 660px; transition: transform var(--t3) var(--io); }
+  .theme:hover { transform: translateY(-8px); }
+  .theme .hd { display: flex; justify-content: space-between; font-size: 13px; }
+  .theme .spec { font-family: var(--tf); font-size: clamp(34px, 3.2vw, 54px); line-height: .95; letter-spacing: -.02em; }
+  .theme .pic { position: relative; }
+  .theme .pic img { position: absolute; left: 50%; top: 0; width: 62%; translate: -50% 0; border-radius: 14px; box-shadow: 0 24px 50px -20px #0007; transition: transform var(--t4) var(--io); }
+  .theme:hover .pic img { transform: translateY(-14px) rotate(-2deg); }
+  .theme .ft { display: flex; justify-content: space-between; align-items: end; font-size: 12.5px; gap: 12px; position: relative; z-index: 1; background: var(--tb); margin: 0 -18px -18px; padding: 14px 18px 18px; }
+  .theme .sw { display: flex; } .theme .sw i { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--tb); margin-left: -6px; background: var(--c); transition: margin var(--t2) var(--out); }
+  .theme:hover .sw i { margin-left: 2px; }
+  .ds-wall { transition: background-color var(--t4) var(--io); }
+
+  /* Product work: list linking to cases */
+  .cases { list-style: none; border-top: 1px solid var(--line); margin-top: 10vh; }
+  .cases li { border-bottom: 1px solid var(--line); }
+  .cases a { display: grid; grid-template-columns: 70px 1fr auto 60px; align-items: center; gap: 20px; padding: 18px 0; position: relative; }
+  .cases .n { font-size: 13px; color: var(--mute); }
+  .cases .t { font-size: clamp(36px, 5.6vw, 96px); font-weight: 700; letter-spacing: -.055em; line-height: 1; transition: transform var(--t2) var(--out), color var(--t1); }
+  .cases .m { font-size: 14px; color: var(--mute); text-align: right; }
+  .cases .ar { justify-self: end; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; transition: background var(--t1), color var(--t1), transform var(--t2) var(--io); }
+  .cases .th { position: absolute; right: 26%; top: 50%; width: 150px; height: 190px; translate: 0 -50%; border-radius: 8px; overflow: hidden; background: color-mix(in srgb, var(--pc) 22%, #f4f2ec); clip-path: inset(100% 0 0 0 round 8px); transition: clip-path var(--t3) var(--io); pointer-events: none; display: grid; place-items: center; padding: 12px; }
+  .cases .th svg { height: 100%; width: auto; }
+  @media (hover: hover) {
+    .cases:has(a:hover) a:not(:hover) { opacity: .35; }
+    .cases a { transition: opacity var(--t2) var(--out); }
+    .cases a:hover .t { transform: translateX(14px); color: var(--pc); }
+    .cases a:hover .ar { background: var(--pc); color: #fff; border-color: var(--pc); transform: rotate(-45deg); }
+    .cases a:hover .th { clip-path: inset(0 round 8px); }
   }
 
-  /* ---------- Mock frames ---------- */
-  .frame { position: relative; display: grid; place-items: center; background: var(--tint); border-radius: inherit; overflow: hidden; }
-  .frame svg { display: block; max-width: 100%; max-height: 100%; }
-  .thumb .frame { padding: 10px; }
-  .thumb .frame svg { height: 100%; width: auto; filter: drop-shadow(0 6px 10px rgba(0,0,0,.18)); }
+  /* Toolkit */
+  .tk { margin-top: 10vh; }
+  .tk-g { display: grid; grid-template-columns: 1fr 3fr; gap: 20px; border-top: 1px solid var(--line); padding: 18px 0 40px; }
+  .tk-g h3 { font: italic 400 clamp(26px, 2.4vw, 38px)/1 var(--serif); }
+  .tk-g ul { list-style: none; }
+  .tool { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: baseline; padding: 6px 0; border-bottom: 1px solid var(--line); position: relative; }
+  .tool b { font-size: clamp(34px, 4.6vw, 78px); font-weight: 700; letter-spacing: -.055em; line-height: 1.05; transition: color var(--t1), transform var(--t2) var(--out); }
+  .tool span { font-size: 15px; color: var(--mute); transition: color var(--t1); }
+  .tool::before { content: ''; position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%; background: var(--rc); transform: scaleX(0); transform-origin: left; transition: transform var(--t3) var(--io); }
+  @media (hover: hover) { .tool:hover b { color: var(--rc2, #8FA8FF); transform: translateX(10px); } .tool:hover span { color: var(--ink); } .tool:hover::before { transform: scaleX(1); } }
+
+  /* Experience: timeline rows that open */
+  .xp { list-style: none; margin-top: 10vh; border-top: 1px solid var(--line); }
+  .xp li { border-bottom: 1px solid var(--line); }
+  .xp button { width: 100%; display: grid; grid-template-columns: 180px 1fr auto 30px; gap: 20px; align-items: baseline; padding: 22px 0; }
+  .xp .y { font-size: 14px; color: var(--mute); }
+  .xp .r { font-size: clamp(24px, 2.6vw, 42px); font-weight: 700; letter-spacing: -.04em; line-height: 1.05; }
+  .xp .c { font-size: 15px; color: var(--mute); text-align: right; }
+  .xp .pm { position: relative; width: 16px; height: 16px; justify-self: end; align-self: center; }
+  .xp .pm::before, .xp .pm::after { content: ''; position: absolute; left: 0; top: 50%; width: 100%; height: 1.5px; background: currentColor; }
+  .xp .pm::after { transform: rotate(90deg); transition: transform var(--t2) var(--io); }
+  .xp li.open .pm::after { transform: none; }
+  .xp .dd { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t3) var(--io); }
+  .xp li.open .dd { grid-template-rows: 1fr; }
+  .xp .dd > div { overflow: hidden; }
+  .xp .dd ul { list-style: none; padding: 0 0 26px 200px; max-width: 980px; }
+  .xp .dd li { border: 0; padding: 4px 0 4px 18px; position: relative; color: var(--mute); font-size: 16px; line-height: 1.5; }
+  .xp .dd li::before { content: '·'; position: absolute; left: 0; color: var(--sun); }
+  .xp .dd li b { color: var(--ink); font-weight: 500; }
+
+  /* page foot (rooms) */
+  .pfoot { padding: 22vh var(--g) 40px; }
+  .pfoot .k { display: block; margin-bottom: 18px; }
+  .pfoot a.nx { display: flex; justify-content: space-between; align-items: center; gap: 20px; border-top: 1px solid var(--line); padding-top: 22px; }
+  .pfoot .nm { font-size: clamp(48px, 10vw, 170px); font-weight: 700; letter-spacing: -.06em; line-height: .9; transition: color var(--t2); }
+  .pfoot .ball { flex: none; width: clamp(70px, 8vw, 130px); aspect-ratio: 1; border-radius: 50%; background: var(--nc); display: grid; place-items: center; font-size: clamp(24px, 2.4vw, 40px); color: #fff; transition: transform var(--t3) var(--io); }
+  .pfoot a.nx:hover .nm { color: var(--nc); }
+  .pfoot a.nx:hover .ball { transform: rotate(-45deg) scale(1.06); }
+  .pfoot .end { display: flex; justify-content: space-between; margin-top: 12vh; font-size: 13px; color: var(--mute); }
+
+  /* Case page (product work) */
+  .case .hero { min-height: 64svh; }
+  .case .hero h1 { font-size: clamp(56px, 12vw, 200px); }
+  .c-sec { display: grid; grid-template-columns: 1fr 1.6fr; gap: 40px; margin-top: 14vh; max-width: 1360px; }
+  .c-sec .lab { font-size: 14px; color: var(--mute); }
+  .lead { font-size: clamp(24px, 2.6vw, 40px); line-height: 1.2; letter-spacing: -.03em; }
+  mark { color: inherit; background: linear-gradient(color-mix(in srgb, var(--pc) 55%, transparent), color-mix(in srgb, var(--pc) 55%, transparent)) no-repeat 0 92% / 0% .4em; transition: background-size 1.2s var(--io) 1.2s; padding: 0 .05em; }
+  .shown mark { background-size: 100% .4em; }
+  .did { list-style: none; border-top: 1px solid var(--line); }
+  .did li { border-bottom: 1px solid var(--line); }
+  .did button { width: 100%; display: grid; grid-template-columns: 48px 1fr 24px; align-items: center; padding: 20px 0; font-size: clamp(20px, 2vw, 30px); letter-spacing: -.03em; }
+  .did .dn { font-size: 13px; color: var(--mute); }
+  .did .dd { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t3) var(--io); }
+  .did li.open .dd { grid-template-rows: 1fr; }
+  .did .dd > div { overflow: hidden; }
+  .did .dd p { padding: 0 24px 22px 48px; font-size: 17px; line-height: 1.55; color: var(--mute); }
+  .did .pm { position: relative; width: 16px; height: 16px; justify-self: end; }
+  .did .pm::before, .did .pm::after { content: ''; position: absolute; left: 0; top: 50%; width: 100%; height: 1.5px; background: currentColor; }
+  .did .pm::after { transform: rotate(90deg); transition: transform var(--t2) var(--io); }
+  .did li.open .pm::after { transform: none; }
+  .res { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--line); }
+  .res div { padding: 22px 20px 26px 0; border-right: 1px solid var(--line); }
+  .res div + div { padding-left: 20px; } .res div:last-child { border-right: 0; }
+  .res h3 { font-size: clamp(19px, 1.7vw, 24px); letter-spacing: -.03em; margin-bottom: 8px; color: color-mix(in srgb, var(--pc) 60%, #fff); }
+  .res p { font-size: 15px; color: var(--mute); }
+  .shots { display: grid; grid-template-columns: 1fr 1.5fr; gap: 14px; margin-top: 14vh; }
+  .shot { position: relative; border-radius: 8px; overflow: hidden; background: color-mix(in srgb, var(--pc) 18%, #F4F2EC); display: grid; place-items: center; height: clamp(340px, 40vw, 600px); padding: 6% 6% 60px; clip-path: inset(14% 0 0 0 round 8px); transition: clip-path 1.6s var(--out); }
+  .shot.shown { clip-path: inset(0 round 8px); }
+  .shot svg { height: 100%; width: auto; max-width: 100%; filter: drop-shadow(0 18px 30px rgba(0,0,0,.2)); }
+  .shot.wide svg { width: 100%; height: auto; }
+  .shot .note { position: absolute; left: 16px; right: 16px; bottom: 12px; font: italic 400 14px/1.35 var(--serif); color: #4a4a4a; }
 
   /* ---------- About panel ---------- */
-  .scrim { position: fixed; inset: 0; z-index: 30; background: rgba(0,0,0,.25); opacity: 0; pointer-events: none; transition: opacity .5s; }
-  .panel {
-    position: fixed; z-index: 31; top: 0; left: 0; bottom: 0; width: min(560px, 100%);
-    background: #FAF8F3; color: #111; overflow-y: auto; padding: 28px var(--gutter) 48px;
-    clip-path: inset(0 100% 0 0); transition: clip-path .8s var(--ease);
-  }
-  .panel ::selection { background: #111; color: #FAF8F3; }
-  .panel > * { opacity: 0; transform: translateY(18px); transition: opacity .6s var(--ease), transform .8s var(--ease); }
+  .scrim { position: fixed; inset: 0; z-index: 80; background: #0008; opacity: 0; pointer-events: none; transition: opacity var(--t2); }
+  .panel { position: fixed; z-index: 81; top: 0; right: 0; bottom: 0; width: min(580px, 100%); background: var(--ink); color: #121210; overflow-y: auto; padding: 22px var(--g) 48px; clip-path: inset(0 0 0 100%); transition: clip-path var(--t4) var(--io); }
+  .panel ::selection { background: #121210; color: var(--ink); }
+  .panel > * { opacity: 0; transform: translateY(18px); transition: opacity .6s var(--out), transform .8s var(--out); }
   body.about .panel { clip-path: inset(0); }
-  body.about .panel > * { opacity: 1; transform: none; transition-delay: calc(var(--k, 0) * 60ms + .2s); }
+  body.about .panel > * { opacity: 1; transform: none; transition-delay: calc(var(--k, 0) * 60ms + .3s); }
   body.about .scrim { opacity: 1; pointer-events: auto; }
-  body.about .stage, body.about .bar, body.about .project { filter: blur(8px); }
-  .panel-top { position: sticky; top: -28px; z-index: 1; margin: -28px calc(-1 * var(--gutter)) 0; padding: 28px var(--gutter) 12px; background: #FAF8F3; display: flex; justify-content: flex-end; font-size: 15px; text-transform: uppercase; }
-  .panel h2 { font-size: clamp(56px, 8vw, 88px); font-weight: 400; letter-spacing: -.05em; line-height: 1; margin: 28px 0; }
-  .panel p { font-size: 15.5px; line-height: 1.65; margin-bottom: 16px; color: #333; }
+  .panel-top { display: flex; justify-content: flex-end; font-size: 14px; }
+  .panel h2 { font-size: clamp(54px, 8vw, 90px); font-weight: 700; letter-spacing: -.06em; line-height: .95; margin: 7vh 0 24px; }
+  .panel h2 em { font-weight: 400; }
+  .panel p { font-size: 16.5px; line-height: 1.6; margin-bottom: 14px; color: #333; }
   .panel p b { color: #000; font-weight: 600; }
-  .panel h3 { font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: #777; margin: 32px 0 10px; }
+  .panel h3 { font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: #777; margin: 30px 0 10px; }
   .facts { list-style: none; border-top: 1px solid #0000001c; }
   .facts li { display: flex; justify-content: space-between; gap: 16px; padding: 11px 0; border-bottom: 1px solid #0000001c; font-size: 15px; }
   .facts li span:first-child { color: #777; }
   .facts li > :last-child { text-align: right; }
-  .facts a { background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 100% 1px; transition: background-size .5s var(--ease); padding-bottom: 1px; }
+  .facts a { background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 100% 1px; transition: background-size var(--t2) var(--io); }
   .facts a:hover { background-size: 0 1px; background-position: 100% 100%; }
 
-  /* ---------- Project page ---------- */
-  .project {
-    --acc: var(--hover);
-    position: fixed; inset: 0; z-index: 25; background: var(--bg); overflow-y: auto; overscroll-behavior: contain;
-    clip-path: inset(100% 0 0 0); visibility: hidden;
-    transition: clip-path 1s var(--ease), visibility 0s 1s;
+  /* ---------- Phone and tablet ---------- */
+  @media (max-width: 900px) {
+    .themes { grid-template-columns: 1fr 1fr; }
+    .theme { min-height: 560px; }
+    .xp button { grid-template-columns: 1fr 24px; } .xp .y { grid-column: 1; } .xp .r { grid-column: 1; } .xp .c { grid-column: 1; text-align: left; } .xp .pm { grid-row: 1 / 4; grid-column: 2; }
+    .xp .dd ul { padding-left: 0; }
+    .build, .build:nth-of-type(even) { grid-template-columns: 1fr; gap: 24px; padding-top: 10vh; }
+    .build:nth-of-type(even) .txt { order: 0; } .build .txt { position: static; }
   }
-  html[data-mood="Paper"] .project, html[data-mood="Paper"] .progress { --acc: var(--pc); }
-  .project { --acc-t: color-mix(in srgb, var(--acc) 72%, var(--ink)); }
-  .project:focus { outline: none; }
-  .project ::selection { background: var(--acc); color: var(--bg); }
-  body.open .project { clip-path: inset(0); visibility: visible; transition: clip-path 1s var(--ease), visibility 0s; }
-  body.open .stage { filter: blur(6px); opacity: .4; }
-  .project.instant, .project.instant .p-title h1 .l, html.vt-nav .stage { transition: none !important; }
-  .p-inner { padding: 150px var(--gutter) 0; }
-  .p-back { display: inline-block; font-size: 14px; margin-bottom: 28px; }
-  .p-title { display: flex; align-items: flex-start; gap: 10px; transform: translateY(calc(var(--sy, 0) * .3px)); opacity: calc(1 - var(--sy, 0) / 700); }
-  .p-title h1 { font-size: clamp(64px, 13vw, 200px); font-weight: 400; letter-spacing: -.06em; line-height: 1; overflow: hidden; padding-bottom: .04em; width: fit-content; }
-  .p-title h1 .wd { display: inline-block; white-space: nowrap; }
-  .p-title h1 .l { display: inline-block; transform: translateY(105%); transition: transform 1.1s var(--ease); transition-delay: calc(var(--i) * 30ms + .35s); }
-  .p-title > span { font-size: 14px; padding-top: 1.1em; white-space: nowrap; }
-  .in .p-title h1 .l { transform: none; }
-
-  .rv { opacity: 0; transform: translateY(28px); transition: opacity .9s var(--ease), transform 1.1s var(--ease); transition-delay: var(--d, 0s); }
-  .in .rv, .sv.in, .sv.in .rv { opacity: 1; transform: none; }
-
-  .p-sec { display: grid; grid-template-columns: 1fr 1.6fr; gap: 40px; margin-top: 110px; max-width: 1320px; }
-  .p-sec:first-of-type { margin-top: 64px; }
-  .p-label { font-size: 14px; line-height: 1.8; }
-  .p-label div { opacity: .74; }
-  .p-label .k { font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; opacity: .74; display: block; margin-bottom: 6px; }
-
-  /* intro: words rise, then key phrases get a highlighter sweep */
-  .lead { font-size: clamp(24px, 2.6vw, 40px); line-height: 1.25; letter-spacing: -.03em; }
-  .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-bottom: -.08em; }
-  .w > span { display: inline-block; transform: translateY(105%); transition: transform .9s var(--ease); transition-delay: calc(var(--w) * 22ms + .55s); }
-  .in .w > span { transform: none; }
-  mark {
-    color: inherit; border-radius: .12em; padding: 0 .06em; cursor: default;
-    background: linear-gradient(color-mix(in srgb, var(--acc) 38%, transparent), color-mix(in srgb, var(--acc) 38%, transparent)) no-repeat 0 92% / 0% .42em;
-    transition: background-size 1.1s var(--ease) 1.5s, color .35s var(--ease);
-    -webkit-box-decoration-break: clone; box-decoration-break: clone;
-  }
-  .in mark { background-size: 100% .42em; }
-  .settled mark { transition: background-size .45s var(--ease), color .3s var(--ease); }
-  mark:hover { background-image: linear-gradient(var(--acc), var(--acc)); background-size: 100% 100%; color: var(--bg); transition-delay: 0s; }
-
-  /* What I did: interactive list */
-  .did { list-style: none; border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); }
-  .did li { border-bottom: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); position: relative; }
-  .did li::before { content: ''; position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%; background: var(--acc); transform: scaleX(0); transform-origin: left; transition: transform .7s var(--ease); }
-  .did li:hover::before, .did li.open::before { transform: scaleX(1); }
-  .did button { width: 100%; display: grid; grid-template-columns: 48px 1fr 32px; align-items: center; padding: 22px 0; font-size: clamp(20px, 2vw, 30px); letter-spacing: -.03em; }
-  .did .dn { font-size: 13px; letter-spacing: 0; opacity: .74; transition: color .3s, opacity .3s; }
-  .did .dt { transition: transform .5s var(--ease); }
-  .did li:hover .dt { transform: translateX(10px); }
-  .did li:hover .dn, .did li.open .dn { color: var(--acc-t); opacity: 1; }
-  .did .pm { position: relative; width: 18px; height: 18px; justify-self: end; transition: transform .5s var(--ease); }
-  .did .pm::before, .did .pm::after { content: ''; position: absolute; left: 0; top: 50%; width: 100%; height: 1.5px; background: currentColor; }
-  .did .pm::after { transform: rotate(90deg); transition: transform .5s var(--ease); }
-  .did li.open .pm::after { transform: rotate(0); }
-  .did .dd { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--ease); }
-  .did li.open .dd { grid-template-rows: 1fr; }
-  .did .dd > div { overflow: hidden; }
-  .did .dd p { padding: 0 32px 24px 48px; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.55; opacity: .8; }
-
-  /* Result: outcome cards with drawn icons */
-  .res { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
-  .card {
-    position: relative; padding: 26px 24px 28px; border-radius: 14px; overflow: hidden;
-    background: color-mix(in srgb, var(--ink) 5%, transparent); border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
-    transition: transform .6s var(--ease), background-color .4s, border-color .4s, opacity .9s var(--ease);
-  }
-  .card::after { content: ''; position: absolute; inset: auto 0 0 0; height: 3px; background: var(--acc); transform: scaleX(0); transform-origin: left; transition: transform .7s var(--ease); }
-  .card:hover { transform: translateY(-6px); border-color: var(--acc); }
-  .card:hover::after { transform: scaleX(1); }
-  .card svg { width: 34px; height: 34px; fill: none; stroke: var(--acc); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; display: block; margin-bottom: 40px; }
-  .card svg * { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.4s var(--ease); transition-delay: calc(var(--d, 0s) + .3s); }
-  .sv.in .card svg *, .card.in svg * { stroke-dashoffset: 0; }
-  .card:hover svg * { animation: draw 1s var(--ease); }
-  @keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
-  .card h3 { font-size: clamp(19px, 1.7vw, 24px); font-weight: 500; letter-spacing: -.03em; line-height: 1.15; margin-bottom: 10px; }
-  .card p { font-size: 15px; line-height: 1.5; opacity: .75; }
-
-  /* Screens */
-  .p-shots { display: grid; grid-template-columns: 1fr 1.5fr; gap: 16px; margin-top: 110px; }
-  .shot { border-radius: 10px; overflow: hidden; clip-path: inset(18% 0 0 0 round 10px); transition: clip-path 1.2s var(--ease); }
-  .shot .frame { height: clamp(340px, 40vw, 600px); padding: 6% 6% 64px; scale: 1.12; transition: scale 1.6s var(--ease); }
-  .shot.in { clip-path: inset(0 round 10px); }
-  .shot.in .frame { scale: 1; }
-  .shot svg { height: 100%; width: auto; filter: drop-shadow(0 18px 30px rgba(0,0,0,.18)); transform: translate3d(0, calc(var(--par, 0) * 1px), 0); will-change: transform; backface-visibility: hidden; }
-  .shot .wide svg { width: 100%; height: auto; }
-  .note { position: absolute; left: 16px; right: 16px; bottom: 12px; font-size: 12.5px; font-style: italic; color: #4a4a4a; line-height: 1.35; }
-
-  /* Next project: the whole block is the link */
-  .p-next {
-    position: relative; display: block; margin: 130px calc(-1 * var(--gutter)) 0; padding: 48px var(--gutter) 110px;
-    overflow: hidden; border-top: 1px solid color-mix(in srgb, var(--ink) 20%, transparent); isolation: isolate;
-    transition: color .5s var(--ease);
-  }
-  .p-next::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--npc); transform: translateY(101%); transition: transform .8s var(--ease); }
-  .p-next:hover { color: #fff; }
-  .p-next:hover::before { transform: none; }
-  .p-next .k { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
-  .p-next .row2 { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 18px; }
-  .p-next .nm { display: flex; align-items: flex-start; gap: 10px; font-size: clamp(48px, 9vw, 140px); letter-spacing: -.05em; --roll: 1.05em; }
-  .p-next .nm > span:last-child { font-size: 14px; letter-spacing: 0; padding-top: .8em; }
-  .p-next .arrow { flex: none; width: clamp(64px, 7vw, 110px); aspect-ratio: 1; border-radius: 50%; border: 1px solid currentColor; display: grid; place-items: center; font-size: clamp(26px, 2.6vw, 40px); transition: transform .6s var(--ease), background-color .4s, color .4s; }
-  .p-next:hover .arrow { transform: rotate(-45deg) scale(1.08); background: #fff; color: var(--npc); border-color: #fff; }
-
   @media (max-width: 760px) {
-    .top { height: 60px; }
-    .progress { top: 60px; }
-    .list { padding-left: var(--gutter); }
-    .row .t { display: none; }
-    .row .n { padding-top: .7em; font-size: 12px; }
-    .mid { font-size: 13px; }
-    .p-inner { padding-top: 110px; }
-    .p-sec, .p-shots { grid-template-columns: 1fr; gap: 24px; margin-top: 72px; }
-    .res { grid-template-columns: 1fr; }
-    .p-title > span { display: none; }
-    .shot .frame { height: auto; aspect-ratio: 4 / 4.4; padding: 8% 8% 64px; }
-    .did button { grid-template-columns: 36px 1fr 24px; }
-    .did .dd p { padding-left: 36px; padding-right: 0; }
-    .p-next .arrow, .p-next .nm > span:last-child { display: none; }
-    .p-next .nm { font-size: clamp(36px, 12vw, 64px); }
+    .top nav { gap: 14px; } .top .home-l span:last-child { display: none; }
+    .home { padding-top: 70px; }
+    .name { font-size: 24.5vw; margin-top: 7vh; }
+    .tag { left: 31vw; top: -.55em; font-size: .3em; }
+    .corridor { overflow: visible; cursor: auto; margin-top: -4vw; }
+    .rooms { flex-direction: column; width: auto; }
+    .room, .room.wide { width: auto; height: 74vw; }
+    .room .end, .hint .bar, .hint .drag-t { display: none; }
+    .room .shot1 { width: 74%; left: 6%; } .room .shot2 { width: 28%; }
+    .hero { min-height: 62svh; padding-top: 110px; } .hero .crumb { top: 64px; }
+    .hero .sub { flex-direction: column; align-items: start; } .hero .sub span { text-align: left; }
+    .ds-intro { grid-template-columns: 1fr; gap: 16px; }
+    .themes { grid-template-columns: 1fr; }
+    .cases a { grid-template-columns: 30px 1fr 40px; } .cases .m, .cases .th { display: none; } .cases .ar { width: 38px; height: 38px; }
+    .tk-g { grid-template-columns: 1fr; } .tool { grid-template-columns: 1fr; gap: 2px; padding: 10px 0; }
+    .c-sec, .shots { grid-template-columns: 1fr; gap: 20px; margin-top: 9vh; }
+    .res { grid-template-columns: 1fr; } .res div, .res div + div { padding: 18px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+    .shot { height: auto; aspect-ratio: 4 / 4.6; }
+    .pfoot .ball { display: none; }
+    .phones { grid-template-columns: 1fr 1fr; } .phones img:nth-child(3) { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { transition-duration: .01ms !important; transition-delay: 0s !important; animation: none !important; }
-    .loader { display: none; }
+    .loader, .curtain { display: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="loader" id="loader" aria-hidden="true"><p><i></i><span id="hello" style="font-family:MiSansLatin, Inter, sans-serif">Hello</span></p></div>
-<div class="cursor" id="cursor" aria-hidden="true"></div>
+<div class="loader" id="loader" aria-hidden="true"><p><i></i><span id="hello" style="font-family:MiSansLatin, sans-serif">Hello</span></p></div>
+<div class="cur hide" id="cur" aria-hidden="true"><b id="curT"></b></div>
+<div class="curtain" id="curtain" aria-hidden="true"><p><i></i><span id="curtainT"></span></p></div>
 
-<header class="bar top">
-  <div class="brand">
-    <a href="#" aria-label="Home"><b class="roll" data-roll>LAYHENG</b></a>
-    <button class="role" data-about aria-label="Product Owner. Open about" aria-controls="panel" aria-expanded="false"><span class="roll" data-roll>Product Owner</span></button>
-  </div>
-  <button data-about data-contact aria-controls="panel" aria-expanded="false"><span class="roll" data-roll>Contact</span></button>
+<header class="top" id="top">
+  <a class="home-l" href="#" aria-label="Home"><i></i><span>Layheng</span><span>· Product designer, Phnom Penh</span></a>
+  <nav>
+    <button data-about><span class="roll"><span data-t="About">About</span></span></button>
+    <a href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener"><span class="roll"><span data-t="CV">CV</span></span></a>
+    <button data-about data-contact><span class="roll"><span data-t="Contact">Contact</span></span></button>
+  </nav>
 </header>
-<div class="progress" id="progress"></div>
 
-<main class="stage">
-  <div class="home">
-    <h1 class="sr">Loem Layheng, Product Owner</h1>
-    <ol class="list" id="list"></ol>
-  </div>
+<main class="home" id="home">
+  <h1 class="name" aria-label="Layheng designs it, then builds it"><span class="clip" aria-hidden="true" id="nameL">Layheng</span><span class="tag" aria-hidden="true"><span>designs it, then builds it</span></span></h1>
+  <div class="corridor" id="corridor"><div class="rooms" id="rooms"></div></div>
+  <div class="hint"><span class="drag-t">Scroll or drag sideways</span><span class="bar"><i id="bar"></i></span><span>©2026 · Phnom Penh</span></div>
 </main>
 
-<footer class="bar bottom">
-  <button class="mood" id="mood" aria-label="Change site colours" data-cursor="Change mood"><i></i><span id="moodName">Paper</span></button>
-  <a class="mid" href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener"><span class="roll" data-roll>[ Download CV ]</span></a>
-  <span>©2026</span>
-</footer>
-
-<article class="project" id="project" aria-hidden="true" tabindex="-1" inert>
-  <div class="p-inner" id="pInner"></div>
-</article>
+<section class="view" id="view" tabindex="-1" aria-hidden="true" inert></section>
 
 <div class="scrim" data-close></div>
 <aside class="panel" id="panel" role="dialog" aria-modal="true" aria-label="About" aria-hidden="true" inert>
-  <div class="panel-top"><button data-close><span class="roll" data-roll>Close ×</span></button></div>
-  <h2>About me</h2>
-  <p>I’m <b>Loem Layheng</b>, a Product Owner based in Phnom Penh. At <b>Smart Axiata</b> I look after the <b>SmartNas digital channels</b>: planning new features, handling complaints and issues, and bringing partners on board.</p>
-  <p>I work <b>prototype-first</b>. With vibe coding I build the layout and a working sample UI, check feasibility, and present something people can click, on <b>mobile and web</b>. It turns a long proposal into a short demo, and makes the result easy to measure.</p>
-  <p>Before Smart, I owned a POS product at Youding, redesigned its QR ordering app, and started out in customer success, which is where I learned what users really struggle with.</p>
+  <div class="panel-top"><button data-close><span class="roll"><span data-t="Close ×">Close ×</span></span></button></div>
+  <h2>Hi, I’m <em>Layheng</em>.</h2>
+  <p>I’m <b>Loem Layheng</b>, a product designer and product owner in Phnom Penh. At <b>Smart Axiata</b> I look after the <b>SmartNas digital channels</b>: planning features, handling issues, and bringing partners on board.</p>
+  <p>I design in <b>Figma</b>, then build with <b>vibe coding</b>. That is how the live sites on this page exist: I plan them, design them and ship them myself.</p>
+  <p>Before Smart I owned a POS product at Youding, redesigned its QR ordering app, and started in customer success, which is where I learned what users really struggle with.</p>
   <h3>Quick facts</h3>
   <ul class="facts">
     <li><span>Now</span><span>Digital Touchpoint Officer, Smart Axiata</span></li>
-    <li><span>Tools</span><span>Figma, FigJam, Claude Code, Jira, Confluence</span></li>
+    <li><span>Tools</span><span>Figma, Canva, Claude Code, Shopify, Notion, Jira</span></li>
     <li><span>Study</span><span>BBA Management, NUM · BA English, IFL</span></li>
     <li><span>Languages</span><span>Khmer, English</span></li>
   </ul>
@@ -355,338 +382,339 @@
 
 <script src="mocks.js"></script>
 <script>
-/* ================= Content (edit text here) =================
-   intro: wrap words in *stars* to give them the highlighter sweep. */
-const NOTE_CO = 'Illustrative mock-up. Real screens can’t be shared due to company confidentiality.';
-const projects = [
-  { id: 'smartnas', name: 'SmartNas', tag: 'Product Ownership', color: '#16A34A',
-    meta: ['Digital Touchpoint Officer', 'Smart Axiata', '2026 to present'], shots: ['smartPhone', 'smartWeb'], note: NOTE_CO,
-    intro: 'Product Owner for *every SmartNas digital channel*. I plan what gets built next, deal with what goes wrong, and *bring partners into the product*.',
-    did: [['Feature planning', 'Plan and develop new features inside SmartNas, from requirements to release with the development teams.'],
-          ['Issues and complaints', 'Handle complaints, issues and inquiries from all Smart digital channels, and drive each one to a fix with the right team.'],
-          ['Partner integration', 'Lead partner integrations into Smart’s digital channels, aligning scope and user flows from the first call to launch.'],
-          ['Prototype first', 'Present new features as working prototypes for mobile and web, built with vibe coding, instead of long written proposals.']],
-    results: [['bolt', 'Faster decisions', 'Stakeholders react to a working screen, not a document, so features get approved or cut sooner.'],
-              ['target', 'Clearer scope', 'Developers see the exact flow before building, so there are fewer surprises later.'],
-              ['layers', 'One owner, every channel', 'Features, complaints and partners are tracked together, so nothing falls between teams.']] },
-  { id: 'ezorder', name: 'EZorder', tag: 'QR Ordering Redesign', color: '#EA580C',
-    meta: ['Product Owner', 'Youding', 'Dec 2025 to Feb 2026'], shots: ['ezPhone', 'ezWeb'], note: NOTE_CO,
-    intro: 'A QR dine-in ordering web app. Guests *scan, browse, order and pay* from their own phone, with *no waiting for staff*.',
-    did: [['Journey mapping', 'Mapped the full guest journey from QR scan to payment, including the edge cases staff deal with today.'],
-          ['UX/UI redesign', 'Led the end-to-end redesign of EZorder 2.0, together with a new brand identity.'],
-          ['Hi-fi prototype', 'Built the high-fidelity Figma prototype that the development team built from.'],
-          ['Scope and UAT', 'Split MVP from backlog with stakeholders, then ran UAT rounds with live restaurant clients.']],
-    results: [['phone', 'Self-service ordering', 'Guests browse, order and pay from their own phone, without waving for a waiter.'],
-              ['users', 'Staff freed up', 'Less time walking orders between tables, more time on food and service.'],
-              ['check', 'Live with restaurants', 'Shipped and running with Youding restaurant clients after UAT.']] },
-  { id: 'chatbot', name: 'AI Chatbot', tag: 'Product Spec', color: '#6D28D9',
-    meta: ['Product Owner', 'Youding', '2025'], shots: ['botPhone', 'botWeb'], note: NOTE_CO,
-    intro: 'A *first line of support* inside the POS app. It answers routine questions so the CS team can *focus on the hard cases*.',
-    did: [['Question audit', 'Listed the top 20 recurring support questions together with the CS team.'],
-          ['Conversation design', 'Designed the conversation flows, plus clear escalation paths for anything the bot can’t solve.'],
-          ['Prompt writing', 'Wrote and tested the prompts so answers stay accurate and on-brand.'],
-          ['Feedback loop', 'Set up tracking to find weak answers and keep improving them.']],
-    results: [['chat', 'Instant first answers', 'Routine POS questions get answered right away, any time of day.'],
-              ['route', 'Smart escalation', 'Hard cases reach a person, with the context already attached.'],
-              ['refresh', 'Keeps improving', 'Feedback shows which answers need work, so quality goes up over time.']] },
-  { id: 'store', name: 'Dropship Store', tag: 'E-commerce', color: '#D97706',
-    meta: ['Founder', 'Self-employed', '2023 to 2024'], shots: ['shopPhone', 'shopWeb'], note: 'Illustrative mock-up with a sample store. Not the real shop.',
-    intro: 'I ran *my own Shopify store* end to end: finding products, building the shop, running ads and *getting every order delivered* to buyers abroad.',
-    did: [['Store build', 'Set up the Shopify store myself: theme, product pages, checkout and the apps that tie it together.'],
-          ['Product research', 'Found trending products for international buyers, tested them, and set prices that left a real margin.'],
-          ['Digital marketing', 'Ran Facebook, Instagram and TikTok ad campaigns, plus short video content, to bring buyers to the store.'],
-          ['Fulfilment and support', 'Placed supplier orders, tracked shipping and answered customer questions until every order arrived.']],
-    results: [['bolt', 'Built from zero', 'Took a store from an empty Shopify account to taking real orders, on my own.'],
-              ['trend', 'Learned what sells', 'Testing products and ads taught me to read the data and drop what doesn’t work, fast.'],
-              ['users', 'The customer’s view', 'Seeing every step a buyer takes now shapes how I plan features at Smart.']] },
-  { id: 'poster', name: 'Poster AI', tag: 'Automation', color: '#E11D48',
-    meta: ['Builder', 'Freelance agency', '2025'], shots: ['posterPhone', 'posterWeb'], note: 'Illustrative mock-up with a sample brand. Client work can’t be shared due to confidentiality.',
-    intro: 'Turns *one client brief* into a *full set of on-brand posters* in a single run.',
-    did: [['AI pipeline', 'Designed the AI image pipeline from brief to finished poster.'],
-          ['Brand consistency', 'Used image-to-image generation to keep every poster in the brand’s style.'],
-          ['Brief form', 'Built a simple brief form so the marketer needs no technical knowledge.'],
-          ['Batch output', 'Automated output in every size the client needs.']],
-    results: [['clock', 'Hours to minutes', 'A full poster set comes out of a single brief.'],
-              ['sparkle', 'On-brand every time', 'Colours, type and style stay consistent across every size.'],
-              ['trend', 'More clients, same effort', 'The agency could take on more clients without adding hours.']] }
+/* ======================= Content ======================= */
+const ROOMS = [
+  { id: 'built', n: '01', name: 'Built by me', sub: 'Live sites, vibe coded', color: '#1F7A4D', cursor: 'Enter' },
+  { id: 'design', n: '02', name: 'Design systems', sub: 'Six menu identities', color: '#C2410C', cursor: 'Enter' },
+  { id: 'work', n: '03', name: 'Product work', sub: 'Five cases', color: '#16A34A', cursor: 'Enter' },
+  { id: 'toolkit', n: '04', name: 'Toolkit', sub: 'What I work with', color: '#1E40D8', cursor: 'Enter' },
+  { id: 'experience', n: '05', name: 'Experience', sub: 'The CV, as a timeline', color: '#6B3FA0', cursor: 'Enter' }
 ];
-const ICONS = {
-  bolt: '<path pathLength="1" d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/>',
-  target: '<circle pathLength="1" cx="12" cy="12" r="9"/><circle pathLength="1" cx="12" cy="12" r="5"/><circle pathLength="1" cx="12" cy="12" r="1"/>',
-  layers: '<path pathLength="1" d="M12 3 2 8l10 5 10-5-10-5z"/><path pathLength="1" d="m2 13 10 5 10-5"/><path pathLength="1" d="m2 18 10 5 10-5"/>',
-  phone: '<rect pathLength="1" x="6" y="2" width="12" height="20" rx="2.5"/><path pathLength="1" d="M10.5 18.5h3"/>',
-  users: '<circle pathLength="1" cx="9" cy="7" r="4"/><path pathLength="1" d="M2 21v-1a7 7 0 0 1 14 0v1"/><path pathLength="1" d="M17 3.5a4 4 0 0 1 0 7M22 21v-1a6 6 0 0 0-4-5.6"/>',
-  check: '<circle pathLength="1" cx="12" cy="12" r="9"/><path pathLength="1" d="m8 12 3 3 5-6"/>',
-  chat: '<path pathLength="1" d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/>',
-  route: '<path pathLength="1" d="M4 20h6a4 4 0 0 0 4-4V4"/><path pathLength="1" d="m10 8 4-4 4 4"/>',
-  refresh: '<path pathLength="1" d="M20 11a8 8 0 1 0-2.3 5.7"/><path pathLength="1" d="M20 4v7h-7"/>',
-  clock: '<circle pathLength="1" cx="12" cy="12" r="9"/><path pathLength="1" d="M12 7v5l3 2"/>',
-  sparkle: '<path pathLength="1" d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>',
-  trend: '<path pathLength="1" d="m3 17 6-6 4 4 8-8"/><path pathLength="1" d="M15 7h6v6"/>'
-};
-const tint = c => `color-mix(in srgb, ${c} 16%, #F4F2EC)`;
-const frame = (p, k, withNote) => `<div class="frame${k ? ' wide' : ''}" style="--tint:${tint(p.color)}">${mocks[p.shots[k]](p.color)}${withNote ? `<p class="note">${p.note}</p>` : ''}</div>`;
 
-/* ================= Helpers ================= */
-const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-const esc = ch => ch === ' ' ? '&nbsp;' : ch;
-const letters = (s, r = 0) => `<span class="roll">${[...s].map((ch, i) => `<span class="l" style="--i:${i};--r:${r}"><span class="c" style="--i:${i}">${esc(ch)}</span></span>`).join('')}</span>`;
-const HOVER = matchMedia('(hover: hover)').matches;
-const PARALLAX = HOVER && matchMedia('(min-width: 1100px)').matches;
-// big project title: letters animate, but a word never breaks in the middle
-const titleHTML = name => { let i = 0; return name.split(' ').map(w => `<span class="wd">${[...w].map(ch => `<span class="l" style="--i:${i++}">${ch}</span>`).join('')}</span>`).join(' '); };
-const rollify = el => el.innerHTML = [...el.textContent].map((ch, i) => `<span class="c" style="--i:${i}">${esc(ch)}</span>`).join('');
-// words rise one by one; *phrases* become highlighter marks
-function rich(txt) {
-  let w = 0;
-  return txt.split(/(\*[^*]+\*)/).map(seg => {
-    const marked = seg.startsWith('*');
-    const html = (marked ? seg.slice(1, -1) : seg).split(/(\s+)/).map(t => /^\s+$/.test(t) ? ' ' : t ? `<span class="w"><span style="--w:${w++}">${t}</span></span>` : '').join('');
-    return marked ? `<mark>${html}</mark>` : html;
-  }).join('');
+const BUILDS = [
+  { name: 'QR menu platform', url: 'https://menu-platform-orpin.vercel.app', host: 'menu-platform-orpin.vercel.app',
+    lede: 'Digital menus for small shops in Cambodia. Diners scan a QR code and see the menu in Khmer and English, with prices in dollars and riel.',
+    did: [['Plan', 'Product brief, roles and setup flow for shop owners'], ['Design', 'Landing page plus six menu themes, one per type of shop'], ['Build', 'Next.js site, admin portal and menu designer, with Claude Code']],
+    note: 'Still in progress: the brand name is not chosen yet, so the landing page says [BRAND].',
+    img: ['img/menu-landing.webp'], phones: ['img/m-mango.webp', 'img/m-neon.webp', 'img/m-mlob.webp'] },
+  { name: '520 Staycation', url: 'https://520-staycation.vercel.app', host: '520-staycation.vercel.app',
+    lede: 'A booking site for a river-view condo in Phnom Penh, rented by the half day, day or night.',
+    did: [['Design', 'Warm editorial look: Fraunces, burnt orange, full-bleed photos'], ['Feature', 'Five lighting moods you can switch between on the page'], ['Build', 'Gallery, booking calendar and a request form']],
+    img: ['img/staycation.webp'], phones: ['img/staycation-phone.webp'] },
+  { name: 'EasySurvey', url: 'https://easysurvey.vercel.app', host: 'easysurvey.vercel.app',
+    lede: 'A survey tool I built for our field research. The research is over, so the tool is retired. The page is now a board of photos from it that you can drag around.',
+    did: [['Build', 'The original survey tool, used during the research'], ['Retire', 'Replaced it with a draggable photo board, so the link still means something']],
+    img: ['img/easysurvey.webp'] },
+  { name: 'Sample portfolio', url: 'samples/odile/', host: 'samples/odile', local: true,
+    lede: 'A full portfolio for a designer who does not exist. Odile Rask, her clients and her projects are all invented. It shows how I would design a portfolio for someone else.',
+    did: [['Design', 'Big-type index with one preview window that follows the cursor'], ['Build', 'Filters, case sheets and SVG mock-ups drawn by hand'], ['Label', 'Every page says it is fictional']],
+    img: ['img/odile.webp'] }
+];
+
+const THEMES = [
+  { name: 'Mango Tree Coffee', type: 'Café', slug: 'mango-tree', img: 'img/m-mango.webp', font: 'Fredoka', fonts: 'Fredoka, Nunito, Caveat', bg: '#FFF3E2', tx: '#2B1B12', c: ['#2B1B12', '#E8742A', '#F2E6D6', '#2F7A4B'] },
+  { name: 'Nom Phteah Bakery', type: 'Bakery', slug: 'nom-phteah', img: 'img/m-nom.webp', font: 'Fraunces', fonts: 'Fraunces, Nunito', bg: '#FFF8F1', tx: '#3B2418', c: ['#3B2418', '#B4532A', '#E9A93B', '#FFF8F1'] },
+  { name: 'Mlob Svay Kitchen', type: 'Khmer restaurant', slug: 'mlob-svay', img: 'img/m-mlob.webp', font: 'Playfair Display', fonts: 'Playfair Display, Lora', bg: '#FBF7EF', tx: '#1D1813', c: ['#1D1813', '#A8832B', '#8C1C13', '#FBF7EF'] },
+  { name: 'Neon Lotus KTV', type: 'Karaoke bar', slug: 'neon-lotus', img: 'img/m-neon.webp', font: 'Oswald', fonts: 'Oswald, Barlow', bg: '#150E21', tx: '#F5F0FF', c: ['#09060F', '#FF2D8A', '#2BF0FF', '#F5F0FF'] },
+  { name: 'Phsar Toch', type: 'Online store', slug: 'phsar-toch', img: 'img/m-phsar.webp', font: 'Syne', fonts: 'Syne, DM Sans', bg: '#F3F0EA', tx: '#151515', c: ['#151515', '#E5532D', '#2AABEE', '#F3F0EA'] },
+  { name: 'Kampot & Co.', type: 'Brand', slug: 'kampot-and-co', img: 'img/m-kampot.webp', font: 'Cormorant Garamond', fonts: 'Cormorant Garamond, Inter', bg: '#F3EFE6', tx: '#1C1B17', c: ['#1C1B17', '#C2703D', '#2F4B3A', '#F3EFE6'] }
+];
+
+const TOOLS = [
+  ['Design', [['Figma', 'Hi-fi prototypes, like the EZorder 2.0 redesign'], ['Canva', 'Quick social graphics and posters']]],
+  ['Build', [['Claude Code', 'Every site in Built by me'], ['Shopify', 'My own store, 2023 to 2024']]],
+  ['Plan', [['Notion', 'Briefs, plans and notes'], ['Jira', 'Backlog and bugs with dev teams']]],
+  ['Look', [['Pinterest', 'Collecting references'], ['Awwwards', 'Seeing what good motion looks like'], ['Behance', 'Case studies from other designers'], ['SiteInspire', 'Clean layouts to learn from']]]
+];
+
+const XP = [
+  { y: '2026 to now', r: 'Digital Touchpoint Officer', c: 'Smart Axiata', pts: ['Product Owner for <b>all SmartNas digital channels</b>: plan features, write requirements, work with dev teams to release.', 'Handle complaints and issues from every Smart digital channel and drive fixes with the right teams.', 'Lead <b>partner integrations</b> into Smart’s digital channels.', 'Present new features as <b>working prototypes</b> for mobile and web, not long written proposals.'] },
+  { y: 'Dec 2025 to 2026', r: 'Product Owner', c: 'Youding', pts: ['Owned the roadmap for a POS ecosystem for F&B and retail merchants.', 'Led the <b>EZorder 2.0 redesign</b>: journey mapping, brand identity, hi-fi Figma prototype, UAT with live restaurants.', 'Wrote the product spec for an <b>in-app AI chatbot</b> from the top 20 support questions.'] },
+  { y: 'Jun 2025 to Feb 2026', r: 'Junior Customer Success', c: 'Youding', pts: ['Built an internal CS tool for bulk image processing and QR extraction: product setup <b>up to 75% faster</b>.', 'Supported merchants through live chat, calls and onboarding.', 'Escalated bugs in Jira and wrote video guides and docs.'] },
+  { y: 'Dec 2024 to now', r: 'Freelance web designer', c: 'Self-employed', pts: ['Designed and shipped websites for restaurants, tech retail and e-commerce.', 'Built sample sites for <b>25+ businesses</b> before the first meeting.', 'Built an <b>AI poster tool</b> for a marketing agency: one brief in, a full set of on-brand posters out.'] },
+  { y: '2023 to 2024', r: 'E-commerce owner', c: 'Own Shopify store', pts: ['Ran a dropshipping store end to end: product research, pricing, ads on Facebook, Instagram and TikTok, fulfilment.'] },
+  { y: '2023 to now', r: 'Two degrees, in parallel', c: 'NUM · IFL', pts: ['BBA Management, National University of Management.', 'BA English, Institute of Foreign Languages.'] }
+];
+
+/* Product work cases (from the previous site) */
+const NOTE_CO = 'Illustrative mock-up. Real screens can’t be shared due to company confidentiality.';
+const CASES = [
+  { id: 'smartnas', name: 'SmartNas', tag: 'Product ownership', color: '#16A34A', meta: ['Digital Touchpoint Officer', 'Smart Axiata', '2026 to present'], shots: ['smartPhone', 'smartWeb'], note: NOTE_CO,
+    intro: 'Product Owner for *every SmartNas digital channel*. I plan what gets built next, deal with what goes wrong, and *bring partners into the product*.',
+    did: [['Feature planning', 'Plan and develop new features inside SmartNas, from requirements to release with the development teams.'], ['Issues and complaints', 'Handle complaints, issues and inquiries from all Smart digital channels, and drive each one to a fix with the right team.'], ['Partner integration', 'Lead partner integrations into Smart’s digital channels, aligning scope and user flows from the first call to launch.'], ['Prototype first', 'Present new features as working prototypes for mobile and web, built with vibe coding, instead of long written proposals.']],
+    results: [['Faster decisions', 'Stakeholders react to a working screen, not a document, so features get approved or cut sooner.'], ['Clearer scope', 'Developers see the exact flow before building, so there are fewer surprises later.'], ['One owner, every channel', 'Features, complaints and partners are tracked together, so nothing falls between teams.']] },
+  { id: 'ezorder', name: 'EZorder', tag: 'QR ordering redesign', color: '#EA580C', meta: ['Product Owner', 'Youding', 'Dec 2025 to Feb 2026'], shots: ['ezPhone', 'ezWeb'], note: NOTE_CO,
+    intro: 'A QR dine-in ordering web app. Guests *scan, browse, order and pay* from their own phone, with *no waiting for staff*.',
+    did: [['Journey mapping', 'Mapped the full guest journey from QR scan to payment, including the edge cases staff deal with today.'], ['UX/UI redesign', 'Led the end-to-end redesign of EZorder 2.0, together with a new brand identity.'], ['Hi-fi prototype', 'Built the high-fidelity Figma prototype that the development team built from.'], ['Scope and UAT', 'Split MVP from backlog with stakeholders, then ran UAT rounds with live restaurant clients.']],
+    results: [['Self-service ordering', 'Guests browse, order and pay from their own phone, without waving for a waiter.'], ['Staff freed up', 'Less time walking orders between tables, more time on food and service.'], ['Live with restaurants', 'Shipped and running with Youding restaurant clients after UAT.']] },
+  { id: 'chatbot', name: 'AI Chatbot', tag: 'Product spec', color: '#7C4DDB', meta: ['Product Owner', 'Youding', '2025'], shots: ['botPhone', 'botWeb'], note: NOTE_CO,
+    intro: 'A *first line of support* inside the POS app. It answers routine questions so the CS team can *focus on the hard cases*.',
+    did: [['Question audit', 'Listed the top 20 recurring support questions together with the CS team.'], ['Conversation design', 'Designed the conversation flows, plus clear escalation paths for anything the bot can’t solve.'], ['Prompt writing', 'Wrote and tested the prompts so answers stay accurate and on-brand.'], ['Feedback loop', 'Set up tracking to find weak answers and keep improving them.']],
+    results: [['Instant first answers', 'Routine POS questions get answered right away, any time of day.'], ['Smart escalation', 'Hard cases reach a person, with the context already attached.'], ['Keeps improving', 'Feedback shows which answers need work, so quality goes up over time.']] },
+  { id: 'store', name: 'Dropship Store', tag: 'E-commerce', color: '#D97706', meta: ['Founder', 'Self-employed', '2023 to 2024'], shots: ['shopPhone', 'shopWeb'], note: 'Illustrative mock-up with a sample store. Not the real shop.',
+    intro: 'I ran *my own Shopify store* end to end: finding products, building the shop, running ads and *getting every order delivered* to buyers abroad.',
+    did: [['Store build', 'Set up the Shopify store myself: theme, product pages, checkout and the apps that tie it together.'], ['Product research', 'Found trending products for international buyers, tested them, and set prices that left a real margin.'], ['Digital marketing', 'Ran Facebook, Instagram and TikTok ad campaigns, plus short video content, to bring buyers to the store.'], ['Fulfilment and support', 'Placed supplier orders, tracked shipping and answered customer questions until every order arrived.']],
+    results: [['Built from zero', 'Took a store from an empty Shopify account to taking real orders, on my own.'], ['Learned what sells', 'Testing products and ads taught me to read the data and drop what doesn’t work, fast.'], ['The customer’s view', 'Seeing every step a buyer takes now shapes how I plan features at Smart.']] },
+  { id: 'poster', name: 'Poster AI', tag: 'Automation', color: '#E11D48', meta: ['Builder', 'Freelance agency', '2025'], shots: ['posterPhone', 'posterWeb'], note: 'Illustrative mock-up with a sample brand. Client work can’t be shared due to confidentiality.',
+    intro: 'Turns *one client brief* into a *full set of on-brand posters* in a single run.',
+    did: [['AI pipeline', 'Designed the AI image pipeline from brief to finished poster.'], ['Brand consistency', 'Used image-to-image generation to keep every poster in the brand’s style.'], ['Brief form', 'Built a simple brief form so the marketer needs no technical knowledge.'], ['Batch output', 'Automated output in every size the client needs.']],
+    results: [['Hours to minutes', 'A full poster set comes out of a single brief.'], ['On-brand every time', 'Colours, type and style stay consistent across every size.'], ['More clients, same effort', 'The agency could take on more clients without adding hours.']] }
+];
+
+/* theme display fonts, subset to the characters of the shop names */
+{
+  const fam = { 'Fredoka': 'Fredoka:wght@600', 'Fraunces': 'Fraunces:wght@600', 'Playfair Display': 'Playfair+Display:wght@600', 'Oswald': 'Oswald:wght@600', 'Syne': 'Syne:wght@700', 'Cormorant Garamond': 'Cormorant+Garamond:wght@500' };
+  const text = [...new Set(THEMES.map(t => t.name).join(''))].join('');
+  const l = document.createElement('link'); l.rel = 'stylesheet';
+  l.href = 'https://fonts.googleapis.com/css2?' + THEMES.map(t => 'family=' + fam[t.font]).join('&') + '&display=swap&text=' + encodeURIComponent(text);
+  document.head.appendChild(l);
 }
-document.querySelectorAll('[data-roll]').forEach(rollify);
+/* ======================= Helpers ======================= */
+const $ = s => document.querySelector(s);
+const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+const HOVER = matchMedia('(hover: hover) and (pointer: fine)').matches;
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+// words that rise from a clipped box; keeps Khmer whole because it splits on spaces only
+const words = (txt, d = 0) => txt.split(' ').map((w, i) => `<span class="w"><span style="--i:${i};--d:${d}s">${w}</span></span>`).join(' ');
+const rich = txt => { let i = 0; return txt.split(/(\*[^*]+\*)/).map(seg => { const m = seg.startsWith('*'); const h = (m ? seg.slice(1, -1) : seg).split(/(\s+)/).map(t => /^\s+$/.test(t) ? ' ' : t ? `<span class="w"><span style="--i:${i++};--d:.2s">${t}</span></span>` : '').join(''); return m ? `<mark>${h}</mark>` : h; }).join(''); };
 
-/* ================= Loader: hello in Khmer + other languages ================= */
-const loader = document.getElementById('loader'), hello = document.getElementById('hello');
+/* ======================= Home corridor ======================= */
+document.getElementById('nameL').innerHTML = [...'Layheng'].map((c, i) => `<span class="l" style="--i:${i}">${c}</span>`).join('');
+const roomArt = {
+  built: `<img class="shot1" src="img/menu-landing.webp" alt="" loading="eager"><img class="shot2" src="img/m-mango.webp" alt="">`,
+  design: `<img class="fan" src="img/m-nom.webp" alt=""><img class="fan" src="img/m-neon.webp" alt=""><img class="fan" src="img/m-kampot.webp" alt="">`,
+  work: `<span class="big-t">SmartNas, EZorder, AI Chatbot, Dropship, Poster AI</span>`,
+  toolkit: `<ul>${['Figma', 'Claude Code', 'Shopify', 'Canva', 'Notion · Jira'].map((t, j) => `<li style="--j:${j}">${t}</li>`).join('')}</ul>`,
+  experience: `<span class="big-t">Smart Axiata, Youding, my own store, freelance</span>`
+};
+$('#rooms').innerHTML = ROOMS.map((r, k) => `<a class="room${k ? '' : ' wide'}" href="#${r.id}" style="--rc:${r.color};--k:${k}" data-cursor="${r.cursor}" data-room>
+  <span class="n">${r.n}</span>${roomArt[r.id]}<h2>${r.name}<small>${r.sub}</small></h2></a>`).join('') + `<span class="room end" style="--k:5;--rc:transparent" aria-hidden="true"></span>`;
+
+const corridor = $('#corridor'), barEl = $('#bar');
+const isRow = () => matchMedia('(min-width: 761px)').matches;
+// hovering a room widens it
+$('#rooms').addEventListener('pointerover', e => {
+  const r = e.target.closest('[data-room]'); if (!r || !isRow() || !HOVER) return;
+  document.querySelectorAll('.room.wide').forEach(x => x !== r && x.classList.remove('wide')); r.classList.add('wide');
+});
+// vertical wheel moves the corridor sideways (desktop only, home only)
+addEventListener('wheel', e => {
+  if (!isRow() || view.classList.contains('on') || document.body.classList.contains('about')) return;
+  if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
+  corridor.scrollLeft += e.deltaY;
+}, { passive: true });
+corridor.addEventListener('scroll', () => { const m = corridor.scrollWidth - corridor.clientWidth; barEl.style.setProperty('--p', m ? Math.max(.08, corridor.scrollLeft / m) : 1); }, { passive: true });
+// drag to scroll, with a little glide after release
+{
+  let down = false, sx = 0, sl = 0, moved = 0, v = 0, lx = 0, raf;
+  corridor.addEventListener('pointerdown', e => { if (!isRow() || e.pointerType !== 'mouse') return; down = true; moved = 0; sx = lx = e.clientX; sl = corridor.scrollLeft; v = 0; cancelAnimationFrame(raf); });
+  addEventListener('pointermove', e => { if (!down) return; const dx = e.clientX - sx; moved = Math.max(moved, Math.abs(dx)); if (moved > 6) corridor.classList.add('drag'); v = e.clientX - lx; lx = e.clientX; corridor.scrollLeft = sl - dx; });
+  addEventListener('pointerup', () => { if (!down) return; down = false; setTimeout(() => corridor.classList.remove('drag'), 0); const glide = () => { v *= .92; corridor.scrollLeft -= v; if (Math.abs(v) > .5) raf = requestAnimationFrame(glide); }; if (!reduce()) glide(); });
+  corridor.addEventListener('click', e => { if (moved > 6) { e.preventDefault(); e.stopPropagation(); } }, true);
+}
+
+/* ======================= Room and case pages ======================= */
+const view = $('#view');
+const tapWord = HOVER ? 'Click' : 'Tap';
+const foot = (k, nextHref, nextName, nextColor) => `<footer class="pfoot"><span class="k">${k}</span>
+  <a class="nx" href="${nextHref}" style="--nc:${nextColor}" data-cursor="Next"><span class="nm">${nextName}</span><span class="ball">→</span></a>
+  <div class="end"><a href="#">← All rooms</a><span>©2026 · Loem Layheng</span></div></footer>`;
+const hero = (crumb, title, sub, side, color) => `<header class="hero" style="--rc:${color}"><a class="crumb" href="${crumb[1]}">${crumb[0]}</a>
+  <h1 class="ttl">${words(title, .25)}</h1><div class="sub rv" style="--d:.5s"><p>${sub}</p><span>${side}</span></div></header>`;
+const nextRoom = id => { const i = ROOMS.findIndex(r => r.id === id); return ROOMS[(i + 1) % ROOMS.length]; };
+
+const PAGES = {
+  built() {
+    return hero(['← All rooms', '#'], 'Built by me', 'Sites I planned, designed and shipped myself, with Figma and vibe coding. Every one of them is live.', `${BUILDS.length} projects<br>More on the way`, ROOMS[0].color) +
+    `<div class="sec">${BUILDS.map((b, i) => `<article class="build">
+      <div class="txt rv"><span class="num">${String(i + 1).padStart(2, '0')} / ${String(BUILDS.length).padStart(2, '0')}</span><h3>${b.name}</h3><p class="lede">${b.lede}</p>
+        <ul>${b.did.map(([k, v]) => `<li><span>·</span><span><b>${k}.</b> ${v}</span></li>`).join('')}</ul>
+        ${b.note ? `<p class="note">${b.note}</p>` : ''}
+        <a class="pill" href="${b.url}" ${b.local ? '' : 'target="_blank" rel="noopener"'} data-magnetic><span>${b.local ? 'Open the sample' : 'Visit the live site'}</span><span class="arr">→</span></a></div>
+      <div class="media">${b.img.map(src => `<div class="browser rv"><div class="chrome"><i></i><i></i><i></i><span>${b.host}</span></div><img src="${src}" alt="${esc(b.name)} home page" loading="lazy"></div>`).join('')}
+        ${b.phones ? `<div class="phones${b.phones.length < 3 ? ' two' : ''}">${b.phones.map((p, j) => `<img class="rv" style="--d:${j * .1}s" src="${p}" alt="${esc(b.name)} on a phone" loading="lazy">`).join('')}</div>` : ''}</div>
+    </article>`).join('')}</div>
+    <div class="next-up rv"><span class="k">Next</span><p>Next on my list: sites that aren’t shops. A portfolio, a magazine, a booking tool.</p></div>` + foot('Next room', '#design', 'Design systems', ROOMS[1].color);
+  },
+  design() {
+    return `<div class="ds-wall" id="dsWall">` + hero(['← All rooms', '#'], 'Design systems', 'One menu engine, six identities. Each shop type gets its own fonts, colours and layout, so a karaoke bar never looks like a bakery.', 'Live demos<br>menu-platform', ROOMS[1].color) +
+    `<div class="sec"><div class="ds-intro rv"><p>Same data underneath: items, prices in dollars and riel, deals, sold-out flags, Khmer and English.</p><p>On top, a theme per shop type. ${tapWord} any card to open the real menu.</p></div>
+      <div class="themes">${THEMES.map((t, i) => `<a class="theme rv" style="--d:${(i % 3) * .1}s;--tb:${t.bg};--tt:${t.tx};--tf:'${t.font}',serif" href="https://menu-platform-orpin.vercel.app/${t.slug}" target="_blank" rel="noopener" data-cursor="Open menu" data-bg="${t.bg}">
+        <span class="hd"><span>0${i + 1} · ${t.type}</span><span>↗</span></span>
+        <span class="spec">${esc(t.name)}</span><span class="pic"><img src="${t.img}" alt="${esc(t.name)} menu on a phone" loading="lazy"></span>
+        <span class="ft"><span>${t.fonts}</span><span class="sw">${t.c.map(c => `<i style="--c:${c}"></i>`).join('')}</span></span></a>`).join('')}</div></div></div>` + foot('Next room', '#work', 'Product work', ROOMS[2].color);
+  },
+  work() {
+    return hero(['← All rooms', '#'], 'Product work', 'Products I owned at work and on my own: features, redesigns, specs and a store.', 'Smart Axiata · Youding<br>Freelance · Own store', ROOMS[2].color) +
+    `<div class="sec"><ol class="cases">${CASES.map((c, i) => `<li><a href="#work/${c.id}" style="--pc:${c.color}" data-cursor="View case">
+      <span class="n">${String(i + 1).padStart(2, '0')}</span><span class="t">${c.name}</span><span class="m">${c.tag}<br>${c.meta[1]} · ${c.meta[2]}</span><span class="ar">→</span>
+      <span class="th" aria-hidden="true">${mocks[c.shots[0]](c.color)}</span></a></li>`).join('')}</ol></div>` + foot('Next room', '#toolkit', 'Toolkit', ROOMS[3].color);
+  },
+  toolkit() {
+    return hero(['← All rooms', '#'], 'Toolkit', 'What I design with, build with, plan with, and where I look before I start.', `${TOOLS.reduce((a, g) => a + g[1].length, 0)} tools`, ROOMS[3].color) +
+    `<div class="sec tk" style="--rc:${ROOMS[3].color}">${TOOLS.map(([g, ts]) => `<div class="tk-g rv"><h3>${g}</h3><ul>${ts.map(([t, d]) => `<li class="tool"><b>${t}</b><span>${d}</span></li>`).join('')}</ul></div>`).join('')}</div>` + foot('Next room', '#experience', 'Experience', ROOMS[4].color);
+  },
+  experience() {
+    return hero(['← All rooms', '#'], 'Experience', 'Product owner by job title, designer and builder by habit. Customer success is where I started.', `<a href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener" style="text-decoration:underline">Download the CV (PDF)</a>`, ROOMS[4].color) +
+    `<div class="sec"><ol class="xp">${XP.map((x, i) => `<li class="rv${i ? '' : ' open'}"><button aria-expanded="${!i}"><span class="y">${x.y}</span><span class="r">${x.r}</span><span class="c">${x.c}</span><span class="pm"></span></button>
+      <div class="dd"${i ? ' inert' : ''}><div><ul>${x.pts.map(p => `<li>${p}</li>`).join('')}</ul></div></div></li>`).join('')}</ol></div>` + foot('Back to the start', '#built', 'Built by me', ROOMS[0].color);
+  }
+};
+function casePage(c) {
+  const i = CASES.indexOf(c), nx = CASES[(i + 1) % CASES.length];
+  const shot = (k) => `<div class="shot rv${k ? ' wide' : ''}" data-cursor="Mock-up">${mocks[c.shots[k]](c.color)}<p class="note">${c.note}</p></div>`;
+  return `<div class="case" style="--pc:${c.color}">` + hero(['← Product work', '#work'], c.name, `${c.meta[0]} · ${c.meta[1]}`, `${c.tag}<br>${c.meta[2]}`, c.color) +
+    `<div class="sec"><section class="c-sec"><div class="lab rv">Overview</div><p class="lead rv">${rich(c.intro)}</p></section>
+    <section class="c-sec"><div class="lab rv">What I did<br>${tapWord} a line to read more</div><ol class="did rv">${c.did.map(([t, d], k) => `<li class="${k ? '' : 'open'}"><button aria-expanded="${!k}"><span class="dn">0${k + 1}</span><span>${t}</span><span class="pm"></span></button><div class="dd"${k ? ' inert' : ''}><div><p>${d}</p></div></div></li>`).join('')}</ol></section>
+    <section class="c-sec"><div class="lab rv">Result</div><div class="res rv">${c.results.map(([t, d]) => `<div><h3>${t}</h3><p>${d}</p></div>`).join('')}</div></section>
+    <div class="shots">${shot(0)}${shot(1)}</div></div></div>` + foot('Next case', `#work/${nx.id}`, nx.name, nx.color);
+}
+
+let io, current = null;
+const BASE = document.title;
+function route() {
+  let h = location.hash.slice(1);
+  if (CASES.some(c => c.id === h)) { history.replaceState(null, '', '#work/' + h); h = 'work/' + h; } // old links
+  const [room, sub] = h.split('/');
+  const c = room === 'work' && sub ? CASES.find(x => x.id === sub) : null;
+  const html = c ? casePage(c) : PAGES[room]?.();
+  if (!html) { // home
+    current = null; view.classList.remove('on'); view.inert = true; view.setAttribute('aria-hidden', 'true'); view.innerHTML = '';
+    home.inert = false; document.body.classList.remove('lock'); document.title = BASE; setTop(); return;
+  }
+  current = h;
+  view.innerHTML = html; view.scrollTop = 0; view.classList.add('on'); view.inert = false; view.setAttribute('aria-hidden', 'false');
+  home.inert = true; document.body.classList.add('lock');
+  document.title = `${c ? c.name : ROOMS.find(r => r.id === room).name} · Layheng`;
+  view.focus({ preventScroll: true });
+  // reveals
+  const show = () => view.querySelector('.ttl')?.classList.add('shown');
+  document.body.classList.contains('ready') ? requestAnimationFrame(() => requestAnimationFrame(show)) : document.addEventListener('site-ready', show, { once: true });
+  io?.disconnect();
+  io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('shown'); io.unobserve(e.target); } }), { root: view, threshold: .12 });
+  view.querySelectorAll('.rv, .browser').forEach(el => io.observe(el));
+  setTop();
+}
+const home = $('#home');
+// Design systems: page tints toward the theme you hover
+view.addEventListener('pointerover', e => {
+  const wall = $('#dsWall'); if (!wall || !HOVER) return;
+  const t = e.target.closest('.theme'); wall.style.backgroundColor = t ? t.dataset.bg + '22' : '';
+});
+// accordions (experience + case "what I did")
+view.addEventListener('click', e => {
+  const b = e.target.closest('.xp > li > button, .did button'); if (!b) return;
+  const li = b.parentElement, on = !li.classList.contains('open');
+  li.classList.toggle('open', on); b.setAttribute('aria-expanded', on); li.querySelector('.dd').inert = !on;
+});
+// top bar stays readable: it blends over everything
+let lastY = 0;
+function setTop() { const t = $('#top'); if (!view.classList.contains('on')) { t.classList.remove('solid', 'away'); lastY = 0; return; } const y = view.scrollTop; t.classList.toggle('solid', y > 60); t.classList.toggle('away', y > 200 && y > lastY && !document.body.classList.contains('about')); lastY = y; }
+view.addEventListener('scroll', setTop, { passive: true });
+
+/* page change: curtain up (room colour + name), swap, curtain away */
+let busy = false;
+function go(href) {
+  const id = href.slice(1);
+  if (id === (current || '')) return;
+  hideCur();
+  const [room, sub] = id.split('/');
+  const c = room === 'work' && sub ? CASES.find(x => x.id === sub) : null;
+  const r = ROOMS.find(x => x.id === room);
+  const label = c ? c.name : r ? r.name : 'Layheng';
+  const color = c ? c.color : r ? r.color : '#121210';
+  if (reduce() || busy || !document.body.classList.contains('ready')) { location.hash = id; if (!id) history.replaceState(null, '', location.pathname); return; }
+  busy = true;
+  const cu = $('#curtain'); cu.style.setProperty('--cc', color); $('#curtainT').textContent = label;
+  cu.className = 'curtain'; void cu.offsetWidth; cu.classList.add('in');
+  setTimeout(() => {
+    if (id) location.hash = id; else { history.pushState(null, '', location.pathname); route(); }
+    cu.classList.remove('in'); void cu.offsetWidth; cu.classList.add('out');
+    setTimeout(() => { cu.className = 'curtain'; busy = false; }, 820);
+  }, 600);
+}
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#"]'); if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+  e.preventDefault(); go(a.getAttribute('href'));
+});
+addEventListener('hashchange', route);
+addEventListener('popstate', route);
+
+/* ======================= Loader ======================= */
+const loader = $('#loader'), hello = $('#hello');
 const markReady = () => { if (document.body.classList.contains('ready')) return; document.body.classList.add('ready'); document.dispatchEvent(new Event('site-ready')); };
-function intro() {
+(function intro() {
   const done = () => { loader.classList.add('gone'); markReady(); };
   let seen = false;
   try { seen = !!sessionStorage.getItem('seenIntro'); sessionStorage.setItem('seenIntro', '1'); } catch (e) {}
   if (reduce() || seen) return done();
-  const KM = 'MiSansKhmer, sans-serif', LA = 'MiSansLatin, Inter, sans-serif';
-  const words = [['Hello', LA], ['សួស្តី', KM], ['Bonjour', LA], ['Hola', LA], ['Ciao', LA], ['Hallo', LA],
-    ['こんにちは', '"Zen Kaku Gothic New", sans-serif'], ['안녕하세요', '"IBM Plex Sans KR", sans-serif'], ['សួស្តី', KM]];
+  const KM = 'MiSansKhmer, sans-serif', LA = 'MiSansLatin, sans-serif';
+  const W = [['Hello', LA], ['សួស្តី', KM], ['Bonjour', LA], ['Hola', LA], ['Ciao', LA], ['Hallo', LA], ['こんにちは', '"Zen Kaku Gothic New", sans-serif'], ['안녕하세요', '"IBM Plex Sans KR", sans-serif'], ['សួស្តី', KM]];
   let k = 0;
   const step = () => {
-    hello.textContent = words[k][0]; hello.style.fontFamily = words[k][1];
-    if (++k < words.length) return setTimeout(step, k === 1 ? 520 : 140);
-    setTimeout(() => {
-      loader.classList.add('out');
-      setTimeout(markReady, 350);
-      setTimeout(done, 1100);
-    }, 420);
+    hello.textContent = W[k][0]; hello.style.fontFamily = W[k][1];
+    if (++k < W.length) return setTimeout(step, k === 1 ? 900 : 150); // first word holds, then hard cuts
+    setTimeout(() => { loader.classList.add('out'); setTimeout(markReady, 300); setTimeout(done, 1050); }, 450);
   };
-  // load every greeting font first so no word flashes in a fallback font (max 1.2s wait)
-  const fonts = Promise.all(words.map(([t, f]) => document.fonts.load(`500 40px ${f}`, t).catch(() => {})));
+  const fonts = Promise.all(W.map(([t, f]) => document.fonts.load(`500 40px ${f}`, t).catch(() => {})));
   Promise.race([fonts, new Promise(r => setTimeout(r, 1200))]).then(step);
-}
-intro();
+})();
 
-/* ================= List ================= */
-const list = document.getElementById('list');
-list.innerHTML = projects.map((p, r) => `
-  <li><a class="row" href="#${p.id}" style="--r:${r};--pc:${p.color}" data-cursor="View case →" aria-label="${p.name}, ${p.tag}">
-    <span class="n">[${String(r + 1).padStart(2, '0')}]</span>
-    <span class="name">${letters(p.name, r)}</span>
-    <span class="t">[${p.tag}]</span>
-    <span class="thumbs" aria-hidden="true"><span class="thumb">${frame(p, 0)}</span><span class="thumb">${frame(p, 1)}</span></span>
-  </a></li>`).join('');
-list.addEventListener('mousemove', e => {
-  const row = e.target.closest('.row'); if (!row) return;
-  const b = row.getBoundingClientRect();
-  row.style.setProperty('--mx', (e.clientX - b.left - b.width / 2).toFixed(0));
-  row.style.setProperty('--my', (e.clientY - b.top - b.height / 2).toFixed(0));
-});
-
-/* ================= Cursor label (follows the mouse with a little lag) ================= */
-const cur = document.getElementById('cursor');
+/* ======================= Cursor + magnetic ======================= */
+const cur = $('#cur'), curT = $('#curT');
 let label = '';
-const hideCursor = () => {
-  label = ''; cur.style.transition = 'none'; cur.classList.remove('on');
-  requestAnimationFrame(() => requestAnimationFrame(() => cur.style.transition = ''));
-};
-if (matchMedia('(hover: hover)').matches) {
-  let tx = -100, ty = -100, cx = -100, cy = -100, running = false;
+function hideCur() { label = ''; cur.classList.remove('big'); }
+if (HOVER) {
+  let tx = -99, ty = -99, x = -99, y = -99, lx = -99, ly = -99;
   const loop = () => {
-    cx += (tx - cx) * .18; cy += (ty - cy) * .18;
-    cur.style.left = cx + 'px'; cur.style.top = cy + 'px';
-    if (label || Math.abs(tx - cx) + Math.abs(ty - cy) > .5) requestAnimationFrame(loop); else running = false;
+    x += (tx - x) * .2; y += (ty - y) * .2;
+    const vx = x - lx, vy = y - ly; lx = x; ly = y;
+    const sp = Math.min(Math.hypot(vx, vy) / 40, .25), ang = Math.atan2(vy, vx) * 180 / Math.PI;
+    cur.style.transform = `translate(${x}px, ${y}px) rotate(${ang}deg) scale(${label ? 1 : 1 + sp}, ${label ? 1 : 1 - sp})`;
+    curT.style.transform = `rotate(${-ang}deg)`;
+    requestAnimationFrame(loop);
   };
+  loop();
   addEventListener('pointermove', e => {
-    tx = e.clientX; ty = e.clientY;
+    tx = e.clientX; ty = e.clientY; cur.classList.remove('hide');
     const t = e.target.closest('[data-cursor]');
-    const next = t && !document.body.classList.contains('about') ? t.dataset.cursor : '';
-    if (next !== label) {
-      if (next && !label) { cx = tx; cy = ty; }
-      label = next; if (next) cur.textContent = next; cur.classList.toggle('on', !!next);
-    }
-    if (!running) { running = true; requestAnimationFrame(loop); }
+    const next = t && !document.body.classList.contains('about') && !corridor.classList.contains('drag') ? t.dataset.cursor : '';
+    if (next !== label) { label = next; if (next) curT.textContent = next; cur.classList.toggle('big', !!next); }
+  });
+  document.addEventListener('pointerleave', () => cur.classList.add('hide'));
+  // magnetic pills: follow the mouse a little, spring back
+  document.addEventListener('pointermove', e => {
+    document.querySelectorAll('[data-magnetic]').forEach(m => {
+      const b = m.getBoundingClientRect(), cx = b.left + b.width / 2, cy = b.top + b.height / 2;
+      const dx = e.clientX - cx, dy = e.clientY - cy, near = Math.abs(dx) < b.width * .9 && Math.abs(dy) < b.height * 1.4;
+      m.style.transition = near ? 'transform .35s cubic-bezier(.16,1,.3,1)' : 'transform .9s cubic-bezier(.34,1.56,.64,1)';
+      m.style.transform = near ? `translate(${dx * .25}px, ${dy * .3}px)` : '';
+    });
   });
 }
 
-/* ================= Project page ================= */
-const panel = document.getElementById('panel');
-const proj = document.getElementById('project'), inner = document.getElementById('pInner'), progEl = document.getElementById('progress');
-let io, current = '', settleTimer;
-const stage = document.querySelector('.stage'), topBar = document.querySelector('.top'), bottomBar = document.querySelector('.bottom');
-const BASE_TITLE = document.title;
-// only what is visible can be focused or read out
-function syncInert() {
-  const about = document.body.classList.contains('about'), open = document.body.classList.contains('open');
-  panel.inert = !about; stage.inert = about || open; proj.inert = about || !open;
-  topBar.inert = about; bottomBar.inert = about;
-}
-function route(id, instant) {
-  const i = projects.findIndex(p => p.id === (id ?? location.hash.slice(1)));
-  if (i < 0) {
-    const prev = current; current = '';
-    document.body.classList.remove('open'); proj.setAttribute('aria-hidden', 'true'); document.title = BASE_TITLE; syncInert();
-    if (prev) list.querySelector(`.row[href="#${prev}"]`)?.focus({ preventScroll: true });
-    return;
-  }
-  const p = projects[i], next = projects[(i + 1) % projects.length];
-  current = p.id;
-  document.title = `${p.name} · Layheng`;
-  proj.style.setProperty('--pc', p.color); progEl.style.setProperty('--pc', p.color);
-  proj.classList.toggle('instant', !!instant);
-  inner.classList.remove('in', 'settled'); clearTimeout(settleTimer);
-  inner.innerHTML = `
-    <a class="p-back rv" href="#" style="--d:.2s"><span class="roll" data-r>← All work</span></a>
-    <div class="p-title"><h1>${titleHTML(p.name)}</h1><span class="rv" style="--d:.7s">[${p.tag}]</span></div>
-
-    <section class="p-sec">
-      <div class="p-label rv" style="--d:.6s">[${p.meta[0]}]<div>${p.meta[1]} · ${p.meta[2]}</div></div>
-      <p class="lead">${rich(p.intro)}</p>
-    </section>
-
-    <section class="p-sec sv">
-      <div class="p-label rv"><h2 class="k">What I did</h2>${HOVER ? 'Click' : 'Tap'} a line to read more</div>
-      <ol class="did rv" style="--d:.1s">${p.did.map(([t, d], k) => `
-        <li class="${k ? '' : 'open'}"><button aria-expanded="${!k}" aria-controls="dd${k}"><span class="dn">${String(k + 1).padStart(2, '0')}</span><span class="dt">${t}</span><span class="pm"></span></button>
-        <div class="dd" id="dd${k}"${k ? ' inert' : ''}><div><p>${d}</p></div></div></li>`).join('')}</ol>
-    </section>
-
-    <section class="p-sec sv">
-      <div class="p-label rv"><h2 class="k">Result</h2>What changed</div>
-      <div class="res">${p.results.map(([ic, t, d], k) => `
-        <div class="card rv" style="--d:${k * .12}s"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[ic]}</svg><h3>${t}</h3><p>${d}</p></div>`).join('')}</div>
-    </section>
-
-    <div class="p-shots"><div class="shot" data-cursor="Mock-up">${frame(p, 0, true)}</div><div class="shot" data-cursor="Mock-up">${frame(p, 1, true)}</div></div>
-
-    <a class="p-next" href="#${next.id}" style="--npc:${next.color}" data-cursor="Next project">
-      <span class="k">Next project</span>
-      <span class="row2"><span class="nm"><span class="pn">${letters(next.name)}</span><span>[${next.tag}]</span></span><span class="arrow">→</span></span>
-    </a>`;
-  inner.querySelectorAll('[data-r]').forEach(rollify);
-  proj.scrollTop = 0; inner.style.setProperty('--sy', 0); progEl.style.setProperty('--p', 0);
-  proj.setAttribute('aria-hidden', 'false');
-  document.body.classList.add('open'); syncInert();
-  proj.focus({ preventScroll: true });   // so Space / PageDown / arrows scroll the project
-  const show = () => { inner.classList.add('in'); settleTimer = setTimeout(() => inner.classList.add('settled'), 3200); };
-  // on a direct link the loader is still up: wait for it, so the title rise is actually seen
-  if (!document.body.classList.contains('ready')) document.addEventListener('site-ready', () => requestAnimationFrame(show), { once: true });
-  else instant ? show() : requestAnimationFrame(() => requestAnimationFrame(show));
-  // sections, cards and screens reveal as they scroll into view
-  io?.disconnect();
-  io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { root: proj, threshold: .18 });
-  inner.querySelectorAll('.sv, .shot').forEach(s => io.observe(s));
-}
-// What I did: open/close lines
-inner.addEventListener('click', e => {
-  const b = e.target.closest('.did button'); if (!b) return;
-  const li = b.parentElement, on = !li.classList.contains('open');
-  li.classList.toggle('open', on); b.setAttribute('aria-expanded', on); li.querySelector('.dd').inert = !on;
-});
-// scroll: progress bar, title drift, screen parallax
-proj.addEventListener('scroll', () => {
-  const y = proj.scrollTop, max = proj.scrollHeight - proj.clientHeight;
-  progEl.style.setProperty('--p', max ? (y / max).toFixed(4) : 0);
-  if (reduce()) return;
-  inner.style.setProperty('--sy', Math.min(y, 700).toFixed(0));
-  if (!PARALLAX) return;   // phones/tablets: no parallax, it made the mock shadows flicker
-  inner.querySelectorAll('.shot').forEach(s => {
-    const b = s.getBoundingClientRect();
-    s.style.setProperty('--par', ((b.top + b.height / 2 - innerHeight / 2) * -.05).toFixed(1));
-  });
-}, { passive: true });
-
-// navigation: the clicked title flies into place (View Transitions), otherwise a wipe
-function go(id, src) {
-  if ((id || '') === current) return;
-  hideCursor();
-  // opening adds a history step; closing replaces it, so Back never reopens what you just closed
-  try { history[id ? 'pushState' : 'replaceState'](null, '', id ? '#' + id : location.pathname + location.search); } catch (e) {}
-  if (!document.startViewTransition || reduce()) return route(id);
-  const prev = current;
-  const from = src || (prev ? inner.querySelector('.p-title h1') : null);
-  if (from) from.style.viewTransitionName = 'ptitle';
-  document.documentElement.classList.add('vt-nav');
-  const t = document.startViewTransition(() => {
-    if (from) from.style.viewTransitionName = '';
-    route(id, true);
-    const to = id ? inner.querySelector('.p-title h1') : list.querySelector(`.row[href="#${prev}"] .name`);
-    if (to && from) to.style.viewTransitionName = 'ptitle';
-  });
-  t.ready.catch(() => {}); t.updateCallbackDone.catch(() => {});
-  t.finished.catch(() => {}).finally(() => {
-    document.documentElement.classList.remove('vt-nav');
-    document.querySelectorAll('.name, .p-title h1, .p-next .pn').forEach(el => el.style.viewTransitionName = '');
-    proj.classList.remove('instant');
-  });
-}
-document.addEventListener('click', e => {
-  const a = e.target.closest('a[href^="#"]'); if (!a) return;
-  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;   // let new-tab clicks work
-  e.preventDefault();
-  const src = a.classList.contains('row') ? a.querySelector('.name') : a.classList.contains('p-next') ? a.querySelector('.pn') : null;
-  go(a.getAttribute('href').slice(1), src);
-});
-addEventListener('popstate', () => route()); route();
-
-/* ================= About panel ================= */
+/* ======================= About panel ======================= */
+const panel = $('#panel');
 [...panel.children].forEach((el, k) => el.style.setProperty('--k', k));
 let opener = null;
-const setAbout = (on, contact) => {
+function setAbout(on, contact) {
   if (on) opener = document.activeElement;
   document.body.classList.toggle('about', on);
-  panel.setAttribute('aria-hidden', String(!on));
-  document.querySelectorAll('[data-about]').forEach(b => b.setAttribute('aria-expanded', String(on)));
-  syncInert(); hideCursor();
-  if (on) panel.querySelector('[data-close]').focus({ preventScroll: true });
-  else if (opener && opener.focus) opener.focus({ preventScroll: true });
-  if (on && contact) setTimeout(() => document.getElementById('contactHead').scrollIntoView({ block: 'start', behavior: 'smooth' }), 350);
-  else if (on) panel.scrollTop = 0;
-};
+  panel.setAttribute('aria-hidden', String(!on)); panel.inert = !on;
+  $('#top').inert = on; (view.classList.contains('on') ? view : home).inert = on;
+  hideCur();
+  if (on) { panel.querySelector('[data-close]').focus({ preventScroll: true }); panel.scrollTop = 0; if (contact) setTimeout(() => $('#contactHead').scrollIntoView({ block: 'start', behavior: 'smooth' }), 400); }
+  else opener?.focus?.({ preventScroll: true });
+}
 document.querySelectorAll('[data-about]').forEach(b => b.addEventListener('click', () => setAbout(true, b.hasAttribute('data-contact'))));
 document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => setAbout(false)));
 addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
   if (document.body.classList.contains('about')) setAbout(false);
-  else if (document.body.classList.contains('open')) go('');
+  else if (current) { const [r, s] = current.split('/'); go(s ? '#' + r : '#'); }
 });
 
-/* ================= Colour moods (Paper is the default) ================= */
-const moods = [
-  { n: 'Paper',  bg: '#F1EEE7', ink: '#111111', hover: '#111111' },
-  { n: 'Forest', bg: '#0E3B2E', ink: '#F1EDE3', hover: '#C9F27B' },
-  { n: 'Cobalt', bg: '#1E40D8', ink: '#FFFFFF', hover: '#FFD84D' }
-];
-let m = 0;
-try { m = Math.max(0, moods.findIndex(x => x.n === localStorage.getItem('mood'))); } catch (e) {}
-function applyMood() {
-  const s = document.documentElement.style, x = moods[m];
-  s.setProperty('--bg', x.bg); s.setProperty('--ink', x.ink); s.setProperty('--hover', x.hover);
-  document.documentElement.dataset.mood = x.n;
-  document.getElementById('moodName').textContent = x.n;
-  try { localStorage.setItem('mood', x.n); } catch (e) {}
-}
-document.getElementById('mood').addEventListener('click', e => {
-  m = (m + 1) % moods.length;
-  if (!document.startViewTransition || reduce()) return applyMood();
-  const x = e.clientX || 40, y = e.clientY || innerHeight - 32, r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
-  document.documentElement.classList.add('vt-mood');
-  const t = document.startViewTransition(applyMood);
-  t.updateCallbackDone.catch(() => {});
-  t.ready.then(() => document.documentElement.animate(
-    { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] },
-    { duration: 900, easing: 'cubic-bezier(.16,1,.3,1)', pseudoElement: '::view-transition-new(root)' })).catch(() => {});
-  t.finished.catch(() => {}).finally(() => document.documentElement.classList.remove('vt-mood'));
-});
-applyMood();
-syncInert();
+route();
 </script>
 </body>
 </html>

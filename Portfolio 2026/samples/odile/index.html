@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Odile Rask · Sample portfolio</title>
+<meta name="description" content="A fictional portfolio, designed and built by Loem Layheng as a design sample. Odile Rask and every project here are invented.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#EFECE4;--ink:#141412;--mute:#14141299;--line:#14141224;--g:clamp(16px,2.4vw,40px);--e:cubic-bezier(.16,1,.3,1);--io:cubic-bezier(.7,0,.3,1)}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.45 "Schibsted Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a,button{color:inherit;font:inherit;background:none;border:0;cursor:pointer;text-decoration:none;text-align:inherit}
+:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+::selection{background:var(--ink);color:var(--bg)}
+em{font:italic 400 1.1em/1 "Instrument Serif",serif;letter-spacing:-.01em}
+
+/* sample ribbon: makes clear this person is invented */
+.ribbon{position:fixed;z-index:60;left:50%;bottom:16px;translate:-50% 0;display:flex;align-items:center;gap:12px;padding:8px 8px 8px 16px;border-radius:99px;background:var(--ink);color:var(--bg);font-size:13px;white-space:nowrap;box-shadow:0 12px 30px -12px #0008}
+.ribbon a{padding:6px 12px;border-radius:99px;background:var(--bg);color:var(--ink);font-weight:500}
+
+.top{display:grid;grid-template-columns:1fr auto 1fr;align-items:baseline;padding:22px var(--g);font-size:15px}
+.top b{font-weight:500}
+.top nav{display:flex;gap:28px}
+.top .av{justify-self:end;display:flex;align-items:center;gap:8px}
+.top .av i{width:7px;height:7px;border-radius:50%;background:#2E9E5B;box-shadow:0 0 0 0 #2E9E5B66;animation:ping 2.6s var(--e) infinite}
+@keyframes ping{60%{box-shadow:0 0 0 7px #2E9E5B00}}
+
+.hero{display:grid;grid-template-columns:repeat(12,1fr);gap:0 20px;padding:11vh var(--g) 0}
+.hero p{grid-column:1/7;font-size:clamp(22px,2vw,30px);line-height:1.18;letter-spacing:-.02em}
+.hero small{grid-column:10/13;align-self:end;justify-self:end;text-align:right;font-size:13px;color:var(--mute)}
+.ln{display:block;overflow:clip;padding-bottom:.08em;margin-bottom:-.08em}
+.ln>span{display:block;transform:translateY(110%);transition:transform 1.3s var(--e);transition-delay:calc(var(--i)*90ms + .15s)}
+.ready .ln>span{transform:none}
+
+.tabs{display:flex;gap:26px;padding:8vh var(--g) 14px;font-size:14px}
+.tabs button{position:relative;color:var(--mute);transition:color .3s}
+.tabs button sup{font-size:10px;margin-left:3px}
+.tabs button::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .5s var(--e)}
+.tabs button[aria-pressed=true]{color:var(--ink)}
+.tabs button[aria-pressed=true]::after{transform:scaleX(1);transform-origin:left}
+
+.list{list-style:none;border-top:1px solid var(--line)}
+.list li{border-bottom:1px solid var(--line);display:grid;grid-template-rows:1fr;transition:grid-template-rows .7s var(--e),opacity .5s,border-color .5s}
+.list li.off{grid-template-rows:0fr;opacity:0;border-color:transparent}
+.list li>div{overflow:hidden}
+.row{position:relative;display:grid;grid-template-columns:70px 1fr auto;align-items:baseline;padding:0 var(--g);transition:opacity .45s var(--e)}
+.row::before{content:"";position:absolute;inset:0;background:var(--pc);opacity:0;transition:opacity .45s var(--e)}
+.row>*{position:relative}
+.row .n{font-size:13px;color:var(--mute)}
+.row .t{font-weight:500;font-size:clamp(44px,7.2vw,124px);letter-spacing:-.055em;line-height:1.04;padding:.04em 0;transition:transform .5s var(--e),color .3s}
+.row .c{font-size:14px;color:var(--mute);text-align:right;transition:transform .5s var(--e)}
+.row .c b{display:block;font-weight:500;color:var(--ink);font-size:12px;letter-spacing:.07em;text-transform:uppercase}
+@media (hover:hover){
+.list:has(.row:hover) .row:not(:hover){opacity:.28}
+.row:hover::before{opacity:.08}
+.row:hover .t{transform:translateX(12px);color:var(--pc)}
+.row:hover .c{transform:translateX(-8px)}}
+.row .mthumb{display:none}
+
+/* one preview window that follows the cursor; inside, a strip slides to the hovered project */
+.peek{position:fixed;z-index:20;left:0;top:0;width:min(27vw,420px);aspect-ratio:1;pointer-events:none;border-radius:4px;overflow:hidden;
+  transform:translate(-50%,-50%) scale(0);transition:transform .55s var(--e);box-shadow:0 40px 80px -40px #0007}
+.peek.on{transform:translate(-50%,-50%) scale(1)}
+.strip{position:absolute;inset:0;transition:transform .65s var(--io)}
+.strip>div{height:100%;display:grid;place-items:center;background:var(--pc)}
+.strip svg{width:86%;height:86%}
+.dot{position:fixed;z-index:21;left:0;top:0;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-size:13px;pointer-events:none;transform:scale(0);transition:transform .4s var(--e)}
+.dot.on{transform:scale(1)}
+
+/* case sheet */
+.sheet{position:fixed;inset:0;z-index:40;background:var(--pc,#222);color:#fff;overflow-y:auto;clip-path:inset(100% 0 0 0);visibility:hidden;transition:clip-path .9s var(--io),visibility 0s .9s}
+.sheet.on{clip-path:inset(0);visibility:visible;transition:clip-path .9s var(--io),visibility 0s}
+.sheet .in{padding:24px var(--g) 120px;max-width:1400px}
+.sheet .bar{display:flex;justify-content:space-between;font-size:15px}
+.sheet h2{font-weight:500;font-size:clamp(56px,12vw,190px);letter-spacing:-.06em;line-height:.95;margin:12vh 0 4vh}
+.sheet h2 .ln>span{transform:translateY(110%);transition-delay:calc(var(--i)*80ms + .35s)}
+.sheet.on h2 .ln>span{transform:none}
+.sheet .meta{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;border-top:1px solid #ffffff40;padding-top:16px;font-size:14px}
+.sheet .meta span{display:block;opacity:.65;font-size:12px;letter-spacing:.07em;text-transform:uppercase;margin-bottom:4px}
+.sheet .lede{font-size:clamp(22px,2.4vw,36px);line-height:1.2;letter-spacing:-.02em;max-width:28ch;margin:9vh 0}
+.sheet .art{border-radius:6px;background:#00000026;display:grid;place-items:center;aspect-ratio:16/9;margin-bottom:24px}
+.sheet .art svg{height:84%;width:auto;max-width:92%}
+.sheet .two{display:grid;grid-template-columns:1fr 1fr;gap:40px;font-size:17px;line-height:1.55;opacity:.92}
+.sheet .two h3{font-size:12px;letter-spacing:.07em;text-transform:uppercase;opacity:.7;font-weight:500;margin-bottom:8px}
+.sheet>*,.sheet .in>*{transition:opacity .8s var(--e) .4s}
+.sheet:not(.on) .in>*:not(.bar):not(h2){opacity:0}
+
+.about{display:grid;grid-template-columns:repeat(12,1fr);gap:20px;padding:20vh var(--g) 12vh}
+.about h2{grid-column:1/4;font-size:13px;font-weight:500;letter-spacing:.07em;text-transform:uppercase}
+.about p{grid-column:4/11;font-size:clamp(26px,3vw,46px);line-height:1.12;letter-spacing:-.03em}
+.cv{grid-column:4/13;list-style:none;margin-top:8vh;border-top:1px solid var(--line)}
+.cv li{display:grid;grid-template-columns:2fr 3fr 1fr;padding:14px 0;border-bottom:1px solid var(--line);font-size:15px}
+.cv li span:last-child{text-align:right;color:var(--mute)}
+.cv li span:nth-child(2){color:var(--mute)}
+.foot{display:flex;justify-content:space-between;align-items:end;padding:0 var(--g) 90px}
+.foot .big{font-weight:500;font-size:clamp(48px,10vw,170px);letter-spacing:-.06em;line-height:.9}
+.foot .big a{background:linear-gradient(currentColor,currentColor) no-repeat 0 92%/0 .05em;transition:background-size .8s var(--e)}
+.foot .big a:hover{background-size:100% .05em}
+.foot small{font-size:13px;color:var(--mute);text-align:right}
+
+@media (max-width:760px){
+  .top{grid-template-columns:1fr auto}.top nav{display:none}
+  .hero p{grid-column:1/13}.hero small{display:none}
+  .row{grid-template-columns:30px 1fr;padding-bottom:16px}
+  .row .c{grid-column:2;text-align:left;font-size:13px}
+  .row .t{font-size:12.4vw}
+  .row .mthumb{display:block;grid-column:2;margin-top:12px;aspect-ratio:16/10;border-radius:4px;background:var(--pc);overflow:hidden}
+  .row .mthumb svg{width:100%;height:100%}
+  .peek,.dot{display:none}
+  .about p,.about h2,.cv{grid-column:1/13}
+  .cv li{grid-template-columns:1fr 1fr}.cv li span:nth-child(2){display:none}
+  .sheet .meta,.sheet .two{grid-template-columns:1fr 1fr}
+  .foot{flex-direction:column;align-items:start;gap:16px}.foot small{text-align:left}
+  .ribbon{font-size:12px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;transition-delay:0s!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="ribbon" role="note">Fictional sample · Odile and her work are invented <a href="../../#built">By Loem Layheng ↗</a></div>
+
+<header class="top"><b>Odile Rask</b><nav><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav><span class="av"><i></i>Booking from March · Copenhagen</span></header>
+
+<section class="hero">
+  <p><span class="ln"><span style="--i:0">Product designer working between</span></span><span class="ln"><span style="--i:1">banks, buses and small brands. I make</span></span><span class="ln"><span style="--i:2">complicated services feel <em>obvious</em>.</span></span></p>
+  <small>Selected work<br>2019 to 2026</small>
+</section>
+
+<div class="tabs" id="work" role="group" aria-label="Filter work"></div>
+<ol class="list" id="list"></ol>
+
+<div class="peek" id="peek" aria-hidden="true"><div class="strip" id="strip"></div></div>
+<div class="dot" id="dot" aria-hidden="true">Open</div>
+
+<section class="about" id="about">
+  <h2>About</h2>
+  <p>Seven years of turning <em>forms, timetables and fine print</em> into screens people finish. Before design I drove a city bus for two summers, which explains a lot.</p>
+  <ul class="cv">
+    <li><span>Brightmoor Studio</span><span>Founder, product design</span><span>2023 to now</span></li>
+    <li><span>Fernhall Bank</span><span>Senior product designer</span><span>2021 to 2023</span></li>
+    <li><span>Lumen Transit</span><span>Product designer</span><span>2019 to 2021</span></li>
+    <li><span>Royal Academy, Copenhagen</span><span>MA Interaction design</span><span>2019</span></li>
+  </ul>
+</section>
+
+<footer class="foot" id="contact">
+  <p class="big"><a href="#contact">hello@odile.example</a></p>
+  <small>Sample site: the email goes nowhere.<br>Type: Schibsted Grotesk, Instrument Serif</small>
+</footer>
+
+<article class="sheet" id="sheet" aria-hidden="true" inert tabindex="-1"></article>
+
+<script>
+/* Every project below is fictional. Art is drawn in SVG, no real brands. */
+const P = [
+  { id:'fernhall', name:'Fernhall', cat:'Product', color:'#2B5B4A', kind:'Mobile banking', year:'2022', role:'Lead designer',
+    lede:'A savings app that tells you what you can spend today, in one number, before anything else.',
+    a:'Fernhall’s old app opened on a list of accounts. People had to add things up in their head. We moved the answer to the top and pushed the accounts down.',
+    b:'Design system of 64 components, a spending calendar, and a round-up feature that became the most used screen.' },
+  { id:'lumen', name:'Lumen Transit', cat:'Product', color:'#E4572E', kind:'City transit app', year:'2020', role:'Product designer',
+    lede:'Live buses on a map that is mostly empty space, so the one bus you need is the loudest thing on screen.',
+    a:'Riders told us the map felt like a circuit board. We removed every line that was not their route and let colour do the rest.',
+    b:'Trip planner, live arrivals, a one-tap ticket wallet, and a high-contrast mode for bright sun.' },
+  { id:'kettle', name:'Kettle & Kiln', cat:'Brand', color:'#B9825A', kind:'Ceramics shop, brand + web', year:'2024', role:'Brand and web',
+    lede:'A small ceramics studio that wanted its shop to feel like the shelf in the studio, not a catalogue.',
+    a:'Photos at real scale, prices in pencil-grey, and a glaze picker that shows the same mug in all six glazes.',
+    b:'Logo, packaging stamps, Shopify theme and a printed price card system.' },
+  { id:'tidepool', name:'Tidepool Health', cat:'Product', color:'#3E5BA9', kind:'Clinic booking', year:'2025', role:'Product designer, contract',
+    lede:'Booking a blood test in four taps, with the fasting rules shown at the moment they matter.',
+    a:'Most missed appointments came from people who ate breakfast. The reminder now arrives the evening before, not the morning of.',
+    b:'Booking flow, reminders, a waiting-room screen and an accessibility audit.' },
+  { id:'atlas', name:'Atlas Kit', cat:'Systems', color:'#1B1B1B', kind:'Design system', year:'2023', role:'Founder, Brightmoor',
+    lede:'A design system for small teams: twenty components, one page of rules, no 300-page manual.',
+    a:'Every component ships with one sentence on when not to use it.',
+    b:'Figma library, tokens, and docs written so a developer reads them in ten minutes.' }
+];
+/* --- SVG art per project (simple UI compositions, invented content) --- */
+let FID = 0;
+const phone = (body, bg='#fff') => `<g filter="url(#sh${FID})"><rect x="120" y="20" width="160" height="320" rx="22" fill="#111"/><rect x="126" y="26" width="148" height="308" rx="17" fill="${bg}"/>${body}</g>`;
+const defsF = () => `<defs><filter id="sh${++FID}" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="14" stdDeviation="14" flood-opacity=".28"/></filter></defs>`;
+const ART = {
+  fernhall: c => `<svg viewBox="0 0 400 360">${defsF()}${phone(`<text x="140" y="62" font-size="9" fill="#888" font-family="sans-serif">Safe to spend today</text><text x="140" y="96" font-size="30" font-weight="600" fill="#111" font-family="sans-serif">$48.20</text><rect x="140" y="110" width="120" height="5" rx="3" fill="#e6e6e6"/><rect x="140" y="110" width="74" height="5" rx="3" fill="${c}"/>${[0,1,2,3,4,5,6].map(i=>`<rect x="${140+i*17}" y="${140+(i%3)*6}" width="11" height="${40-(i%3)*6}" rx="3" fill="${i==4?c:'#dfe7e3'}"/>`).join('')}${[0,1,2].map(i=>`<rect x="140" y="${206+i*38}" width="120" height="30" rx="8" fill="#f3f5f4"/><circle cx="154" cy="${221+i*38}" r="7" fill="${c}" opacity="${.9-i*.25}"/><rect x="168" y="${216+i*38}" width="${50-i*8}" height="5" rx="2" fill="#999"/><rect x="232" y="${216+i*38}" width="20" height="5" rx="2" fill="#111"/>`).join('')}`)}</svg>`,
+  lumen: c => `<svg viewBox="0 0 400 360">${defsF()}${phone(`<rect x="126" y="26" width="148" height="220" fill="#F4F1EA"/><path d="M140 230 C170 200 160 150 200 130 S240 70 262 50" stroke="${c}" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M130 120 H270 M160 30 V246" stroke="#e3ddd1" stroke-width="2"/><circle cx="200" cy="130" r="9" fill="#111"/><rect x="194" y="126" width="12" height="8" rx="2" fill="${c}"/><rect x="136" y="256" width="128" height="68" rx="12" fill="#111"/><text x="146" y="278" font-size="9" fill="#bbb" font-family="sans-serif">Route 14 · Nørreport</text><text x="146" y="306" font-size="22" font-weight="600" fill="#fff" font-family="sans-serif">3 min</text><circle cx="246" cy="298" r="10" fill="${c}"/>`)}</svg>`,
+  kettle: c => `<svg viewBox="0 0 400 360">${defsF()}<g filter="url(#sh${FID})"><rect x="40" y="40" width="320" height="250" rx="6" fill="#F7F2EA"/><text x="60" y="74" font-size="15" font-family="Georgia,serif" fill="#3a2a20">Kettle &amp; Kiln</text>${['#C9B79C','#7E8C6E','#B05B3B','#2F3B4A','#E9E2D3','#8A6E9E'].map((g,i)=>`<circle cx="${70+i*26}" cy="258" r="9" fill="${g}" stroke="${i==2?'#111':'none'}" stroke-width="2"/>`).join('')}<path d="M210 110 h86 v88 a43 18 0 0 1 -86 0 z" fill="#B05B3B"/><ellipse cx="253" cy="110" rx="43" ry="10" fill="#c46a49"/><path d="M296 130 q26 4 22 30 q-3 20 -22 18" stroke="#B05B3B" stroke-width="8" fill="none"/><rect x="60" y="100" width="110" height="7" rx="3" fill="#3a2a20"/><rect x="60" y="118" width="80" height="5" rx="2" fill="#a89a8a"/><rect x="60" y="150" width="54" height="22" rx="11" fill="#3a2a20"/></g></svg>`,
+  tidepool: c => `<svg viewBox="0 0 400 360">${defsF()}${phone(`<text x="140" y="60" font-size="10" fill="#111" font-weight="600" font-family="sans-serif">Pick a time</text>${[0,1,2,3,4].map(i=>`<rect x="${140+i*24}" y="72" width="20" height="30" rx="6" fill="${i==2?c:'#eef1f8'}"/><text x="${145+i*24}" y="92" font-size="9" fill="${i==2?'#fff':'#556'}" font-family="sans-serif">${12+i}</text>`).join('')}${[0,1,2,3].map(i=>`<rect x="140" y="${116+i*30}" width="120" height="24" rx="7" fill="${i==1?c:'#f4f5f9'}" opacity="${i==1?1:1}"/><text x="150" y="${132+i*30}" font-size="9" fill="${i==1?'#fff':'#445'}" font-family="sans-serif">0${8+i}:30</text>`).join('')}<rect x="136" y="250" width="128" height="62" rx="12" fill="#FFF4D6"/><text x="146" y="270" font-size="9" fill="#7a5a00" font-weight="600" font-family="sans-serif">Fasting test</text><text x="146" y="286" font-size="8" fill="#7a5a00" font-family="sans-serif">No food after 22:00</text><text x="146" y="300" font-size="8" fill="#7a5a00" font-family="sans-serif">Water is fine</text>`)}</svg>`,
+  atlas: c => `<svg viewBox="0 0 400 360">${defsF()}<g filter="url(#sh${FID})"><rect x="30" y="40" width="340" height="270" rx="8" fill="#F2F0EA"/>${['#1B1B1B','#E4572E','#3E5BA9','#2B5B4A','#B9825A'].map((g,i)=>`<rect x="${50+i*42}" y="62" width="34" height="34" rx="6" fill="${g}"/>`).join('')}<rect x="50" y="116" width="96" height="28" rx="14" fill="#1B1B1B"/><rect x="154" y="116" width="96" height="28" rx="14" fill="none" stroke="#1B1B1B" stroke-width="1.5"/><rect x="50" y="160" width="200" height="34" rx="6" fill="#fff" stroke="#d6d2c8"/><rect x="62" y="174" width="80" height="6" rx="3" fill="#bbb"/><rect x="270" y="62" width="80" height="132" rx="8" fill="#fff" stroke="#d6d2c8"/><circle cx="310" cy="96" r="16" fill="#E4572E"/><rect x="284" y="126" width="52" height="6" rx="3" fill="#1B1B1B"/><rect x="290" y="140" width="40" height="5" rx="2" fill="#aaa"/><text x="50" y="240" font-size="40" font-family="Georgia,serif" font-style="italic" fill="#1B1B1B">Aa</text><rect x="120" y="214" width="2" height="40" fill="#E4572E"/><text x="134" y="228" font-size="9" fill="#555" font-family="sans-serif">Use when one action matters most.</text><text x="134" y="244" font-size="9" fill="#555" font-family="sans-serif">Not for two equal choices.</text></g></svg>`
+};
+const $ = s => document.querySelector(s);
+const list = $('#list'), strip = $('#strip'), peek = $('#peek'), dot = $('#dot'), sheet = $('#sheet');
+const cats = ['All', ...new Set(P.map(p => p.cat))];
+$('#work').innerHTML = cats.map((c, i) => `<button aria-pressed="${!i}" data-cat="${c}">${c}<sup>${c == 'All' ? P.length : P.filter(p => p.cat == c).length}</sup></button>`).join('');
+list.innerHTML = P.map((p, i) => `<li data-cat="${p.cat}"><div><a class="row" href="#${p.id}" data-i="${i}" style="--pc:${p.color}">
+  <span class="n">${String(i + 1).padStart(2, '0')}</span><span class="t">${p.name}</span>
+  <span class="c"><b>${p.cat}</b>${p.kind}</span><span class="mthumb" aria-hidden="true">${ART[p.id](p.color === '#1B1B1B' ? '#E4572E' : '#fff')}</span></a></div></li>`).join('');
+strip.innerHTML = P.map(p => `<div style="--pc:${p.color}">${ART[p.id](p.color === '#1B1B1B' ? '#E4572E' : p.color)}</div>`).join('');
+// mobile thumbs: draw with project colour accents on a tinted ground
+list.querySelectorAll('.mthumb').forEach((m, i) => m.innerHTML = ART[P[i].id](P[i].color === '#1B1B1B' ? '#E4572E' : P[i].color));
+
+$('#work').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  $('#work').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  list.querySelectorAll('li').forEach(li => { const off = b.dataset.cat !== 'All' && li.dataset.cat !== b.dataset.cat; li.classList.toggle('off', off); li.inert = off; });
+});
+
+/* preview window + dot follow the cursor with lag (window slower than the dot) */
+if (matchMedia('(hover:hover) and (min-width:761px)').matches) {
+  let tx = 0, ty = 0, px = 0, py = 0, dx = 0, dy = 0, on = false;
+  const tick = () => {
+    px += (tx - px) / 10; py += (ty - py) / 10; dx += (tx - dx) / 5; dy += (ty - dy) / 5;
+    peek.style.left = px + 'px'; peek.style.top = py + 'px'; dot.style.left = dx + 'px'; dot.style.top = dy + 'px';
+    requestAnimationFrame(tick);
+  };
+  tick();
+  addEventListener('pointermove', e => {
+    tx = e.clientX; ty = e.clientY;
+    const r = e.target.closest('.row');
+    if (r && !on) { px = tx; py = ty; dx = tx; dy = ty; }
+    on = !!r; peek.classList.toggle('on', on); dot.classList.toggle('on', on);
+    if (r) strip.style.transform = `translateY(${-100 * r.dataset.i}%)`;
+  });
+  addEventListener('scroll', () => { peek.classList.remove('on'); dot.classList.remove('on'); on = false; }, { passive: true });
+}
+
+/* case sheet */
+const lines = s => s.split(' ').map((w, i) => `<span class="ln" style="display:inline-block"><span style="--i:${i}">${w}&nbsp;</span></span>`).join('');
+let opener;
+function open(id) {
+  const p = P.find(x => x.id === id);
+  if (!p) { sheet.classList.remove('on'); sheet.inert = true; sheet.setAttribute('aria-hidden', 'true'); opener?.focus({ preventScroll: true }); document.title = 'Odile Rask · Sample portfolio'; return; }
+  opener = document.activeElement;
+  sheet.style.setProperty('--pc', p.color);
+  const next = P[(P.indexOf(p) + 1) % P.length];
+  sheet.innerHTML = `<div class="in">
+    <div class="bar"><a href="#">← Close</a><span>${p.cat} · ${p.year}</span></div>
+    <h2>${lines(p.name)}</h2>
+    <div class="meta"><div><span>Client</span>${p.name} (fictional)</div><div><span>Type</span>${p.kind}</div><div><span>Role</span>${p.role}</div><div><span>Year</span>${p.year}</div></div>
+    <p class="lede">${p.lede}</p>
+    <div class="art">${ART[p.id](p.color === '#1B1B1B' ? '#E4572E' : '#fff')}</div>
+    <div class="two"><div><h3>The problem</h3><p>${p.a}</p></div><div><h3>What shipped</h3><p>${p.b}</p></div></div>
+    <p class="lede"><a href="#${next.id}">Next: ${next.name} →</a></p></div>`;
+  sheet.scrollTop = 0; sheet.inert = false; sheet.setAttribute('aria-hidden', 'false');
+  requestAnimationFrame(() => requestAnimationFrame(() => sheet.classList.add('on')));
+  sheet.focus({ preventScroll: true });
+  document.title = `${p.name} · Odile Rask (sample)`;
+}
+addEventListener('hashchange', () => open(location.hash.slice(1)));
+addEventListener('keydown', e => { if (e.key === 'Escape' && sheet.classList.contains('on')) location.hash = ''; });
+open(location.hash.slice(1));
+requestAnimationFrame(() => document.body.classList.add('ready'));
+</script>
+</body>
+</html>
