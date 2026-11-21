@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en" data-mood="Paper">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layheng · Product Owner</title>
+<meta name="description" content="Loem Layheng, Product Owner in Phnom Penh. Selected work across digital channels, mobile and web.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Loem Layheng · Product Owner">
+<meta property="og:description" content="Product Owner at Smart Axiata, Phnom Penh. Prototype-first product work for mobile and web.">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#F1EEE7">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='38' fill='%23F1EEE7'%3EL%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/MiSansKhmer-Medium.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  /* Loader fonts, served from this site's own fonts/ folder (no outside servers) */
+  @font-face { font-family: MiSansKhmer; font-weight: 500; font-display: swap; src: url("fonts/MiSansKhmer-Medium.woff2") format("woff2"); }
+  @font-face { font-family: MiSansLatin; font-weight: 500; font-display: swap; src: url("fonts/MiSansLatin-Medium.woff2") format("woff2"); }
+  @font-face { font-family: "Zen Kaku Gothic New"; font-weight: 500; font-display: swap; src: url("fonts/ZenKakuGothicNew-Subset.woff2") format("woff2"); }
+  @font-face { font-family: "IBM Plex Sans KR"; font-weight: 500; font-display: swap; src: url("fonts/IBMPlexSansKR-Subset.woff2") format("woff2"); }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F1EEE7; --ink: #111111; --hover: #111111;
+    --gutter: clamp(16px, 2.6vw, 44px);
+    --ease: cubic-bezier(.16, 1, .3, 1);
+    --roll: 1.1em;
+  }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: Inter, MiSansKhmer, system-ui, sans-serif; font-size: 16px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased; overflow: hidden;
+  }
+  a, button { color: inherit; font: inherit; background: none; border: 0; cursor: pointer; text-decoration: none; text-align: inherit; }
+  button:focus-visible, a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+  ::selection { background: var(--ink); color: var(--bg); }
+
+  /* ---------- View transitions ---------- */
+  html.vt-mood::view-transition-old(root), html.vt-mood::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+  html.vt-nav::view-transition-old(root) { animation: none; }
+  html.vt-nav::view-transition-new(root) { animation: vtwipe .8s cubic-bezier(.16, 1, .3, 1); }
+  @keyframes vtwipe { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0); } }
+  ::view-transition-group(ptitle) { animation-duration: .9s; animation-timing-function: cubic-bezier(.16, 1, .3, 1); }
+
+  /* ---------- Loader ---------- */
+  .loader {
+    position: fixed; inset: 0; z-index: 100; background: var(--ink); color: var(--bg);
+    display: grid; place-items: center; font-size: clamp(34px, 4.6vw, 60px); letter-spacing: -.03em;
+    transition: transform 1.05s var(--ease);
+  }
+  .loader::after { content: ''; position: absolute; left: -10%; width: 120%; top: calc(100% - 1px); height: 22vh; background: inherit; border-radius: 0 0 50% 50%; transition: height 1.05s var(--ease); }
+  .loader p { display: flex; align-items: center; gap: .35em; }
+  .loader i { width: .2em; height: .2em; border-radius: 50%; background: currentColor; }
+  .loader.out { transform: translateY(calc(-100% - 22vh)); }
+  .loader.out::after { height: 0; }
+  .loader.gone { display: none; }
+
+  /* ---------- Cursor label ---------- */
+  .cursor {
+    position: fixed; left: 0; top: 0; z-index: 90; pointer-events: none;
+    padding: 8px 14px; border-radius: 99px; background: var(--ink); color: var(--bg);
+    font-size: 13px; font-weight: 500; letter-spacing: -.01em; white-space: nowrap;
+    transform: translate(18px, 20px) scale(0); transform-origin: 0 0; transition: transform .35s var(--ease);
+  }
+  .cursor.on { transform: translate(18px, 20px) scale(1); }
+  @media not (hover: hover) { .cursor { display: none; } }
+
+  /* ---------- Rolling text ---------- */
+  .roll { display: inline-flex; overflow: hidden; line-height: var(--roll); height: var(--roll); vertical-align: top; }
+  .roll .c { display: inline-block; white-space: pre; text-shadow: 0 var(--roll) currentColor; transition: transform .55s var(--ease); transition-delay: calc(var(--i) * 16ms); }
+  a:hover > .roll .c, button:hover > .roll .c, .row:hover .roll .c, .p-next:hover .roll .c, a:focus-visible > .roll .c { transform: translateY(calc(-1 * var(--roll))); }
+
+  /* ---------- Bars ---------- */
+  .bar {
+    position: fixed; left: 0; right: 0; z-index: 26;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 var(--gutter); font-size: clamp(16px, 1.55vw, 24px); letter-spacing: -.04em;
+  }
+  .top { top: 0; height: 76px; }
+  .bottom { bottom: 0; height: 64px; font-size: clamp(15px, 1.4vw, 22px); }
+  .bar > * { transition: transform 1.1s var(--ease) .35s, opacity 1.1s var(--ease) .35s; }
+  body:not(.ready) .top > * { transform: translateY(-140%); opacity: 0; }
+  body:not(.ready) .bottom > * { transform: translateY(140%); opacity: 0; }
+  .brand { display: flex; gap: .5em; align-items: center; text-transform: uppercase; }
+  .brand b { font-weight: 700; }
+  .top > button { text-transform: uppercase; }
+  .mood { display: flex; align-items: center; gap: .5em; }
+  .mood i { width: .55em; height: .55em; border-radius: 50%; background: var(--ink); animation: pulse 2.4s var(--ease) infinite; }
+  @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ink) 45%, transparent); } 60% { box-shadow: 0 0 0 .45em transparent; } }
+  .mid { position: absolute; left: 50%; translate: -50% 0; font-size: 14px; letter-spacing: 0; }
+  body.open .bar { background: var(--bg); }
+  .progress { position: fixed; z-index: 27; left: 0; right: 0; top: 76px; height: 2px; background: var(--acc, var(--ink)); transform-origin: left; transform: scaleX(var(--p, 0)); opacity: 0; transition: opacity .4s; }
+  body.open .progress { opacity: 1; }
+
+  /* ---------- Project list ---------- */
+  .stage { height: 100%; display: flex; flex-direction: column; overflow-y: auto; overscroll-behavior: contain; transition: filter .7s var(--ease), opacity .7s var(--ease); }
+  .home { margin: auto 0; padding: 96px var(--gutter) 84px max(var(--gutter), calc(50vw - 330px)); }
+  .list { list-style: none; }
+  .hi { font-size: 14px; line-height: 1.5; margin-bottom: 26px; max-width: 34ch; opacity: .75; transition: opacity 1s var(--ease) .9s, transform 1s var(--ease) .9s; }
+  body:not(.ready) .hi { opacity: 0; transform: translateY(10px); }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .row {
+    position: relative; display: inline-flex; align-items: flex-start; gap: 10px;
+    font-size: clamp(42px, 5.2vw, 84px); letter-spacing: -.045em; --roll: 1.08em;
+    transition: opacity .45s var(--ease);
+  }
+  .list:has(.row:hover) .row:not(:hover) { opacity: .25; }
+  .row .n, .row .t { font-size: 14px; letter-spacing: 0; line-height: 1; padding-top: .95em; white-space: nowrap; transition: opacity .8s var(--ease), transform .45s var(--ease), color .3s; }
+  .row .n { transition-delay: calc(var(--r) * 90ms + .45s), 0s, 0s; }
+  .row .t { transition-delay: calc(var(--r) * 90ms + .6s), 0s, 0s; }
+  body:not(.ready) .row .n, body:not(.ready) .row .t { opacity: 0; }
+  .row:hover .t { transform: translateX(6px); }
+  .row:hover .name, .row:hover .n, .row:hover .t { color: var(--hover); }
+  html[data-mood="Paper"] .row:hover .name { color: var(--pc); }
+  html[data-mood="Paper"] .row:hover :is(.n, .t) { color: color-mix(in srgb, var(--pc) 70%, #000); }
+  .name { transition: color .3s; }
+  .name .l { display: inline-block; transition: transform 1.1s var(--ease); transition-delay: calc(var(--i) * 24ms + var(--r) * 90ms); }
+  body:not(.ready) .name .l { transform: translateY(110%); }
+
+  .thumbs {
+    position: absolute; left: calc(100% + 22px); top: 50%; display: none; gap: 12px; pointer-events: none;
+    translate: calc(var(--mx, 0) * .06px) calc(-50% + var(--my, 0) * .35px); transition: translate .5s var(--ease);
+  }
+  .thumb { width: 150px; height: 120px; border-radius: 6px; overflow: hidden; clip-path: inset(100% 0 0 0); transition: clip-path .7s var(--ease); }
+  .thumb + .thumb { width: 190px; transition-delay: .07s; }
+  .thumb .frame { height: 100%; scale: 1.25; transition: scale 1s var(--ease); }
+  .thumb + .thumb .frame { transition-delay: .07s; }
+  @media (hover: hover) and (min-width: 1100px) {
+    .thumbs { display: flex; }
+    .row:hover .thumb { clip-path: inset(0); }
+    .row:hover .thumb .frame { scale: 1; }
+  }
+
+  /* ---------- Mock frames ---------- */
+  .frame { position: relative; display: grid; place-items: center; background: var(--tint); border-radius: inherit; overflow: hidden; }
+  .frame svg { display: block; max-width: 100%; max-height: 100%; }
+  .thumb .frame { padding: 10px; }
+  .thumb .frame svg { height: 100%; width: auto; filter: drop-shadow(0 6px 10px rgba(0,0,0,.18)); }
+
+  /* ---------- About panel ---------- */
+  .scrim { position: fixed; inset: 0; z-index: 30; background: rgba(0,0,0,.25); opacity: 0; pointer-events: none; transition: opacity .5s; }
+  .panel {
+    position: fixed; z-index: 31; top: 0; left: 0; bottom: 0; width: min(560px, 100%);
+    background: #FAF8F3; color: #111; overflow-y: auto; padding: 28px var(--gutter) 48px;
+    clip-path: inset(0 100% 0 0); transition: clip-path .8s var(--ease);
+  }
+  .panel ::selection { background: #111; color: #FAF8F3; }
+  .panel > * { opacity: 0; transform: translateY(18px); transition: opacity .6s var(--ease), transform .8s var(--ease); }
+  body.about .panel { clip-path: inset(0); }
+  body.about .panel > * { opacity: 1; transform: none; transition-delay: calc(var(--k, 0) * 60ms + .2s); }
+  body.about .scrim { opacity: 1; pointer-events: auto; }
+  body.about .stage, body.about .bar, body.about .project { filter: blur(8px); }
+  .panel-top { position: sticky; top: -28px; z-index: 1; margin: -28px calc(-1 * var(--gutter)) 0; padding: 28px var(--gutter) 12px; background: #FAF8F3; display: flex; justify-content: flex-end; font-size: 15px; text-transform: uppercase; }
+  .panel h2 { font-size: clamp(56px, 8vw, 88px); font-weight: 400; letter-spacing: -.05em; line-height: 1; margin: 28px 0; }
+  .panel p { font-size: 15.5px; line-height: 1.65; margin-bottom: 16px; color: #333; }
+  .panel p b { color: #000; font-weight: 600; }
+  .panel h3 { font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: #777; margin: 32px 0 10px; }
+  .facts { list-style: none; border-top: 1px solid #0000001c; }
+  .facts li { display: flex; justify-content: space-between; gap: 16px; padding: 11px 0; border-bottom: 1px solid #0000001c; font-size: 15px; }
+  .facts li span:first-child { color: #777; }
+  .facts li > :last-child { text-align: right; }
+  .facts a { background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 100% 1px; transition: background-size .5s var(--ease); padding-bottom: 1px; }
+  .facts a:hover { background-size: 0 1px; background-position: 100% 100%; }
+
+  /* ---------- Project page ---------- */
+  .project {
+    --acc: var(--hover);
+    position: fixed; inset: 0; z-index: 25; background: var(--bg); overflow-y: auto; overscroll-behavior: contain;
+    clip-path: inset(100% 0 0 0); visibility: hidden;
+    transition: clip-path 1s var(--ease), visibility 0s 1s;
+  }
+  html[data-mood="Paper"] .project, html[data-mood="Paper"] .progress { --acc: var(--pc); }
+  .project { --acc-t: color-mix(in srgb, var(--acc) 72%, var(--ink)); }
+  .project:focus { outline: none; }
+  .project ::selection { background: var(--acc); color: var(--bg); }
+  body.open .project { clip-path: inset(0); visibility: visible; transition: clip-path 1s var(--ease), visibility 0s; }
+  body.open .stage { filter: blur(6px); opacity: .4; }
+  .project.instant, .project.instant .p-title h1 .l, html.vt-nav .stage { transition: none !important; }
+  .p-inner { padding: 150px var(--gutter) 0; }
+  .p-back { display: inline-block; font-size: 14px; margin-bottom: 28px; }
+  .p-title { display: flex; align-items: flex-start; gap: 10px; transform: translateY(calc(var(--sy, 0) * .3px)); opacity: calc(1 - var(--sy, 0) / 700); }
+  .p-title h1 { font-size: clamp(64px, 13vw, 200px); font-weight: 400; letter-spacing: -.06em; line-height: 1; overflow: hidden; padding-bottom: .04em; width: fit-content; }
+  .p-title h1 .wd { display: inline-block; white-space: nowrap; }
+  .p-title h1 .l { display: inline-block; transform: translateY(105%); transition: transform 1.1s var(--ease); transition-delay: calc(var(--i) * 30ms + .35s); }
+  .p-title > span { font-size: 14px; padding-top: 1.1em; white-space: nowrap; }
+  .in .p-title h1 .l { transform: none; }
+
+  .rv { opacity: 0; transform: translateY(28px); transition: opacity .9s var(--ease), transform 1.1s var(--ease); transition-delay: var(--d, 0s); }
+  .in .rv, .sv.in, .sv.in .rv { opacity: 1; transform: none; }
+
+  .p-sec { display: grid; grid-template-columns: 1fr 1.6fr; gap: 40px; margin-top: 110px; max-width: 1320px; }
+  .p-sec:first-of-type { margin-top: 64px; }
+  .p-label { font-size: 14px; line-height: 1.8; }
+  .p-label div { opacity: .74; }
+  .p-label .k { font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; opacity: .74; display: block; margin-bottom: 6px; }
+
+  /* intro: words rise, then key phrases get a highlighter sweep */
+  .lead { font-size: clamp(24px, 2.6vw, 40px); line-height: 1.25; letter-spacing: -.03em; }
+  .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-bottom: -.08em; }
+  .w > span { display: inline-block; transform: translateY(105%); transition: transform .9s var(--ease); transition-delay: calc(var(--w) * 22ms + .55s); }
+  .in .w > span { transform: none; }
+  mark {
+    color: inherit; border-radius: .12em; padding: 0 .06em; cursor: default;
+    background: linear-gradient(color-mix(in srgb, var(--acc) 38%, transparent), color-mix(in srgb, var(--acc) 38%, transparent)) no-repeat 0 92% / 0% .42em;
+    transition: background-size 1.1s var(--ease) 1.5s, color .35s var(--ease);
+    -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  }
+  .in mark { background-size: 100% .42em; }
+  .settled mark { transition: background-size .45s var(--ease), color .3s var(--ease); }
+  mark:hover { background-image: linear-gradient(var(--acc), var(--acc)); background-size: 100% 100%; color: var(--bg); transition-delay: 0s; }
+
+  /* What I did: interactive list */
+  .did { list-style: none; border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); }
+  .did li { border-bottom: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); position: relative; }
+  .did li::before { content: ''; position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%; background: var(--acc); transform: scaleX(0); transform-origin: left; transition: transform .7s var(--ease); }
+  .did li:hover::before, .did li.open::before { transform: scaleX(1); }
+  .did button { width: 100%; display: grid; grid-template-columns: 48px 1fr 32px; align-items: center; padding: 22px 0; font-size: clamp(20px, 2vw, 30px); letter-spacing: -.03em; }
+  .did .dn { font-size: 13px; letter-spacing: 0; opacity: .74; transition: color .3s, opacity .3s; }
+  .did .dt { transition: transform .5s var(--ease); }
+  .did li:hover .dt { transform: translateX(10px); }
+  .did li:hover .dn, .did li.open .dn { color: var(--acc-t); opacity: 1; }
+  .did .pm { position: relative; width: 18px; height: 18px; justify-self: end; transition: transform .5s var(--ease); }
+  .did .pm::before, .did .pm::after { content: ''; position: absolute; left: 0; top: 50%; width: 100%; height: 1.5px; background: currentColor; }
+  .did .pm::after { transform: rotate(90deg); transition: transform .5s var(--ease); }
+  .did li.open .pm::after { transform: rotate(0); }
+  .did .dd { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--ease); }
+  .did li.open .dd { grid-template-rows: 1fr; }
+  .did .dd > div { overflow: hidden; }
+  .did .dd p { padding: 0 32px 24px 48px; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.55; opacity: .8; }
+
+  /* Result: outcome cards with drawn icons */
+  .res { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+  .card {
+    position: relative; padding: 26px 24px 28px; border-radius: 14px; overflow: hidden;
+    background: color-mix(in srgb, var(--ink) 5%, transparent); border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+    transition: transform .6s var(--ease), background-color .4s, border-color .4s, opacity .9s var(--ease);
+  }
+  .card::after { content: ''; position: absolute; inset: auto 0 0 0; height: 3px; background: var(--acc); transform: scaleX(0); transform-origin: left; transition: transform .7s var(--ease); }
+  .card:hover { transform: translateY(-6px); border-color: var(--acc); }
+  .card:hover::after { transform: scaleX(1); }
+  .card svg { width: 34px; height: 34px; fill: none; stroke: var(--acc); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; display: block; margin-bottom: 40px; }
+  .card svg * { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.4s var(--ease); transition-delay: calc(var(--d, 0s) + .3s); }
+  .sv.in .card svg *, .card.in svg * { stroke-dashoffset: 0; }
+  .card:hover svg * { animation: draw 1s var(--ease); }
+  @keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  .card h3 { font-size: clamp(19px, 1.7vw, 24px); font-weight: 500; letter-spacing: -.03em; line-height: 1.15; margin-bottom: 10px; }
+  .card p { font-size: 15px; line-height: 1.5; opacity: .75; }
+
+  /* Screens */
+  .p-shots { display: grid; grid-template-columns: 1fr 1.5fr; gap: 16px; margin-top: 110px; }
+  .shot { border-radius: 10px; overflow: hidden; clip-path: inset(18% 0 0 0 round 10px); transition: clip-path 1.2s var(--ease); }
+  .shot .frame { height: clamp(340px, 40vw, 600px); padding: 6% 6% 64px; scale: 1.12; transition: scale 1.6s var(--ease); }
+  .shot.in { clip-path: inset(0 round 10px); }
+  .shot.in .frame { scale: 1; }
+  .shot svg { height: 100%; width: auto; filter: drop-shadow(0 18px 30px rgba(0,0,0,.18)); transform: translate3d(0, calc(var(--par, 0) * 1px), 0); will-change: transform; backface-visibility: hidden; }
+  .shot .wide svg { width: 100%; height: auto; }
+  .note { position: absolute; left: 16px; right: 16px; bottom: 12px; font-size: 12.5px; font-style: italic; color: #4a4a4a; line-height: 1.35; }
+
+  /* Next project: the whole block is the link */
+  .p-next {
+    position: relative; display: block; margin: 130px calc(-1 * var(--gutter)) 0; padding: 48px var(--gutter) 110px;
+    overflow: hidden; border-top: 1px solid color-mix(in srgb, var(--ink) 20%, transparent); isolation: isolate;
+    transition: color .5s var(--ease);
+  }
+  .p-next::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--npc); transform: translateY(101%); transition: transform .8s var(--ease); }
+  .p-next:hover { color: #fff; }
+  .p-next:hover::before { transform: none; }
+  .p-next .k { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
+  .p-next .row2 { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 18px; }
+  .p-next .nm { display: flex; align-items: flex-start; gap: 10px; font-size: clamp(48px, 9vw, 140px); letter-spacing: -.05em; --roll: 1.05em; }
+  .p-next .nm > span:last-child { font-size: 14px; letter-spacing: 0; padding-top: .8em; }
+  .p-next .arrow { flex: none; width: clamp(64px, 7vw, 110px); aspect-ratio: 1; border-radius: 50%; border: 1px solid currentColor; display: grid; place-items: center; font-size: clamp(26px, 2.6vw, 40px); transition: transform .6s var(--ease), background-color .4s, color .4s; }
+  .p-next:hover .arrow { transform: rotate(-45deg) scale(1.08); background: #fff; color: var(--npc); border-color: #fff; }
+
+  @media (max-width: 760px) {
+    .top { height: 60px; }
+    .progress { top: 60px; }
+    .list { padding-left: var(--gutter); }
+    .row .t { display: none; }
+    .row .n { padding-top: .7em; font-size: 12px; }
+    .mid { font-size: 13px; }
+    .p-inner { padding-top: 110px; }
+    .p-sec, .p-shots { grid-template-columns: 1fr; gap: 24px; margin-top: 72px; }
+    .res { grid-template-columns: 1fr; }
+    .p-title > span { display: none; }
+    .shot .frame { height: auto; aspect-ratio: 4 / 4.4; padding: 8% 8% 64px; }
+    .did button { grid-template-columns: 36px 1fr 24px; }
+    .did .dd p { padding-left: 36px; padding-right: 0; }
+    .p-next .arrow, .p-next .nm > span:last-child { display: none; }
+    .p-next .nm { font-size: clamp(36px, 12vw, 64px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: .01ms !important; transition-delay: 0s !important; animation: none !important; }
+    .loader { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader" aria-hidden="true"><p><i></i><span id="hello" style="font-family:MiSansLatin, Inter, sans-serif">Hello</span></p></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+
+<header class="bar top">
+  <div class="brand">
+    <a href="#" aria-label="Home"><b class="roll" data-roll>LAYHENG</b></a>
+    <button class="role" data-about aria-label="Product Owner. Open about" aria-controls="panel" aria-expanded="false"><span class="roll" data-roll>Product Owner</span></button>
+  </div>
+  <button data-about data-contact aria-controls="panel" aria-expanded="false"><span class="roll" data-roll>Contact</span></button>
+</header>
+<div class="progress" id="progress"></div>
+
+<main class="stage">
+  <div class="home">
+    <h1 class="sr">Loem Layheng, Product Owner</h1>
+    <ol class="list" id="list"></ol>
+  </div>
+</main>
+
+<footer class="bar bottom">
+  <button class="mood" id="mood" aria-label="Change site colours" data-cursor="Change mood"><i></i><span id="moodName">Paper</span></button>
+  <a class="mid" href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener"><span class="roll" data-roll>[ Download CV ]</span></a>
+  <span>©2026</span>
+</footer>
+
+<article class="project" id="project" aria-hidden="true" tabindex="-1" inert>
+  <div class="p-inner" id="pInner"></div>
+</article>
+
+<div class="scrim" data-close></div>
+<aside class="panel" id="panel" role="dialog" aria-modal="true" aria-label="About" aria-hidden="true" inert>
+  <div class="panel-top"><button data-close><span class="roll" data-roll>Close ×</span></button></div>
+  <h2>About me</h2>
+  <p>I’m <b>Loem Layheng</b>, a Product Owner based in Phnom Penh. At <b>Smart Axiata</b> I look after the <b>SmartNas digital channels</b>: planning new features, handling complaints and issues, and bringing partners on board.</p>
+  <p>I work <b>prototype-first</b>. With vibe coding I build the layout and a working sample UI, check feasibility, and present something people can click, on <b>mobile and web</b>. It turns a long proposal into a short demo, and makes the result easy to measure.</p>
+  <p>Before Smart, I owned a POS product at Youding, redesigned its QR ordering app, and started out in customer success, which is where I learned what users really struggle with.</p>
+  <h3>Quick facts</h3>
+  <ul class="facts">
+    <li><span>Now</span><span>Digital Touchpoint Officer, Smart Axiata</span></li>
+    <li><span>Tools</span><span>Figma, FigJam, Claude Code, Jira, Confluence</span></li>
+    <li><span>Study</span><span>BBA Management, NUM · BA English, IFL</span></li>
+    <li><span>Languages</span><span>Khmer, English</span></li>
+  </ul>
+  <h3 id="contactHead">Contact</h3>
+  <ul class="facts">
+    <li><span>Telegram</span><a href="https://t.me/LayhengLoem" target="_blank" rel="noopener">t.me/LayhengLoem</a></li>
+    <li><span>Email</span><a href="mailto:loemlayheng@gmail.com">loemlayheng@gmail.com</a></li>
+    <li><span>CV</span><a href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener">Download PDF</a></li>
+    <li><span>Based in</span><span>Phnom Penh, Cambodia</span></li>
+  </ul>
+</aside>
+
+<script src="mocks.js"></script>
+<script>
+/* ================= Content (edit text here) =================
+   intro: wrap words in *stars* to give them the highlighter sweep. */
+const NOTE_CO = 'Illustrative mock-up. Real screens can’t be shared due to company confidentiality.';
+const projects = [
+  { id: 'smartnas', name: 'SmartNas', tag: 'Product Ownership', color: '#16A34A',
+    meta: ['Digital Touchpoint Officer', 'Smart Axiata', '2026 to present'], shots: ['smartPhone', 'smartWeb'], note: NOTE_CO,
+    intro: 'Product Owner for *every SmartNas digital channel*. I plan what gets built next, deal with what goes wrong, and *bring partners into the product*.',
+    did: [['Feature planning', 'Plan and develop new features inside SmartNas, from requirements to release with the development teams.'],
+          ['Issues and complaints', 'Handle complaints, issues and inquiries from all Smart digital channels, and drive each one to a fix with the right team.'],
+          ['Partner integration', 'Lead partner integrations into Smart’s digital channels, aligning scope and user flows from the first call to launch.'],
+          ['Prototype first', 'Present new features as working prototypes for mobile and web, built with vibe coding, instead of long written proposals.']],
+    results: [['bolt', 'Faster decisions', 'Stakeholders react to a working screen, not a document, so features get approved or cut sooner.'],
+              ['target', 'Clearer scope', 'Developers see the exact flow before building, so there are fewer surprises later.'],
+              ['layers', 'One owner, every channel', 'Features, complaints and partners are tracked together, so nothing falls between teams.']] },
+  { id: 'ezorder', name: 'EZorder', tag: 'QR Ordering Redesign', color: '#EA580C',
+    meta: ['Product Owner', 'Youding', 'Dec 2025 to Feb 2026'], shots: ['ezPhone', 'ezWeb'], note: NOTE_CO,
+    intro: 'A QR dine-in ordering web app. Guests *scan, browse, order and pay* from their own phone, with *no waiting for staff*.',
+    did: [['Journey mapping', 'Mapped the full guest journey from QR scan to payment, including the edge cases staff deal with today.'],
+          ['UX/UI redesign', 'Led the end-to-end redesign of EZorder 2.0, together with a new brand identity.'],
+          ['Hi-fi prototype', 'Built the high-fidelity Figma prototype that the development team built from.'],
+          ['Scope and UAT', 'Split MVP from backlog with stakeholders, then ran UAT rounds with live restaurant clients.']],
+    results: [['phone', 'Self-service ordering', 'Guests browse, order and pay from their own phone, without waving for a waiter.'],
+              ['users', 'Staff freed up', 'Less time walking orders between tables, more time on food and service.'],
+              ['check', 'Live with restaurants', 'Shipped and running with Youding restaurant clients after UAT.']] },
+  { id: 'chatbot', name: 'AI Chatbot', tag: 'Product Spec', color: '#6D28D9',
+    meta: ['Product Owner', 'Youding', '2025'], shots: ['botPhone', 'botWeb'], note: NOTE_CO,
+    intro: 'A *first line of support* inside the POS app. It answers routine questions so the CS team can *focus on the hard cases*.',
+    did: [['Question audit', 'Listed the top 20 recurring support questions together with the CS team.'],
+          ['Conversation design', 'Designed the conversation flows, plus clear escalation paths for anything the bot can’t solve.'],
+          ['Prompt writing', 'Wrote and tested the prompts so answers stay accurate and on-brand.'],
+          ['Feedback loop', 'Set up tracking to find weak answers and keep improving them.']],
+    results: [['chat', 'Instant first answers', 'Routine POS questions get answered right away, any time of day.'],
+              ['route', 'Smart escalation', 'Hard cases reach a person, with the context already attached.'],
+              ['refresh', 'Keeps improving', 'Feedback shows which answers need work, so quality goes up over time.']] },
+  { id: 'store', name: 'Dropship Store', tag: 'E-commerce', color: '#D97706',
+    meta: ['Founder', 'Self-employed', '2023 to 2024'], shots: ['shopPhone', 'shopWeb'], note: 'Illustrative mock-up with a sample store. Not the real shop.',
+    intro: 'I ran *my own Shopify store* end to end: finding products, building the shop, running ads and *getting every order delivered* to buyers abroad.',
+    did: [['Store build', 'Set up the Shopify store myself: theme, product pages, checkout and the apps that tie it together.'],
+          ['Product research', 'Found trending products for international buyers, tested them, and set prices that left a real margin.'],
+          ['Digital marketing', 'Ran Facebook, Instagram and TikTok ad campaigns, plus short video content, to bring buyers to the store.'],
+          ['Fulfilment and support', 'Placed supplier orders, tracked shipping and answered customer questions until every order arrived.']],
+    results: [['bolt', 'Built from zero', 'Took a store from an empty Shopify account to taking real orders, on my own.'],
+              ['trend', 'Learned what sells', 'Testing products and ads taught me to read the data and drop what doesn’t work, fast.'],
+              ['users', 'The customer’s view', 'Seeing every step a buyer takes now shapes how I plan features at Smart.']] },
+  { id: 'poster', name: 'Poster AI', tag: 'Automation', color: '#E11D48',
+    meta: ['Builder', 'Freelance agency', '2025'], shots: ['posterPhone', 'posterWeb'], note: 'Illustrative mock-up with a sample brand. Client work can’t be shared due to confidentiality.',
+    intro: 'Turns *one client brief* into a *full set of on-brand posters* in a single run.',
+    did: [['AI pipeline', 'Designed the AI image pipeline from brief to finished poster.'],
+          ['Brand consistency', 'Used image-to-image generation to keep every poster in the brand’s style.'],
+          ['Brief form', 'Built a simple brief form so the marketer needs no technical knowledge.'],
+          ['Batch output', 'Automated output in every size the client needs.']],
+    results: [['clock', 'Hours to minutes', 'A full poster set comes out of a single brief.'],
+              ['sparkle', 'On-brand every time', 'Colours, type and style stay consistent across every size.'],
+              ['trend', 'More clients, same effort', 'The agency could take on more clients without adding hours.']] }
+];
+const ICONS = {
+  bolt: '<path pathLength="1" d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/>',
+  target: '<circle pathLength="1" cx="12" cy="12" r="9"/><circle pathLength="1" cx="12" cy="12" r="5"/><circle pathLength="1" cx="12" cy="12" r="1"/>',
+  layers: '<path pathLength="1" d="M12 3 2 8l10 5 10-5-10-5z"/><path pathLength="1" d="m2 13 10 5 10-5"/><path pathLength="1" d="m2 18 10 5 10-5"/>',
+  phone: '<rect pathLength="1" x="6" y="2" width="12" height="20" rx="2.5"/><path pathLength="1" d="M10.5 18.5h3"/>',
+  users: '<circle pathLength="1" cx="9" cy="7" r="4"/><path pathLength="1" d="M2 21v-1a7 7 0 0 1 14 0v1"/><path pathLength="1" d="M17 3.5a4 4 0 0 1 0 7M22 21v-1a6 6 0 0 0-4-5.6"/>',
+  check: '<circle pathLength="1" cx="12" cy="12" r="9"/><path pathLength="1" d="m8 12 3 3 5-6"/>',
+  chat: '<path pathLength="1" d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/>',
+  route: '<path pathLength="1" d="M4 20h6a4 4 0 0 0 4-4V4"/><path pathLength="1" d="m10 8 4-4 4 4"/>',
+  refresh: '<path pathLength="1" d="M20 11a8 8 0 1 0-2.3 5.7"/><path pathLength="1" d="M20 4v7h-7"/>',
+  clock: '<circle pathLength="1" cx="12" cy="12" r="9"/><path pathLength="1" d="M12 7v5l3 2"/>',
+  sparkle: '<path pathLength="1" d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>',
+  trend: '<path pathLength="1" d="m3 17 6-6 4 4 8-8"/><path pathLength="1" d="M15 7h6v6"/>'
+};
+const tint = c => `color-mix(in srgb, ${c} 16%, #F4F2EC)`;
+const frame = (p, k, withNote) => `<div class="frame${k ? ' wide' : ''}" style="--tint:${tint(p.color)}">${mocks[p.shots[k]](p.color)}${withNote ? `<p class="note">${p.note}</p>` : ''}</div>`;
+
+/* ================= Helpers ================= */
+const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+const esc = ch => ch === ' ' ? '&nbsp;' : ch;
+const letters = (s, r = 0) => `<span class="roll">${[...s].map((ch, i) => `<span class="l" style="--i:${i};--r:${r}"><span class="c" style="--i:${i}">${esc(ch)}</span></span>`).join('')}</span>`;
+const HOVER = matchMedia('(hover: hover)').matches;
+const PARALLAX = HOVER && matchMedia('(min-width: 1100px)').matches;
+// big project title: letters animate, but a word never breaks in the middle
+const titleHTML = name => { let i = 0; return name.split(' ').map(w => `<span class="wd">${[...w].map(ch => `<span class="l" style="--i:${i++}">${ch}</span>`).join('')}</span>`).join(' '); };
+const rollify = el => el.innerHTML = [...el.textContent].map((ch, i) => `<span class="c" style="--i:${i}">${esc(ch)}</span>`).join('');
+// words rise one by one; *phrases* become highlighter marks
+function rich(txt) {
+  let w = 0;
+  return txt.split(/(\*[^*]+\*)/).map(seg => {
+    const marked = seg.startsWith('*');
+    const html = (marked ? seg.slice(1, -1) : seg).split(/(\s+)/).map(t => /^\s+$/.test(t) ? ' ' : t ? `<span class="w"><span style="--w:${w++}">${t}</span></span>` : '').join('');
+    return marked ? `<mark>${html}</mark>` : html;
+  }).join('');
+}
+document.querySelectorAll('[data-roll]').forEach(rollify);
+
+/* ================= Loader: hello in Khmer + other languages ================= */
+const loader = document.getElementById('loader'), hello = document.getElementById('hello');
+const markReady = () => { if (document.body.classList.contains('ready')) return; document.body.classList.add('ready'); document.dispatchEvent(new Event('site-ready')); };
+function intro() {
+  const done = () => { loader.classList.add('gone'); markReady(); };
+  let seen = false;
+  try { seen = !!sessionStorage.getItem('seenIntro'); sessionStorage.setItem('seenIntro', '1'); } catch (e) {}
+  if (reduce() || seen) return done();
+  const KM = 'MiSansKhmer, sans-serif', LA = 'MiSansLatin, Inter, sans-serif';
+  const words = [['Hello', LA], ['សួស្តី', KM], ['Bonjour', LA], ['Hola', LA], ['Ciao', LA], ['Hallo', LA],
+    ['こんにちは', '"Zen Kaku Gothic New", sans-serif'], ['안녕하세요', '"IBM Plex Sans KR", sans-serif'], ['សួស្តី', KM]];
+  let k = 0;
+  const step = () => {
+    hello.textContent = words[k][0]; hello.style.fontFamily = words[k][1];
+    if (++k < words.length) return setTimeout(step, k === 1 ? 520 : 140);
+    setTimeout(() => {
+      loader.classList.add('out');
+      setTimeout(markReady, 350);
+      setTimeout(done, 1100);
+    }, 420);
+  };
+  // load every greeting font first so no word flashes in a fallback font (max 1.2s wait)
+  const fonts = Promise.all(words.map(([t, f]) => document.fonts.load(`500 40px ${f}`, t).catch(() => {})));
+  Promise.race([fonts, new Promise(r => setTimeout(r, 1200))]).then(step);
+}
+intro();
+
+/* ================= List ================= */
+const list = document.getElementById('list');
+list.innerHTML = projects.map((p, r) => `
+  <li><a class="row" href="#${p.id}" style="--r:${r};--pc:${p.color}" data-cursor="View case →" aria-label="${p.name}, ${p.tag}">
+    <span class="n">[${String(r + 1).padStart(2, '0')}]</span>
+    <span class="name">${letters(p.name, r)}</span>
+    <span class="t">[${p.tag}]</span>
+    <span class="thumbs" aria-hidden="true"><span class="thumb">${frame(p, 0)}</span><span class="thumb">${frame(p, 1)}</span></span>
+  </a></li>`).join('');
+list.addEventListener('mousemove', e => {
+  const row = e.target.closest('.row'); if (!row) return;
+  const b = row.getBoundingClientRect();
+  row.style.setProperty('--mx', (e.clientX - b.left - b.width / 2).toFixed(0));
+  row.style.setProperty('--my', (e.clientY - b.top - b.height / 2).toFixed(0));
+});
+
+/* ================= Cursor label (follows the mouse with a little lag) ================= */
+const cur = document.getElementById('cursor');
+let label = '';
+const hideCursor = () => {
+  label = ''; cur.style.transition = 'none'; cur.classList.remove('on');
+  requestAnimationFrame(() => requestAnimationFrame(() => cur.style.transition = ''));
+};
+if (matchMedia('(hover: hover)').matches) {
+  let tx = -100, ty = -100, cx = -100, cy = -100, running = false;
+  const loop = () => {
+    cx += (tx - cx) * .18; cy += (ty - cy) * .18;
+    cur.style.left = cx + 'px'; cur.style.top = cy + 'px';
+    if (label || Math.abs(tx - cx) + Math.abs(ty - cy) > .5) requestAnimationFrame(loop); else running = false;
+  };
+  addEventListener('pointermove', e => {
+    tx = e.clientX; ty = e.clientY;
+    const t = e.target.closest('[data-cursor]');
+    const next = t && !document.body.classList.contains('about') ? t.dataset.cursor : '';
+    if (next !== label) {
+      if (next && !label) { cx = tx; cy = ty; }
+      label = next; if (next) cur.textContent = next; cur.classList.toggle('on', !!next);
+    }
+    if (!running) { running = true; requestAnimationFrame(loop); }
+  });
+}
+
+/* ================= Project page ================= */
+const panel = document.getElementById('panel');
+const proj = document.getElementById('project'), inner = document.getElementById('pInner'), progEl = document.getElementById('progress');
+let io, current = '', settleTimer;
+const stage = document.querySelector('.stage'), topBar = document.querySelector('.top'), bottomBar = document.querySelector('.bottom');
+const BASE_TITLE = document.title;
+// only what is visible can be focused or read out
+function syncInert() {
+  const about = document.body.classList.contains('about'), open = document.body.classList.contains('open');
+  panel.inert = !about; stage.inert = about || open; proj.inert = about || !open;
+  topBar.inert = about; bottomBar.inert = about;
+}
+function route(id, instant) {
+  const i = projects.findIndex(p => p.id === (id ?? location.hash.slice(1)));
+  if (i < 0) {
+    const prev = current; current = '';
+    document.body.classList.remove('open'); proj.setAttribute('aria-hidden', 'true'); document.title = BASE_TITLE; syncInert();
+    if (prev) list.querySelector(`.row[href="#${prev}"]`)?.focus({ preventScroll: true });
+    return;
+  }
+  const p = projects[i], next = projects[(i + 1) % projects.length];
+  current = p.id;
+  document.title = `${p.name} · Layheng`;
+  proj.style.setProperty('--pc', p.color); progEl.style.setProperty('--pc', p.color);
+  proj.classList.toggle('instant', !!instant);
+  inner.classList.remove('in', 'settled'); clearTimeout(settleTimer);
+  inner.innerHTML = `
+    <a class="p-back rv" href="#" style="--d:.2s"><span class="roll" data-r>← All work</span></a>
+    <div class="p-title"><h1>${titleHTML(p.name)}</h1><span class="rv" style="--d:.7s">[${p.tag}]</span></div>
+
+    <section class="p-sec">
+      <div class="p-label rv" style="--d:.6s">[${p.meta[0]}]<div>${p.meta[1]} · ${p.meta[2]}</div></div>
+      <p class="lead">${rich(p.intro)}</p>
+    </section>
+
+    <section class="p-sec sv">
+      <div class="p-label rv"><h2 class="k">What I did</h2>${HOVER ? 'Click' : 'Tap'} a line to read more</div>
+      <ol class="did rv" style="--d:.1s">${p.did.map(([t, d], k) => `
+        <li class="${k ? '' : 'open'}"><button aria-expanded="${!k}" aria-controls="dd${k}"><span class="dn">${String(k + 1).padStart(2, '0')}</span><span class="dt">${t}</span><span class="pm"></span></button>
+        <div class="dd" id="dd${k}"${k ? ' inert' : ''}><div><p>${d}</p></div></div></li>`).join('')}</ol>
+    </section>
+
+    <section class="p-sec sv">
+      <div class="p-label rv"><h2 class="k">Result</h2>What changed</div>
+      <div class="res">${p.results.map(([ic, t, d], k) => `
+        <div class="card rv" style="--d:${k * .12}s"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[ic]}</svg><h3>${t}</h3><p>${d}</p></div>`).join('')}</div>
+    </section>
+
+    <div class="p-shots"><div class="shot" data-cursor="Mock-up">${frame(p, 0, true)}</div><div class="shot" data-cursor="Mock-up">${frame(p, 1, true)}</div></div>
+
+    <a class="p-next" href="#${next.id}" style="--npc:${next.color}" data-cursor="Next project">
+      <span class="k">Next project</span>
+      <span class="row2"><span class="nm"><span class="pn">${letters(next.name)}</span><span>[${next.tag}]</span></span><span class="arrow">→</span></span>
+    </a>`;
+  inner.querySelectorAll('[data-r]').forEach(rollify);
+  proj.scrollTop = 0; inner.style.setProperty('--sy', 0); progEl.style.setProperty('--p', 0);
+  proj.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('open'); syncInert();
+  proj.focus({ preventScroll: true });   // so Space / PageDown / arrows scroll the project
+  const show = () => { inner.classList.add('in'); settleTimer = setTimeout(() => inner.classList.add('settled'), 3200); };
+  // on a direct link the loader is still up: wait for it, so the title rise is actually seen
+  if (!document.body.classList.contains('ready')) document.addEventListener('site-ready', () => requestAnimationFrame(show), { once: true });
+  else instant ? show() : requestAnimationFrame(() => requestAnimationFrame(show));
+  // sections, cards and screens reveal as they scroll into view
+  io?.disconnect();
+  io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { root: proj, threshold: .18 });
+  inner.querySelectorAll('.sv, .shot').forEach(s => io.observe(s));
+}
+// What I did: open/close lines
+inner.addEventListener('click', e => {
+  const b = e.target.closest('.did button'); if (!b) return;
+  const li = b.parentElement, on = !li.classList.contains('open');
+  li.classList.toggle('open', on); b.setAttribute('aria-expanded', on); li.querySelector('.dd').inert = !on;
+});
+// scroll: progress bar, title drift, screen parallax
+proj.addEventListener('scroll', () => {
+  const y = proj.scrollTop, max = proj.scrollHeight - proj.clientHeight;
+  progEl.style.setProperty('--p', max ? (y / max).toFixed(4) : 0);
+  if (reduce()) return;
+  inner.style.setProperty('--sy', Math.min(y, 700).toFixed(0));
+  if (!PARALLAX) return;   // phones/tablets: no parallax, it made the mock shadows flicker
+  inner.querySelectorAll('.shot').forEach(s => {
+    const b = s.getBoundingClientRect();
+    s.style.setProperty('--par', ((b.top + b.height / 2 - innerHeight / 2) * -.05).toFixed(1));
+  });
+}, { passive: true });
+
+// navigation: the clicked title flies into place (View Transitions), otherwise a wipe
+function go(id, src) {
+  if ((id || '') === current) return;
+  hideCursor();
+  // opening adds a history step; closing replaces it, so Back never reopens what you just closed
+  try { history[id ? 'pushState' : 'replaceState'](null, '', id ? '#' + id : location.pathname + location.search); } catch (e) {}
+  if (!document.startViewTransition || reduce()) return route(id);
+  const prev = current;
+  const from = src || (prev ? inner.querySelector('.p-title h1') : null);
+  if (from) from.style.viewTransitionName = 'ptitle';
+  document.documentElement.classList.add('vt-nav');
+  const t = document.startViewTransition(() => {
+    if (from) from.style.viewTransitionName = '';
+    route(id, true);
+    const to = id ? inner.querySelector('.p-title h1') : list.querySelector(`.row[href="#${prev}"] .name`);
+    if (to && from) to.style.viewTransitionName = 'ptitle';
+  });
+  t.ready.catch(() => {}); t.updateCallbackDone.catch(() => {});
+  t.finished.catch(() => {}).finally(() => {
+    document.documentElement.classList.remove('vt-nav');
+    document.querySelectorAll('.name, .p-title h1, .p-next .pn').forEach(el => el.style.viewTransitionName = '');
+    proj.classList.remove('instant');
+  });
+}
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#"]'); if (!a) return;
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;   // let new-tab clicks work
+  e.preventDefault();
+  const src = a.classList.contains('row') ? a.querySelector('.name') : a.classList.contains('p-next') ? a.querySelector('.pn') : null;
+  go(a.getAttribute('href').slice(1), src);
+});
+addEventListener('popstate', () => route()); route();
+
+/* ================= About panel ================= */
+[...panel.children].forEach((el, k) => el.style.setProperty('--k', k));
+let opener = null;
+const setAbout = (on, contact) => {
+  if (on) opener = document.activeElement;
+  document.body.classList.toggle('about', on);
+  panel.setAttribute('aria-hidden', String(!on));
+  document.querySelectorAll('[data-about]').forEach(b => b.setAttribute('aria-expanded', String(on)));
+  syncInert(); hideCursor();
+  if (on) panel.querySelector('[data-close]').focus({ preventScroll: true });
+  else if (opener && opener.focus) opener.focus({ preventScroll: true });
+  if (on && contact) setTimeout(() => document.getElementById('contactHead').scrollIntoView({ block: 'start', behavior: 'smooth' }), 350);
+  else if (on) panel.scrollTop = 0;
+};
+document.querySelectorAll('[data-about]').forEach(b => b.addEventListener('click', () => setAbout(true, b.hasAttribute('data-contact'))));
+document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => setAbout(false)));
+addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  if (document.body.classList.contains('about')) setAbout(false);
+  else if (document.body.classList.contains('open')) go('');
+});
+
+/* ================= Colour moods (Paper is the default) ================= */
+const moods = [
+  { n: 'Paper',  bg: '#F1EEE7', ink: '#111111', hover: '#111111' },
+  { n: 'Forest', bg: '#0E3B2E', ink: '#F1EDE3', hover: '#C9F27B' },
+  { n: 'Cobalt', bg: '#1E40D8', ink: '#FFFFFF', hover: '#FFD84D' }
+];
+let m = 0;
+try { m = Math.max(0, moods.findIndex(x => x.n === localStorage.getItem('mood'))); } catch (e) {}
+function applyMood() {
+  const s = document.documentElement.style, x = moods[m];
+  s.setProperty('--bg', x.bg); s.setProperty('--ink', x.ink); s.setProperty('--hover', x.hover);
+  document.documentElement.dataset.mood = x.n;
+  document.getElementById('moodName').textContent = x.n;
+  try { localStorage.setItem('mood', x.n); } catch (e) {}
+}
+document.getElementById('mood').addEventListener('click', e => {
+  m = (m + 1) % moods.length;
+  if (!document.startViewTransition || reduce()) return applyMood();
+  const x = e.clientX || 40, y = e.clientY || innerHeight - 32, r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+  document.documentElement.classList.add('vt-mood');
+  const t = document.startViewTransition(applyMood);
+  t.updateCallbackDone.catch(() => {});
+  t.ready.then(() => document.documentElement.animate(
+    { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] },
+    { duration: 900, easing: 'cubic-bezier(.16,1,.3,1)', pseudoElement: '::view-transition-new(root)' })).catch(() => {});
+  t.finished.catch(() => {}).finally(() => document.documentElement.classList.remove('vt-mood'));
+});
+applyMood();
+syncInert();
+</script>
+</body>
+</html>
