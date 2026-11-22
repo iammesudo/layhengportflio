@@ -158,7 +158,7 @@
   .pill::before { content: ''; position: absolute; z-index: -1; left: 50%; top: 100%; width: 140%; aspect-ratio: 1; translate: -50% 0; border-radius: 50%; background: var(--sun); transition: top var(--t2) var(--io), border-radius .9s var(--io); }
   .pill:hover::before { top: -20%; border-radius: 0; }
   .pill .arr { transition: transform var(--t2) var(--io); } .pill:hover .arr { transform: rotate(-45deg); }
-  .media { display: grid; gap: 14px; }
+  .media { display: grid; gap: 14px; align-self: start; }
   .browser { border-radius: 8px; overflow: hidden; background: #1d1d1b; box-shadow: 0 40px 80px -40px #000; clip-path: inset(12% 0 0 0 round 8px); transition: clip-path 1.6s var(--out); }
   .browser.shown { clip-path: inset(0 round 8px); }
   .browser .chrome { display: flex; align-items: center; gap: 6px; padding: 10px 12px; font-size: 11.5px; color: var(--mute); }
@@ -384,7 +384,7 @@
 <script>
 /* ======================= Content ======================= */
 const ROOMS = [
-  { id: 'built', n: '01', name: 'Built by me', sub: 'Live sites, vibe coded', color: '#1F7A4D', cursor: 'Enter' },
+  { id: 'built', n: '01', name: 'Built by me', sub: 'A book, a brand study, a studio, a product', color: '#1F7A4D', cursor: 'Enter' },
   { id: 'design', n: '02', name: 'Design systems', sub: 'Six menu identities', color: '#C2410C', cursor: 'Enter' },
   { id: 'work', n: '03', name: 'Product work', sub: 'Five cases', color: '#16A34A', cursor: 'Enter' },
   { id: 'toolkit', n: '04', name: 'Toolkit', sub: 'What I work with', color: '#1E40D8', cursor: 'Enter' },
@@ -392,20 +392,34 @@ const ROOMS = [
 ];
 
 const BUILDS = [
-  { name: 'QR menu platform', url: 'https://menu-platform-orpin.vercel.app', host: 'menu-platform-orpin.vercel.app',
+  { name: 'The Metamorphosis', kind: 'Editorial · art', url: 'samples/metamorphosis/', host: 'samples/metamorphosis', local: true,
+    lede: 'A reading site for Kafka’s novella. Kafka asked that the insect never be drawn, so it never is: only the page changes. Paper darkens, type grows heavy and the column closes in like Gregor’s room, then opens to light at the end.',
+    did: [['Type', 'One variable font pushed further along its axes in each part of the book'], ['Scenes', 'A key that turns as you scroll, furniture carried out of the room, a violin you can pluck'], ['Text', 'Exact quotes from the Project Gutenberg translation, with sources']],
+    img: ['img/sample-metamorphosis.webp'] },
+  { name: 'Rebrand Notes', kind: 'Brand study', url: 'samples/rebrand/', host: 'samples/rebrand', local: true,
+    lede: 'An independent study of real rebrands: Burberry, Jaguar, Mastercard and Airbnb. Drag between the old and new logo, see what changed in mark, type, colour and tone, and read my take.',
+    did: [['Research', 'Every date and reason comes from a cited source, listed under each brand'], ['Interaction', 'A before and after slider that works with mouse, touch and keyboard'], ['Opinion', 'A short, plain design take on each change, marked as opinion']],
+    note: 'Not affiliated with any brand shown. Logos belong to their owners.',
+    img: ['img/sample-rebrand.webp'] },
+  { name: 'Atelier Kambor', kind: 'Interior studio', url: 'samples/interior/', host: 'samples/interior', local: true,
+    lede: 'A site for an interior studio in Phnom Penh that does not exist. Kambor is the Khmer word for lime plaster. The page is slow and quiet on purpose: you walk through one house room by room.',
+    did: [['Open', 'The first photo opens from a thin slit, like a door'], ['Walk', 'A pinned walk through five rooms with a small floor plan that follows you'], ['Touch', 'Six materials you can open: lime plaster, terrazzo, teak, rattan, laterite, cement tile']],
+    note: 'Fictional studio. Photos from Unsplash.',
+    img: ['img/sample-interior.webp'] },
+  { name: 'QR menu platform', kind: 'Product · live', url: 'https://menu-platform-orpin.vercel.app', host: 'menu-platform-orpin.vercel.app',
     lede: 'Digital menus for small shops in Cambodia. Diners scan a QR code and see the menu in Khmer and English, with prices in dollars and riel.',
     did: [['Plan', 'Product brief, roles and setup flow for shop owners'], ['Design', 'Landing page plus six menu themes, one per type of shop'], ['Build', 'Next.js site, admin portal and menu designer, with Claude Code']],
     note: 'Still in progress: the brand name is not chosen yet, so the landing page says [BRAND].',
     img: ['img/menu-landing.webp'], phones: ['img/m-mango.webp', 'img/m-neon.webp', 'img/m-mlob.webp'] },
-  { name: '520 Staycation', url: 'https://520-staycation.vercel.app', host: '520-staycation.vercel.app',
+  { name: '520 Staycation', kind: 'Booking · live', url: 'https://520-staycation.vercel.app', host: '520-staycation.vercel.app',
     lede: 'A booking site for a river-view condo in Phnom Penh, rented by the half day, day or night.',
     did: [['Design', 'Warm editorial look: Fraunces, burnt orange, full-bleed photos'], ['Feature', 'Five lighting moods you can switch between on the page'], ['Build', 'Gallery, booking calendar and a request form']],
     img: ['img/staycation.webp'], phones: ['img/staycation-phone.webp'] },
-  { name: 'EasySurvey', url: 'https://easysurvey.vercel.app', host: 'easysurvey.vercel.app',
+  { name: 'EasySurvey', kind: 'Tool · retired', url: 'https://easysurvey.vercel.app', host: 'easysurvey.vercel.app',
     lede: 'A survey tool I built for our field research. The research is over, so the tool is retired. The page is now a board of photos from it that you can drag around.',
     did: [['Build', 'The original survey tool, used during the research'], ['Retire', 'Replaced it with a draggable photo board, so the link still means something']],
     img: ['img/easysurvey.webp'] },
-  { name: 'Sample portfolio', url: 'samples/odile/', host: 'samples/odile', local: true,
+  { name: 'Sample portfolio', kind: 'Portfolio · fictional', url: 'samples/odile/', host: 'samples/odile', local: true,
     lede: 'A full portfolio for a designer who does not exist. Odile Rask, her clients and her projects are all invented. It shows how I would design a portfolio for someone else.',
     did: [['Design', 'Big-type index with one preview window that follows the cursor'], ['Build', 'Filters, case sheets and SVG mock-ups drawn by hand'], ['Label', 'Every page says it is fictional']],
     img: ['img/odile.webp'] }
@@ -481,7 +495,7 @@ const rich = txt => { let i = 0; return txt.split(/(\*[^*]+\*)/).map(seg => { co
 /* ======================= Home corridor ======================= */
 document.getElementById('nameL').innerHTML = [...'Layheng'].map((c, i) => `<span class="l" style="--i:${i}">${c}</span>`).join('');
 const roomArt = {
-  built: `<img class="shot1" src="img/menu-landing.webp" alt="" loading="eager"><img class="shot2" src="img/m-mango.webp" alt="">`,
+  built: `<img class="shot1" src="img/sample-metamorphosis.webp" alt="" loading="eager"><img class="shot2" src="img/m-mango.webp" alt="">`,
   design: `<img class="fan" src="img/m-nom.webp" alt=""><img class="fan" src="img/m-neon.webp" alt=""><img class="fan" src="img/m-kampot.webp" alt="">`,
   work: `<span class="big-t">SmartNas, EZorder, AI Chatbot, Dropship, Poster AI</span>`,
   toolkit: `<ul>${['Figma', 'Claude Code', 'Shopify', 'Canva', 'Notion · Jira'].map((t, j) => `<li style="--j:${j}">${t}</li>`).join('')}</ul>`,
@@ -525,16 +539,16 @@ const nextRoom = id => { const i = ROOMS.findIndex(r => r.id === id); return ROO
 
 const PAGES = {
   built() {
-    return hero(['← All rooms', '#'], 'Built by me', 'Sites I planned, designed and shipped myself, with Figma and vibe coding. Every one of them is live.', `${BUILDS.length} projects<br>More on the way`, ROOMS[0].color) +
+    return hero(['← All rooms', '#'], 'Built by me', 'Sites I planned, designed and built myself, with Figma and vibe coding. A book, a brand study, an interior studio, a product, a booking site. Every one of them opens.', `${BUILDS.length} sites<br>${new Set(BUILDS.map(b => b.kind.split(' · ')[0])).size} kinds`, ROOMS[0].color) +
     `<div class="sec">${BUILDS.map((b, i) => `<article class="build">
-      <div class="txt rv"><span class="num">${String(i + 1).padStart(2, '0')} / ${String(BUILDS.length).padStart(2, '0')}</span><h3>${b.name}</h3><p class="lede">${b.lede}</p>
+      <div class="txt rv"><span class="num">${String(i + 1).padStart(2, '0')} / ${String(BUILDS.length).padStart(2, '0')} · ${b.kind}</span><h3>${b.name}</h3><p class="lede">${b.lede}</p>
         <ul>${b.did.map(([k, v]) => `<li><span>·</span><span><b>${k}.</b> ${v}</span></li>`).join('')}</ul>
         ${b.note ? `<p class="note">${b.note}</p>` : ''}
-        <a class="pill" href="${b.url}" ${b.local ? '' : 'target="_blank" rel="noopener"'} data-magnetic><span>${b.local ? 'Open the sample' : 'Visit the live site'}</span><span class="arr">→</span></a></div>
+        <a class="pill" href="${b.url}" ${b.local ? '' : 'target="_blank" rel="noopener"'} data-magnetic><span>${b.local ? 'Open the site' : 'Visit the live site'}</span><span class="arr">→</span></a></div>
       <div class="media">${b.img.map(src => `<div class="browser rv"><div class="chrome"><i></i><i></i><i></i><span>${b.host}</span></div><img src="${src}" alt="${esc(b.name)} home page" loading="lazy"></div>`).join('')}
         ${b.phones ? `<div class="phones${b.phones.length < 3 ? ' two' : ''}">${b.phones.map((p, j) => `<img class="rv" style="--d:${j * .1}s" src="${p}" alt="${esc(b.name)} on a phone" loading="lazy">`).join('')}</div>` : ''}</div>
     </article>`).join('')}</div>
-    <div class="next-up rv"><span class="k">Next</span><p>Next on my list: sites that aren’t shops. A portfolio, a magazine, a booking tool.</p></div>` + foot('Next room', '#design', 'Design systems', ROOMS[1].color);
+    <div class="next-up rv"><span class="k">Next</span><p>Each new kind of site I build goes here.</p></div>` + foot('Next room', '#design', 'Design systems', ROOMS[1].color);
   },
   design() {
     return `<div class="ds-wall" id="dsWall">` + hero(['← All rooms', '#'], 'Design systems', 'One menu engine, six identities. Each shop type gets its own fonts, colours and layout, so a karaoke bar never looks like a bakery.', 'Live demos<br>menu-platform', ROOMS[1].color) +

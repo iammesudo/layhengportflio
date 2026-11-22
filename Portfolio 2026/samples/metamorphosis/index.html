@@ -1,0 +1,1037 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>The Metamorphosis · a reading in three parts</title>
+<meta name="description" content="A reading site for Franz Kafka's novella The Metamorphosis (1915). The page itself changes as you read: the paper darkens, the type grows heavy and the walls move in. Concept by Loem Layheng.">
+<meta name="theme-color" content="#F1ECE2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&display=swap" rel="stylesheet">
+<style>
+/* ---------- tokens ---------- */
+:root{
+  --paper:#F1ECE2;
+  --ink:#1E1A16;
+  --ink-2:color-mix(in srgb,var(--ink) 64%,var(--paper));
+  --rule:color-mix(in srgb,var(--ink) 24%,transparent);
+  --hair:color-mix(in srgb,var(--ink) 12%,transparent);
+  --apple:#A3241A;
+  --brown:#5B3A20;
+  --light:#FFF4D8;
+  --io:cubic-bezier(.7,0,.3,1);
+  --out:cubic-bezier(.16,1,.3,1);
+  --t1:.3s;--t2:.6s;--t3:.9s;--t4:1.4s;
+  --head:64px;
+  --foot:0px;
+  --gut:clamp(20px,5vw,80px);
+  --wall:0px;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(var(--head) + 12px)}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--serif);font-optical-sizing:auto;
+  font-variation-settings:"SOFT" 0,"WONK" 0;
+  font-size:clamp(17px,1.2vw,20px);line-height:1.6;
+  overflow-x:clip;
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+:focus-visible{outline:1.5px solid var(--ink);outline-offset:4px;border-radius:2px}
+::selection{background:var(--ink);color:var(--paper)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;left:12px;top:-60px;z-index:100;background:var(--ink);color:var(--paper);padding:8px 14px;text-decoration:none;font-size:14px}
+.skip:focus{top:12px}
+.sc{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-variation-settings:"opsz" 9,"wght" 500,"SOFT" 0,"WONK" 0}
+
+/* ---------- walls: the room closes in ---------- */
+.wall{position:fixed;top:0;bottom:0;width:50vw;z-index:0;pointer-events:none;
+  background:color-mix(in srgb,var(--ink) 5%,var(--paper));will-change:transform}
+.wall.l{left:0;transform:translate3d(calc(-100% + var(--wall)),0,0);border-right:1px solid var(--hair)}
+.wall.r{right:0;transform:translate3d(calc(100% - var(--wall)),0,0);border-left:1px solid var(--hair)}
+
+/* ---------- running head + folio index ---------- */
+.head{position:fixed;inset:0 0 auto 0;height:var(--head);z-index:40;display:grid;
+  grid-template-columns:1fr minmax(0,min(46vw,620px)) 1fr;align-items:center;gap:24px;
+  padding:0 var(--gut);background:var(--paper);border-bottom:1px solid var(--hair)}
+.head .title{justify-self:start;text-decoration:none}
+.head .title i{font-style:italic;letter-spacing:.02em;text-transform:none;font-size:1.05rem;font-variation-settings:"opsz" 14,"wght" 400,"SOFT" 0,"WONK" 0}
+.head .by{justify-self:end;color:var(--ink-2)}
+.folio{position:relative;height:40px}
+.folio ol{list-style:none;margin:0;padding:0;position:absolute;inset:0 0 auto 0;height:22px}
+.folio li a{position:absolute;left:var(--x,0%);top:0;transform:translateX(-1px);text-decoration:none;
+  font-size:.8rem;line-height:22px;padding:0 4px 0 6px;color:var(--ink-2);
+  font-variation-settings:"opsz" 9,"wght" 400,"SOFT" 0,"WONK" 0;
+  transition:color var(--t1) var(--io),font-variation-settings var(--t2) var(--io)}
+.folio li a::before{content:"";position:absolute;left:0;top:5px;width:1px;height:28px;background:var(--rule)}
+.folio li a[aria-current="true"]{color:var(--ink);font-variation-settings:"opsz" 9,"wght" 700,"SOFT" 0,"WONK" 0}
+.track{position:absolute;left:0;right:0;bottom:5px;height:7px}
+.track .ticks{position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,var(--rule) 0 1px,transparent 1px 7px);
+  -webkit-mask:linear-gradient(#000,#000) bottom/100% 4px no-repeat;mask:linear-gradient(#000,#000) bottom/100% 4px no-repeat}
+.track::before{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--rule)}
+.track .fill{position:absolute;left:0;right:0;bottom:0;height:1.5px;background:var(--ink);transform-origin:0 50%;transform:scaleX(var(--p,0))}
+.track .mark{position:absolute;bottom:-3px;left:0;width:1.5px;height:13px;background:var(--ink);transform:translateX(calc(var(--p,0) * var(--tw,0px)))}
+.apple-dot{position:absolute;bottom:-4px;left:var(--ax,66%);width:9px;height:9px;margin-left:-4.5px;border-radius:50%;
+  background:color-mix(in srgb,var(--apple),#6B4A2B calc(var(--decay,0) * 100%));opacity:0;transform:scale(.2);
+  transition:opacity var(--t1) var(--io),transform var(--t2) var(--out)}
+.apple-dot::after{content:"";position:absolute;inset:-2px;border-radius:50%;opacity:var(--decay,0);
+  background:radial-gradient(circle at 30% 30%,#fff 0 .8px,transparent 1.2px),radial-gradient(circle at 70% 60%,#fff 0 .7px,transparent 1.1px),radial-gradient(circle at 45% 80%,#fff 0 .6px,transparent 1px),radial-gradient(circle at 60% 20%,#fff 0 .6px,transparent 1px)}
+.lodged .apple-dot{opacity:1;transform:scale(1)}
+
+/* ---------- ribbon ---------- */
+.ribbon{position:fixed;left:var(--gut);bottom:14px;z-index:45;display:flex;gap:10px;align-items:center;
+  padding:7px 12px;background:var(--paper);border:1px solid var(--rule);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  font-variation-settings:"opsz" 9,"wght" 500,"SOFT" 0,"WONK" 0;color:var(--ink-2)}
+.ribbon a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:1px}
+.ribbon a:hover{border-color:var(--ink)}
+
+main{position:relative;z-index:1}
+
+/* ---------- hero: the first sentence ---------- */
+.hero{min-height:100vh;min-height:100svh;padding:calc(var(--head) + 4vh) var(--gut) 8vh;display:flex;flex-direction:column;justify-content:space-between;gap:4vh}
+.kicker{margin:0;color:var(--ink-2)}
+.opening{margin:0;font-weight:300;font-size:clamp(40px,6.9vw,128px);line-height:1.02;letter-spacing:-.022em;
+  font-variation-settings:"opsz" 144,"wght" 300,"SOFT" 0,"WONK" 0;max-width:15.2em}
+.opening em{font-style:italic}
+.hero-foot{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.hero-foot p{margin:0;max-width:26em;color:var(--ink-2);font-size:.95rem}
+.begin{display:inline-flex;gap:.7em;align-items:center;text-decoration:none;padding:10px 0}
+.begin svg{width:12px;height:22px;transition:transform var(--t2) var(--io)}
+.begin:hover svg{transform:translateY(5px)}
+
+/* line masks (Cuberto padding trick) */
+.line{display:block;overflow:clip;padding:.1em .06em .16em;margin:-.1em -.06em -.16em}
+.line-in{display:block;white-space:nowrap}
+.js .reveal .line-in{transform:translate3d(0,108%,0)}
+.js .reveal.in .line-in{transform:none;transition:transform var(--t4) var(--out);transition-delay:calc(var(--i) * 90ms)}
+.settled .line{overflow:visible}
+.js .opening:not(.split){visibility:hidden}
+
+/* the word that changes */
+.tf{display:inline-block;white-space:nowrap}
+.tf .ch{display:inline-block;font-variation-settings:"opsz" 144,"wght" 300,"SOFT" 0,"WONK" 0;
+  transition:font-variation-settings 2.2s var(--io),transform 2.2s var(--io),letter-spacing 2.2s var(--io);
+  transition-delay:calc(var(--k) * 70ms)}
+.morphed .tf{letter-spacing:-.035em}
+.morphed .tf .ch{font-variation-settings:"opsz" var(--o),"wght" var(--w),"SOFT" 100,"WONK" 1;
+  transform:translate3d(0,var(--y),0) rotate(var(--r))}
+.tf .ci{display:inline-block}
+.crawl .tf .ci{animation:crawl 3.2s var(--io) infinite;animation-delay:calc(var(--k) * -.22s)}
+@keyframes crawl{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(.012em,-.045em,0)}}
+
+/* ---------- shared section bits ---------- */
+.wrap{padding:0 var(--gut);position:relative}
+.rule-note{padding:22vh var(--gut) 18vh;display:grid;grid-template-columns:1fr;gap:5vh;max-width:1180px;margin:0 auto}
+.rule-note .letter{margin:0;font-size:clamp(28px,3.6vw,58px);line-height:1.12;letter-spacing:-.01em;font-style:italic;
+  font-variation-settings:"opsz" 144,"wght" 300,"SOFT" 0,"WONK" 0;max-width:17em}
+.rule-note .src{margin:0;color:var(--ink-2);font-size:.9rem}
+.rule-note .why{margin:0;max-width:30em;justify-self:end}
+.rule-note .why span{display:block;margin-top:.6em;color:var(--ink-2)}
+
+.part-head{display:grid;grid-template-columns:auto 1fr;align-items:end;gap:0 3vw;padding:26vh var(--gut) 6vh;max-width:1400px;margin:0 auto}
+.numeral{margin:0;font-size:clamp(130px,21vw,330px);line-height:.74;letter-spacing:-.04em}
+.part-head .meta{padding-bottom:.6em}
+.part-head .meta p{margin:0}
+.part-head .meta .t{font-size:clamp(22px,2vw,32px);font-style:italic;font-variation-settings:"opsz" 72,"wght" 350,"SOFT" 0,"WONK" 0;margin-top:.2em}
+.big{margin:0 auto;padding:4vh var(--gut) 0;max-width:1400px;font-size:clamp(34px,5.2vw,92px);line-height:1.04;letter-spacing:-.02em}
+.big .line-in{white-space:nowrap}
+.big + .cite{margin:1.4em auto 0;padding:0 var(--gut);max-width:1400px;color:var(--ink-2)}
+.context{max-width:1400px;margin:0 auto;padding:10vh var(--gut) 8vh;display:grid;grid-template-columns:1fr minmax(0,26em);gap:4vw}
+.context p{margin:0;grid-column:2}
+.passage{margin:0 auto;padding:10vh var(--gut);max-width:calc(var(--measure) + 2 * var(--gut))}
+.passage p{margin:0;text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+.passage .cite{margin-top:1.6em;color:var(--ink-2);text-align:left}
+.passage .w{display:inline}
+
+/* Part I: calm book page */
+#part-1 .numeral{font-variation-settings:"opsz" 144,"wght" 100,"SOFT" 0,"WONK" 0}
+#part-1 .big{font-variation-settings:"opsz" 144,"wght" 300,"SOFT" 0,"WONK" 0}
+#p1-passage{--measure:31em}
+#p1-passage p{font-variation-settings:"opsz" 14,"wght" 380,"SOFT" 0,"WONK" 0}
+#p1-passage p:first-child::first-letter{float:left;font-size:4.1em;line-height:.8;padding:.06em .08em 0 0;font-variation-settings:"opsz" 144,"wght" 300,"SOFT" 0,"WONK" 0}
+
+/* Part II: the type gets heavier, softer */
+#part-2 .numeral{font-variation-settings:"opsz" 144,"wght" 420,"SOFT" 50,"WONK" 0}
+#part-2 .big{font-variation-settings:"opsz" 144,"wght" 460,"SOFT" 50,"WONK" 0;letter-spacing:-.01em}
+#part-2 .big .line:nth-child(2){padding-left:.5em}
+#part-2 .big .line:nth-child(3){padding-left:1.1em}
+#part-2 .big .line:nth-child(4){padding-left:.3em}
+#p2-passage{--measure:25em}
+#p2-passage p{letter-spacing:.012em}
+
+/* Part III: heavy, wonky, narrow */
+#part-3 .numeral{font-variation-settings:"opsz" 144,"wght" 880,"SOFT" 100,"WONK" 1}
+#part-3 .big{font-variation-settings:"opsz" 144,"wght" 720,"SOFT" 100,"WONK" 1;letter-spacing:.005em}
+#p3-passage{--measure:17em}
+#p3-passage p{letter-spacing:.035em;word-spacing:.12em;text-align:left;hyphens:manual}
+.inner3{max-width:calc(100vw - 2 * var(--wallmax3));margin:0 auto}
+
+/* ---------- stages (pinned scenes) ---------- */
+.stage{position:relative}
+.pin{position:sticky;top:var(--head);height:calc(100vh - var(--head) - var(--foot));height:calc(100svh - var(--head) - var(--foot));overflow:hidden}
+.caps{position:relative;min-height:9em}
+.cap{position:absolute;inset:0 0 auto 0;margin:0;opacity:0;transform:translate3d(0,.8em,0);
+  transition:opacity var(--t2) var(--io),transform var(--t3) var(--out)}
+.cap.on{opacity:1;transform:none}
+.cap q{quotes:none;display:block;font-size:clamp(20px,1.7vw,28px);line-height:1.3;font-style:italic;font-variation-settings:"opsz" 48,"wght" 350,"SOFT" 0,"WONK" 0}
+.cap small{display:block;margin-top:1em}
+.step-count{color:var(--ink-2)}
+
+/* door */
+#door-stage{height:360vh}
+#door-stage .pin{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:center;gap:4vw;padding:0 var(--gut) 0 calc(var(--gut) + 4vw)}
+.door-box{height:min(74%,640px);aspect-ratio:420/660;justify-self:center;position:relative}
+.door-box svg{width:100%;height:100%;overflow:hidden}
+.door-zoom{transform-origin:54.3% 47%;will-change:transform}
+.door svg *{vector-effect:non-scaling-stroke}
+.d-line{fill:none;stroke:var(--ink);stroke-width:1}
+.d-fine{fill:none;stroke:var(--rule);stroke-width:1}
+.leaf-fill{fill:var(--paper)}
+.leaf{transform-box:fill-box;will-change:transform}
+.leaf.l{transform-origin:0 50%}
+.leaf.r{transform-origin:100% 50%}
+.light{fill:var(--light)}
+.spill{fill:var(--light);opacity:0}
+.drip{fill:none;stroke:var(--brown);stroke-width:1.6;stroke-linecap:round}
+.dial{fill:none;stroke:var(--ink);stroke-width:1}
+.bolt{fill:var(--ink)}
+
+/* room */
+#room-stage{height:400vh}
+#room-stage .pin{display:grid;grid-template-rows:1fr auto;align-items:center;padding:3vh var(--gut) 4vh;gap:2vh}
+.room-box{width:min(100%,calc(100vw - 2 * var(--wallmax2) - 2 * var(--gut)));margin:0 auto;max-height:100%}
+.room-box svg{width:100%;height:auto;max-height:62vh;display:block;margin:0 auto;overflow:visible}
+.room svg *{vector-effect:non-scaling-stroke}
+.r-line{fill:none;stroke:var(--ink);stroke-width:1}
+.r-fill{fill:var(--paper);stroke:var(--ink);stroke-width:1}
+.r-fine{fill:none;stroke:var(--rule);stroke-width:1}
+.r-lbl{font-family:var(--serif);font-size:15px;letter-spacing:.14em;text-transform:uppercase;fill:var(--ink-2);font-variation-settings:"opsz" 9,"wght" 500}
+.r-it{font-family:var(--serif);font-style:italic;font-size:19px;fill:var(--ink);font-variation-settings:"opsz" 24,"wght" 350}
+.flower{fill:var(--rule)}
+.movable{will-change:transform}
+.cover{fill:var(--brown);transform-box:fill-box;transform-origin:50% 0}
+.worn{fill:none;stroke:var(--ink);stroke-width:1;opacity:0}
+#room-stage .caps{width:min(100%,34em);margin:0 auto;min-height:7.5em;text-align:center}
+#room-stage .cap q{font-size:clamp(18px,1.5vw,24px)}
+
+/* apples */
+#apple-stage{height:300vh}
+#apple-stage .pin{display:grid;align-content:center;gap:7vh;padding:3vh var(--gut) 5vh}
+.apple-box{width:min(100%,calc(100vw - 2 * var(--wallmax2) - 2 * var(--gut)));margin:0 auto}
+.apple-box svg{width:100%;height:auto;display:block;overflow:hidden}
+.apl circle{fill:var(--apple)}
+.apl path{fill:none;stroke:var(--ink);stroke-width:1.2}
+#apple-stage .caps{width:min(100%,34em);margin:0 auto;text-align:center;min-height:7em}
+.fly{position:fixed;left:0;top:0;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:var(--apple);z-index:60;pointer-events:none;opacity:0;will-change:transform}
+
+/* strings */
+.strings{padding:12vh 0 6vh}
+.strings-box{position:relative}
+.strings svg{display:block;width:100%;height:clamp(200px,30vh,300px);overflow:visible;touch-action:pan-y;cursor:crosshair}
+.str{fill:none;stroke:var(--ink);stroke-linecap:round;vector-effect:non-scaling-stroke;transition:stroke var(--t2) var(--io)}
+.silent .str{stroke:var(--rule)}
+.pegs{display:flex;flex-direction:column;justify-content:space-around;position:absolute;left:0;top:0;bottom:0;transform:translateX(calc(-100% - 10px))}
+.peg{appearance:none;background:none;border:0;color:var(--ink-2);font:inherit;font-size:.72rem;letter-spacing:.14em;padding:4px 6px;cursor:pointer;font-variation-settings:"opsz" 9,"wght" 600}
+.peg:hover{color:var(--ink)}
+.strings-meta{display:flex;justify-content:space-between;gap:16px;align-items:baseline;margin-top:2vh;color:var(--ink-2)}
+.sound{appearance:none;background:none;border:1px solid var(--rule);color:var(--ink);font-family:inherit;font-size:.68rem;padding:8px 14px;cursor:pointer;margin-left:auto}
+.sound[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.silent-line{padding:16vh 0 10vh;text-align:center;margin:0;font-style:italic;font-size:clamp(24px,2.6vw,40px);font-variation-settings:"opsz" 72,"wght" 400,"SOFT" 100,"WONK" 1}
+
+/* night */
+.night{padding:24vh var(--gut) 70vh;text-align:center}
+.night p{margin:0 auto 34vh;max-width:22em;font-size:clamp(18px,1.4vw,22px);font-style:italic;font-variation-settings:"opsz" 24,"wght" 350,"SOFT" 100,"WONK" 0}
+.night p.ctx{font-style:normal;color:var(--ink-2);font-size:.9rem;margin-bottom:30vh}
+.night p:last-child{margin-bottom:0}
+.js .night p.fade{opacity:0;transition:opacity 1.6s var(--io)}
+.js .night p.fade.in{opacity:1}
+
+/* coda */
+#coda .numeral{font-size:clamp(80px,12vw,190px);font-style:italic;font-variation-settings:"opsz" 144,"wght" 200,"SOFT" 0,"WONK" 0}
+#coda .big{font-style:italic;font-variation-settings:"opsz" 144,"wght" 260,"SOFT" 0,"WONK" 0}
+.stretch{padding:22vh var(--gut) 20vh;text-align:center;max-width:1400px;margin:0 auto}
+.stretch p{margin:0}
+.stretch .pre,.stretch .post{max-width:26em;margin:0 auto}
+.stretch .post{margin-top:.2em}
+.stretch .so{display:block;margin:.25em 0 .2em;font-size:clamp(46px,8vw,150px);line-height:1;letter-spacing:-.02em;white-space:nowrap;
+  font-variation-settings:"opsz" 144,"wght" 300,"SOFT" 0,"WONK" 0}
+.so .c{display:inline-block;will-change:transform}
+
+/* colophon */
+.colophon{padding:14vh var(--gut) 18vh;max-width:1400px;margin:0 auto;border-top:1px solid var(--hair);display:grid;grid-template-columns:1fr 1fr;gap:6vh 6vw;font-size:.92rem}
+.colophon h2{margin:0 0 .6em;font-weight:400}
+.colophon p{margin:0 0 .8em;max-width:34em}
+.colophon .src{color:var(--ink-2)}
+.colophon .end{grid-column:1/-1;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:baseline;padding-top:4vh;border-top:1px solid var(--hair)}
+.colophon .end a{font-size:clamp(22px,2.2vw,34px);text-decoration:none;font-style:italic;font-variation-settings:"opsz" 72,"wght" 350,"SOFT" 0,"WONK" 0;border-bottom:1px solid var(--rule)}
+
+/* ---------- responsive ---------- */
+:root{--wallmax2:0px;--wallmax3:20vw}
+#part-1{padding-inline:5vw}
+#part-2{padding-inline:11vw}
+@media (max-width:900px){
+  #door-stage .pin{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;padding:2vh var(--gut) 3vh;gap:2vh}
+  .door-box{height:100%;max-height:52vh}
+  .caps{min-height:8.5em}
+  .context{grid-template-columns:1fr}
+  .context p{grid-column:1}
+  .rule-note .why{justify-self:start}
+}
+@media (max-width:700px){
+  :root{--head:72px;--foot:38px;--wallmax2:0px;--wallmax3:10px}
+  #part-1,#part-2{padding-inline:6px}
+  .head{grid-template-columns:1fr auto;grid-template-rows:30px 34px;gap:0 12px;padding-top:4px}
+  .head .by{display:block;font-size:.62rem}
+  .folio{grid-column:1/-1;grid-row:2;height:34px}
+  .ribbon{left:0;right:0;bottom:0;justify-content:center;border-width:1px 0 0;padding:11px 10px calc(11px + env(safe-area-inset-bottom));font-size:.56rem;letter-spacing:.06em;flex-wrap:nowrap;white-space:nowrap;gap:8px}
+  #part-2 .big .line{padding-left:0!important}
+  .part-head .meta{padding-top:.9em}
+  .strings-box{padding-left:26px}
+  #strings .pegs{position:absolute;left:0;top:0;bottom:0;flex-direction:column;justify-content:space-around;transform:none;margin:0}
+  #strings .peg{padding:4px 2px}
+  body{padding-bottom:var(--foot)}
+  .part-head{grid-template-columns:1fr;padding-top:18vh}
+  .numeral{font-size:clamp(120px,40vw,200px)}
+  .big{font-size:clamp(30px,8.6vw,44px)}
+  .r-lbl{display:none}
+  .strings svg{height:220px}
+  .rule-note{padding-top:14vh}
+  .passage p{text-align:left;hyphens:manual}
+  #p3-passage{--measure:100%}
+  .stretch .so{font-size:clamp(40px,12.5vw,64px)}
+  .colophon{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  .js .reveal .line-in{transform:none!important;transition:none!important}
+  .tf .ch,.cap,.apple-dot,.begin svg{transition:none!important}
+  .crawl .tf .ci{animation:none}
+  .js .night p.fade{opacity:1;transition:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#part-1">Skip to part one</a>
+
+<div class="wall l" aria-hidden="true"></div>
+<div class="wall r" aria-hidden="true"></div>
+
+<header class="head">
+  <a class="title sc" href="#top" aria-label="The Metamorphosis, back to the top"><i>The Metamorphosis</i></a>
+  <nav class="folio" aria-label="Parts of the novella">
+    <ol>
+      <li><a href="#part-1" aria-label="Part one, the door">I</a></li>
+      <li><a href="#part-2" aria-label="Part two, the room">II</a></li>
+      <li><a href="#part-3" aria-label="Part three, the violin">III</a></li>
+      <li><a href="#coda" aria-label="After, the tram">After</a></li>
+    </ol>
+    <div class="track" aria-hidden="true"><div class="ticks"></div><div class="fill"></div><span class="apple-dot"></span><span class="mark"></span></div>
+  </nav>
+  <p class="by sc" style="margin:0">Franz Kafka · 1915</p>
+</header>
+
+<main id="top">
+  <span class="stop" data-paper="#F1ECE2" data-wall="0" hidden></span>
+
+  <!-- the first sentence -->
+  <section class="hero" aria-labelledby="opening">
+    <p class="kicker sc">Franz Kafka · <span style="text-transform:none;font-style:italic;letter-spacing:.02em">Die Verwandlung</span> · 1915</p>
+    <h1 class="opening reveal" id="opening" data-lines>One morning, when Gregor Samsa woke from troubled dreams, he found himself <span class="tf">transformed</span> in his bed into a horrible <em>vermin.</em></h1>
+    <div class="hero-foot">
+      <p>The Metamorphosis, read in three parts. The text is left as it is. The page around it changes as you go.</p>
+      <a class="begin sc" href="#rule">Begin reading <svg viewBox="0 0 12 22" aria-hidden="true"><path d="M6 0v20M1 15l5 6 5-6" fill="none" stroke="currentColor"/></svg></a>
+    </div>
+  </section>
+
+  <!-- the author's rule -->
+  <section class="rule-note" id="rule" aria-labelledby="rule-h">
+    <h2 class="sc" id="rule-h" style="margin:0;color:var(--ink-2);font-weight:400">A rule from the author</h2>
+    <blockquote class="letter reveal" data-lines>“The insect itself is not to be drawn. It is not even to be seen from a distance.”</blockquote>
+    <p class="src">Kafka in a letter to his publisher, 25 October 1915, about the cover of the first edition.</p>
+    <p class="why">This site keeps to it. Gregor is never shown. Only the page changes: as you read, the paper darkens, the type grows heavy and the walls of the column move in.<span>The novella has three parts. So does this page.</span></p>
+  </section>
+
+  <!-- ================= PART I ================= -->
+  <section id="part-1" class="part" aria-labelledby="p1-h">
+    <span class="stop" data-paper="#EEE8DC" data-wall=".12" hidden></span>
+    <div class="part-head">
+      <p class="numeral" aria-hidden="true">I</p>
+      <div class="meta"><h2 id="p1-h" class="sc" style="margin:0;font-weight:400">Part one</h2><p class="t">The door</p></div>
+    </div>
+    <blockquote class="big reveal" data-lines>“What’s happened to me?” he thought. It wasn’t a dream.</blockquote>
+    <div class="context">
+      <p>Gregor Samsa is a travelling salesman. He wakes up changed, and late for his train. The chief clerk from his firm comes to the flat to ask why. Through the door, Gregor’s voice no longer sounds human, and the door is locked from the inside. Scroll to turn the key.</p>
+    </div>
+
+    <div class="stage door" id="door-stage">
+      <div class="pin">
+        <div class="door-box">
+          <svg viewBox="0 0 420 660" role="img" aria-label="A line drawing of a double door. As you scroll, the key turns in the lock and the door opens onto light.">
+            <g class="door-zoom">
+              <!-- what is behind the door -->
+              <rect class="light" x="50" y="40" width="320" height="520"/>
+              <polygon class="spill" points="50,560 370,560 420,660 0,660"/>
+              <!-- frame -->
+              <path class="d-line" d="M30 560V20h360v540M50 560V40h320v520"/>
+              <path class="d-fine" d="M0 560h420M14 600h392"/>
+              <!-- left leaf -->
+              <g class="leaf l">
+                <rect class="leaf-fill" x="50" y="40" width="160" height="520"/>
+                <rect class="d-line" x="50" y="40" width="160" height="520"/>
+                <rect class="d-fine" x="72" y="68" width="116" height="210"/>
+                <rect class="d-fine" x="72" y="306" width="116" height="226"/>
+                <rect class="d-fine" x="80" y="76" width="100" height="194"/>
+                <rect class="d-fine" x="80" y="314" width="100" height="210"/>
+              </g>
+              <!-- right leaf with lock and key -->
+              <g class="leaf r">
+                <rect class="leaf-fill" x="210" y="40" width="160" height="520"/>
+                <rect class="d-line" x="210" y="40" width="160" height="520"/>
+                <rect class="d-fine" x="232" y="68" width="116" height="210"/>
+                <rect class="d-fine" x="232" y="306" width="116" height="226"/>
+                <rect class="d-fine" x="240" y="76" width="100" height="194"/>
+                <rect class="d-fine" x="240" y="314" width="100" height="210"/>
+                <rect class="bolt" x="199" y="308.5" width="22" height="3"/>
+                <g class="lock">
+                  <rect class="d-line" x="219" y="292" width="18" height="44" rx="9"/>
+                  <circle class="dial" cx="228" cy="310" r="22" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" transform="rotate(-90 228 310)"/>
+                  <path class="d-fine" d="M228 284v4M254 310h-4M228 336v-4M202 310h4"/>
+                  <path class="drip" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" d="M228 318c.6 30-1.4 60 0 92s1.6 64-.2 96c-.6 18 .2 34 .2 52"/>
+                  <g class="key">
+                    <circle cx="228" cy="310" r="2.2" class="bolt"/>
+                    <path class="d-line" d="M228 310V268"/>
+                    <path class="d-line" d="M228 268c-12 0-15-8-15-15s5-15 15-15 15 8 15 15-3 15-15 15z"/>
+                    <circle class="d-line" cx="228" cy="252" r="5"/>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="caps" aria-live="polite">
+          <p class="cap" data-at="0"><q>“set himself to the task of turning the key in the lock with his mouth.”</q><small class="sc step-count">The key · 1 of 4</small></p>
+          <p class="cap" data-at=".28"><q>“Listen”, said the chief clerk in the next room, “he’s turning the key.”</q><small class="sc step-count">The key · 2 of 4</small></p>
+          <p class="cap" data-at=".56"><q>“The clear sound of the lock as it snapped back was Gregor’s sign that he could break his concentration”</q><small class="sc step-count">The lock · 3 of 4</small></p>
+          <p class="cap" data-at=".76"><q>“Because he had to open the door in this way, it was already wide open before he could be seen.”</q><small class="sc step-count">The door · 4 of 4</small></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="passage" id="p1-passage">
+      <p>His room, a proper human room although a little too small, lay peacefully between its four familiar walls. A collection of textile samples lay spread out on the table – Samsa was a travelling salesman – and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer.</p>
+      <p class="cite sc">From part one</p>
+    </div>
+  </section>
+
+  <!-- ================= PART II ================= -->
+  <section id="part-2" class="part" aria-labelledby="p2-h">
+    <span class="stop" data-paper="#E6DCC9" data-wall=".3" hidden></span>
+    <div class="part-head">
+      <p class="numeral" aria-hidden="true">II</p>
+      <div class="meta"><h2 id="p2-h" class="sc" style="margin:0;font-weight:400">Part two</h2><p class="t">The room</p></div>
+    </div>
+    <blockquote class="big reveal" data-lines>“They were emptying his room out; taking away everything that was dear to him…”</blockquote>
+    <div class="context">
+      <p>Gregor now lives behind a closed door. His sister Grete brings his food. When she sees that he likes to crawl over the walls and ceiling, she and their mother start to carry the furniture out to give him room. His mother is afraid it will look as if they have given up hope. Scroll to empty the room.</p>
+    </div>
+
+    <div class="stage room" id="room-stage">
+      <span class="stop" data-paper="#E0D3BC" data-wall=".45" hidden></span>
+      <div class="pin">
+        <div class="room-box">
+          <svg viewBox="0 0 1000 600" role="img" aria-label="A line drawing of Gregor's room. As you scroll, the chest of drawers and the writing desk are carried out through the door. The couch stays. The picture on the wall is covered.">
+            <defs>
+              <pattern id="paper-flowers" width="56" height="56" patternUnits="userSpaceOnUse">
+                <g class="flower"><circle cx="14" cy="14" r="1.6"/><circle cx="18" cy="14" r="1.1"/><circle cx="10" cy="14" r="1.1"/><circle cx="14" cy="10" r="1.1"/><circle cx="14" cy="18" r="1.1"/>
+                <circle cx="42" cy="42" r="1.6"/><circle cx="46" cy="42" r="1.1"/><circle cx="38" cy="42" r="1.1"/><circle cx="42" cy="38" r="1.1"/><circle cx="42" cy="46" r="1.1"/></g>
+              </pattern>
+              <clipPath id="room-clip"><rect x="30" y="0" width="970" height="600"/></clipPath>
+            </defs>
+            <rect x="0" y="0" width="1000" height="470" fill="url(#paper-flowers)"/>
+            <path class="r-line" d="M0 470h1000"/>
+            <path class="r-fine" d="M0 505h1000M0 548h1000M0 596h1000M120 470l-60 130M330 470l-30 130M540 470v130M750 470l30 130M960 470l60 130"/>
+            <!-- doorway -->
+            <path class="r-line" d="M40 470V170h110v300"/>
+            <rect x="40" y="170" width="110" height="300" fill="var(--hair)"/>
+            <text class="r-lbl" x="44" y="156">door</text>
+            <!-- picture -->
+            <g class="picture">
+              <rect class="r-fill" x="600" y="80" width="150" height="190"/>
+              <rect class="r-line" x="612" y="92" width="126" height="166"/>
+              <text class="r-it" x="675" y="160" text-anchor="middle">a lady</text>
+              <text class="r-it" x="675" y="186" text-anchor="middle">in copious fur</text>
+              <rect class="cover" x="612" y="92" width="126" height="166"/>
+              <text class="r-lbl" x="600" y="64">the picture</text>
+            </g>
+            <!-- worn floor under the desk -->
+            <path class="worn" d="M430 474h170M434 482h160M440 490h150M448 498h134"/>
+            <g clip-path="url(#room-clip)">
+              <!-- chest of drawers -->
+              <g class="movable chest">
+                <rect class="r-fill" x="190" y="282" width="180" height="188"/>
+                <path class="r-line" d="M190 330h180M190 380h180M190 430h180"/>
+                <circle class="r-line" cx="280" cy="306" r="4"/><circle class="r-line" cx="280" cy="355" r="4"/><circle class="r-line" cx="280" cy="405" r="4"/><circle class="r-line" cx="280" cy="450" r="4"/>
+                <text class="r-lbl" x="190" y="268">chest of drawers</text>
+              </g>
+              <!-- writing desk -->
+              <g class="movable desk">
+                <rect class="r-fill" x="420" y="352" width="190" height="12"/>
+                <rect class="r-fill" x="460" y="364" width="110" height="30"/>
+                <circle class="r-line" cx="515" cy="379" r="3"/>
+                <path class="r-line" d="M432 364v106M598 364v106"/>
+                <text class="r-lbl" x="420" y="338">writing desk</text>
+              </g>
+            </g>
+            <!-- the couch stays -->
+            <g class="couch">
+              <path class="r-fill" d="M790 470V372c0-10 6-16 16-16h168c10 0 16 6 16 16v98z"/>
+              <path class="r-fill" d="M780 470c4-40 6-64 10-76 60-6 140-6 200 0 4 12 6 36 10 76z"/>
+              <path class="r-fine" d="M808 400c-2 24-4 46-6 70M846 398c0 26 2 48 0 72M900 398c2 24 2 48 4 72M950 400c2 24 4 46 8 70"/>
+              <text class="r-lbl" x="790" y="340">the couch</text>
+            </g>
+          </svg>
+        </div>
+        <div class="caps" aria-live="polite">
+          <p class="cap" data-at="0"><q>“but all the furniture apart from the all-important couch.”</q></p>
+          <p class="cap" data-at=".18"><q>“they had already taken out the chest containing his fretsaw and other tools;”</q></p>
+          <p class="cap" data-at=".46"><q>“now they threatened to remove the writing desk with its place clearly worn into the floor”</q></p>
+          <p class="cap" data-at=".74"><q>“This picture at least, now totally covered by Gregor, would certainly be taken away by no-one.”</q></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="passage" id="p2-passage">
+      <p data-drift>Had he really wanted to transform his room into a cave, a warm room fitted out with the nice furniture he had inherited? That would have let him crawl around unimpeded in any direction, but it would also have let him quickly forget his past when he had still been human. He had come very close to forgetting, and it had only been the voice of his mother, unheard for so long, that had shaken him out of it.</p>
+      <p class="cite sc">From part two</p>
+    </div>
+
+    <div class="stage" id="apple-stage">
+      <span class="stop" data-paper="#D3C2A2" data-wall=".55" hidden></span>
+      <div class="pin">
+        <div class="apple-box">
+          <svg viewBox="0 150 1000 170" role="img" aria-label="Small red apples roll across the floor. One is thrown and lodges.">
+            <path class="r-line" d="M0 290h1000"/>
+            <path class="r-fine" d="M0 304h1000M0 318h1000"/>
+            <g class="apples"></g>
+          </svg>
+        </div>
+        <div class="caps" aria-live="polite">
+          <p class="cap" data-at="0"><q>“These little, red apples rolled about on the floor, knocking into each other as if they had electric motors.”</q></p>
+          <p class="cap" data-at=".55"><q>“Another one however, immediately following it, hit squarely and lodged in his back…”</q><small class="sc step-count">It stays there. Look at the top of the page.</small></p>
+        </div>
+      </div>
+      <span class="stop" data-paper="#D3C2A2" data-wall=".6" hidden></span>
+    </div>
+  </section>
+
+  <!-- ================= PART III ================= -->
+  <section id="part-3" class="part" aria-labelledby="p3-h">
+    <span class="stop" data-paper="#3A2D22" data-wall=".8" hidden></span>
+    <div class="inner3">
+      <div class="part-head">
+        <p class="numeral" aria-hidden="true">III</p>
+        <div class="meta"><h2 id="p3-h" class="sc" style="margin:0;font-weight:400">Part three</h2><p class="t">The violin</p></div>
+      </div>
+      <blockquote class="big reveal" data-lines>“Was he an animal if music could captivate him so?”</blockquote>
+      <div class="context">
+        <p>“No-one dared to remove the apple lodged in Gregor’s flesh, so it remained there as a visible reminder of his injury.” The family take jobs and let a room to three gentlemen. One evening Grete plays the violin for them in the living room, and Gregor, drawn by the music, crawls out to listen.</p>
+      </div>
+
+      <div class="passage" id="p3-passage">
+        <p data-drift data-crawl>Yet Gregor’s sister was playing so beautifully. Her face was leant to one side, following the lines of music with a careful and melancholy expression. Gregor crawled a little further forward, keeping his head close to the ground so that he could meet her eyes if the chance came. Was he an animal if music could captivate him so? It seemed to him that he was being shown the way to the unknown nourishment he had been yearning for.</p>
+        <p class="cite sc">From part three</p>
+      </div>
+
+      <div class="strings wrap" id="strings">
+        <span class="stop" data-paper="#2E241C" data-wall="1" hidden></span>
+        <p class="sc" style="margin:0 0 3vh;color:var(--ink-2)">“His sister began to play;” · touch, hover or scroll across the strings</p>
+        <div class="strings-box">
+          <div class="pegs" role="group" aria-label="Violin strings">
+            <button class="peg" type="button" data-s="0" aria-label="Pluck the G string">G</button>
+            <button class="peg" type="button" data-s="1" aria-label="Pluck the D string">D</button>
+            <button class="peg" type="button" data-s="2" aria-label="Pluck the A string">A</button>
+            <button class="peg" type="button" data-s="3" aria-label="Pluck the E string">E</button>
+          </div>
+          <svg id="strings-svg" viewBox="0 0 1000 240" preserveAspectRatio="none" aria-hidden="true">
+            <path class="str" d="M0 30H1000"/><path class="str" d="M0 90H1000"/><path class="str" d="M0 150H1000"/><path class="str" d="M0 210H1000"/>
+          </svg>
+        </div>
+        <div class="strings-meta">
+          <button class="sound sc" type="button" aria-pressed="false">Sound off</button>
+        </div>
+        <p class="silent-line" id="silent">“The violin went silent”</p>
+      </div>
+    </div>
+
+    <div class="night" id="night">
+      <span class="stop" data-paper="#110D0A" data-wall="1" hidden></span>
+      <p class="ctx fade">That night, Gregor goes back into his room. His sister turns the key behind him.</p>
+      <p class="fade">“He thought back of his family with emotion and love.”</p>
+      <p class="fade">“until he heard the clock tower strike three in the morning.”</p>
+      <p class="fade" id="dawn"><span class="stop" data-paper="#110D0A" data-wall="1" hidden></span>“He watched as it slowly began to get light everywhere outside the window too.”</p>
+      <span class="stop" data-paper="#D9D2C2" data-wall=".5" hidden></span>
+    </div>
+  </section>
+
+  <!-- ================= AFTER ================= -->
+  <section id="coda" class="part" aria-labelledby="c-h">
+    <span class="stop" data-paper="#F7F0DC" data-wall="0" hidden></span>
+    <div class="part-head">
+      <p class="numeral" aria-hidden="true">After</p>
+      <div class="meta"><h2 id="c-h" class="sc" style="margin:0;font-weight:400">The last pages</h2><p class="t">The tram</p></div>
+    </div>
+    <blockquote class="big reveal" data-lines>“They had the tram, filled with warm sunshine, all to themselves.”</blockquote>
+    <div class="context">
+      <p>Gregor is found in the morning by the cleaner. That same day his parents and Grete leave the flat together, something they had not done for months, and take the tram out to the open country.</p>
+    </div>
+    <div class="stretch" id="stretch">
+      <p class="pre">“as soon as they reached their destination Grete was the first to get up and</p>
+      <p class="so" aria-label="stretch out">stretch out</p>
+      <p class="post">her young body.”</p>
+    </div>
+  </section>
+
+  <footer class="colophon" aria-labelledby="col-h">
+    <div>
+      <h2 class="sc" id="col-h">About the book</h2>
+      <p>Franz Kafka (3 July 1883 to 3 June 1924) was a German-language writer from Prague.</p>
+      <p><i>Die Verwandlung</i> was first published in October 1915 in the journal <i>Die weißen Blätter</i>. The first edition as a book appeared in December 1915 in the series <i>Der jüngste Tag</i>, edited by Kurt Wolff. It is told in three parts.</p>
+      <p>The first English translation, by Willa and Edwin Muir, appeared in 1933. The passages here are from David Wyllie’s translation.</p>
+    </div>
+    <div>
+      <h2 class="sc">Sources</h2>
+      <p class="src">Text: Franz Kafka, <i>The Metamorphosis</i>, translated by David Wyllie, via <a href="https://www.gutenberg.org/ebooks/5200">Project Gutenberg</a> (ebook #5200). Excerpts only, quoted as printed.</p>
+      <p class="src">Facts: Wikipedia, “<a href="https://en.wikipedia.org/wiki/The_Metamorphosis">The Metamorphosis</a>” and “<a href="https://en.wikipedia.org/wiki/Franz_Kafka">Franz Kafka</a>”. The 1915 letter is quoted from the first.</p>
+      <p class="src">Type: Fraunces, a variable serif by Undercase Type, via Google Fonts. Its weight, softness and “wonky” axes do the changing.</p>
+    </div>
+    <div class="end">
+      <span class="sc">A reading site · concept, design and code by Loem Layheng</span>
+      <a href="../../#built">Back to the portfolio</a>
+    </div>
+  </footer>
+</main>
+
+<div class="ribbon" role="note"><span>A reading site · concept by Loem Layheng</span><a href="../../#built">Back to portfolio</a></div>
+<div class="fly" aria-hidden="true"></div>
+
+<script>
+(() => {
+  const doc = document.documentElement;
+  doc.classList.add('js');
+  const RM = matchMedia('(prefers-reduced-motion: reduce)');
+  let reduced = RM.matches;
+  RM.addEventListener && RM.addEventListener('change', e => { reduced = e.matches; });
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const seg = (p, a, b) => clamp((p - a) / (b - a));
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; // in-out cubic, close to --io
+  const easeOut = t => 1 - Math.pow(1 - t, 4);
+
+  /* ---------- split into lines (for masks) ---------- */
+  const store = new WeakMap();
+  function splitLines(el) {
+    if (!store.has(el)) store.set(el, el.innerHTML);
+    el.innerHTML = store.get(el);
+    // words: text nodes split on spaces; element children stay whole
+    const frag = document.createDocumentFragment();
+    const words = [];
+    Array.from(el.childNodes).forEach(n => {
+      if (n.nodeType === 3) {
+        n.textContent.split(/(\s+)/).forEach(t => {
+          if (!t) return;
+          if (/^\s+$/.test(t)) { frag.appendChild(document.createTextNode(' ')); return; }
+          const s = document.createElement('span'); s.className = 'wd'; s.textContent = t; frag.appendChild(s); words.push(s);
+        });
+      } else { const s = document.createElement('span'); s.className = 'wd'; s.appendChild(n.cloneNode(true)); frag.appendChild(s); words.push(s); }
+    });
+    el.innerHTML = ''; el.appendChild(frag);
+    const lines = []; let top = null;
+    words.forEach(w => { const t = w.offsetTop; if (top === null || Math.abs(t - top) > 4) { lines.push([]); top = t; } lines[lines.length - 1].push(w); });
+    el.innerHTML = '';
+    lines.forEach((ws, i) => {
+      const l = document.createElement('span'); l.className = 'line';
+      const li = document.createElement('span'); li.className = 'line-in'; li.style.setProperty('--i', i);
+      ws.forEach((w, j) => { li.appendChild(w); if (j < ws.length - 1) li.appendChild(document.createTextNode(' ')); });
+      l.appendChild(li); el.appendChild(l);
+    });
+    el.classList.add('split');
+    return lines.length;
+  }
+
+  /* ---------- the changing word ---------- */
+  function prepTransformed() {
+    const tf = $('.opening .tf');
+    if (!tf || tf.dataset.done) return;
+    const word = tf.textContent; tf.textContent = '';
+    tf.setAttribute('aria-hidden', 'false');
+    // deterministic "segment" shapes per letter
+    const W = [620, 900, 560, 860, 700, 900, 640, 880, 760, 900, 600];
+    const R = [-3, 4, -6, 2, 7, -4, 3, -7, 5, -2, 6];
+    const Y = [.02, -.04, .05, -.02, .06, -.05, .03, -.06, .04, -.03, .05];
+    const O = [144, 72, 144, 96, 144, 60, 144, 80, 120, 72, 144];
+    [...word].forEach((c, k) => {
+      const ch = document.createElement('span'); ch.className = 'ch';
+      ch.style.cssText = `--k:${k};--w:${W[k % W.length]};--r:${R[k % R.length]}deg;--y:${Y[k % Y.length]}em;--o:${O[k % O.length]}`;
+      const ci = document.createElement('span'); ci.className = 'ci'; ci.textContent = c; ch.appendChild(ci); tf.appendChild(ch);
+    });
+    tf.dataset.done = 1;
+  }
+
+  const hero = $('.opening');
+  const quoteEls = $$('[data-lines]');
+
+  function layoutText() {
+    quoteEls.forEach(el => {
+      const was = el.classList.contains('in'), m = el.classList.contains('morphed'), c = el.classList.contains('crawl'), s = el.classList.contains('settled');
+      splitLines(el);
+      if (el === hero) prepTransformed();
+      // hero: keep state after re-split
+      if (m) el.classList.add('morphed'); if (c) el.classList.add('crawl'); if (s) el.classList.add('settled');
+      if (was) el.classList.add('in');
+    });
+    // hero text uses aria-label for screen readers once split
+    hero.setAttribute('aria-label', 'One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin.');
+  }
+
+  /* ---------- passages: drift per word, crawl per line ---------- */
+  const driftEls = $$('[data-drift]');
+  const crawlLines = [];
+  function buildDrift() {
+    crawlLines.length = 0;
+    driftEls.forEach(p => {
+      if (!store.has(p)) store.set(p, p.textContent);
+      const text = store.get(p);
+      const isIII = p.closest('#part-3');
+      const words = text.split(/\s+/).filter(Boolean);
+      p.innerHTML = '';
+      const spans = words.map((w, i) => {
+        const t = i / (words.length - 1);
+        const s = document.createElement('span'); s.className = 'w'; s.textContent = w;
+        let wg, soft, wonk;
+        if (isIII) { wg = 470 + t * 300; soft = 60 + t * 40; wonk = (i % 3 === 0 || t > .6) ? 1 : 0; }
+        else { wg = 380 + t * 150 + (i % 5 === 0 ? 40 : 0); soft = t * 70; wonk = (t > .7 && i % 4 === 0) ? 1 : 0; }
+        s.style.fontVariationSettings = `"opsz" 14,"wght" ${wg.toFixed(0)},"SOFT" ${soft.toFixed(0)},"WONK" ${wonk}`;
+        p.appendChild(s); p.appendChild(document.createTextNode(' '));
+        return s;
+      });
+      if (p.hasAttribute('data-crawl')) {
+        let top = null, line = null; const lines = [];
+        spans.forEach(s => { const t = s.offsetTop; if (top === null || Math.abs(t - top) > 4) { line = []; lines.push(line); top = t; } line.push(s); });
+        crawlLines.push({ el: p, lines });
+      }
+    });
+  }
+
+  /* ---------- stops: paper colour and walls ---------- */
+  const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+  const lum = ([r, g, b]) => { const f = v => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }; return .2126 * f(r) + .7152 * f(g) + .0722 * f(b); };
+  const DARK = hex('#1E1A16'), LIGHT = hex('#EDE3D0');
+  let stops = [];
+  function measureStops() {
+    const vh = innerHeight;
+    stops = $$('.stop').map(s => {
+      const host = s.parentElement;
+      const isEnd = s === host.lastElementChild && host.children.length > 1;
+      const r = host.getBoundingClientRect();
+      const y = (isEnd ? r.bottom : r.top) + scrollY - vh * .6;
+      return { y: Math.max(0, y), c: hex(s.dataset.paper), w: parseFloat(s.dataset.wall) };
+    }).sort((a, b) => a.y - b.y);
+    stops[0].y = 0;
+  }
+  let lastPaper = '', lastWall = -1;
+  function applyStops(y) {
+    let a = stops[0], b = stops[stops.length - 1];
+    for (let i = 0; i < stops.length - 1; i++) { if (y >= stops[i].y && y <= stops[i + 1].y) { a = stops[i]; b = stops[i + 1]; break; } if (y > stops[i + 1].y) { a = b = stops[i + 1]; } }
+    const t = a === b ? 0 : ease(clamp((y - a.y) / Math.max(1, b.y - a.y)));
+    const c = a.c.map((v, i) => Math.round(v + (b.c[i] - v) * t));
+    const L = lum(c);
+    // switch ink around the middle, quickly, so text never sits at low contrast
+    const k = clamp((L - .16) / (.24 - .16));
+    const ink = DARK.map((v, i) => Math.round(LIGHT[i] + (v - LIGHT[i]) * k));
+    const paper = `rgb(${c})`;
+    if (paper !== lastPaper) {
+      doc.style.setProperty('--paper', paper);
+      doc.style.setProperty('--ink', `rgb(${ink})`);
+      const light = L < .2 ? '#E9C98F' : '#FFF4D8';
+      doc.style.setProperty('--light', light);
+      metaTheme.setAttribute('content', `rgb(${c})`);
+      lastPaper = paper;
+    }
+    const wv = a.w + (b.w - a.w) * t;
+    const maxW = innerWidth > 700 ? innerWidth * .2 : 10;
+    const wall = Math.round(wv * maxW * 10) / 10;
+    if (wall !== lastWall) { doc.style.setProperty('--wall', wall + 'px'); lastWall = wall; }
+  }
+  const metaTheme = $('meta[name="theme-color"]');
+
+  /* ---------- folio index ---------- */
+  const folio = $('.folio'), track = $('.track');
+  const parts = ['#part-1', '#part-2', '#part-3', '#coda'].map(s => $(s));
+  const partLinks = $$('.folio li a');
+  let partY = [], maxScroll = 1, appleY = 0, decayA = 0, decayB = 1;
+  function measureFolio() {
+    maxScroll = Math.max(1, doc.scrollHeight - innerHeight);
+    partY = parts.map(p => p.getBoundingClientRect().top + scrollY);
+    partLinks.forEach((a, i) => a.style.setProperty('--x', (clamp(partY[i] / maxScroll) * 100).toFixed(2) + '%'));
+    track.style.setProperty('--tw', track.clientWidth + 'px');
+    const ap = $('#apple-stage');
+    appleY = ap.getBoundingClientRect().top + scrollY + (ap.offsetHeight - innerHeight) * .82;
+    track.style.setProperty('--ax', (clamp(appleY / maxScroll) * 100).toFixed(2) + '%');
+    decayA = partY[2]; decayB = $('#dawn').getBoundingClientRect().top + scrollY;
+  }
+  let lastActive = -1;
+  function applyFolio(y) {
+    const p = clamp(y / maxScroll);
+    track.style.setProperty('--p', p.toFixed(4));
+    let act = -1; partY.forEach((py, i) => { if (y + innerHeight * .5 >= py) act = i; });
+    if (act !== lastActive) { partLinks.forEach((a, i) => a.setAttribute('aria-current', i === act ? 'true' : 'false')); lastActive = act; }
+    track.style.setProperty('--decay', seg(y, decayA, decayB).toFixed(3));
+  }
+
+  /* ---------- stages ---------- */
+  const stages = {};
+  function measureStage(id) {
+    const el = $(id); const pin = $('.pin', el);
+    const top = el.getBoundingClientRect().top + scrollY - (parseFloat(getComputedStyle(pin).top) || 0);
+    stages[id] = { el, top, len: Math.max(1, el.offsetHeight - pin.offsetHeight) };
+  }
+  const progressOf = (id, y) => { const s = stages[id]; return clamp((y - s.top) / s.len); };
+  function setCaps(stage, p) {
+    const caps = $$('.cap', stage); let on = 0;
+    caps.forEach((c, i) => { if (p >= parseFloat(c.dataset.at)) on = i; });
+    caps.forEach((c, i) => c.classList.toggle('on', i === on));
+  }
+  const quant = p => reduced ? Math.round(p * 4) / 4 : p;
+
+  // door
+  const dz = $('.door-zoom'), keyG = $('.key'), dial = $('.dial'), drip = $('.drip'), bolt = $('.bolt[x="199"]'), leafL = $('.leaf.l'), leafR = $('.leaf.r'), spill = $('.spill');
+  function door(y) {
+    const p = quant(progressOf('#door-stage', y));
+    const turn = ease(seg(p, .04, .56));
+    keyG.setAttribute('transform', `rotate(${(turn * 360).toFixed(2)} 228 310)`);
+    dial.setAttribute('stroke-dashoffset', (100 - turn * 100).toFixed(2));
+    drip.setAttribute('stroke-dashoffset', (100 - easeOut(seg(p, .16, .62)) * 100).toFixed(2));
+    const snap = seg(p, .55, .6);
+    bolt.setAttribute('transform', `translate(${(snap * 20).toFixed(2)} 0)`);
+    const z = 1 + 1.1 * (1 - ease(seg(p, .58, .78)));
+    dz.style.transform = `scale(${z.toFixed(4)})`;
+    const open = ease(seg(p, .74, .98));
+    leafL.style.transform = `scaleX(${(1 - open * .84).toFixed(4)})`;
+    leafR.style.transform = `scaleX(${(1 - open * .84).toFixed(4)})`;
+    spill.style.opacity = (open * .9).toFixed(3);
+    keyG.style.opacity = (1 - seg(p, .74, .8)).toFixed(3);
+    setCaps(stages['#door-stage'].el, p);
+  }
+
+  // room
+  const chest = $('.chest'), desk = $('.desk'), cover = $('.cover'), worn = $('.worn');
+  function room(y) {
+    const p = quant(progressOf('#room-stage', y));
+    const c = ease(seg(p, .16, .42)), d = ease(seg(p, .46, .7)), pic = ease(seg(p, .74, .92));
+    chest.setAttribute('transform', `translate(${(-c * 420).toFixed(1)} 0)`);
+    desk.setAttribute('transform', `translate(${(-d * 660).toFixed(1)} 0)`);
+    worn.style.opacity = seg(p, .52, .66).toFixed(3);
+    cover.style.transform = `scaleY(${pic.toFixed(4)})`;
+    setCaps(stages['#room-stage'].el, p);
+  }
+
+  // apples
+  const APPLES = [
+    { from: 1060, to: 600, d: .0, r: 17 }, { from: 1140, to: 712, d: .05, r: 14 }, { from: 1220, to: 430, d: .1, r: 16 },
+    { from: 1300, to: 815, d: .14, r: 14 }, { from: 1380, to: 528, d: .2, r: 18 }
+  ];
+  const gA = $('.apples');
+  gA.innerHTML = APPLES.map(a => `<g class="apl"><circle cx="0" cy="0" r="${a.r}"/><path d="M0 -${a.r} q1 -7 5 -10"/></g>`).join('');
+  const aplEls = $$('.apl', gA), fly = $('.fly'), appleSvg = $('.apple-box svg'), dot = $('.apple-dot');
+  let lodged = false;
+  function apples(y) {
+    const p = quant(progressOf('#apple-stage', y));
+    APPLES.forEach((a, i) => {
+      const t = easeOut(seg(p, a.d, a.d + .45));
+      // a small knock between apples near the end of the roll
+      const knock = Math.sin(seg(p, a.d + .3, a.d + .5) * Math.PI) * (i % 2 ? 8 : -6);
+      const x = a.from + (a.to - a.from) * t + knock;
+      const rot = (x - a.from) / a.r * 57.3;
+      aplEls[i].setAttribute('transform', `translate(${x.toFixed(1)} ${290 - a.r}) rotate(${rot.toFixed(1)})`);
+    });
+    // the thrown one: from the right edge of the floor, up to the index
+    const f = seg(p, .56, .8);
+    const r = appleSvg.getBoundingClientRect(), dr = dot.getBoundingClientRect();
+    if (f > 0 && f < 1 && !reduced) {
+      const sx = r.left + r.width * .98, sy = r.top + r.height * .4;
+      const ex = dr.left + dr.width / 2, ey = dr.top + dr.height / 2;
+      const t = ease(f);
+      const x = sx + (ex - sx) * t, yy = sy + (ey - sy) * t - Math.sin(t * Math.PI) * r.height * .5;
+      fly.style.opacity = 1;
+      fly.style.transform = `translate3d(${x.toFixed(1)}px,${yy.toFixed(1)}px,0) scale(${(1 - t * .5).toFixed(3)})`;
+    } else fly.style.opacity = 0;
+    const isLodged = y >= appleY;
+    if (isLodged !== lodged) { document.body.classList.toggle('lodged', isLodged); lodged = isLodged; }
+    setCaps(stages['#apple-stage'].el, p);
+  }
+
+  // part III lines crawl
+  function crawl(y) {
+    crawlLines.forEach(({ el, lines }) => {
+      const r = el.getBoundingClientRect();
+      if (r.bottom < -100 || r.top > innerHeight + 100) return;
+      const p = clamp(1 - (r.top + r.height / 2) / innerHeight); // 0 when entering, 1 leaving
+      const amp = reduced ? 0 : Math.sin(p * Math.PI);
+      lines.forEach((ws, i) => {
+        const dir = i % 2 ? 1 : -1;
+        const x = dir * amp * (4 + i * 3.2) * (innerWidth > 700 ? 1 : .28);
+        const yy = amp * (i % 3 === 1 ? 1.5 : 0);
+        const tr = `translate3d(${x.toFixed(2)}px,${yy.toFixed(2)}px,0)`;
+        ws.forEach(w => { w.style.display = 'inline-block'; w.style.transform = tr; });
+      });
+    });
+  }
+
+  // coda: stretch out
+  const so = $('.so');
+  so.innerHTML = [...so.textContent].map(c => c === ' ' ? '<span class="c">&nbsp;</span>' : `<span class="c" aria-hidden="true">${c}</span>`).join('');
+  const soC = $$('.c', so);
+  let soMeta = { top: 0, h: 1 };
+  function stretch(y) {
+    const r = so.getBoundingClientRect();
+    if (r.bottom < -50 || r.top > innerHeight + 50) return;
+    const p = reduced ? 1 : ease(clamp(1 - (r.top + r.height / 2 - innerHeight * .25) / (innerHeight * .55)));
+    const n = soC.length, mid = (n - 1) / 2;
+    const room = Math.max(0, (so.parentElement.clientWidth - so.scrollWidth * 1.0)) / n;
+    const k = Math.min(room, innerWidth > 700 ? 26 : 4);
+    soC.forEach((c, i) => { c.style.transform = `translate3d(${((i - mid) * k * p).toFixed(2)}px,0,0)`; });
+  }
+
+  /* ---------- strings ---------- */
+  const sSvg = $('#strings-svg'), sPaths = $$('.str', sSvg), stringsWrap = $('#strings');
+  const BASE = [30, 90, 150, 210], WIDTH = [2.2, 1.7, 1.3, 1], FREQ = [196, 293.66, 440, 659.25];
+  const S = BASE.map((b, i) => ({ y: b, x: 500, a: 0, t0: 0, f: 6 + i * 1.6 }));
+  sPaths.forEach((p, i) => p.style.strokeWidth = WIDTH[i]);
+  let silent = false, audio = null, soundOn = false;
+  function ks(freq, amp) {
+    if (!soundOn) return;
+    audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+    const sr = audio.sampleRate, len = Math.floor(sr * 1.8), buf = audio.createBuffer(1, len, sr), d = buf.getChannelData(0);
+    const N = Math.round(sr / freq), ring = new Float32Array(N);
+    for (let i = 0; i < N; i++) ring[i] = Math.random() * 2 - 1;
+    let idx = 0;
+    for (let i = 0; i < len; i++) { const nx = (idx + 1) % N; const v = (ring[idx] + ring[nx]) * .4985; d[i] = ring[idx]; ring[idx] = v; idx = nx; }
+    const src = audio.createBufferSource(); src.buffer = buf;
+    const g = audio.createGain(); g.gain.value = .12 * clamp(amp, .25, 1);
+    const lp = audio.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 3200;
+    src.connect(lp).connect(g).connect(audio.destination); src.start();
+  }
+  let strAnim = false;
+  function pluck(i, x, amp) {
+    if (silent) return;
+    const s = S[i]; s.x = clamp(x, 60, 940); s.a = clamp(amp, 4, 26) * (Math.random() > .5 ? 1 : -1); s.t0 = performance.now();
+    ks(FREQ[i], Math.abs(amp) / 26);
+    if (reduced) { sPaths[i].style.stroke = 'var(--light)'; setTimeout(() => sPaths[i].style.stroke = '', 260); return; }
+    if (!strAnim) { strAnim = true; requestAnimationFrame(strLoop); }
+  }
+  function strLoop(now) {
+    let alive = false;
+    S.forEach((s, i) => {
+      const t = (now - s.t0) / 1000;
+      const d = s.a * Math.exp(-t * 2.6) * Math.cos(2 * Math.PI * s.f * t);
+      if (Math.abs(s.a * Math.exp(-t * 2.6)) > .15) alive = true;
+      sPaths[i].setAttribute('d', `M0 ${s.y}Q${s.x.toFixed(1)} ${(s.y + d * 2).toFixed(2)} 1000 ${s.y}`);
+    });
+    if (alive) requestAnimationFrame(strLoop); else { strAnim = false; S.forEach((s, i) => sPaths[i].setAttribute('d', `M0 ${s.y}H1000`)); }
+  }
+  const toSvg = e => { const r = sSvg.getBoundingClientRect(); return { x: (e.clientX - r.left) / r.width * 1000, y: (e.clientY - r.top) / r.height * 240 }; };
+  let lastPt = null;
+  sSvg.addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse') return;
+    const pt = toSvg(e);
+    if (lastPt) BASE.forEach((b, i) => { if ((lastPt.y - b) * (pt.y - b) < 0) pluck(i, pt.x, Math.abs(pt.y - lastPt.y) * 1.2 + 6); });
+    lastPt = pt;
+  });
+  sSvg.addEventListener('pointerleave', () => lastPt = null);
+  sSvg.addEventListener('pointerdown', e => {
+    const pt = toSvg(e); let best = 0, bd = 1e9;
+    BASE.forEach((b, i) => { const dd = Math.abs(pt.y - b); if (dd < bd) { bd = dd; best = i; } });
+    if (bd < 40) pluck(best, pt.x, 18);
+  });
+  $$('.peg').forEach(b => b.addEventListener('click', () => pluck(+b.dataset.s, 300 + +b.dataset.s * 120, 16)));
+  const soundBtn = $('.sound');
+  soundBtn.addEventListener('click', () => {
+    soundOn = !soundOn; soundBtn.setAttribute('aria-pressed', soundOn); soundBtn.textContent = soundOn ? 'Sound on' : 'Sound off';
+    if (soundOn) { audio = audio || new (window.AudioContext || window.webkitAudioContext)(); audio.resume && audio.resume(); }
+  });
+  // scrolling past the strings plays them, so touch screens get the music too
+  let prevY = scrollY;
+  function stringsScroll(y) {
+    const dy = y - prevY; prevY = y;
+    if (silent || !dy) return;
+    const r = sSvg.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) return;
+    const line = innerHeight * .55;
+    BASE.forEach((b, i) => {
+      const sy = r.top + b / 240 * r.height, before = sy + dy;
+      if ((before - line) * (sy - line) < 0) pluck(i, 200 + i * 180, Math.min(26, Math.abs(dy) * .9 + 6));
+    });
+  }
+  new IntersectionObserver(es => es.forEach(e => {
+    const past = e.boundingClientRect.top < innerHeight * .5;
+    silent = e.isIntersecting ? past : e.boundingClientRect.top < 0;
+    stringsWrap.classList.toggle('silent', silent);
+  }), { threshold: [0, .5, 1], rootMargin: '0px 0px -50% 0px' }).observe($('#silent'));
+
+  /* ---------- reveals ---------- */
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -12% 0px' });
+
+  /* ---------- loop ---------- */
+  let ticking = false;
+  function frame() {
+    ticking = false;
+    const y = scrollY;
+    applyStops(y); applyFolio(y);
+    door(y); room(y); apples(y); crawl(y); stretch(y); stringsScroll(y);
+  }
+  const req = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
+  function measureAll() {
+    buildDrift();
+    measureStops(); measureFolio();
+    ['#door-stage', '#room-stage', '#apple-stage'].forEach(measureStage);
+    frame();
+  }
+
+  const ribbon = $('.ribbon');
+  function setFoot() { doc.style.setProperty('--foot', innerWidth <= 700 ? ribbon.offsetHeight + 'px' : '0px'); }
+  let started = false;
+  function start() {
+    if (started) return; started = true;
+    setFoot();
+    layoutText();
+    measureAll();
+    quoteEls.filter(el => el !== hero).forEach(el => io.observe(el));
+    $$('.night p.fade').forEach(el => io.observe(el));
+    // the opening: lines rise, then one word changes
+    requestAnimationFrame(() => {
+      hero.classList.add('in');
+      const lines = $$('.line', hero).length;
+      const tReveal = reduced ? 0 : 1400 + lines * 90;
+      setTimeout(() => {
+        hero.classList.add('settled');
+        hero.classList.add('morphed');
+        if (!reduced) setTimeout(() => hero.classList.add('crawl'), 2600);
+      }, reduced ? 0 : tReveal + 500);
+    });
+    addEventListener('scroll', req, { passive: true });
+    let rt; let lastW = innerWidth;
+    addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { setFoot(); if (innerWidth !== lastW) { lastW = innerWidth; layoutText(); } measureAll(); }, 150); });
+    addEventListener('load', () => measureAll());
+  }
+  const fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+  Promise.race([fontsReady, new Promise(r => setTimeout(r, 2500))]).then(start);
+})();
+</script>
+</body>
+</html>
