@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generates the woodcut webtoon page for The Metamorphosis.
 All art is procedural/hand-placed SVG: rough polygons + tapered gouge strokes."""
-import math, random, html as H
+import math, random, re, html as H
 
 INK = '#0e0c0a'
 PAPER = '#ece3d0'
@@ -17,9 +17,29 @@ def uid(p='c'):
 def f(v):
     return str(int(round(v)))
 
+def _num(v):
+    v = int(round(v))
+    return str(v)
+
 def D(pts, closed=True):
-    s = 'M' + ' L'.join(f'{f(x)} {f(y)}' for x, y in pts)
-    return s + (' Z' if closed else '')
+    """Compact path: relative coordinates, integer units, one winding direction (so merged shapes never cut holes)."""
+    pts = [(int(round(x)), int(round(y))) for x, y in pts]
+    if closed and len(pts) > 2:
+        a = sum(pts[i][0] * pts[(i + 1) % len(pts)][1] - pts[(i + 1) % len(pts)][0] * pts[i][1] for i in range(len(pts)))
+        if a < 0:
+            pts = pts[::-1]
+    out = [f'M{pts[0][0]} {pts[0][1]}l']
+    px, py = pts[0]
+    first = True
+    for x, y in pts[1:]:
+        dx, dy = x - px, y - py
+        px, py = x, y
+        if dx == 0 and dy == 0:
+            continue
+        a, b = str(dx), str(dy)
+        out.append(('' if first or a.startswith('-') else ' ') + a + ('' if b.startswith('-') else ' ') + b)
+        first = False
+    return ''.join(out) + ('z' if closed else '')
 
 def rough(pts, step=16, amp=2.4, closed=True, r=None):
     r = r or rng
@@ -445,7 +465,26 @@ def shift(J, dx, dy, sc=1):
     return {k: (v[0] * sc + dx, v[1] * sc + dy) if isinstance(v, tuple) else v for k, v in J.items()}
 
 # ---------------------------------------------------------------- panels
+_PATH = re.compile(r'<path d="([^"]*)" fill="([^"]*)"/>')
+def merge_paths(body):
+    out, i, run_fill, run_d = [], 0, None, []
+    def flush():
+        if run_d:
+            out.append(f'<path d="{"".join(run_d)}" fill="{run_fill}"/>')
+    pos = 0
+    for m in _PATH.finditer(body):
+        gap = body[pos:m.start()]
+        if gap or m.group(2) != run_fill:
+            flush(); run_d = []; run_fill = m.group(2)
+            out.append(gap)
+        run_d.append(m.group(1))
+        pos = m.end()
+    flush()
+    out.append(body[pos:])
+    return ''.join(out)
+
 def svg(W, H, body, label, fx='xMidYMid slice', cls=''):
+    body = merge_paths(body).replace(f'fill="{INK}"', 'fill="#0e0c0a"')
     return (f'<svg class="art {cls}" viewBox="0 0 {W} {H}" preserveAspectRatio="{fx}" role="img" aria-label="{H_(label)}">'
             f'{body}</svg>')
 
@@ -1563,6 +1602,8 @@ def pos_m(spec):
     def adj(k, v):
         if k == 'b' and v.endswith('%'):
             return f'calc({v} + 30px)'
+        if k == 't' and v.endswith('%'):
+            return f'calc({v} + 40px)'
         return v
     return ';'.join(f'--m{m[k]}:{adj(k, v)}' for k, v in (kv.split(':') for kv in spec.split(';')))
 
@@ -1597,6 +1638,22 @@ SCENE = {
     'stretch': dict(tr='ray',   len=1.4, o='50% 33%'),
 }
 
+import os
+SCENE_DIR = os.path.join(os.path.dirname(OUT), 'scenes')
+os.makedirs(SCENE_DIR, exist_ok=True)
+for fn_ in os.listdir(SCENE_DIR):
+    if fn_.endswith('.svg'):
+        os.remove(os.path.join(SCENE_DIR, fn_))
+_inline = [0]
+def art_html(P):
+    markup = svg(P["W"], P["H"], P["art"], P["label"], P["fx"])
+    _inline[0] += 1
+    if _inline[0] <= 2:
+        return markup
+    name = f'{P["id"]}.svg'
+    open(os.path.join(SCENE_DIR, name), 'w').write(markup.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ', 1))
+    return f'<span class="art-ph" data-src="scenes/{name}" role="img" aria-label="{H_(P["label"])}"></span>'
+
 parts = []
 for P in PANELS:
     if 'gutter' in P:
@@ -1613,7 +1670,7 @@ for P in PANELS:
         extra = '<h1 class="title"><span class="t1">The Metamorphosis</span><span class="t2">Franz Kafka · 1915</span></h1>'
     attrs = f'data-tr="{sc["tr"]}" data-len="{sc["len"]}"' + (f' data-o="{sc["o"]}"' if 'o' in sc else '') + (f' data-pf="{sc["pf"]}"' if 'pf' in sc else '')
     parts.append(f'<section class="scene" id="p-{P["id"]}" {attrs} style="--bg:{P["bg"]};--ar:{P["W"]}/{P["H"]}">{extra}'
-                 f'<div class="art-wrap">{svg(P["W"], P["H"], P["art"], P["label"], P["fx"])}</div>'
+                 f'<div class="art-wrap">{art_html(P)}</div>'
                  f'{"<div class=caps>" + caps + "</div>" if caps else ""}</section>')
 
 DEFS = f'''<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>

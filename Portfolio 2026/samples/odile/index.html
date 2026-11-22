@@ -97,7 +97,7 @@ em{font:italic 400 1.1em/1 "Instrument Serif",serif;letter-spacing:-.01em}
 .cv li span:last-child{text-align:right;color:var(--mute)}
 .cv li span:nth-child(2){color:var(--mute)}
 .foot{display:flex;justify-content:space-between;align-items:end;padding:0 var(--g) 90px}
-.foot .big{font-weight:500;font-size:clamp(48px,10vw,170px);letter-spacing:-.06em;line-height:.9}
+.foot .big{font-weight:500;font-size:clamp(40px,7.4vw,130px);letter-spacing:-.06em;line-height:.9}
 .foot .big a{background:linear-gradient(currentColor,currentColor) no-repeat 0 92%/0 .05em;transition:background-size .8s var(--e)}
 .foot .big a:hover{background-size:100% .05em}
 .foot small{font-size:13px;color:var(--mute);text-align:right}
@@ -121,7 +121,7 @@ em{font:italic 400 1.1em/1 "Instrument Serif",serif;letter-spacing:-.01em}
 </style>
 </head>
 <body>
-<div class="ribbon" role="note">Fictional sample · Odile and her work are invented <a href="../../#built">By Loem Layheng ↗</a></div>
+<div class="ribbon" role="note">Fictional sample · Odile and her work are invented <a href="../../">By Loem Layheng ↗</a></div>
 
 <header class="top"><b>Odile Rask</b><nav><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav><span class="av"><i></i>Booking from March · Copenhagen</span></header>
 
@@ -252,7 +252,7 @@ addEventListener('keydown', e => { if (e.key === 'Escape' && sheet.classList.con
 open(location.hash.slice(1));
 requestAnimationFrame(() => document.body.classList.add('ready'));
 </script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="../../vendor/lenis.min.js"></script>
 <script>
 if (window.Lenis && !matchMedia('(prefers-reduced-motion: reduce)').matches && matchMedia('(pointer: fine)').matches) {
   const lenis = new Lenis({ lerp: .085 });

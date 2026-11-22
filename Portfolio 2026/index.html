@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Layheng · Product designer</title>
-<meta name="description" content="Loem Layheng, product designer and product owner in Phnom Penh. Designs products, then builds them with Figma and vibe coding.">
+<title>Layheng · Creative & product designer</title>
+<meta name="description" content="Loem Layheng, creative and product designer in Phnom Penh. Designs products, then builds them with Figma and vibe coding.">
+<link rel="canonical" href="https://layheng-portfolio.vercel.app/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Loem Layheng · Product designer">
+<meta property="og:title" content="Loem Layheng · Creative & product designer">
 <meta property="og:description" content="Designs it, then builds it. Live sites, design systems and product work from Phnom Penh.">
 <meta property="og:image" content="https://layheng-portfolio.vercel.app/img/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -66,7 +67,7 @@
   /* ---------- Cursor: blend dot that stretches with speed, label pill on targets ---------- */
   .cur { position: fixed; left: 0; top: 0; z-index: 95; pointer-events: none; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: #fff; mix-blend-mode: difference; transition: width var(--t2) var(--out), height var(--t2) var(--out), margin var(--t2) var(--out), opacity var(--t1); }
   .cur.hide { opacity: 0; }
-  .cur.big { width: 88px; height: 88px; margin: -44px 0 0 -44px; mix-blend-mode: normal; background: var(--sun); }
+  .cur.big { width: 64px; height: 64px; margin: 14px 0 0 14px; mix-blend-mode: normal; background: var(--sun); }
   .cur b { position: absolute; inset: 0; display: grid; place-items: center; font-size: 13px; font-weight: 500; color: #121210; opacity: 0; transition: opacity var(--t1); white-space: nowrap; }
   .cur.big b { opacity: 1; transition-delay: .12s; }
   @media not (hover: hover) { .cur { display: none; } }
@@ -74,6 +75,7 @@
   /* ---------- Top bar ---------- */
   .top { position: fixed; z-index: 50; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; align-items: center; padding: 18px var(--g); font-size: 14px; color: var(--ink); }
   .top nav { display: flex; gap: 22px; }
+  .top nav > * { padding: 10px 0; margin: -10px 0; }
   .top .home-l { display: flex; gap: .5em; align-items: center; }
   .top .home-l i { width: 7px; height: 7px; border-radius: 50%; background: var(--sun); }
   .top { transition: transform var(--t3) var(--io), background-color var(--t2); }
@@ -84,6 +86,7 @@
 
   /* ---------- Home: the corridor ---------- */
   .home { min-height: 100svh; display: flex; flex-direction: column; padding-top: 96px; }
+  .role-m { display: none; }
   .name { position: relative; z-index: 2; pointer-events: none; font-weight: 700; font-size: 19vw; letter-spacing: -.065em; line-height: .86; padding-left: calc(var(--g) - .04em); white-space: nowrap; margin-top: 4vh; user-select: none; }
   .name .l { display: inline-block; transform: translateY(105%); transition: transform 1.3s var(--out); transition-delay: calc(var(--i) * 50ms + .15s); }
   .name .clip { display: inline-block; overflow: clip; padding-bottom: .1em; margin-bottom: -.1em; }
@@ -92,7 +95,7 @@
   .tag span { display: inline-block; clip-path: inset(0 100% 0 0); transition: clip-path 1.6s var(--io) .9s; }
   .ready .tag span { clip-path: inset(0 -5% 0 0); }
 
-  .corridor { position: relative; z-index: 1; margin-top: -3.2vw; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; cursor: grab; overscroll-behavior-x: contain; }
+  .corridor { position: relative; z-index: 1; margin-top: 2.2vw; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; cursor: grab; overscroll-behavior-x: contain; }
   .corridor::-webkit-scrollbar { display: none; }
   .corridor.drag { cursor: grabbing; }
   .corridor.drag a { pointer-events: none; }
@@ -109,8 +112,14 @@
   .room .shot1.full { width: 100%; left: 0; top: 0; height: 100%; object-fit: cover; border-radius: 0; box-shadow: none; }
   .room:hover .shot1.full { transform: scale(1.04); }
   .room ul.lo { top: auto; bottom: 96px; font-size: 13px; line-height: 1.6; opacity: .85; }
+  .refs { color: var(--mute); font-size: 15px; padding: 18px 0 0; border-top: 1px solid var(--line); }
   .tk-h { font-size: clamp(40px, 5vw, 84px); font-weight: 700; letter-spacing: -.055em; margin: 16vh 0 4vh; }
   .ds-wall { margin-top: 14vh; }
+  .room .mk { position: absolute; top: 14%; left: 14%; width: 42%; filter: drop-shadow(0 18px 30px #0007); transition: transform var(--t4) var(--io); }
+  .room .mk svg { width: 100%; height: auto; display: block; }
+  .room .mk2 { left: 48%; top: 20%; }
+  .room:hover .mk { transform: translateY(-8px) rotate(-3deg); } .room:hover .mk2 { transform: translateY(-4px) rotate(3deg); }
+  .room .shot1.cv { width: 70%; left: 15%; top: 12%; border-radius: 4px; }
   .room .shot2 { width: 26%; right: 5%; top: 29%; border-radius: 12px; }
   .room .fan { width: 40%; top: 12%; border-radius: 12px; }
   .room .fan:nth-of-type(1) { left: 6%; transform: rotate(-6deg); } .room .fan:nth-of-type(2) { left: 30%; top: 8%; } .room .fan:nth-of-type(3) { left: 54%; transform: rotate(6deg); }
@@ -120,7 +129,9 @@
   .room ul { position: absolute; left: 14px; top: 96px; list-style: none; font-size: 15px; line-height: 1.7; }
   .room ul li { transition: transform var(--t2) var(--out); transition-delay: calc(var(--j) * 30ms); }
   .room:hover ul li { transform: translateX(8px); }
-  .room .end { width: 14vw; background: transparent; border: 1px dashed var(--line); color: var(--mute); }
+  .room.end { width: 20vw; background: transparent; border: 1px solid var(--line); color: var(--ink); text-align: left; }
+  .room.end:hover { background: var(--sun); color: #121210; }
+  .room.end h2 { text-shadow: none; }
   .hint { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 18px var(--g) 22px; font-size: 13px; color: var(--mute); margin-top: auto; }
   .bar { flex: 1; max-width: 260px; height: 1px; background: var(--line); position: relative; }
   .bar i { position: absolute; left: 0; top: 0; height: 1px; width: 100%; background: var(--ink); transform-origin: left; transform: scaleX(var(--p, .2)); }
@@ -268,6 +279,15 @@
   .lead { font-size: clamp(24px, 2.6vw, 40px); line-height: 1.2; letter-spacing: -.03em; }
   mark { color: inherit; background: linear-gradient(color-mix(in srgb, var(--pc) 55%, transparent), color-mix(in srgb, var(--pc) 55%, transparent)) no-repeat 0 92% / 0% .4em; transition: background-size 1.2s var(--io) 1.2s; padding: 0 .05em; }
   .shown mark { background-size: 100% .4em; }
+  .prob { font-size: clamp(19px, 1.7vw, 26px); line-height: 1.35; letter-spacing: -.015em; color: var(--ink); max-width: 46ch; }
+  .jr { list-style: none; display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; position: relative; padding-top: 30px; }
+  .jr::before { content: ''; position: absolute; left: 0; right: 0; top: 9px; height: 2px; background: var(--pc); transform: scaleX(0); transform-origin: left; transition: transform 1.6s var(--io) .2s; }
+  .jr.shown::before { transform: none; }
+  .jr li { position: relative; padding: 0 14px 0 0; font-size: 15px; line-height: 1.35; opacity: 0; transform: translateY(10px); transition: opacity .7s var(--out), transform .7s var(--out); transition-delay: calc(var(--k) * 180ms + .4s); }
+  .jr.shown li { opacity: 1; transform: none; }
+  .jr li::before { content: ''; position: absolute; left: 0; top: -27px; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 2px solid var(--pc); }
+  .jr li span { display: block; font-size: 12px; color: var(--mute); margin-bottom: 4px; }
+  @media (max-width: 760px) { .jr { grid-template-columns: 1fr; padding: 0 0 0 30px; gap: 18px; } .jr::before { left: 6px; right: auto; top: 0; bottom: 0; width: 2px; height: auto; transform: scaleY(0); transform-origin: top; } .jr li::before { left: -30px; top: 2px; } }
   .did { list-style: none; border-top: 1px solid var(--line); }
   .did li { border-bottom: 1px solid var(--line); }
   .did button { width: 100%; display: grid; grid-template-columns: 48px 1fr 24px; align-items: center; padding: 20px 0; font-size: clamp(20px, 2vw, 30px); letter-spacing: -.03em; }
@@ -327,7 +347,8 @@
     .home { padding-top: 70px; }
     .name { font-size: 24.5vw; margin-top: 7vh; }
     .tag { left: 31vw; top: -.55em; font-size: .3em; }
-    .corridor { overflow: visible; cursor: auto; margin-top: -4vw; }
+    .corridor { overflow: visible; cursor: auto; margin-top: 4vw; }
+    .role-m { display: block; padding: 14px var(--g) 0; font-size: 15px; color: var(--mute); }
     .rooms { flex-direction: column; width: auto; }
     .room, .room.wide { width: auto; height: 74vw; }
     .room .end, .hint .bar, .hint .drag-t { display: none; }
@@ -349,6 +370,7 @@
     .loader, .curtain { display: none; }
   }
 </style>
+<noscript><style>.loader,.cur,.curtain,#gl{display:none!important}.room{transform:none!important;clip-path:none!important}.top>*,.hint>*{transform:none!important;opacity:1!important}.name .l{transform:none!important}.tag span{clip-path:none!important}</style></noscript>
 </head>
 <body>
 
@@ -357,7 +379,7 @@
 <div class="curtain" id="curtain" aria-hidden="true"><p><i></i><span id="curtainT"></span></p></div>
 
 <header class="top" id="top">
-  <a class="home-l" href="#" aria-label="Home"><i></i><span>Layheng</span><span>· Product designer, Phnom Penh</span></a>
+  <a class="home-l" href="#" aria-label="Home"><i></i><span>Layheng</span><span>· Creative & product designer, Phnom Penh</span></a>
   <nav>
     <button data-about><span class="roll"><span data-t="About">About</span></span></button>
     <a href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener"><span class="roll"><span data-t="CV">CV</span></span></a>
@@ -367,7 +389,8 @@
 
 <main class="home" id="home">
   <h1 class="name" aria-label="Layheng designs it, then builds it"><span class="clip" aria-hidden="true" id="nameL">Layheng</span><span class="tag" aria-hidden="true"><span>designs it, then builds it</span></span></h1>
-  <div class="corridor" id="corridor"><div class="rooms" id="rooms"></div></div>
+  <p class="role-m">Creative & product designer · Phnom Penh</p>
+  <div class="corridor" id="corridor"><div class="rooms" id="rooms"><a class="room" href="samples/metamorphosis/" style="--rc:#8A3B1E"><h2>The Metamorphosis</h2></a><a class="room" href="samples/interior/" style="--rc:#6E5A45"><h2>Atelier Kambor</h2></a><a class="room" href="samples/rebrand/" style="--rc:#2335D9"><h2>Case studies</h2></a><a class="room" href="#web" style="--rc:#1F7A4D"><h2>Web projects</h2></a><a class="room" href="#work" style="--rc:#16A34A"><h2>Product work</h2></a><a class="room" href="Loem_Layheng_CV.pdf" style="--rc:#6B3FA0"><h2>Experience (CV)</h2></a></div></div>
   <div class="hint"><span class="drag-t">Selected work</span><span class="bar"><i id="bar"></i></span><span>©2026 · Phnom Penh</span></div>
 </main>
 
@@ -378,7 +401,7 @@
 <aside class="panel" id="panel" role="dialog" aria-modal="true" aria-label="About" aria-hidden="true" inert>
   <div class="panel-top"><button data-close><span class="roll"><span data-t="Close ×">Close ×</span></span></button></div>
   <h2>Hi, I’m <em>Layheng</em>.</h2>
-  <p>I’m <b>Loem Layheng</b>, a product designer and product owner in Phnom Penh. At <b>Smart Axiata</b> I look after the <b>SmartNas digital channels</b>: planning features, handling issues, and bringing partners on board.</p>
+  <p>I’m <b>Loem Layheng</b>, a creative and product designer in Phnom Penh. My job title is Product Owner: at <b>Smart Axiata</b> I look after the <b>SmartNas digital channels</b>: planning features, handling issues, and bringing partners on board.</p>
   <p>I design in <b>Figma</b>, then build with <b>vibe coding</b>. That is how the live sites on this page exist: I plan them, design them and ship them myself.</p>
   <p>Before Smart I owned a POS product at Youding, redesigned its QR ordering app, and started in customer success, which is where I learned what users really struggle with.</p>
   <h3>Quick facts</h3>
@@ -397,7 +420,7 @@
   </ul>
 </aside>
 
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
 <script src="mocks.js"></script>
 <script>
 /* ======================= Content ======================= */
@@ -452,7 +475,7 @@ const TOOLS = [
   ['Design', [['Figma', 'Hi-fi prototypes, like the EZorder 2.0 redesign'], ['Canva', 'Quick social graphics and posters']]],
   ['Build', [['Claude Code', 'Every site in this portfolio'], ['Shopify', 'My own store, 2023 to 2024']]],
   ['Plan', [['Notion', 'Briefs, plans and notes'], ['Jira', 'Backlog and bugs with dev teams']]],
-  ['Look', [['Pinterest', 'Collecting references'], ['Awwwards', 'Seeing what good motion looks like'], ['Behance', 'Case studies from other designers'], ['SiteInspire', 'Clean layouts to learn from']]]
+  ['Skills', [['Journey mapping', 'From QR scan to payment, edge cases included'], ['Wireframes & hi-fi prototypes', 'Figma, then working code'], ['Vibe coding', 'Layouts and sample UIs that people can click']]]
 ];
 
 const XP = [
@@ -467,15 +490,15 @@ const XP = [
 /* Product work cases (from the previous site) */
 const NOTE_CO = 'Illustrative mock-up. Real screens can’t be shared due to company confidentiality.';
 const CASES = [
-  { id: 'smartnas', name: 'SmartNas', tag: 'Product ownership', color: '#16A34A', meta: ['Digital Touchpoint Officer', 'Smart Axiata', '2026 to present'], shots: ['smartPhone', 'smartWeb'], note: NOTE_CO,
+  { id: 'smartnas', name: 'SmartNas', tag: 'Product ownership', color: '#16A34A', problem: 'New features were proposed as long written documents. Stakeholders found them hard to judge, and developers found surprises late.', journey: ['Idea or partner request', 'Working prototype, mobile and web', 'Stakeholders click through it', 'Scope agreed with developers', 'Build and release', 'Complaints and issues tracked back'], meta: ['Digital Touchpoint Officer', 'Smart Axiata', '2026 to present'], shots: ['smartPhone', 'smartWeb'], note: NOTE_CO,
     intro: 'Product Owner for *every SmartNas digital channel*. I plan what gets built next, deal with what goes wrong, and *bring partners into the product*.',
     did: [['Feature planning', 'Plan and develop new features inside SmartNas, from requirements to release with the development teams.'], ['Issues and complaints', 'Handle complaints, issues and inquiries from all Smart digital channels, and drive each one to a fix with the right team.'], ['Partner integration', 'Lead partner integrations into Smart’s digital channels, aligning scope and user flows from the first call to launch.'], ['Prototype first', 'Present new features as working prototypes for mobile and web, built with vibe coding, instead of long written proposals.']],
     results: [['Faster decisions', 'Stakeholders react to a working screen, not a document, so features get approved or cut sooner.'], ['Clearer scope', 'Developers see the exact flow before building, so there are fewer surprises later.'], ['One owner, every channel', 'Features, complaints and partners are tracked together, so nothing falls between teams.']] },
-  { id: 'ezorder', name: 'EZorder', tag: 'QR ordering redesign', color: '#EA580C', meta: ['Product Owner', 'Youding', 'Dec 2025 to Feb 2026'], shots: ['ezPhone', 'ezWeb'], note: NOTE_CO,
+  { id: 'ezorder', name: 'EZorder', tag: 'QR ordering redesign', color: '#EA580C', problem: 'Guests waited for staff to take their order and to pay. Staff spent their time walking orders between tables.', journey: ['Scan the QR on the table', 'Browse the menu', 'Choose options', 'Send the order', 'Kitchen receives it', 'Pay from the phone'], meta: ['Product Owner', 'Youding', 'Dec 2025 to Feb 2026'], shots: ['ezPhone', 'ezWeb'], note: NOTE_CO,
     intro: 'A QR dine-in ordering web app. Guests *scan, browse, order and pay* from their own phone, with *no waiting for staff*.',
     did: [['Journey mapping', 'Mapped the full guest journey from QR scan to payment, including the edge cases staff deal with today.'], ['UX/UI redesign', 'Led the end-to-end redesign of EZorder 2.0, together with a new brand identity.'], ['Hi-fi prototype', 'Built the high-fidelity Figma prototype that the development team built from.'], ['Scope and UAT', 'Split MVP from backlog with stakeholders, then ran UAT rounds with live restaurant clients.']],
     results: [['Self-service ordering', 'Guests browse, order and pay from their own phone, without waving for a waiter.'], ['Staff freed up', 'Less time walking orders between tables, more time on food and service.'], ['Live with restaurants', 'Shipped and running with Youding restaurant clients after UAT.']] },
-  { id: 'chatbot', name: 'AI Chatbot', tag: 'Product spec', color: '#7C4DDB', meta: ['Product Owner', 'Youding', '2025'], shots: ['botPhone', 'botWeb'], note: NOTE_CO,
+  { id: 'chatbot', name: 'AI Chatbot', tag: 'Product spec', color: '#7C4DDB', problem: 'The customer success team answered the same routine POS questions again and again, which left less time for hard cases.', journey: ['Merchant asks in the app', 'Bot answers routine questions', 'Hard case detected', 'Handed to a person, with context', 'Weak answers flagged', 'Answers improved'], meta: ['Product Owner', 'Youding', '2025'], shots: ['botPhone', 'botWeb'], note: NOTE_CO,
     intro: 'A *first line of support* inside the POS app. It answers routine questions so the CS team can *focus on the hard cases*.',
     did: [['Question audit', 'Listed the top 20 recurring support questions together with the CS team.'], ['Conversation design', 'Designed the conversation flows, plus clear escalation paths for anything the bot can’t solve.'], ['Prompt writing', 'Wrote and tested the prompts so answers stay accurate and on-brand.'], ['Feedback loop', 'Set up tracking to find weak answers and keep improving them.']],
     results: [['Instant first answers', 'Routine POS questions get answered right away, any time of day.'], ['Smart escalation', 'Hard cases reach a person, with the context already attached.'], ['Keeps improving', 'Feedback shows which answers need work, so quality goes up over time.']] },
@@ -489,8 +512,10 @@ const CASES = [
     results: [['Hours to minutes', 'A full poster set comes out of a single brief.'], ['On-brand every time', 'Colours, type and style stay consistent across every size.'], ['More clients, same effort', 'The agency could take on more clients without adding hours.']] }
 ];
 
-/* theme display fonts, subset to the characters of the shop names */
-{
+/* theme display fonts, subset to the characters of the shop names (loaded with the theme wall) */
+let themeFonts = false;
+function loadThemeFonts() {
+  if (themeFonts) return; themeFonts = true;
   const fam = { 'Fredoka': 'Fredoka:wght@600', 'Fraunces': 'Fraunces:wght@600', 'Playfair Display': 'Playfair+Display:wght@600', 'Oswald': 'Oswald:wght@600', 'Syne': 'Syne:wght@700', 'Cormorant Garamond': 'Cormorant+Garamond:wght@500' };
   const text = [...new Set(THEMES.map(t => t.name).join(''))].join('');
   const l = document.createElement('link'); l.rel = 'stylesheet';
@@ -509,15 +534,15 @@ const rich = txt => { let i = 0; return txt.split(/(\*[^*]+\*)/).map(seg => { co
 /* ======================= Home corridor ======================= */
 document.getElementById('nameL').innerHTML = [...'Layheng'].map((c, i) => `<span class="l" style="--i:${i}">${c}</span>`).join('');
 const roomArt = {
-  metamorphosis: `<img class="shot1 full" style="object-position:40% 50%" src="img/room-metamorphosis.webp" alt="" loading="eager">`,
-  kambor: `<img class="shot1 full" style="object-position:78% 50%" src="img/sample-interior.webp" alt="">`,
-  cases: `<img class="shot1" src="img/sample-rebrand.webp" alt="">`,
-  web: `<img class="shot1" src="img/menu-landing.webp" alt=""><img class="shot2" src="img/m-mango.webp" alt="">`,
-  work: `<span class="big-t">SmartNas, EZorder, AI Chatbot, Dropship, Poster AI</span>`,
-  experience: `<span class="big-t">Smart Axiata, Youding, freelance, my own store</span>`
+  metamorphosis: `<img class="shot1 full" style="object-position:40% 50%" src="img/thumb/room-metamorphosis.webp" alt="" loading="eager">`,
+  kambor: `<img class="shot1 full" src="img/thumb/kambor.webp" alt="">`,
+  cases: `<img class="shot1" src="img/thumb/sample-rebrand.webp" alt="">`,
+  web: `<img class="shot1" src="img/thumb/menu-landing.webp" alt=""><img class="shot2" src="img/thumb/m-mango.webp" alt="">`,
+  work: `<span class="mk">${mocks.ezPhone('#EA580C')}</span><span class="mk mk2">${mocks.smartPhone()}</span>`,
+  experience: `<img class="shot1 cv" src="img/thumb/cv.webp" alt="">`
 };
 $('#rooms').innerHTML = ROOMS.map((r, k) => `<a class="room${k ? '' : ' wide'}" href="${r.href || '#' + r.id}"${r.href ? ` data-ext="${r.name}"` : ''} style="--rc:${r.color};--k:${k}" data-cursor="${r.cursor}" data-room>
-  <span class="n">${r.n}</span>${roomArt[r.id]}<h2>${r.name}<small>${r.sub}</small></h2></a>`).join('') + `<span class="room end" style="--k:6;--rc:transparent" aria-hidden="true"></span>`;
+  <span class="n">${r.n}</span>${roomArt[r.id]}<h2>${r.name}<small>${r.sub}</small></h2></a>`).join('') + `<button class="room end" style="--k:6;--rc:transparent" data-about data-contact data-cursor="Say hi"><h2>Get in touch<small>Telegram, email, CV</small></h2></button>`;
 
 const corridor = $('#corridor'), barEl = $('#bar');
 const isRow = () => matchMedia('(min-width: 761px)').matches;
@@ -560,11 +585,11 @@ const block = (b, i, list) => `<article class="build">
       <div class="media">${b.img.map(src => `<div class="browser rv"><div class="chrome"><i></i><i></i><i></i><span>${b.host}</span></div><img src="${src}" alt="${esc(b.name)} home page" loading="lazy"></div>`).join('')}
         ${b.phones ? `<div class="phones${b.phones.length < 3 ? ' two' : ''}">${b.phones.map((p, j) => `<img class="rv" style="--d:${j * .1}s" src="${p}" alt="${esc(b.name)} on a phone" loading="lazy">`).join('')}</div>` : ''}</div>
     </article>${b.themes ? themeWall() : ''}`;
-const themeWall = () => `<section class="ds-wall" id="dsWall"><div class="ds-intro rv"><p><span class="k">Inside the platform</span><br>Six menu themes, one per type of shop. Same data underneath, its own fonts, colours and layout on top.</p></div>
+const themeWall = () => (loadThemeFonts(), `<section class="ds-wall" id="dsWall"><div class="ds-intro rv"><p><span class="k">Inside the platform</span><br>Six menu themes, one per type of shop. Same data underneath, its own fonts, colours and layout on top.</p></div>
       ${CANVAS() ? `<div class="ds-canvas" id="dsCanvas"></div>` : ''}<div class="themes"${CANVAS() ? ' hidden' : ''}>${THEMES.map((t, i) => `<a class="theme rv" style="--d:${(i % 3) * .1}s;--tb:${t.bg};--tt:${t.tx};--tf:'${t.font}',serif" href="https://menu-platform-orpin.vercel.app/${t.slug}" target="_blank" rel="noopener" data-cursor="Open menu" data-bg="${t.bg}">
         <span class="hd"><span>0${i + 1} · ${t.type}</span><span>↗</span></span>
         <span class="spec">${esc(t.name)}</span><span class="pic"><img src="${t.img}" alt="${esc(t.name)} menu on a phone" loading="lazy"></span>
-        <span class="ft"><span>${t.fonts}</span><span class="sw">${t.c.map(c => `<i style="--c:${c}"></i>`).join('')}</span></span></a>`).join('')}</div></section>`;
+        <span class="ft"><span>${t.fonts}</span><span class="sw">${t.c.map(c => `<i style="--c:${c}"></i>`).join('')}</span></span></a>`).join('')}</div></section>`);
 const RM = id => ROOMS.find(r => r.id === id);
 const PAGES = {
   cases() {
@@ -585,7 +610,7 @@ const PAGES = {
     return hero(['← All rooms', '#'], 'Experience & tools', 'Product owner by job title, designer and builder by habit. Customer success is where I started.', `<a href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener" style="text-decoration:underline">Download the CV (PDF)</a>`, RM('experience').color) +
     `<div class="sec"><ol class="xp">${XP.map((x, i) => `<li class="rv${i ? '' : ' open'}"><button aria-expanded="${!i}"><span class="y">${x.y}</span><span class="r">${x.r}</span><span class="c">${x.c}</span><span class="pm"></span></button>
       <div class="dd"${i ? ' inert' : ''}><div><ul>${x.pts.map(p => `<li>${p}</li>`).join('')}</ul></div></div></li>`).join('')}</ol></div>
-    <div class="sec tk" style="--rc:${RM('experience').color}"><h2 class="tk-h rv">Tools</h2>${TOOLS.map(([g, ts]) => `<div class="tk-g rv"><h3>${g}</h3><ul>${ts.map(([t, d]) => `<li class="tool"><b>${t}</b><span>${d}</span></li>`).join('')}</ul></div>`).join('')}</div>` + foot('Back to the start', 'samples/metamorphosis/', 'The Metamorphosis', RM('metamorphosis').color);
+    <div class="sec tk" style="--rc:${RM('experience').color}"><h2 class="tk-h rv">Tools</h2>${TOOLS.map(([g, ts]) => `<div class="tk-g rv"><h3>${g}</h3><ul>${ts.map(([t, d]) => `<li class="tool"><b>${t}</b><span>${d}</span></li>`).join('')}</ul></div>`).join('')}<p class="refs rv">References I keep open: Pinterest, Awwwards, Behance, SiteInspire.</p></div>` + foot('Back to the start', 'samples/metamorphosis/', 'The Metamorphosis', RM('metamorphosis').color);
   }
 };
 // old room links
@@ -595,6 +620,8 @@ function casePage(c) {
   const shot = (k) => `<div class="shot rv${k ? ' wide' : ''}" data-cursor="Mock-up">${mocks[c.shots[k]](c.color)}<p class="note">${c.note}</p></div>`;
   return `<div class="case" style="--pc:${c.color}">` + hero(['← Product work', '#work'], c.name, `${c.meta[0]} · ${c.meta[1]}`, `${c.tag}<br>${c.meta[2]}`, c.color) +
     `<div class="sec"><section class="c-sec"><div class="lab rv">Overview</div><p class="lead rv">${rich(c.intro)}</p></section>
+    ${c.problem ? `<section class="c-sec"><div class="lab rv">Problem</div><p class="prob rv">${c.problem}</p></section>` : ''}
+    ${c.journey ? `<section class="c-sec jr-sec"><div class="lab rv">Journey</div><ol class="jr rv">${c.journey.map((j, k) => `<li style="--k:${k}"><span>${String(k + 1).padStart(2, '0')}</span>${j}</li>`).join('')}</ol></section>` : ''}
     <section class="c-sec"><div class="lab rv">What I did</div><ol class="did rv">${c.did.map(([t, d], k) => `<li class="${k ? '' : 'open'}"><button aria-expanded="${!k}"><span class="dn">0${k + 1}</span><span>${t}</span><span class="pm"></span></button><div class="dd"${k ? ' inert' : ''}><div><p>${d}</p></div></div></li>`).join('')}</ol></section>
     <section class="c-sec"><div class="lab rv">Result</div><div class="res rv">${c.results.map(([t, d]) => `<div><h3>${t}</h3><p>${d}</p></div>`).join('')}</div></section>
     <div class="shots">${shot(0)}${shot(1)}</div></div></div>` + foot('Next case', `#work/${nx.id}`, nx.name, nx.color);
@@ -606,8 +633,10 @@ function smooth() {
   lenis?.destroy(); lenis = null;
   if (!HOVER || reduce() || !window.Lenis || !view.classList.contains('on') && !view.innerHTML) return;
   lenis = new Lenis({ wrapper: view, content: view.firstElementChild, lerp: .085, wheelMultiplier: 1 });
+  tickLenis();
 }
-(function tick(t) { lenis?.raf(t); requestAnimationFrame(tick); })(0);
+let tickId = 0;
+function tickLenis() { cancelAnimationFrame(tickId); const t = ts => { if (!lenis) return; lenis.raf(ts); tickId = requestAnimationFrame(t); }; tickId = requestAnimationFrame(t); }
 const BASE = document.title;
 function route() {
   let h = location.hash.slice(1);
@@ -615,8 +644,12 @@ function route() {
   if (ALIAS[h]) { history.replaceState(null, '', '#' + ALIAS[h]); h = ALIAS[h]; }
   const [room, sub] = h.split('/');
   const c = room === 'work' && sub ? CASES.find(x => x.id === sub) : null;
+  if (room === 'work' && sub && !c) { history.replaceState(null, '', '#work'); return route(); }
   const html = c ? casePage(c) : PAGES[room]?.();
   if (!html) { // home
+    if (h) history.replaceState(null, '', location.pathname + location.search);
+    const prev = current; glGen++; dsAbort?.abort();
+    if (prev) setTimeout(() => $(`#rooms a[href="#${prev.split('/')[0]}"]`)?.focus({ preventScroll: true }), 0);
     lenis?.destroy(); lenis = null; current = null; view.classList.remove('gl-on'); $('#gl').style.display = 'none'; view.classList.remove('on'); view.inert = true; view.setAttribute('aria-hidden', 'true'); view.innerHTML = '';
     home.inert = false; document.body.classList.remove('lock'); document.title = BASE; setTop(); return;
   }
@@ -638,8 +671,9 @@ function route() {
 const home = $('#home');
 // WebGL: screenshots in Built by me bend with scroll speed (desktop, fine pointer)
 const glState = { gl: null };
+let glGen = 0;
 function glWarp() {
-  const cv = $('#gl');
+  const cv = $('#gl'); const gen = ++glGen;
   view.classList.remove('gl-on'); cv.style.display = 'none';
   if (!HOVER || reduce() || !['web', 'cases'].includes(location.hash.slice(1))) return;
   let gl = glState.gl;
@@ -665,28 +699,32 @@ function glWarp() {
   const ready = imgs.map(img => new Promise(ok => img.complete && img.naturalWidth ? ok() : img.addEventListener('load', ok, { once: true })));
   imgs.forEach(img => img.loading = 'eager');
   Promise.all(ready).then(() => {
-    if (!['web', 'cases'].includes(location.hash.slice(1))) return;
+    if (gen !== glGen || !['web', 'cases'].includes(location.hash.slice(1))) return;
     imgs.forEach(img => { if (glState.tex.has(img.src)) return; const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
       glState.tex.set(img.src, t); });
-    cv.style.display = 'block'; view.classList.add('gl-on');
+    cv.style.display = 'block'; let first = true;
+    gl.enable(gl.SCISSOR_TEST);
     let last = view.scrollTop, vel = 0;
     const frame = () => {
-      if (!view.classList.contains('gl-on')) return;
+      if (gen !== glGen) return;
       const dpr = Math.min(devicePixelRatio, 2), w = innerWidth, h = innerHeight;
       if (cv.width !== w * dpr) { cv.width = w * dpr; cv.height = h * dpr; }
-      gl.viewport(0, 0, cv.width, cv.height); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.viewport(0, 0, cv.width, cv.height); gl.disable(gl.SCISSOR_TEST); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT); gl.enable(gl.SCISSOR_TEST);
       const y = view.scrollTop; vel += ((y - last) - vel) * .12; last = y;
       gl.uniform2f(glState.u.res, w, h); const vv = Math.max(-1.2, Math.min(1.2, vel / 30)); gl.uniform1f(glState.u.v, vv); gl.uniform1f(glState.u.vf, vv);
       for (const img of imgs) {
         const b = img.getBoundingClientRect(); if (b.bottom < -50 || b.top > h + 50) continue;
         // clip-path reveal on the frame: only draw once the frame is shown
         if (!img.closest('.browser').classList.contains('shown')) continue;
+        const fr = img.closest('.browser').getBoundingClientRect(), top = Math.max(fr.top, 64);
+        gl.scissor(fr.left * dpr, (h - fr.bottom) * dpr, fr.width * dpr, Math.max(0, fr.bottom - top) * dpr);
         gl.bindTexture(gl.TEXTURE_2D, glState.tex.get(img.src));
         gl.uniform4f(glState.u.r, b.left, b.top, b.width, b.height);
         gl.drawArrays(gl.TRIANGLES, 0, glState.n);
       }
+      if (first) { first = false; view.classList.add('gl-on'); }
       requestAnimationFrame(frame);
     };
     frame();
@@ -694,8 +732,14 @@ function glWarp() {
 }
 // Design systems: infinite canvas you can pan with inertia (desktop, fine pointer)
 const CANVAS = () => HOVER && innerWidth > 900 && !reduce();
+let dsAbort = null;
 function dsCanvas() {
+  dsAbort?.abort(); dsAbort = null;
   const box = $('#dsCanvas'); if (!box) return;
+  dsAbort = new AbortController(); const signal = dsAbort.signal;
+  let vis = false, running = false;
+  const ob = new IntersectionObserver(([e]) => { vis = e.isIntersecting; if (vis && !running) { running = true; requestAnimationFrame(draw); } }, { root: view });
+  ob.observe(box); signal.addEventListener('abort', () => ob.disconnect());
   const src = [...view.querySelectorAll('.themes .theme')];
   const CW = 420, CH = 700, COLS = Math.max(4, Math.ceil(innerWidth / CW) + 1), ROWS = 3;
   const W = COLS * CW, H = ROWS * CH, cards = [];
@@ -705,25 +749,25 @@ function dsCanvas() {
     el.style.removeProperty('--d'); box.appendChild(el);
     cards.push({ el, bx: c * CW + (r % 2) * CW / 2, by: r * CH });
   }
-  let ox = -CW * .35, oy = -CH * .45, vx = 0, vy = -.6, down = false, lx = 0, ly = 0, moved = 0;
+  let ox = -CW * .35, oy = -CH * .45, vx = 0, vy = 0, down = false, lx = 0, ly = 0, moved = 0;
   const wrap = (v, m) => ((v % m) + m) % m;
   const draw = () => {
-    if (!box.isConnected) return;
-    if (!down) { ox += vx; oy += vy; vx *= .95; vy *= .95; if (Math.abs(vx) + Math.abs(vy) < .05) { vx = 0; vy = -.25; } }
+    if (!box.isConnected || signal.aborted || !vis || document.hidden) { running = false; return; }
+    if (!down) { ox += vx; oy += vy; vx *= .95; vy *= .95; if (Math.abs(vx) + Math.abs(vy) < .05) { vx = 0; vy = 0; } }
     for (const c of cards) {
       const x = wrap(c.bx + ox, W) - CW, y = wrap(c.by + oy, H) - CH;
       c.el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     }
     requestAnimationFrame(draw);
   };
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && vis && !running) { running = true; requestAnimationFrame(draw); } }, { signal });
   box.addEventListener('pointerdown', e => { if (e.button) return; down = true; moved = 0; lx = e.clientX; ly = e.clientY; vx = vy = 0; e.preventDefault(); });
-  addEventListener('pointermove', e => { if (!down) return; const dx = e.clientX - lx, dy = e.clientY - ly; lx = e.clientX; ly = e.clientY; ox += dx; oy += dy; vx = dx; vy = dy; moved += Math.abs(dx) + Math.abs(dy); if (moved > 6) box.classList.add('grab'); });
+  addEventListener('pointermove', e => { if (!down) return; const dx = e.clientX - lx, dy = e.clientY - ly; lx = e.clientX; ly = e.clientY; ox += dx; oy += dy; vx = dx; vy = dy; moved += Math.abs(dx) + Math.abs(dy); if (moved > 6) box.classList.add('grab'); }, { signal });
   const up = () => { down = false; box.classList.remove('grab'); };
-  addEventListener('pointerup', up); addEventListener('pointercancel', up);
+  addEventListener('pointerup', up, { signal }); addEventListener('pointercancel', up, { signal });
   box.addEventListener('click', e => { if (moved > 6) e.preventDefault(); }, true);
   // keyboard: focusing a card brings it to the centre
   box.addEventListener('focusin', e => { const c = cards.find(c => c.el === e.target); if (!c) return; const b = box.getBoundingClientRect(); ox += (b.width / 2 - 190) - (wrap(c.bx + ox, W) - CW); oy += (b.height / 2 - 320) - (wrap(c.by + oy, H) - CH); vx = vy = 0; });
-  draw();
 }
 // Design systems: page tints toward the theme you hover
 view.addEventListener('pointerover', e => {
@@ -777,7 +821,6 @@ document.addEventListener('click', e => {
   e.preventDefault(); go(a.getAttribute('href'));
 });
 addEventListener('hashchange', route);
-addEventListener('popstate', route);
 
 /* ======================= Loader ======================= */
 const loader = $('#loader'), hello = $('#hello');
@@ -805,7 +848,9 @@ let label = '';
 function hideCur() { label = ''; cur.classList.remove('big'); }
 if (HOVER) {
   let tx = -99, ty = -99, x = -99, y = -99, lx = -99, ly = -99;
+  let curRun = false;
   const loop = () => {
+    if (Math.abs(tx - x) + Math.abs(ty - y) < .2) { curRun = false; return; }
     x += (tx - x) * .2; y += (ty - y) * .2;
     const vx = x - lx, vy = y - ly; lx = x; ly = y;
     const sp = Math.min(Math.hypot(vx, vy) / 40, .25), ang = Math.atan2(vy, vx) * 180 / Math.PI;
@@ -813,9 +858,9 @@ if (HOVER) {
     curT.style.transform = `rotate(${-ang}deg)`;
     requestAnimationFrame(loop);
   };
-  loop();
   addEventListener('pointermove', e => {
     tx = e.clientX; ty = e.clientY; cur.classList.remove('hide');
+    if (!curRun) { curRun = true; requestAnimationFrame(loop); }
     const t = e.target.closest('[data-cursor]');
     const next = t && !document.body.classList.contains('about') && !corridor.classList.contains('drag') ? t.dataset.cursor : '';
     if (next !== label) { label = next; if (next) curT.textContent = next; cur.classList.toggle('big', !!next); }

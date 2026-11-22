@@ -74,7 +74,8 @@ figcaption{position:absolute;inset:0;pointer-events:none}
 
 .ribbon{position:fixed;right:12px;bottom:12px;z-index:50;margin:0;font-size:11px;letter-spacing:.04em;background:var(--paper);color:var(--ink);
   border:1px solid var(--ink);padding:5px 9px}
-.ribbon a{text-decoration:underline;text-underline-offset:2px}
+.back{position:fixed;left:12px;top:12px;z-index:60;display:inline-flex;align-items:center;min-height:32px;padding:6px 12px;font-size:14px;line-height:1;background:var(--paper);color:var(--ink);border:1.5px solid var(--ink);text-decoration:none}
+.back:hover{background:var(--ink);color:var(--paper)}
 
 @media (max-width:699px){
   .cap,.say,.think,.burst{left:var(--mleft,auto);right:var(--mright,auto);top:var(--mtop,auto);bottom:var(--mbottom,auto);max-width:84%;font-size:16px}
@@ -98,7 +99,8 @@ figcaption{position:absolute;inset:0;pointer-events:none}
   <p>Pictures: drawn for this page as SVG, after German Expressionist woodcuts. Type: Germania One and IM Fell DW Pica, via Google Fonts. Publication year from Wikipedia, “<a href="https://en.wikipedia.org/wiki/The_Metamorphosis">The Metamorphosis</a>”.</p>
   <p class="small">Concept, drawing and code by Loem Layheng.</p>
 </footer>
-<p class="ribbon">Concept by Loem Layheng · <a href="../../#built">Back to portfolio</a></p>
+<a class="back" href="../../">Back to portfolio</a>
+<p class="ribbon">Concept by Loem Layheng</p>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
 <script src="stage.js" defer></script>
 </body>

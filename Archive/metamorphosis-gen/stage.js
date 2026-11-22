@@ -16,23 +16,41 @@
   let seed = 1915;
   const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
 
+  function bind(sc) {
+    const el = sc.el;
+    sc.svg = el.querySelector('svg.art');
+    sc.fx = sc.svg ? sc.svg.getAttribute('preserveAspectRatio') : null;
+    sc.layers = Array.from(el.querySelectorAll('.ly')).map(g => ({ g, d: parseFloat(g.dataset.d) }));
+    sc.apples = Array.from(el.querySelectorAll('.apple'));
+    sc.rays = el.querySelector('.rays'); sc.sun = el.querySelector('.sunrays'); sc.hand = el.querySelector('.hand-m');
+    sc.spin = el.querySelector('.spin'); sc.fig = el.querySelector('.stretchfig');
+    if (sc.svg) {
+      if (sc.pf && vw / vh < .8) sc.svg.setAttribute('preserveAspectRatio', sc.pf);
+      if (!sc.vis || reduced()) sc.svg.pauseAnimations();
+    }
+  }
   const S = Array.from(document.querySelectorAll('.scene')).map((el, i) => {
-    const svg = el.querySelector('svg.art');
     const o = (el.dataset.o || '50% 50%').split(' ').map(v => parseFloat(v) / 100);
     const jag = Array.from({ length: 64 }, () => rnd());
     const caps = Array.from(el.querySelectorAll('.caps > *'));
-    return {
-      el, i, svg, o, jag, caps, tr: el.dataset.tr || 'none', len: parseFloat(el.dataset.len || 1.3),
-      pf: el.dataset.pf, fx: svg ? svg.getAttribute('preserveAspectRatio') : null,
-      art: el.querySelector('.art-wrap'),
-      layers: Array.from(el.querySelectorAll('.ly')).map(g => ({ g, d: parseFloat(g.dataset.d) })),
-      apples: Array.from(el.querySelectorAll('.apple')),
-      rays: el.querySelector('.rays'), sun: el.querySelector('.sunrays'), hand: el.querySelector('.hand-m'),
-      spin: el.querySelector('.spin'), fig: el.querySelector('.stretchfig'),
-      start: 0, playing: false, state: ''
-    };
+    const sc = { el, i, o, jag, caps, tr: el.dataset.tr || 'none', len: parseFloat(el.dataset.len || 1.3),
+      pf: el.dataset.pf, art: el.querySelector('.art-wrap'), start: 0 };
+    return sc;
   });
 
+  // the first scenes are inline; the rest of the drawings arrive after first paint
+  function loadScenes() {
+    const jobs = S.filter(sc => sc.el.querySelector('.art-ph'));
+    jobs.forEach(sc => {
+      const ph = sc.el.querySelector('.art-ph');
+      fetch(ph.dataset.src).then(r => r.ok ? r.text() : Promise.reject(r.status)).then(txt => {
+        ph.insertAdjacentHTML('afterend', txt);
+        ph.remove();
+        bind(sc);
+        lastY = -1;
+      }).catch(() => {});
+    });
+  }
   let vw = innerWidth, vh = innerHeight, total = 0;
   function layout() {
     vw = innerWidth; vh = innerHeight;
@@ -41,7 +59,7 @@
     total = s;
     track.style.height = (total * vh + vh) + 'px';
     const portrait = vw / vh < .8;
-    S.forEach(sc => { if (sc.svg && sc.pf) sc.svg.setAttribute('preserveAspectRatio', portrait ? sc.pf : sc.fx); });
+    S.forEach(sc => { if (sc.svg && sc.pf && sc.fx) sc.svg.setAttribute('preserveAspectRatio', portrait ? sc.pf : sc.fx); });
   }
 
   // where a point of the drawing (fractions of the viewBox) lands on screen, given "slice" fitting
@@ -182,9 +200,10 @@
   }
 
   layout();
-  S.forEach(sc => { if (sc.svg) sc.svg.pauseAnimations(); });
+  S.forEach(bind);
   loop();
   addEventListener('resize', () => { layout(); lastY = -1; });
   RM.addEventListener && RM.addEventListener('change', () => { S.forEach(sc => { sc.vis = null; }); lastY = -1; });
-  if (document.readyState === 'complete') startLenis(); else addEventListener('load', startLenis);
+  const ready = () => { startLenis(); setTimeout(loadScenes, 60); };
+  if (document.readyState === 'complete') ready(); else addEventListener('load', ready);
 })();
