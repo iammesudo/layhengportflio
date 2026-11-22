@@ -299,13 +299,13 @@ sup.n a:hover{text-decoration:underline}
   <h1 class="title rv" aria-label="Rebrand Notes"><span class="ln" aria-hidden="true"><span>Rebrand</span></span><span class="ln" aria-hidden="true"><span>Notes<em>.</em></span></span></h1>
   <div class="grid lede">
     <span class="label mono">About this issue</span>
-    <p>An independent study of real brand identity changes. For each one: the old and new logos on the same plate, what changed, what the company said, what happened next, and my own reading as a designer, marked as opinion.</p>
+    <p>An independent study of real brand identity changes.</p>
     <div class="notice mono" role="note"><strong>Notice</strong>Independent study. Not affiliated with or endorsed by any brand shown. Logos and trademarks belong to their owners.</div>
   </div>
 </header>
 
 <nav class="index wrap" id="index" aria-labelledby="idx-h">
-  <h2 id="idx-h"><span>Index</span><span class="idx-hint">Drag any comparison, or use the arrow keys</span></h2>
+  <h2 id="idx-h"><span>Index</span></h2>
   <ol class="idx">
     <li><a href="#burberry" data-peek="0"><span class="no">01</span><span class="nm">Burberry</span><span class="yr">2018 · 2023</span><span class="sum">A minimal sans wordmark, then the 1901 knight comes back.</span><span class="go" aria-hidden="true">Read ↓</span></a></li>
     <li><a href="#jaguar" data-peek="1"><span class="no">02</span><span class="nm">Jaguar</span><span class="yr">2024</span><span class="sum">A full reset ahead of an electric-only relaunch.</span><span class="go" aria-hidden="true">Read ↓</span></a></li>
@@ -340,7 +340,7 @@ sup.n a:hover{text-decoration:underline}
       {"label":"1999 → 2018","b":{"src":"img/burberry-1999.svg","alt":"Burberry logo used 1999 to 2018: the Equestrian Knight above BURBERRY in wide serif capitals and ESTABLISHED 1856","tag":"1999 to 2018","fit":"tall"},"a":{"src":"img/burberry-2018.svg","alt":"Burberry 2018 logo: the word BURBERRY in bold sans-serif capitals","tag":"2018 to 2023","fit":"xwide"}}
     ]'>
       <div class="cmp-top">
-        <span class="mono">Before / after · drag the divider</span>
+        <span class="mono">Before / after</span>
         <div class="seg pairs" role="group" aria-label="Choose which change to compare"></div>
       </div>
       <div class="stage"></div>
@@ -439,7 +439,7 @@ sup.n a:hover{text-decoration:underline}
       {"label":"Before → 2024","b":{"src":"img/jaguar-2021.svg","alt":"Jaguar logo before 2024: the leaping cat drawn in outline above JAGUAR in wide spaced capitals","tag":"Before 2024","fit":"tall"},"a":{"src":"img/jaguar-2024.svg","alt":"Jaguar 2024 wordmark: thin geometric letters reading JaGUar, mixing capital and lowercase shapes","tag":"Since 2024","fit":"xwide"}}
     ]'>
       <div class="cmp-top">
-        <span class="mono">Before / after · drag the divider</span>
+        <span class="mono">Before / after</span>
         <div class="seg pairs" role="group" aria-label="Choose which change to compare"></div>
       </div>
       <div class="stage"></div>
@@ -542,7 +542,7 @@ sup.n a:hover{text-decoration:underline}
       {"label":"2016 → 2019","b":{"src":"img/mastercard-2016.svg","alt":"Mastercard logo 2016 to 2019: two flat overlapping circles with mastercard in lowercase below","tag":"2016 to 2019","fit":"mid"},"a":{"src":"img/mastercard-2019.svg","alt":"Mastercard logo since 2019: two flat overlapping circles, no name","tag":"Since 2019","fit":"mid"}}
     ]'>
       <div class="cmp-top">
-        <span class="mono">Before / after · drag the divider</span>
+        <span class="mono">Before / after</span>
         <div class="seg pairs" role="group" aria-label="Choose which change to compare"></div>
       </div>
       <div class="stage"></div>
@@ -637,7 +637,7 @@ sup.n a:hover{text-decoration:underline}
       {"label":"Before → 2014","b":{"src":"img/airbnb-before.svg","alt":"Airbnb logo before 2014: the word airbnb in a rounded blue script with a white outline","tag":"Before 2014","fit":"wide"},"a":{"src":"img/airbnb-2014.svg","alt":"Airbnb logo since 2014: the Bélo symbol, a single looping line, next to airbnb in a rounded sans-serif, both in coral pink","tag":"Since 2014","fit":"wide"}}
     ]'>
       <div class="cmp-top">
-        <span class="mono">Before / after · drag the divider</span>
+        <span class="mono">Before / after</span>
         <div class="seg pairs" role="group" aria-label="Choose which change to compare"></div>
       </div>
       <div class="stage"></div>
@@ -799,7 +799,7 @@ sup.n a:hover{text-decoration:underline}
     var stage=fig.querySelector('.stage'), pairBox=fig.querySelector('.pairs'), jump=fig.querySelector('.jump');
     var brand=fig.closest('.ch').querySelector('.ch-title').textContent.trim();
     var p=50, raf=0, pi=0, knob, readout, imgB, imgA, layB, layA;
-    if(window.matchMedia('(pointer:coarse)').matches){ var lab=fig.querySelector('.cmp-top .mono'); if(lab) lab.textContent='Before / after · drag, or tap the plate'; }
+    if(window.matchMedia('(pointer:coarse)').matches){ var lab=fig.querySelector('.cmp-top .mono'); if(lab) lab.textContent='Before / after'; }
 
     stage.innerHTML=
       '<div class="layer before"><img alt="" decoding="async"><span class="tag"></span></div>'+

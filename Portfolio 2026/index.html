@@ -352,7 +352,7 @@
 <main class="home" id="home">
   <h1 class="name" aria-label="Layheng designs it, then builds it"><span class="clip" aria-hidden="true" id="nameL">Layheng</span><span class="tag" aria-hidden="true"><span>designs it, then builds it</span></span></h1>
   <div class="corridor" id="corridor"><div class="rooms" id="rooms"></div></div>
-  <div class="hint"><span class="drag-t">Scroll or drag sideways</span><span class="bar"><i id="bar"></i></span><span>©2026 · Phnom Penh</span></div>
+  <div class="hint"><span class="drag-t">Selected work</span><span class="bar"><i id="bar"></i></span><span>©2026 · Phnom Penh</span></div>
 </main>
 
 <section class="view" id="view" tabindex="-1" aria-hidden="true" inert></section>
@@ -393,17 +393,17 @@ const ROOMS = [
 
 const BUILDS = [
   { name: 'The Metamorphosis', kind: 'Editorial · art', url: 'samples/metamorphosis/', host: 'samples/metamorphosis', local: true,
-    lede: 'A reading site for Kafka’s novella. Kafka asked that the insect never be drawn, so it never is: only the page changes. Paper darkens, type grows heavy and the column closes in like Gregor’s room, then opens to light at the end.',
-    did: [['Type', 'One variable font pushed further along its axes in each part of the book'], ['Scenes', 'A key that turns as you scroll, furniture carried out of the room, a violin you can pluck'], ['Text', 'Exact quotes from the Project Gutenberg translation, with sources']],
+    lede: 'Kafka’s novella retold as an illustrated vertical comic, in the style of a 1915 woodcut.',
+    did: [['Illustration', 'Every panel drawn by hand in SVG: ink black, paper white, one rust accent'], ['Story', 'From the morning Gregor wakes to the family’s tram ride, in exact quotes from the Project Gutenberg translation']],
     img: ['img/sample-metamorphosis.webp'] },
   { name: 'Rebrand Notes', kind: 'Brand study', url: 'samples/rebrand/', host: 'samples/rebrand', local: true,
-    lede: 'An independent study of real rebrands: Burberry, Jaguar, Mastercard and Airbnb. Drag between the old and new logo, see what changed in mark, type, colour and tone, and read my take.',
-    did: [['Research', 'Every date and reason comes from a cited source, listed under each brand'], ['Interaction', 'A before and after slider that works with mouse, touch and keyboard'], ['Opinion', 'A short, plain design take on each change, marked as opinion']],
+    lede: 'An independent study of four real rebrands: Burberry, Jaguar, Mastercard and Airbnb. Old and new side by side, what changed, and my take on each.',
+    did: [['Research', 'Dates and reasons from cited sources, listed under each brand'], ['Design', 'Editorial layout with a before and after slider for every brand'], ['Opinion', 'A short design take on each change']],
     note: 'Not affiliated with any brand shown. Logos belong to their owners.',
     img: ['img/sample-rebrand.webp'] },
   { name: 'Atelier Kambor', kind: 'Interior studio', url: 'samples/interior/', host: 'samples/interior', local: true,
-    lede: 'A site for an interior studio in Phnom Penh that does not exist. Kambor is the Khmer word for lime plaster. The page is slow and quiet on purpose: you walk through one house room by room.',
-    did: [['Open', 'The first photo opens from a thin slit, like a door'], ['Walk', 'A pinned walk through five rooms with a small floor plan that follows you'], ['Touch', 'Six materials you can open: lime plaster, terrazzo, teak, rattan, laterite, cement tile']],
+    lede: 'A site for an interior studio in Phnom Penh that does not exist. Kambor is the Khmer word for lime plaster.',
+    did: [['Design', 'Quiet, photo-led layout in lime white, dark teak and laterite red'], ['Content', 'A house shown room by room, six local materials, four invented projects']],
     note: 'Fictional studio. Photos from Unsplash.',
     img: ['img/sample-interior.webp'] },
   { name: 'QR menu platform', kind: 'Product · live', url: 'https://menu-platform-orpin.vercel.app', host: 'menu-platform-orpin.vercel.app',
@@ -416,12 +416,12 @@ const BUILDS = [
     did: [['Design', 'Warm editorial look: Fraunces, burnt orange, full-bleed photos'], ['Feature', 'Five lighting moods you can switch between on the page'], ['Build', 'Gallery, booking calendar and a request form']],
     img: ['img/staycation.webp'], phones: ['img/staycation-phone.webp'] },
   { name: 'EasySurvey', kind: 'Tool · retired', url: 'https://easysurvey.vercel.app', host: 'easysurvey.vercel.app',
-    lede: 'A survey tool I built for our field research. The research is over, so the tool is retired. The page is now a board of photos from it that you can drag around.',
-    did: [['Build', 'The original survey tool, used during the research'], ['Retire', 'Replaced it with a draggable photo board, so the link still means something']],
+    lede: 'A survey tool I built for our field research. The research is over, so the tool is retired and the page is now a board of photos from it.',
+    did: [['Build', 'The original survey tool, used during the research'], ['Retire', 'A photo board from the research in its place']],
     img: ['img/easysurvey.webp'] },
   { name: 'Sample portfolio', kind: 'Portfolio · fictional', url: 'samples/odile/', host: 'samples/odile', local: true,
-    lede: 'A full portfolio for a designer who does not exist. Odile Rask, her clients and her projects are all invented. It shows how I would design a portfolio for someone else.',
-    did: [['Design', 'Big-type index with one preview window that follows the cursor'], ['Build', 'Filters, case sheets and SVG mock-ups drawn by hand'], ['Label', 'Every page says it is fictional']],
+    lede: 'A full portfolio for a designer who does not exist. Odile Rask, her clients and her projects are all invented.',
+    did: [['Design', 'Big-type project index with a preview window and case sheets'], ['Art', 'Product mock-ups drawn by hand in SVG']],
     img: ['img/odile.webp'] }
 ];
 
@@ -539,7 +539,7 @@ const nextRoom = id => { const i = ROOMS.findIndex(r => r.id === id); return ROO
 
 const PAGES = {
   built() {
-    return hero(['← All rooms', '#'], 'Built by me', 'Sites I planned, designed and built myself, with Figma and vibe coding. A book, a brand study, an interior studio, a product, a booking site. Every one of them opens.', `${BUILDS.length} sites<br>${new Set(BUILDS.map(b => b.kind.split(' · ')[0])).size} kinds`, ROOMS[0].color) +
+    return hero(['← All rooms', '#'], 'Built by me', 'Sites I planned, designed and built myself, with Figma and vibe coding. A book, a brand study, an interior studio, a product, a booking site.', `${BUILDS.length} sites<br>${new Set(BUILDS.map(b => b.kind.split(' · ')[0])).size} kinds`, ROOMS[0].color) +
     `<div class="sec">${BUILDS.map((b, i) => `<article class="build">
       <div class="txt rv"><span class="num">${String(i + 1).padStart(2, '0')} / ${String(BUILDS.length).padStart(2, '0')} · ${b.kind}</span><h3>${b.name}</h3><p class="lede">${b.lede}</p>
         <ul>${b.did.map(([k, v]) => `<li><span>·</span><span><b>${k}.</b> ${v}</span></li>`).join('')}</ul>
@@ -552,7 +552,7 @@ const PAGES = {
   },
   design() {
     return `<div class="ds-wall" id="dsWall">` + hero(['← All rooms', '#'], 'Design systems', 'One menu engine, six identities. Each shop type gets its own fonts, colours and layout, so a karaoke bar never looks like a bakery.', 'Live demos<br>menu-platform', ROOMS[1].color) +
-    `<div class="sec"><div class="ds-intro rv"><p>Same data underneath: items, prices in dollars and riel, deals, sold-out flags, Khmer and English.</p><p>On top, a theme per shop type. ${tapWord} any card to open the real menu.</p></div>
+    `<div class="sec"><div class="ds-intro rv"><p>Same data underneath: items, prices in dollars and riel, deals, sold-out flags, Khmer and English.</p><p>On top, a theme per shop type.</p></div>
       <div class="themes">${THEMES.map((t, i) => `<a class="theme rv" style="--d:${(i % 3) * .1}s;--tb:${t.bg};--tt:${t.tx};--tf:'${t.font}',serif" href="https://menu-platform-orpin.vercel.app/${t.slug}" target="_blank" rel="noopener" data-cursor="Open menu" data-bg="${t.bg}">
         <span class="hd"><span>0${i + 1} · ${t.type}</span><span>↗</span></span>
         <span class="spec">${esc(t.name)}</span><span class="pic"><img src="${t.img}" alt="${esc(t.name)} menu on a phone" loading="lazy"></span>
@@ -579,7 +579,7 @@ function casePage(c) {
   const shot = (k) => `<div class="shot rv${k ? ' wide' : ''}" data-cursor="Mock-up">${mocks[c.shots[k]](c.color)}<p class="note">${c.note}</p></div>`;
   return `<div class="case" style="--pc:${c.color}">` + hero(['← Product work', '#work'], c.name, `${c.meta[0]} · ${c.meta[1]}`, `${c.tag}<br>${c.meta[2]}`, c.color) +
     `<div class="sec"><section class="c-sec"><div class="lab rv">Overview</div><p class="lead rv">${rich(c.intro)}</p></section>
-    <section class="c-sec"><div class="lab rv">What I did<br>${tapWord} a line to read more</div><ol class="did rv">${c.did.map(([t, d], k) => `<li class="${k ? '' : 'open'}"><button aria-expanded="${!k}"><span class="dn">0${k + 1}</span><span>${t}</span><span class="pm"></span></button><div class="dd"${k ? ' inert' : ''}><div><p>${d}</p></div></div></li>`).join('')}</ol></section>
+    <section class="c-sec"><div class="lab rv">What I did</div><ol class="did rv">${c.did.map(([t, d], k) => `<li class="${k ? '' : 'open'}"><button aria-expanded="${!k}"><span class="dn">0${k + 1}</span><span>${t}</span><span class="pm"></span></button><div class="dd"${k ? ' inert' : ''}><div><p>${d}</p></div></div></li>`).join('')}</ol></section>
     <section class="c-sec"><div class="lab rv">Result</div><div class="res rv">${c.results.map(([t, d]) => `<div><h3>${t}</h3><p>${d}</p></div>`).join('')}</div></section>
     <div class="shots">${shot(0)}${shot(1)}</div></div></div>` + foot('Next case', `#work/${nx.id}`, nx.name, nx.color);
 }
