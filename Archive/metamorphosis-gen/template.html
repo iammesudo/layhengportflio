@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>The Metamorphosis · Franz Kafka</title>
+<meta name="description" content="Franz Kafka's The Metamorphosis (1915) told as a scrolling woodcut picture story, with the text of David Wyllie's translation. Concept by Loem Layheng.">
+<meta name="theme-color" content="#0e0c0a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Germania+One&family=IM+Fell+DW+Pica:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0e0c0a;--paper:#ece3d0;--rust:#8c3b1a;
+  --out:cubic-bezier(.16,1,.3,1);--io:cubic-bezier(.7,0,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--paper);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"IM Fell DW Pica",Georgia,serif;overflow-x:clip}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--rust);outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* panels */
+.panel{position:relative;margin:0;width:100%;aspect-ratio:var(--ar);overflow:hidden;background:var(--bg,var(--ink))}
+.stage{position:absolute;inset:0;will-change:transform}
+.art{display:block;width:100%;height:100%}
+.gutter{height:6vh;background:var(--paper)}
+.gutter.part{height:52vh;display:grid;place-items:center}
+.gutter.part h2{margin:0;font-family:"Germania One",serif;font-weight:400;font-size:clamp(120px,22vw,300px);line-height:1;color:var(--ink);letter-spacing:.04em;filter:url(#carve)}
+.title{position:absolute;z-index:2;left:0;right:0;top:7%;margin:0;text-align:center;color:var(--ink);font-weight:400;pointer-events:none}
+.title .t1{display:block;font-family:"Germania One",serif;font-size:clamp(30px,8.2vw,150px);line-height:1;letter-spacing:.03em;text-transform:uppercase;filter:url(#carve)}
+.title .t2{display:block;margin-top:.7em;font-size:clamp(13px,2.6vw,40px);letter-spacing:.35em;text-transform:uppercase}
+figcaption{position:absolute;inset:0;pointer-events:none}
+
+/* caption boxes and balloons */
+.cap,.say,.think,.burst{position:absolute;margin:0;left:var(--left,auto);right:var(--right,auto);top:var(--top,auto);bottom:var(--bottom,auto);
+  max-width:var(--max-width,22em);color:var(--ink);font-size:clamp(17px,1.35vw,23px);line-height:1.32}
+.cap{background:var(--paper);border:2px solid var(--ink);padding:.7em .95em .75em;box-shadow:0 0 0 4px var(--paper),0 0 0 6px var(--ink)}
+.say,.think{background:var(--paper);border:2.5px solid var(--ink);border-radius:50%/46%;padding:1.05em 1.7em 1.15em;text-align:center;font-style:italic}
+.say::before,.say::after{content:"";position:absolute;width:34px;height:30px;background:var(--ink)}
+.say::after{background:var(--paper);width:24px;height:20px}
+.tail-r::before{right:-26px;top:58%;clip-path:polygon(0 0,100% 70%,0 100%)}
+.tail-r::after{right:-15px;top:calc(58% + 4px);clip-path:polygon(0 0,100% 70%,0 100%)}
+.tail-l::before{left:-26px;top:58%;clip-path:polygon(100% 0,0 70%,100% 100%)}
+.tail-l::after{left:-15px;top:calc(58% + 4px);clip-path:polygon(100% 0,0 70%,100% 100%)}
+.tail-b::before{bottom:-26px;left:30%;clip-path:polygon(0 0,100% 0,20% 100%)}
+.tail-b::after{bottom:-15px;left:calc(30% + 5px);clip-path:polygon(0 0,100% 0,20% 100%)}
+.think::before,.think::after{content:"";position:absolute;border-radius:50%;background:var(--paper);border:2.5px solid var(--ink)}
+.think::before{width:26px;height:22px;left:18%;bottom:-30px}
+.think::after{width:14px;height:12px;left:12%;bottom:-50px}
+.burst{isolation:isolate;padding:1.3em 1.9em;font-family:"Germania One",serif;font-size:clamp(40px,5vw,84px);line-height:1;color:var(--ink)}
+.burst::before,.burst::after{content:"";position:absolute;inset:-18px -26px;z-index:-1;background:var(--ink);
+  clip-path:polygon(50% 0,60% 22%,84% 4%,78% 30%,100% 30%,84% 50%,100% 72%,76% 70%,82% 98%,58% 80%,46% 100%,38% 78%,12% 96%,20% 68%,0 64%,16% 46%,0 22%,26% 26%,22% 2%,40% 20%)}
+.burst::after{inset:-8px -14px;background:var(--paper)}
+
+/* caption reveal: a wipe, like a block being uncovered */
+.js .panel figcaption > *{clip-path:inset(0 100% 0 0);transition:clip-path .9s var(--out);transition-delay:calc(var(--n,0) * 220ms)}
+.js .panel.seen figcaption > *{clip-path:inset(-80px -80px -80px -80px)}
+
+/* credits */
+.credits{background:var(--paper);padding:14vh 6vw 16vh;display:grid;grid-template-columns:1fr 1fr;gap:4vh 6vw;font-size:15px;line-height:1.5}
+.credits h2{grid-column:1/-1;margin:0 0 2vh;font-family:"Germania One",serif;font-weight:400;font-size:clamp(48px,7vw,96px);line-height:1;filter:url(#carve)}
+.credits p{margin:0;max-width:34em}
+.credits .small{font-size:13px;color:#4b443a}
+
+.ribbon{position:fixed;right:12px;bottom:12px;z-index:50;margin:0;font-size:11px;letter-spacing:.04em;background:var(--paper);color:var(--ink);
+  border:1px solid var(--ink);padding:5px 9px}
+.ribbon a{text-decoration:underline;text-underline-offset:2px}
+
+@media (max-width:699px){
+  .panel{aspect-ratio:auto;height:78vh;height:78svh}
+  .panel.h2{height:92vh;height:92svh}
+  .panel.h3{height:112vh;height:112svh}
+  .cap,.say,.think,.burst{left:var(--mleft,auto);right:var(--mright,auto);top:var(--mtop,auto);bottom:var(--mbottom,auto);max-width:84%;font-size:16px}
+  .burst{font-size:44px}
+  .credits{grid-template-columns:1fr;padding-bottom:20vh}
+  .ribbon{right:8px;bottom:8px;font-size:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  .js .panel figcaption > *{clip-path:none!important;transition:none!important}
+  .stage{transform:none!important}
+}
+</style>
+</head>
+<body>
+{{DEFS}}
+<main>
+{{PANELS}}
+</main>
+<footer class="credits">
+  <h2>The End</h2>
+  <p>Text: Franz Kafka, <i>The Metamorphosis</i> (<i>Die Verwandlung</i>, 1915), translated by David Wyllie, via <a href="https://www.gutenberg.org/ebooks/5200">Project Gutenberg</a>, ebook #5200. Excerpts only, quoted as printed.</p>
+  <p>Pictures: drawn for this page as SVG, after German Expressionist woodcuts. Type: Germania One and IM Fell DW Pica, via Google Fonts. Publication year from Wikipedia, “<a href="https://en.wikipedia.org/wiki/The_Metamorphosis">The Metamorphosis</a>”.</p>
+  <p class="small">Concept, drawing and code by Loem Layheng.</p>
+</footer>
+<p class="ribbon">Concept by Loem Layheng · <a href="../../#built">Back to portfolio</a></p>
+<script>
+(() => {
+  document.documentElement.classList.add('js');
+  const RM = matchMedia('(prefers-reduced-motion: reduce)');
+  const reduced = () => RM.matches;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const seg = (p, a, b) => clamp((p - a) / (b - a));
+  const ease = t => 1 - Math.pow(1 - t, 3);
+  const panels = Array.from(document.querySelectorAll('.panel'));
+  const visible = new Set();
+
+  panels.forEach(p => p.querySelectorAll('figcaption > *').forEach((c, i) => c.style.setProperty('--n', i)));
+
+  // pause the little loops (legs, rain, antennae) when a panel is off screen or motion is reduced
+  const loopIO = new IntersectionObserver(es => es.forEach(e => {
+    const svg = e.target.querySelector('svg.art');
+    if (e.isIntersecting) { visible.add(e.target); if (!reduced()) svg.unpauseAnimations(); }
+    else { visible.delete(e.target); svg.pauseAnimations(); }
+  }), { rootMargin: '10% 0px' });
+  const seenIO = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('seen'); seenIO.unobserve(e.target); }
+  }), { threshold: .3 });
+  panels.forEach(p => { p.querySelector('svg.art').pauseAnimations(); loopIO.observe(p); seenIO.observe(p); });
+
+  const parts = panels.map(p => ({
+    el: p, stage: p.querySelector('.stage'),
+    layers: Array.from(p.querySelectorAll('.ly')).map(g => ({ g, d: parseFloat(g.dataset.d) })),
+    apples: Array.from(p.querySelectorAll('.apple')),
+    rays: p.querySelector('.rays'), sun: p.querySelector('.sunrays'), hand: p.querySelector('.hand-m'),
+    spin: p.querySelector('.spin'), fig: p.querySelector('.stretchfig')
+  }));
+  const setT = (el, origin, t) => { if (!el) return; el.style.transformBox = 'view-box'; el.style.transformOrigin = origin; el.style.transform = t; };
+
+  let ticking = false;
+  function frame() {
+    ticking = false;
+    if (reduced()) return;
+    const vh = innerHeight;
+    parts.forEach(P => {
+      if (!visible.has(P.el)) return;
+      const r = P.el.getBoundingClientRect();
+      const q = clamp((vh - r.top) / (r.height + vh));       // 0 entering .. 1 leaving
+      const c = (r.top + r.height / 2 - vh / 2) / vh;          // 0 when centred
+      const enter = ease(seg(vh - r.top, 0, vh * .9));
+      P.stage.style.transform = `scale(${(1 + (1 - enter) * .045).toFixed(4)})`;
+      P.layers.forEach(({ g, d }) => { g.style.transform = `translate(0px, ${(c * d * 260).toFixed(1)}px)`; });
+      P.apples.forEach((a, i) => {
+        const t = ease(seg(q, .12 + i * .06, .5 + i * .06));
+        a.style.transform = `translate(${((1 - t) * 60).toFixed(1)}px, ${(-(1 - t) * 700).toFixed(1)}px)`;
+      });
+      setT(P.rays, '1180px 380px', `rotate(${((q - .5) * 10).toFixed(2)}deg)`);
+      setT(P.sun, '1200px 330px', `rotate(${(q * 14).toFixed(2)}deg)`);
+      setT(P.hand, '800px 470px', `rotate(${(q * 28).toFixed(2)}deg)`);
+      setT(P.spin, '800px 470px', `rotate(${(q * -6).toFixed(2)}deg)`);
+      setT(P.fig, '800px 860px', `scale(${(1 - .04 + ease(seg(q, .2, .6)) * .07).toFixed(4)}, ${(.94 + ease(seg(q, .2, .6)) * .08).toFixed(4)})`);
+    });
+  }
+  const req = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
+  addEventListener('scroll', req, { passive: true });
+  addEventListener('resize', req);
+  RM.addEventListener && RM.addEventListener('change', () => { panels.forEach(p => p.querySelector('svg.art')[reduced() ? 'pauseAnimations' : 'unpauseAnimations']()); req(); });
+  req();
+})();
+</script>
+</body>
+</html>
