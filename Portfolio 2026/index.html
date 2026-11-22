@@ -165,6 +165,8 @@
   .browser .chrome i { width: 9px; height: 9px; border-radius: 50%; background: #3a3a37; }
   .browser .chrome span { margin-left: 12px; padding: 3px 12px; border-radius: 6px; background: #2a2a27; }
   .browser img { display: block; width: 100%; height: auto; }
+  .gl-on .browser img { opacity: 0; }
+  #gl { position: fixed; inset: 0; z-index: 41; pointer-events: none; width: 100vw; height: 100vh; }
   .phones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
   .phones img { width: 100%; border-radius: 14px; display: block; box-shadow: 0 30px 60px -30px #000; }
   .phones.two { grid-template-columns: 1fr 1fr; }
@@ -185,6 +187,12 @@
   .theme .sw { display: flex; } .theme .sw i { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--tb); margin-left: -6px; background: var(--c); transition: margin var(--t2) var(--out); }
   .theme:hover .sw i { margin-left: 2px; }
   .ds-wall { transition: background-color var(--t4) var(--io); }
+  /* infinite drag canvas (desktop) */
+  .ds-canvas { position: relative; height: 92vh; margin: 0 calc(-1 * var(--g)); overflow: hidden; cursor: grab; touch-action: none; user-select: none; }
+  .ds-canvas.grab { cursor: grabbing; }
+  .ds-canvas .theme { position: absolute; left: 0; top: 0; width: 380px; min-height: 0; height: 640px; will-change: transform; transition: none; opacity: 1; }
+  .ds-canvas.grab .theme { pointer-events: none; }
+  .ds-canvas .theme img { -webkit-user-drag: none; }
 
   /* Product work: list linking to cases */
   .cases { list-style: none; border-top: 1px solid var(--line); margin-top: 10vh; }
@@ -356,6 +364,7 @@
 </main>
 
 <section class="view" id="view" tabindex="-1" aria-hidden="true" inert></section>
+<canvas id="gl" aria-hidden="true"></canvas>
 
 <div class="scrim" data-close></div>
 <aside class="panel" id="panel" role="dialog" aria-modal="true" aria-label="About" aria-hidden="true" inert>
@@ -554,7 +563,7 @@ const PAGES = {
   design() {
     return `<div class="ds-wall" id="dsWall">` + hero(['← All rooms', '#'], 'Design systems', 'One menu engine, six identities. Each shop type gets its own fonts, colours and layout, so a karaoke bar never looks like a bakery.', 'Live demos<br>menu-platform', ROOMS[1].color) +
     `<div class="sec"><div class="ds-intro rv"><p>Same data underneath: items, prices in dollars and riel, deals, sold-out flags, Khmer and English.</p><p>On top, a theme per shop type.</p></div>
-      <div class="themes">${THEMES.map((t, i) => `<a class="theme rv" style="--d:${(i % 3) * .1}s;--tb:${t.bg};--tt:${t.tx};--tf:'${t.font}',serif" href="https://menu-platform-orpin.vercel.app/${t.slug}" target="_blank" rel="noopener" data-cursor="Open menu" data-bg="${t.bg}">
+      ${CANVAS() ? `<div class="ds-canvas" id="dsCanvas"></div>` : ''}<div class="themes"${CANVAS() ? ' hidden' : ''}>${THEMES.map((t, i) => `<a class="theme rv" style="--d:${(i % 3) * .1}s;--tb:${t.bg};--tt:${t.tx};--tf:'${t.font}',serif" href="https://menu-platform-orpin.vercel.app/${t.slug}" target="_blank" rel="noopener" data-cursor="Open menu" data-bg="${t.bg}">
         <span class="hd"><span>0${i + 1} · ${t.type}</span><span>↗</span></span>
         <span class="spec">${esc(t.name)}</span><span class="pic"><img src="${t.img}" alt="${esc(t.name)} menu on a phone" loading="lazy"></span>
         <span class="ft"><span>${t.fonts}</span><span class="sw">${t.c.map(c => `<i style="--c:${c}"></i>`).join('')}</span></span></a>`).join('')}</div></div></div>` + foot('Next room', '#work', 'Product work', ROOMS[2].color);
@@ -601,7 +610,7 @@ function route() {
   const c = room === 'work' && sub ? CASES.find(x => x.id === sub) : null;
   const html = c ? casePage(c) : PAGES[room]?.();
   if (!html) { // home
-    lenis?.destroy(); lenis = null; current = null; view.classList.remove('on'); view.inert = true; view.setAttribute('aria-hidden', 'true'); view.innerHTML = '';
+    lenis?.destroy(); lenis = null; current = null; view.classList.remove('gl-on'); $('#gl').style.display = 'none'; view.classList.remove('on'); view.inert = true; view.setAttribute('aria-hidden', 'true'); view.innerHTML = '';
     home.inert = false; document.body.classList.remove('lock'); document.title = BASE; setTop(); return;
   }
   current = h;
@@ -615,9 +624,100 @@ function route() {
   io?.disconnect();
   io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('shown'); io.unobserve(e.target); } }), { root: view, threshold: .12 });
   view.querySelectorAll('.rv, .browser').forEach(el => io.observe(el));
+  dsCanvas();
+  glWarp();
   setTop();
 }
 const home = $('#home');
+// WebGL: screenshots in Built by me bend with scroll speed (desktop, fine pointer)
+const glState = { gl: null };
+function glWarp() {
+  const cv = $('#gl');
+  view.classList.remove('gl-on'); cv.style.display = 'none';
+  if (!HOVER || reduce() || location.hash.slice(1) !== 'built') return;
+  let gl = glState.gl;
+  if (!gl) {
+    gl = cv.getContext('webgl', { premultipliedAlpha: false, alpha: true }); if (!gl) return;
+    const sh = (t, src) => { const o = gl.createShader(t); gl.shaderSource(o, src); gl.compileShader(o); return o; };
+    const pr = gl.createProgram();
+    gl.attachShader(pr, sh(gl.VERTEX_SHADER, `attribute vec2 p; uniform vec4 r; uniform vec2 res; uniform float v; varying vec2 uv;
+      void main(){ uv = p; vec2 q = r.xy + p * r.zw; float c = (q.y / res.y - .5);
+        q.y += sin(p.x * 3.14159) * v * 12.0; q.x += c * v * 6.0 * (p.x - .5);
+        vec2 n = q / res * 2.0 - 1.0; gl_Position = vec4(n.x, -n.y, 0., 1.); }`));
+    gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, `precision mediump float; varying vec2 uv; uniform sampler2D t; uniform float vf;
+      void main(){ float s = vf * .0035; vec4 c = vec4(texture2D(t, uv + vec2(s, 0.)).r, texture2D(t, uv).g, texture2D(t, uv - vec2(s, 0.)).b, 1.); gl_FragColor = c; }`));
+    gl.linkProgram(pr); if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) { console.warn(gl.getProgramInfoLog(pr)); return; } gl.useProgram(pr);
+    const N = 24, pts = [];
+    for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) { const a = i / N, b = j / N, c = (i + 1) / N, d = (j + 1) / N; pts.push(a, b, c, b, a, d, a, d, c, b, c, d); }
+    const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(pts), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    glState.gl = gl; glState.n = pts.length / 2; glState.u = { r: gl.getUniformLocation(pr, 'r'), res: gl.getUniformLocation(pr, 'res'), v: gl.getUniformLocation(pr, 'v'), vf: gl.getUniformLocation(pr, 'vf') };
+    glState.tex = new Map();
+  }
+  const imgs = [...view.querySelectorAll('.browser img')];
+  const ready = imgs.map(img => new Promise(ok => img.complete && img.naturalWidth ? ok() : img.addEventListener('load', ok, { once: true })));
+  imgs.forEach(img => img.loading = 'eager');
+  Promise.all(ready).then(() => {
+    if (location.hash.slice(1) !== 'built') return;
+    imgs.forEach(img => { if (glState.tex.has(img.src)) return; const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      glState.tex.set(img.src, t); });
+    cv.style.display = 'block'; view.classList.add('gl-on');
+    let last = view.scrollTop, vel = 0;
+    const frame = () => {
+      if (!view.classList.contains('gl-on')) return;
+      const dpr = Math.min(devicePixelRatio, 2), w = innerWidth, h = innerHeight;
+      if (cv.width !== w * dpr) { cv.width = w * dpr; cv.height = h * dpr; }
+      gl.viewport(0, 0, cv.width, cv.height); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+      const y = view.scrollTop; vel += ((y - last) - vel) * .12; last = y;
+      gl.uniform2f(glState.u.res, w, h); const vv = Math.max(-1.2, Math.min(1.2, vel / 30)); gl.uniform1f(glState.u.v, vv); gl.uniform1f(glState.u.vf, vv);
+      for (const img of imgs) {
+        const b = img.getBoundingClientRect(); if (b.bottom < -50 || b.top > h + 50) continue;
+        // clip-path reveal on the frame: only draw once the frame is shown
+        if (!img.closest('.browser').classList.contains('shown')) continue;
+        gl.bindTexture(gl.TEXTURE_2D, glState.tex.get(img.src));
+        gl.uniform4f(glState.u.r, b.left, b.top, b.width, b.height);
+        gl.drawArrays(gl.TRIANGLES, 0, glState.n);
+      }
+      requestAnimationFrame(frame);
+    };
+    frame();
+  });
+}
+// Design systems: infinite canvas you can pan with inertia (desktop, fine pointer)
+const CANVAS = () => HOVER && innerWidth > 900 && !reduce();
+function dsCanvas() {
+  const box = $('#dsCanvas'); if (!box) return;
+  const src = [...view.querySelectorAll('.themes .theme')];
+  const CW = 420, CH = 700, COLS = Math.max(4, Math.ceil(innerWidth / CW) + 1), ROWS = 3;
+  const W = COLS * CW, H = ROWS * CH, cards = [];
+  for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+    const k = (r * 2 + c) % src.length, el = src[k].cloneNode(true);
+    el.classList.remove('rv'); if (cards.length >= src.length) el.tabIndex = -1;
+    el.style.removeProperty('--d'); box.appendChild(el);
+    cards.push({ el, bx: c * CW + (r % 2) * CW / 2, by: r * CH });
+  }
+  let ox = -CW * .35, oy = -CH * .45, vx = 0, vy = -.6, down = false, lx = 0, ly = 0, moved = 0;
+  const wrap = (v, m) => ((v % m) + m) % m;
+  const draw = () => {
+    if (!box.isConnected) return;
+    if (!down) { ox += vx; oy += vy; vx *= .95; vy *= .95; if (Math.abs(vx) + Math.abs(vy) < .05) { vx = 0; vy = -.25; } }
+    for (const c of cards) {
+      const x = wrap(c.bx + ox, W) - CW, y = wrap(c.by + oy, H) - CH;
+      c.el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    }
+    requestAnimationFrame(draw);
+  };
+  box.addEventListener('pointerdown', e => { if (e.button) return; down = true; moved = 0; lx = e.clientX; ly = e.clientY; vx = vy = 0; e.preventDefault(); });
+  addEventListener('pointermove', e => { if (!down) return; const dx = e.clientX - lx, dy = e.clientY - ly; lx = e.clientX; ly = e.clientY; ox += dx; oy += dy; vx = dx; vy = dy; moved += Math.abs(dx) + Math.abs(dy); if (moved > 6) box.classList.add('grab'); });
+  const up = () => { down = false; box.classList.remove('grab'); };
+  addEventListener('pointerup', up); addEventListener('pointercancel', up);
+  box.addEventListener('click', e => { if (moved > 6) e.preventDefault(); }, true);
+  // keyboard: focusing a card brings it to the centre
+  box.addEventListener('focusin', e => { const c = cards.find(c => c.el === e.target); if (!c) return; const b = box.getBoundingClientRect(); ox += (b.width / 2 - 190) - (wrap(c.bx + ox, W) - CW); oy += (b.height / 2 - 320) - (wrap(c.by + oy, H) - CH); vx = vy = 0; });
+  draw();
+}
 // Design systems: page tints toward the theme you hover
 view.addEventListener('pointerover', e => {
   const wall = $('#dsWall'); if (!wall || !HOVER) return;
