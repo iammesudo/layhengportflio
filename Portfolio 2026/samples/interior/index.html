@@ -554,5 +554,13 @@ if(finePointer.matches&&!RM){
   pl.addEventListener('mouseleave',()=>pv.classList.remove('on'));
 }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+if (window.Lenis && !matchMedia('(prefers-reduced-motion: reduce)').matches && matchMedia('(pointer: fine)').matches) {
+  const lenis = new Lenis({ lerp: .085 });
+  (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => { const id = a.getAttribute('href'); if (id.length > 1 && document.querySelector(id)) { lenis.scrollTo(id, { offset: -60 }); } }));
+}
+</script>
 </body>
 </html>

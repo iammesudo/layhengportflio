@@ -380,6 +380,7 @@
   </ul>
 </aside>
 
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="mocks.js"></script>
 <script>
 /* ======================= Content ======================= */
@@ -584,7 +585,14 @@ function casePage(c) {
     <div class="shots">${shot(0)}${shot(1)}</div></div></div>` + foot('Next case', `#work/${nx.id}`, nx.name, nx.color);
 }
 
-let io, current = null;
+let io, current = null, lenis = null;
+// momentum scroll inside room and case pages (Lenis), mouse and trackpad only
+function smooth() {
+  lenis?.destroy(); lenis = null;
+  if (!HOVER || reduce() || !window.Lenis || !view.classList.contains('on') && !view.innerHTML) return;
+  lenis = new Lenis({ wrapper: view, content: view.firstElementChild, lerp: .085, wheelMultiplier: 1 });
+}
+(function tick(t) { lenis?.raf(t); requestAnimationFrame(tick); })(0);
 const BASE = document.title;
 function route() {
   let h = location.hash.slice(1);
@@ -593,11 +601,11 @@ function route() {
   const c = room === 'work' && sub ? CASES.find(x => x.id === sub) : null;
   const html = c ? casePage(c) : PAGES[room]?.();
   if (!html) { // home
-    current = null; view.classList.remove('on'); view.inert = true; view.setAttribute('aria-hidden', 'true'); view.innerHTML = '';
+    lenis?.destroy(); lenis = null; current = null; view.classList.remove('on'); view.inert = true; view.setAttribute('aria-hidden', 'true'); view.innerHTML = '';
     home.inert = false; document.body.classList.remove('lock'); document.title = BASE; setTop(); return;
   }
   current = h;
-  view.innerHTML = html; view.scrollTop = 0; view.classList.add('on'); view.inert = false; view.setAttribute('aria-hidden', 'false');
+  view.innerHTML = `<div class="vc">${html}</div>`; view.scrollTop = 0; smooth(); view.classList.add('on'); view.inert = false; view.setAttribute('aria-hidden', 'false');
   home.inert = true; document.body.classList.add('lock');
   document.title = `${c ? c.name : ROOMS.find(r => r.id === room).name} · Layheng`;
   view.focus({ preventScroll: true });
