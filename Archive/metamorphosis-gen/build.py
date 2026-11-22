@@ -1571,21 +1571,50 @@ def cap_html(c):
     tail = c[4] if len(c) > 4 else ''
     return f'<p class="{kind} {tail}" style="{pos(dpos)};{pos_m(mpos)}">{H.escape(text)}</p>'
 
+# scene choreography: how each scene arrives, how long it holds, where the camera pushes in
+SCENE = {
+    'title':   dict(tr='none',  len=1.0),
+    'morning': dict(tr='ink',   len=1.3, o='50% 45%'),
+    'belly':   dict(tr='zoom',  len=1.4, o='38% 66%'),          # push into the hump under the quilt
+    'insect':  dict(tr='wipe',  len=1.4),
+    'clock':   dict(tr='black', len=1.2),
+    'voices':  dict(tr='wipe',  len=1.5),
+    'key':     dict(tr='ink',   len=1.3, o='66% 50%'),
+    'reveal':  dict(tr='zoom',  len=1.4, o='61% 46%', pf='xMinYMid slice'),   # push through the keyhole
+    'father':  dict(tr='wipe',  len=1.3),
+    'II':      dict(tr='black', len=.8),
+    'milk':    dict(tr='ray',   len=1.3, o='15% 10%', pf='xMinYMid slice'),
+    'picture': dict(tr='ink',   len=1.3, o='62% 30%'),
+    'apples':  dict(tr='wipe',  len=1.6),
+    'III':     dict(tr='black', len=.8),
+    'violin':  dict(tr='ray',   len=1.3, o='50% 0%'),
+    'drawn':   dict(tr='zoom',  len=1.3, o='22% 70%'),
+    'lodgers': dict(tr='wipe',  len=1.3),
+    'sister':  dict(tr='ink',   len=1.3, o='60% 70%', pf='xMinYMid slice'),
+    'dawn':    dict(tr='black', len=1.5),
+    'char':    dict(tr='ray',   len=1.3, o='50% 0%'),
+    'tram':    dict(tr='ink',   len=1.3, o='74% 32%'),
+    'stretch': dict(tr='ray',   len=1.4, o='50% 33%'),
+}
+
 parts = []
 for P in PANELS:
     if 'gutter' in P:
-        label = {'II': 'Part two', 'III': 'Part three'}[P['gutter']]
-        parts.append(f'<div class="gutter part"><h2><span aria-hidden="true">{P["gutter"]}</span><span class="sr">{label}</span></h2></div>')
+        g = P['gutter']
+        sc = SCENE[g]
+        label = {'II': 'Part two', 'III': 'Part three'}[g]
+        parts.append(f'<section class="scene card" id="p-{g}" data-tr="{sc["tr"]}" data-len="{sc["len"]}">'
+                     f'<h2><span aria-hidden="true">{g}</span><span class="sr">{label}</span></h2></section>')
         continue
+    sc = SCENE[P['id']]
     caps = ''.join(cap_html(c) for c in P['caps'])
-    tag = 'header' if P['id'] == 'title' else 'figure'
     extra = ''
     if P['id'] == 'title':
         extra = '<h1 class="title"><span class="t1">The Metamorphosis</span><span class="t2">Franz Kafka · 1915</span></h1>'
-    parts.append(f'<{tag} class="panel {P["h"]}" id="p-{P["id"]}" style="--bg:{P["bg"]};--ar:{P["W"]}/{P["H"]}">{extra}'
-                 f'<div class="stage">{svg(P["W"], P["H"], P["art"], P["label"], P["fx"])}</div>'
-                 f'{"<figcaption>" + caps + "</figcaption>" if caps else ""}</{tag}>')
-    parts.append('<div class="gutter" aria-hidden="true"></div>')
+    attrs = f'data-tr="{sc["tr"]}" data-len="{sc["len"]}"' + (f' data-o="{sc["o"]}"' if 'o' in sc else '') + (f' data-pf="{sc["pf"]}"' if 'pf' in sc else '')
+    parts.append(f'<section class="scene" id="p-{P["id"]}" {attrs} style="--bg:{P["bg"]};--ar:{P["W"]}/{P["H"]}">{extra}'
+                 f'<div class="art-wrap">{svg(P["W"], P["H"], P["art"], P["label"], P["fx"])}</div>'
+                 f'{"<div class=caps>" + caps + "</div>" if caps else ""}</section>')
 
 DEFS = f'''<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
 <filter id="carve" x="-5%" y="-20%" width="110%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="4"/>
@@ -1595,4 +1624,6 @@ DEFS = f'''<svg width="0" height="0" style="position:absolute" aria-hidden="true
 TEMPLATE = open(__import__('os').path.join(__import__('os').path.dirname(__file__), 'template.html')).read()
 page = TEMPLATE.replace('{{DEFS}}', DEFS).replace('{{PANELS}}', '\n'.join(parts))
 open(OUT, 'w').write(page)
+import shutil, os
+shutil.copy(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'stage.js'), os.path.join(os.path.dirname(OUT), 'stage.js'))
 print('bytes', len(page))
