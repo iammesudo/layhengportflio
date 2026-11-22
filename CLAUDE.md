@@ -69,6 +69,9 @@ Then check it is still **2 pages, A4**, and copy it to `Portfolio 2026/Loem_Layh
 
 ## Open items
 
+- **Metamorphosis comic rebuild (paused):** owner wants `samples/metamorphosis/` redone as a full-screen illustrated vertical comic (manhwa style), German Expressionist woodcut look in hand-built SVG, Gregor's insect form shown, no instructional text. Work in progress saved in `Archive/wip-metamorphosis-comic/index.html` (figures still look like blobs, needs better human figures). The served sample is still the older type-only version. Copy the WIP back into `Portfolio 2026/samples/metamorphosis/` when finished and regenerate `img/sample-metamorphosis.webp`.
+- **Motion phases:** phase 1 done (Lenis momentum scroll). Next: draggable infinite canvas (inertia), WebGL scroll effects (image warp on scroll).
+
 - No `og:image` (link preview picture) yet.
 - Not tested on Safari / iPhone or Firefox.
 - Smart Axiata start month and Youding Product Owner end month are placeholders ("2026").
