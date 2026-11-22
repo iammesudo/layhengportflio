@@ -106,6 +106,11 @@
   .room h2 small { display: block; font: italic 400 16px/1.3 var(--serif); letter-spacing: 0; opacity: .88; margin-top: 6px; }
   .room img { position: absolute; border-radius: 8px; box-shadow: 0 18px 40px -14px #000a; transition: transform var(--t4) var(--io); }
   .room .shot1 { width: 80%; left: 10%; top: 15%; }
+  .room .shot1.full { width: 100%; left: 0; top: 0; height: 100%; object-fit: cover; border-radius: 0; box-shadow: none; }
+  .room:hover .shot1.full { transform: scale(1.04); }
+  .room ul.lo { top: auto; bottom: 96px; font-size: 13px; line-height: 1.6; opacity: .85; }
+  .tk-h { font-size: clamp(40px, 5vw, 84px); font-weight: 700; letter-spacing: -.055em; margin: 16vh 0 4vh; }
+  .ds-wall { margin-top: 14vh; }
   .room .shot2 { width: 26%; right: 5%; top: 29%; border-radius: 12px; }
   .room .fan { width: 40%; top: 12%; border-radius: 12px; }
   .room .fan:nth-of-type(1) { left: 6%; transform: rotate(-6deg); } .room .fan:nth-of-type(2) { left: 30%; top: 8%; } .room .fan:nth-of-type(3) { left: 54%; transform: rotate(6deg); }
@@ -397,29 +402,25 @@
 <script>
 /* ======================= Content ======================= */
 const ROOMS = [
-  { id: 'built', n: '01', name: 'Built by me', sub: 'A book, a brand study, a studio, a product', color: '#1F7A4D', cursor: 'Enter' },
-  { id: 'design', n: '02', name: 'Design systems', sub: 'Six menu identities', color: '#C2410C', cursor: 'Enter' },
-  { id: 'work', n: '03', name: 'Product work', sub: 'Five cases', color: '#16A34A', cursor: 'Enter' },
-  { id: 'toolkit', n: '04', name: 'Toolkit', sub: 'What I work with', color: '#1E40D8', cursor: 'Enter' },
-  { id: 'experience', n: '05', name: 'Experience', sub: 'The CV, as a timeline', color: '#6B3FA0', cursor: 'Enter' }
+  { id: 'metamorphosis', n: '01', name: 'The Metamorphosis', sub: 'Kafka, told as a woodcut comic', color: '#8A3B1E', cursor: 'Read', href: 'samples/metamorphosis/' },
+  { id: 'kambor', n: '02', name: 'Atelier Kambor', sub: 'An interior studio in Phnom Penh', color: '#6E5A45', cursor: 'Enter', href: 'samples/interior/' },
+  { id: 'cases', n: '03', name: 'Case studies', sub: 'How brands change, and why', color: '#2335D9', cursor: 'Enter' },
+  { id: 'web', n: '04', name: 'Web projects', sub: 'A product, a booking site, a tool', color: '#1F7A4D', cursor: 'Enter' },
+  { id: 'work', n: '05', name: 'Product work', sub: 'Five cases', color: '#16A34A', cursor: 'Enter' },
+  { id: 'experience', n: '06', name: 'Experience & tools', sub: 'The CV, and what I work with', color: '#6B3FA0', cursor: 'Enter' }
+];
+
+/* Case studies: add a new study by adding an entry here */
+const STUDIES = [
+  { name: 'Rebrand Notes', kind: 'Brand identity', url: 'samples/rebrand/', host: 'samples/rebrand', local: true,
+    lede: 'Four real rebrands side by side: Burberry, Jaguar, Mastercard and Airbnb. What changed, and my take on each.',
+    did: [['Research', 'Dates and reasons from cited sources'], ['Design', 'Editorial layout with a before and after slider for every brand']],
+    note: 'Not affiliated with any brand shown. Logos belong to their owners.',
+    img: ['img/sample-rebrand.webp'] }
 ];
 
 const BUILDS = [
-  { name: 'The Metamorphosis', kind: 'Editorial · art', url: 'samples/metamorphosis/', host: 'samples/metamorphosis', local: true,
-    lede: 'Kafka’s novella retold as an illustrated vertical comic, in the style of a 1915 woodcut.',
-    did: [['Illustration', 'Every panel drawn by hand in SVG: ink black, paper white, one rust accent'], ['Story', 'From the morning Gregor wakes to the family’s tram ride, in exact quotes from the Project Gutenberg translation']],
-    img: ['img/sample-metamorphosis.webp'] },
-  { name: 'Rebrand Notes', kind: 'Brand study', url: 'samples/rebrand/', host: 'samples/rebrand', local: true,
-    lede: 'An independent study of four real rebrands: Burberry, Jaguar, Mastercard and Airbnb. Old and new side by side, what changed, and my take on each.',
-    did: [['Research', 'Dates and reasons from cited sources, listed under each brand'], ['Design', 'Editorial layout with a before and after slider for every brand'], ['Opinion', 'A short design take on each change']],
-    note: 'Not affiliated with any brand shown. Logos belong to their owners.',
-    img: ['img/sample-rebrand.webp'] },
-  { name: 'Atelier Kambor', kind: 'Interior studio', url: 'samples/interior/', host: 'samples/interior', local: true,
-    lede: 'A site for an interior studio in Phnom Penh that does not exist. Kambor is the Khmer word for lime plaster.',
-    did: [['Design', 'Quiet, photo-led layout in lime white, dark teak and laterite red'], ['Content', 'A house shown room by room, six local materials, four invented projects']],
-    note: 'Fictional studio. Photos from Unsplash.',
-    img: ['img/sample-interior.webp'] },
-  { name: 'QR menu platform', kind: 'Product · live', url: 'https://menu-platform-orpin.vercel.app', host: 'menu-platform-orpin.vercel.app',
+  { name: 'QR menu platform', kind: 'Product · live', themes: true, url: 'https://menu-platform-orpin.vercel.app', host: 'menu-platform-orpin.vercel.app',
     lede: 'Digital menus for small shops in Cambodia. Diners scan a QR code and see the menu in Khmer and English, with prices in dollars and riel.',
     did: [['Plan', 'Product brief, roles and setup flow for shop owners'], ['Design', 'Landing page plus six menu themes, one per type of shop'], ['Build', 'Next.js site, admin portal and menu designer, with Claude Code']],
     note: 'Still in progress: the brand name is not chosen yet, so the landing page says [BRAND].',
@@ -449,7 +450,7 @@ const THEMES = [
 
 const TOOLS = [
   ['Design', [['Figma', 'Hi-fi prototypes, like the EZorder 2.0 redesign'], ['Canva', 'Quick social graphics and posters']]],
-  ['Build', [['Claude Code', 'Every site in Built by me'], ['Shopify', 'My own store, 2023 to 2024']]],
+  ['Build', [['Claude Code', 'Every site in this portfolio'], ['Shopify', 'My own store, 2023 to 2024']]],
   ['Plan', [['Notion', 'Briefs, plans and notes'], ['Jira', 'Backlog and bugs with dev teams']]],
   ['Look', [['Pinterest', 'Collecting references'], ['Awwwards', 'Seeing what good motion looks like'], ['Behance', 'Case studies from other designers'], ['SiteInspire', 'Clean layouts to learn from']]]
 ];
@@ -508,14 +509,15 @@ const rich = txt => { let i = 0; return txt.split(/(\*[^*]+\*)/).map(seg => { co
 /* ======================= Home corridor ======================= */
 document.getElementById('nameL').innerHTML = [...'Layheng'].map((c, i) => `<span class="l" style="--i:${i}">${c}</span>`).join('');
 const roomArt = {
-  built: `<img class="shot1" src="img/sample-metamorphosis.webp" alt="" loading="eager"><img class="shot2" src="img/m-mango.webp" alt="">`,
-  design: `<img class="fan" src="img/m-nom.webp" alt=""><img class="fan" src="img/m-neon.webp" alt=""><img class="fan" src="img/m-kampot.webp" alt="">`,
+  metamorphosis: `<img class="shot1 full" style="object-position:40% 50%" src="img/room-metamorphosis.webp" alt="" loading="eager">`,
+  kambor: `<img class="shot1 full" style="object-position:78% 50%" src="img/sample-interior.webp" alt="">`,
+  cases: `<img class="shot1" src="img/sample-rebrand.webp" alt="">`,
+  web: `<img class="shot1" src="img/menu-landing.webp" alt=""><img class="shot2" src="img/m-mango.webp" alt="">`,
   work: `<span class="big-t">SmartNas, EZorder, AI Chatbot, Dropship, Poster AI</span>`,
-  toolkit: `<ul>${['Figma', 'Claude Code', 'Shopify', 'Canva', 'Notion · Jira'].map((t, j) => `<li style="--j:${j}">${t}</li>`).join('')}</ul>`,
-  experience: `<span class="big-t">Smart Axiata, Youding, my own store, freelance</span>`
+  experience: `<span class="big-t">Smart Axiata, Youding, freelance, my own store</span>`
 };
-$('#rooms').innerHTML = ROOMS.map((r, k) => `<a class="room${k ? '' : ' wide'}" href="#${r.id}" style="--rc:${r.color};--k:${k}" data-cursor="${r.cursor}" data-room>
-  <span class="n">${r.n}</span>${roomArt[r.id]}<h2>${r.name}<small>${r.sub}</small></h2></a>`).join('') + `<span class="room end" style="--k:5;--rc:transparent" aria-hidden="true"></span>`;
+$('#rooms').innerHTML = ROOMS.map((r, k) => `<a class="room${k ? '' : ' wide'}" href="${r.href || '#' + r.id}"${r.href ? ` data-ext="${r.name}"` : ''} style="--rc:${r.color};--k:${k}" data-cursor="${r.cursor}" data-room>
+  <span class="n">${r.n}</span>${roomArt[r.id]}<h2>${r.name}<small>${r.sub}</small></h2></a>`).join('') + `<span class="room end" style="--k:6;--rc:transparent" aria-hidden="true"></span>`;
 
 const corridor = $('#corridor'), barEl = $('#bar');
 const isRow = () => matchMedia('(min-width: 761px)').matches;
@@ -550,43 +552,44 @@ const hero = (crumb, title, sub, side, color) => `<header class="hero" style="--
   <h1 class="ttl">${words(title, .25)}</h1><div class="sub rv" style="--d:.5s"><p>${sub}</p><span>${side}</span></div></header>`;
 const nextRoom = id => { const i = ROOMS.findIndex(r => r.id === id); return ROOMS[(i + 1) % ROOMS.length]; };
 
-const PAGES = {
-  built() {
-    return hero(['← All rooms', '#'], 'Built by me', 'Sites I planned, designed and built myself, with Figma and vibe coding. A book, a brand study, an interior studio, a product, a booking site.', `${BUILDS.length} sites<br>${new Set(BUILDS.map(b => b.kind.split(' · ')[0])).size} kinds`, ROOMS[0].color) +
-    `<div class="sec">${BUILDS.map((b, i) => `<article class="build">
-      <div class="txt rv"><span class="num">${String(i + 1).padStart(2, '0')} / ${String(BUILDS.length).padStart(2, '0')} · ${b.kind}</span><h3>${b.name}</h3><p class="lede">${b.lede}</p>
+const block = (b, i, list) => `<article class="build">
+      <div class="txt rv"><span class="num">${String(i + 1).padStart(2, '0')} / ${String(list.length).padStart(2, '0')} · ${b.kind}</span><h3>${b.name}</h3><p class="lede">${b.lede}</p>
         <ul>${b.did.map(([k, v]) => `<li><span>·</span><span><b>${k}.</b> ${v}</span></li>`).join('')}</ul>
         ${b.note ? `<p class="note">${b.note}</p>` : ''}
-        <a class="pill" href="${b.url}" ${b.local ? '' : 'target="_blank" rel="noopener"'} data-magnetic><span>${b.local ? 'Open the site' : 'Visit the live site'}</span><span class="arr">→</span></a></div>
+        <a class="pill" href="${b.url}" ${b.local ? '' : 'target="_blank" rel="noopener"'} data-magnetic><span>${b.local ? 'Open' : 'Visit the live site'}</span><span class="arr">→</span></a></div>
       <div class="media">${b.img.map(src => `<div class="browser rv"><div class="chrome"><i></i><i></i><i></i><span>${b.host}</span></div><img src="${src}" alt="${esc(b.name)} home page" loading="lazy"></div>`).join('')}
         ${b.phones ? `<div class="phones${b.phones.length < 3 ? ' two' : ''}">${b.phones.map((p, j) => `<img class="rv" style="--d:${j * .1}s" src="${p}" alt="${esc(b.name)} on a phone" loading="lazy">`).join('')}</div>` : ''}</div>
-    </article>`).join('')}</div>
-    <div class="next-up rv"><span class="k">Next</span><p>Each new kind of site I build goes here.</p></div>` + foot('Next room', '#design', 'Design systems', ROOMS[1].color);
-  },
-  design() {
-    return `<div class="ds-wall" id="dsWall">` + hero(['← All rooms', '#'], 'Design systems', 'One menu engine, six identities. Each shop type gets its own fonts, colours and layout, so a karaoke bar never looks like a bakery.', 'Live demos<br>menu-platform', ROOMS[1].color) +
-    `<div class="sec"><div class="ds-intro rv"><p>Same data underneath: items, prices in dollars and riel, deals, sold-out flags, Khmer and English.</p><p>On top, a theme per shop type.</p></div>
+    </article>${b.themes ? themeWall() : ''}`;
+const themeWall = () => `<section class="ds-wall" id="dsWall"><div class="ds-intro rv"><p><span class="k">Inside the platform</span><br>Six menu themes, one per type of shop. Same data underneath, its own fonts, colours and layout on top.</p></div>
       ${CANVAS() ? `<div class="ds-canvas" id="dsCanvas"></div>` : ''}<div class="themes"${CANVAS() ? ' hidden' : ''}>${THEMES.map((t, i) => `<a class="theme rv" style="--d:${(i % 3) * .1}s;--tb:${t.bg};--tt:${t.tx};--tf:'${t.font}',serif" href="https://menu-platform-orpin.vercel.app/${t.slug}" target="_blank" rel="noopener" data-cursor="Open menu" data-bg="${t.bg}">
         <span class="hd"><span>0${i + 1} · ${t.type}</span><span>↗</span></span>
         <span class="spec">${esc(t.name)}</span><span class="pic"><img src="${t.img}" alt="${esc(t.name)} menu on a phone" loading="lazy"></span>
-        <span class="ft"><span>${t.fonts}</span><span class="sw">${t.c.map(c => `<i style="--c:${c}"></i>`).join('')}</span></span></a>`).join('')}</div></div></div>` + foot('Next room', '#work', 'Product work', ROOMS[2].color);
+        <span class="ft"><span>${t.fonts}</span><span class="sw">${t.c.map(c => `<i style="--c:${c}"></i>`).join('')}</span></span></a>`).join('')}</div></section>`;
+const RM = id => ROOMS.find(r => r.id === id);
+const PAGES = {
+  cases() {
+    return hero(['← All rooms', '#'], 'Case studies', 'Studies of real brands: what they changed, why, and what happened next.', `${STUDIES.length} ${STUDIES.length === 1 ? 'study' : 'studies'}`, RM('cases').color) +
+    `<div class="sec">${STUDIES.map((b, i) => block(b, i, STUDIES)).join('')}</div>` + foot('Next room', '#web', 'Web projects', RM('web').color);
+  },
+  web() {
+    return hero(['← All rooms', '#'], 'Web projects', 'Sites I planned, designed and shipped, with Figma and vibe coding.', `${BUILDS.length} sites`, RM('web').color) +
+    `<div class="sec">${BUILDS.map((b, i) => block(b, i, BUILDS)).join('')}</div>` + foot('Next room', '#work', 'Product work', RM('work').color);
   },
   work() {
-    return hero(['← All rooms', '#'], 'Product work', 'Products I owned at work and on my own: features, redesigns, specs and a store.', 'Smart Axiata · Youding<br>Freelance · Own store', ROOMS[2].color) +
+    return hero(['← All rooms', '#'], 'Product work', 'Products I owned at work and on my own: features, redesigns, specs and a store.', 'Smart Axiata · Youding<br>Freelance · Own store', RM('work').color) +
     `<div class="sec"><ol class="cases">${CASES.map((c, i) => `<li><a href="#work/${c.id}" style="--pc:${c.color}" data-cursor="View case">
       <span class="n">${String(i + 1).padStart(2, '0')}</span><span class="t">${c.name}</span><span class="m">${c.tag}<br>${c.meta[1]} · ${c.meta[2]}</span><span class="ar">→</span>
-      <span class="th" aria-hidden="true">${mocks[c.shots[0]](c.color)}</span></a></li>`).join('')}</ol></div>` + foot('Next room', '#toolkit', 'Toolkit', ROOMS[3].color);
-  },
-  toolkit() {
-    return hero(['← All rooms', '#'], 'Toolkit', 'What I design with, build with, plan with, and where I look before I start.', `${TOOLS.reduce((a, g) => a + g[1].length, 0)} tools`, ROOMS[3].color) +
-    `<div class="sec tk" style="--rc:${ROOMS[3].color}">${TOOLS.map(([g, ts]) => `<div class="tk-g rv"><h3>${g}</h3><ul>${ts.map(([t, d]) => `<li class="tool"><b>${t}</b><span>${d}</span></li>`).join('')}</ul></div>`).join('')}</div>` + foot('Next room', '#experience', 'Experience', ROOMS[4].color);
+      <span class="th" aria-hidden="true">${mocks[c.shots[0]](c.color)}</span></a></li>`).join('')}</ol></div>` + foot('Next room', '#experience', 'Experience & tools', RM('experience').color);
   },
   experience() {
-    return hero(['← All rooms', '#'], 'Experience', 'Product owner by job title, designer and builder by habit. Customer success is where I started.', `<a href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener" style="text-decoration:underline">Download the CV (PDF)</a>`, ROOMS[4].color) +
+    return hero(['← All rooms', '#'], 'Experience & tools', 'Product owner by job title, designer and builder by habit. Customer success is where I started.', `<a href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener" style="text-decoration:underline">Download the CV (PDF)</a>`, RM('experience').color) +
     `<div class="sec"><ol class="xp">${XP.map((x, i) => `<li class="rv${i ? '' : ' open'}"><button aria-expanded="${!i}"><span class="y">${x.y}</span><span class="r">${x.r}</span><span class="c">${x.c}</span><span class="pm"></span></button>
-      <div class="dd"${i ? ' inert' : ''}><div><ul>${x.pts.map(p => `<li>${p}</li>`).join('')}</ul></div></div></li>`).join('')}</ol></div>` + foot('Back to the start', '#built', 'Built by me', ROOMS[0].color);
+      <div class="dd"${i ? ' inert' : ''}><div><ul>${x.pts.map(p => `<li>${p}</li>`).join('')}</ul></div></div></li>`).join('')}</ol></div>
+    <div class="sec tk" style="--rc:${RM('experience').color}"><h2 class="tk-h rv">Tools</h2>${TOOLS.map(([g, ts]) => `<div class="tk-g rv"><h3>${g}</h3><ul>${ts.map(([t, d]) => `<li class="tool"><b>${t}</b><span>${d}</span></li>`).join('')}</ul></div>`).join('')}</div>` + foot('Back to the start', 'samples/metamorphosis/', 'The Metamorphosis', RM('metamorphosis').color);
   }
 };
+// old room links
+const ALIAS = { built: 'web', design: 'web', toolkit: 'experience' };
 function casePage(c) {
   const i = CASES.indexOf(c), nx = CASES[(i + 1) % CASES.length];
   const shot = (k) => `<div class="shot rv${k ? ' wide' : ''}" data-cursor="Mock-up">${mocks[c.shots[k]](c.color)}<p class="note">${c.note}</p></div>`;
@@ -609,6 +612,7 @@ const BASE = document.title;
 function route() {
   let h = location.hash.slice(1);
   if (CASES.some(c => c.id === h)) { history.replaceState(null, '', '#work/' + h); h = 'work/' + h; } // old links
+  if (ALIAS[h]) { history.replaceState(null, '', '#' + ALIAS[h]); h = ALIAS[h]; }
   const [room, sub] = h.split('/');
   const c = room === 'work' && sub ? CASES.find(x => x.id === sub) : null;
   const html = c ? casePage(c) : PAGES[room]?.();
@@ -637,7 +641,7 @@ const glState = { gl: null };
 function glWarp() {
   const cv = $('#gl');
   view.classList.remove('gl-on'); cv.style.display = 'none';
-  if (!HOVER || reduce() || location.hash.slice(1) !== 'built') return;
+  if (!HOVER || reduce() || !['web', 'cases'].includes(location.hash.slice(1))) return;
   let gl = glState.gl;
   if (!gl) {
     gl = cv.getContext('webgl', { premultipliedAlpha: false, alpha: true }); if (!gl) return;
@@ -661,7 +665,7 @@ function glWarp() {
   const ready = imgs.map(img => new Promise(ok => img.complete && img.naturalWidth ? ok() : img.addEventListener('load', ok, { once: true })));
   imgs.forEach(img => img.loading = 'eager');
   Promise.all(ready).then(() => {
-    if (location.hash.slice(1) !== 'built') return;
+    if (!['web', 'cases'].includes(location.hash.slice(1))) return;
     imgs.forEach(img => { if (glState.tex.has(img.src)) return; const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
@@ -758,6 +762,16 @@ function go(href) {
     setTimeout(() => { cu.className = 'curtain'; busy = false; }, 820);
   }, 600);
 }
+// featured rooms open their own site: curtain in the room colour, then leave
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[data-ext]'); if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+  if (reduce() || !document.body.classList.contains('ready')) return;
+  e.preventDefault(); hideCur();
+  const cu = $('#curtain'); cu.style.setProperty('--cc', a.style.getPropertyValue('--rc')); $('#curtainT').textContent = a.dataset.ext;
+  cu.className = 'curtain'; void cu.offsetWidth; cu.classList.add('in');
+  setTimeout(() => { location.href = a.href; }, 600);
+});
+addEventListener('pageshow', e => { if (e.persisted) $('#curtain').className = 'curtain'; });
 document.addEventListener('click', e => {
   const a = e.target.closest('a[href^="#"]'); if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
   e.preventDefault(); go(a.getAttribute('href'));

@@ -81,16 +81,12 @@ a{color:inherit}
 .lede{margin-top:clamp(24px,3vw,40px);padding-bottom:clamp(28px,4vw,56px);border-bottom:1px solid var(--rule-strong);align-items:start}
 .lede p{grid-column:4 / span 6;margin:0;font-size:clamp(20px,1.7vw,26px);line-height:1.35}
 .lede .label{grid-column:1 / span 3;text-transform:uppercase;color:var(--mute);padding-top:.5em}
-.notice{grid-column:10 / span 3;border:1px solid var(--rule-strong);padding:12px 14px;margin-top:.35em}
-.notice strong{display:block;font-weight:500;text-transform:uppercase;margin-bottom:6px;color:var(--accent)}
 @media (max-width:980px){
   .lede p{grid-column:1 / -1}
   .lede .label{grid-column:1 / -1;padding:0 0 10px}
-  .notice{grid-column:1 / span 8;margin-top:22px}
 }
 @media (max-width:640px){
   .mast-top span:nth-child(2){display:none}
-  .notice{grid-column:1 / -1}
   .title .ln:nth-child(2){padding-left:0}
 }
 
@@ -112,8 +108,6 @@ a{color:inherit}
 .idx a:hover .nm,.idx a:focus-visible .nm{transform:translateX(.18em)}
 .idx a:hover .go,.idx a:focus-visible .go{transform:translateX(-6px);color:#8E98FF}
 .idx a{transition:color var(--t1) var(--io)}
-.left-out{margin:18px 0 0;max-width:62ch;color:var(--mute);font-size:15px}
-.left-out b{font:500 12px/1 var(--f-mono);text-transform:uppercase;color:var(--ink);margin-right:6px}
 @media (max-width:900px){
   .idx .nm{grid-column:2 / span 7}
   .idx .yr{grid-column:9 / span 3}
@@ -205,56 +199,54 @@ a{color:inherit}
   .cmp-top{align-items:start;flex-direction:column}
 }
 
-/* ---------- body sections with side notes ---------- */
+/* ---------- chapter body ---------- */
 .sec{align-items:start;padding:clamp(18px,2vw,26px) 0;border-top:1px solid var(--rule)}
-.sec>h3{grid-column:1 / span 2;margin:0;font:500 12px/1.5 var(--f-mono);text-transform:uppercase;letter-spacing:.02em;padding-top:.3em}
-.sec>.body{grid-column:3 / span 6}
-.sec>.side{grid-column:10 / span 3}
-.body p{margin:0 0 .8em;max-width:62ch}
-.body p:last-child{margin-bottom:0}
-.changed{margin:0;border-top:1px solid var(--rule-strong)}
-.changed div{display:grid;grid-template-columns:5.5em 1fr;gap:14px;padding:10px 0;border-bottom:1px solid var(--rule)}
-.changed dt{font:700 15px/1.5 var(--f-display);letter-spacing:-.01em;padding-top:.08em}
-.changed dd{margin:0}
-.changed .from{display:block;color:var(--mute);margin-bottom:2px}
-.changed .arrow{padding:0 .4em 0 0}
-.arrow{font-family:var(--f-mono);color:var(--accent);padding:0 .25em}
-sup.n{font:500 10.5px/0 var(--f-mono);vertical-align:super;margin-left:1px}
-sup.n a{color:var(--accent);text-decoration:none;padding:0 1px}
-sup.n a:hover{text-decoration:underline}
-.side ol{list-style:none;margin:0;padding:0}
-.side li{display:grid;grid-template-columns:1.6em 1fr;font:400 11.5px/1.5 var(--f-mono);color:var(--ink-2);padding:0 0 10px}
-.side li .k{color:var(--accent);font-weight:500}
-.side li a{color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)}
-.side li a:hover{border-color:var(--ink)}
-.side li:target{color:var(--ink)}
-.side li:target .k{background:var(--accent);color:var(--on-accent);text-align:center}
-.q{font-style:italic}
-.take{position:relative;border-left:3px solid var(--accent);padding:2px 0 2px clamp(14px,1.6vw,22px)}
-.take p{font-size:clamp(19px,1.45vw,23px);line-height:1.42;font-style:italic;max-width:56ch}
-.take .who{display:block;margin-top:10px;font:500 11.5px/1 var(--f-mono);font-style:normal;text-transform:uppercase;color:var(--mute)}
-.sec.opinion>h3{color:var(--accent)}
-.sources{grid-column:3 / span 10;margin-top:clamp(18px,2vw,26px);border-top:1px solid var(--rule-strong);padding-top:12px}
-.sources summary{cursor:pointer;font:500 12px/1.5 var(--f-mono);text-transform:uppercase;letter-spacing:.02em;list-style:none;display:flex;justify-content:space-between;gap:12px;padding:6px 0}
-.sources summary::-webkit-details-marker{display:none}
-.sources summary .pm{transition:transform var(--t2) var(--io)}
-.sources[open] summary .pm{transform:rotate(45deg)}
-.sources ol{margin:8px 0 0;padding:0;list-style:none;columns:2;column-gap:clamp(16px,2vw,32px)}
-.sources li{break-inside:avoid;display:grid;grid-template-columns:2em 1fr;font:400 12px/1.5 var(--f-mono);padding:0 0 10px;color:var(--ink-2)}
-.sources li .k{color:var(--accent)}
-.sources li a{word-break:break-word}
+.sec>h3,.lab{margin:0;font:500 12px/1.5 var(--f-mono);text-transform:uppercase;letter-spacing:.02em}
+.sec>h3{grid-column:1 / span 2;padding-top:.3em}
+.changed{grid-column:3 / span 10;width:100%;border-collapse:collapse;border-top:1px solid var(--rule-strong)}
+.changed th,.changed td{text-align:left;vertical-align:baseline;padding:10px 14px 10px 0;border-bottom:1px solid var(--rule)}
+.changed thead th{font:400 11.5px/1.45 var(--f-mono);text-transform:uppercase;color:var(--mute);padding-top:8px;padding-bottom:8px}
+.changed tbody th{width:7em;font:700 15px/1.5 var(--f-display);letter-spacing:-.01em}
+.changed td{width:calc(50% - 3.5em)}
+.changed td.from{color:var(--mute)}
+.changed td.to::before{content:"→";font-family:var(--f-mono);color:var(--accent);margin-right:.5em}
+.story{grid-column:3 / span 5}
+.story p{margin:.5em 0 0;max-width:58ch}
+.take{grid-column:8 / span 5;margin-left:clamp(0px,1vw,16px);border-left:3px solid var(--accent);padding:2px 0 2px clamp(14px,1.6vw,22px)}
+.take .lab{color:var(--accent)}
+.take p{margin:.4em 0 0;font-size:clamp(19px,1.45vw,23px);line-height:1.42;font-style:italic;max-width:50ch}
 @media (max-width:980px){
   .sec>h3{grid-column:1 / -1;padding:0 0 10px}
-  .sec>.body{grid-column:1 / span 8}
-  .sec>.side{grid-column:9 / span 4}
-  .sources{grid-column:1 / -1}
+  .changed{grid-column:1 / -1}
+  .story{grid-column:1 / span 6}
+  .take{grid-column:7 / span 6}
 }
 @media (max-width:640px){
-  .sec>.body,.sec>.side{grid-column:1 / -1}
-  .sec>.side{margin-top:14px;padding-top:10px;border-top:1px dashed var(--rule)}
-  .sources ol{columns:1}
-  .changed div{grid-template-columns:1fr;gap:2px}
+  .story,.take{grid-column:1 / -1}
+  .take{margin:22px 0 0}
+  .changed thead{display:none}
+  .changed tr{display:grid;grid-template-columns:1fr;padding:10px 0;border-bottom:1px solid var(--rule)}
+  .changed th,.changed td{display:block;width:auto;border:0;padding:0}
+  .changed tbody th{padding-bottom:2px}
+  .changed tbody tr:last-child{border-bottom:0}
 }
+
+/* ---------- sources (one list for the whole issue) ---------- */
+.srcs{padding-top:clamp(28px,4vw,48px);padding-bottom:clamp(40px,5vw,72px);border-top:1px solid var(--rule-strong)}
+.srcs h2{grid-column:1 / span 2;margin:0;font:500 12px/1.5 var(--f-mono);text-transform:uppercase;letter-spacing:.02em}
+.srcs .grp{grid-column:span 5}
+.srcs .grp:nth-of-type(odd){grid-column:3 / span 5}
+.srcs h3{margin:0 0 6px;font:700 15px/1.5 var(--f-display);letter-spacing:-.01em}
+.srcs ul{list-style:none;margin:0 0 clamp(20px,2.4vw,32px);padding:0;border-top:1px solid var(--rule)}
+.srcs li{font:400 11.5px/1.5 var(--f-mono);color:var(--ink-2);padding:4px 0;border-bottom:1px solid var(--rule)}
+.srcs li a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+.srcs li a:hover{border-color:var(--ink)}
+.srcs li.logo{color:var(--mute)}
+@media (max-width:980px){
+  .srcs h2{grid-column:1 / -1;margin-bottom:14px}
+  .srcs .grp,.srcs .grp:nth-of-type(odd){grid-column:span 6}
+}
+@media (max-width:640px){ .srcs .grp,.srcs .grp:nth-of-type(odd){grid-column:1 / -1} }
 
 /* ---------- footer ---------- */
 .foot{background:var(--ink);color:var(--paper);padding:clamp(40px,5vw,72px) 0 calc(clamp(28px,3vw,40px))}
@@ -267,7 +259,6 @@ sup.n a:hover{text-decoration:underline}
 .foot .c2{grid-column:5 / span 4}
 .foot .c3{grid-column:9 / span 4}
 .foot ul{list-style:none;margin:0;padding:0}
-.foot .credits li{font:400 11.5px/1.5 var(--f-mono);padding:0 0 8px;color:#D6D7D3}
 .foot .notice-f{border:1px solid rgba(245,245,242,.6);padding:12px 14px;font:400 12.5px/1.5 var(--f-mono)}
 .foot .bottom{grid-column:1 / -1;margin-top:clamp(28px,4vw,48px);padding-top:14px;border-top:1px solid rgba(245,245,242,.3);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font:400 11.5px/1.5 var(--f-mono);color:#AEB0AD}
 @media (max-width:980px){ .foot .c1,.foot .c2{grid-column:span 6} .foot .c3{grid-column:1 / -1;margin-top:28px} }
@@ -300,7 +291,6 @@ sup.n a:hover{text-decoration:underline}
   <div class="grid lede">
     <span class="label mono">About this issue</span>
     <p>An independent study of real brand identity changes.</p>
-    <div class="notice mono" role="note"><strong>Notice</strong>Independent study. Not affiliated with or endorsed by any brand shown. Logos and trademarks belong to their owners.</div>
   </div>
 </header>
 
@@ -318,7 +308,6 @@ sup.n a:hover{text-decoration:underline}
     <div class="cell"><img src="img/mastercard-2019.svg" alt=""></div>
     <div class="cell"><img src="img/airbnb-2014.svg" alt=""></div>
   </div><span class="cap">Current logo</span></div></div>
-  <p class="left-out"><b>Left out</b>Gojek (2019) was on the list. Its Wikipedia article has one source for the change and gives two different dates for it, and the earlier logo is not on Wikimedia Commons, so I could not show a fair before and after.</p>
 </nav>
 
 <!-- ===================== 01 BURBERRY ===================== -->
@@ -329,13 +318,13 @@ sup.n a:hover{text-decoration:underline}
     <dl class="meta">
       <div><dt>Changes</dt><dd>Aug 2018 · Feb 2023</dd></div>
       <div><dt>2018 design</dt><dd>Peter Saville, for Riccardo Tisci</dd></div>
-      <div><dt>2023 design</dt><dd>Under chief creative officer Daniel Lee</dd></div>
+      <div><dt>2023 design</dt><dd>Under Daniel Lee</dd></div>
       <div><dt>Sector</dt><dd>Fashion</dd></div>
     </dl>
   </div>
 
   <div class="grid">
-    <figure class="cmp" data-cmp='[
+    <figure class="cmp" aria-label="Burberry logos before and after" data-cmp='[
       {"label":"2018 → 2023","b":{"src":"img/burberry-2018.svg","alt":"Burberry 2018 logo: the word BURBERRY in bold sans-serif capitals","tag":"2018 to 2023","fit":"xwide"},"a":{"src":"img/burberry-2023-wordmark.svg","alt":"Burberry wordmark since 2023: BURBERRY in serif capitals with small sharp serifs","tag":"Since 2023","fit":"xwide"}},
       {"label":"1999 → 2018","b":{"src":"img/burberry-1999.svg","alt":"Burberry logo used 1999 to 2018: the Equestrian Knight above BURBERRY in wide serif capitals and ESTABLISHED 1856","tag":"1999 to 2018","fit":"tall"},"a":{"src":"img/burberry-2018.svg","alt":"Burberry 2018 logo: the word BURBERRY in bold sans-serif capitals","tag":"2018 to 2023","fit":"xwide"}}
     ]'>
@@ -346,79 +335,33 @@ sup.n a:hover{text-decoration:underline}
       <div class="stage"></div>
       <div class="cmp-foot">
         <div class="seg jump" role="group" aria-label="Jump to"></div>
-        <figcaption>Logo files: Wikimedia Commons (<a href="https://commons.wikimedia.org/wiki/File:Burberry_Logo.svg">2018</a>, <a href="https://commons.wikimedia.org/wiki/File:Logo_Burberry_01.svg">2023 wordmark</a>, <a href="https://commons.wikimedia.org/wiki/File:Logo_Burberry_02.svg">1999</a>). The 2023 knight is not in the slider: its file (<a href="https://commons.wikimedia.org/wiki/File:Logo_Burberry_04.svg">Logo Burberry 04</a>) could not be downloaded during this study. The 1999 to 2018 logo shows the earlier drawing of the knight.</figcaption>
       </div>
     </figure>
   </div>
 
   <section class="grid sec" aria-labelledby="bu-c">
     <h3 id="bu-c">What changed</h3>
-    <div class="body">
-      <dl class="changed">
-        <div><dt>Mark</dt><dd><span class="from">2018: no symbol, the name alone, plus a new monogram.</span><sup class="n"><a href="#bu-n2">2</a></sup><span class="arrow">→</span>2023: the Equestrian Knight returns, a mark first developed in 1901 and carrying the Latin word "Prorsum", meaning "forwards".<sup class="n"><a href="#bu-n1">1</a></sup></dd></div>
-        <div><dt>Type</dt><dd><span class="from">Bold, tightly set sans-serif capitals.</span><span class="arrow">→</span>Serif capitals with small, sharp serifs. Closer to the pre-2018 wordmark in spirit, but heavier and less widely spaced.</dd></div>
-        <div><dt>Colour</dt><dd><span class="from">Black.</span><span class="arrow">→</span>Black, plus a coloured version of the 2023 logo listed on Wikipedia.<sup class="n"><a href="#bu-n6">6</a></sup></dd></div>
-        <div><dt>Tone</dt><dd><span class="from">Quiet, pared back and modern.</span><span class="arrow">→</span>Archive-led and British. Coverage at launch called it "archive-inspired" and a "return to British eccentricity".<sup class="n"><a href="#bu-n4">4</a></sup><sup class="n"><a href="#bu-n5">5</a></sup></dd></div>
-      </dl>
-    </div>
-    <aside class="side" aria-label="Notes">
-      <ol>
-        <li id="bu-n1"><span class="k">1</span><span>Burberry plc, <a href="https://web.archive.org/web/20150622090514/http://www.burberryplc.com/about_burberry/company-history">Burberry History</a> (archived). Knight developed 1901, trademark 1909.</span></li>
-        <li id="bu-n2"><span class="k">2</span><span>GQ, <a href="https://www.gq.com/story/new-burberry-logo-riccardo-tisci">Burberry Has a New Logo</a>, 2 Aug 2018.</span></li>
-        <li id="bu-n6"><span class="k">6</span><span>Wikipedia, <a href="https://en.wikipedia.org/wiki/Burberry#Logos">Burberry, Logos</a>.</span></li>
-      </ol>
-    </aside>
+    <table class="changed">
+      <thead><tr><th scope="col"><span class="vh">Element</span></th><th scope="col">2018</th><th scope="col">2023</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Mark</th><td class="from">The name alone, plus a monogram</td><td class="to">The Equestrian Knight returns, first drawn in 1901</td></tr>
+        <tr><th scope="row">Type</th><td class="from">Bold, tight sans-serif capitals</td><td class="to">Serif capitals with small, sharp serifs</td></tr>
+        <tr><th scope="row">Colour</th><td class="from">Black</td><td class="to">Black, plus a coloured version</td></tr>
+        <tr><th scope="row">Tone</th><td class="from">Quiet, pared back, modern</td><td class="to">Archive-led and British</td></tr>
+      </tbody>
+    </table>
   </section>
 
-  <section class="grid sec" aria-labelledby="bu-w">
-    <h3 id="bu-w">Why</h3>
-    <div class="body">
-      <p>In March 2018 Burberry named Riccardo Tisci its chief creative officer. A few months later he presented a new logo and monogram designed by the English graphic designer Peter Saville.<sup class="n"><a href="#bu-n3">3</a></sup><sup class="n"><a href="#bu-n2">2</a></sup> It replaced a logo that had been in use since 1999.<sup class="n"><a href="#bu-n6">6</a></sup> The sources I could check do not record the company's own reason for the change.</p>
-      <p>In September 2022 Daniel Lee, previously creative director of Bottega Veneta, was named as Tisci's replacement.<sup class="n"><a href="#bu-n7">7</a></sup> In February 2023 a new logo and branding brought the Equestrian Knight back.<sup class="n"><a href="#bu-n4">4</a></sup> Speaking about his debut collection, Lee said: <span class="q">"It was exciting to try to find the narrative of Burberry. And I wanted to go back to the idea of functionality, men and women on the go, and clothes that will last, that are not too precious."</span><sup class="n"><a href="#bu-n8">8</a></sup></p>
+  <section class="grid sec" aria-label="Background and opinion">
+    <div class="story">
+      <h3 class="lab">Why, and what happened</h3>
+      <p>In 2018 new chief creative officer Riccardo Tisci replaced the 1999 logo with a sans wordmark by Peter Saville. Daniel Lee took over in 2022, and in February 2023 his rebrand brought the knight back. The knight logo is still in use.</p>
     </div>
-    <aside class="side" aria-label="Notes">
-      <ol>
-        <li id="bu-n3"><span class="k">3</span><span>Vogue, <a href="https://www.vogue.com/article/burberry-new-logo-peter-saville">Riccardo Tisci Rebrands Burberry With a New Peter Saville Logo</a>, 2018.</span></li>
-        <li id="bu-n7"><span class="k">7</span><span>Vogue, <a href="https://www.vogue.com/article/riccardo-tisci-exits-burberry-daniel-lee-hired">Riccardo Tisci Is Out at Burberry, and Daniel Lee Has Been Hired to Replace Him</a>, 28 Sep 2022.</span></li>
-        <li id="bu-n8"><span class="k">8</span><span>FashionNetwork, <a href="https://in.fashionnetwork.com/news/Burberry-daniel-lee-debuts-by-bringing-back-britishness,1488686.html">Burberry: Daniel Lee debuts by bringing back Britishness</a>, 2023.</span></li>
-      </ol>
-    </aside>
-  </section>
-
-  <section class="grid sec" aria-labelledby="bu-x">
-    <h3 id="bu-x">What happened next</h3>
-    <div class="body">
-      <p>The launch campaign featured British musicians and models including Shygirl, Liberty Ross and Skepta.<sup class="n"><a href="#bu-n9">9</a></sup> The knight logo is still the one in use, listed on Wikipedia as "since 2023", and Lee remains chief creative officer.<sup class="n"><a href="#bu-n6">6</a></sup></p>
-    </div>
-    <aside class="side" aria-label="Notes">
-      <ol>
-        <li id="bu-n9"><span class="k">9</span><span>Dazed, <a href="https://www.dazeddigital.com/fashion/article/58121/1/shygirl-john-glacier-and-a-swan-front-daniel-lee-s-first-burberry-campaign">Shygirl, John Glacier and a swan front Daniel Lee's first Burberry campaign</a>, 6 Feb 2023.</span></li>
-      </ol>
-    </aside>
-  </section>
-
-  <section class="grid sec opinion" aria-labelledby="bu-t">
-    <h3 id="bu-t">My take</h3>
-    <div class="body take">
-      <p>The 2018 wordmark was easy to read and held up well at small sizes, but with the name covered it could have belonged to several fashion houses. The knight gives Burberry something nobody else owns, with more than a century of use behind it. I think the return is the stronger long-term asset, as long as there is a simplified version of the knight for very small sizes, where its fine detail will fill in.</p>
-      <span class="who">Opinion · Loem Layheng</span>
+    <div class="take">
+      <h3 class="lab">My take</h3>
+      <p>With the name covered, the 2018 wordmark could have belonged to several fashion houses; the knight is something nobody else owns. It needs a simplified version for very small sizes, where its fine detail fills in.</p>
     </div>
   </section>
-
-  <details class="sources">
-    <summary><span>Sources for this chapter · 9</span><span class="pm" aria-hidden="true">+</span></summary>
-    <ol>
-      <li><span class="k">1</span><span>Burberry plc, "Burberry History", burberryplc.com, archived 22 Jun 2015. <a href="https://web.archive.org/web/20150622090514/http://www.burberryplc.com/about_burberry/company-history">web.archive.org</a></span></li>
-      <li><span class="k">2</span><span>Matt Sebra, "Burberry Has a New Logo", GQ, 2 Aug 2018. <a href="https://www.gq.com/story/new-burberry-logo-riccardo-tisci">gq.com</a></span></li>
-      <li><span class="k">3</span><span>"Riccardo Tisci Rebrands Burberry With a New Peter Saville Logo", Vogue, 2018 (cited on Wikipedia: Peter Saville). <a href="https://www.vogue.com/article/burberry-new-logo-peter-saville">vogue.com</a></span></li>
-      <li><span class="k">4</span><span>"Burberry unveils "archive-inspired" charging knight logo", Dezeen, 7 Feb 2023. <a href="https://www.dezeen.com/2023/02/07/burberry-daniel-lee-logo-equestrian-knight-design/">dezeen.com</a></span></li>
-      <li><span class="k">5</span><span>Zak Maoui, "Burberry's big return to British eccentricity", GQ UK, 6 Feb 2023. <a href="https://www.gq-magazine.co.uk/fashion/article/new-burberry-daniel-lee-2023/amp">gq-magazine.co.uk</a></span></li>
-      <li><span class="k">6</span><span>Wikipedia, "Burberry" (history and Logos gallery). <a href="https://en.wikipedia.org/wiki/Burberry">en.wikipedia.org</a></span></li>
-      <li><span class="k">7</span><span>Nicole Phelps, "Riccardo Tisci Is Out at Burberry, and Daniel Lee Has Been Hired to Replace Him", Vogue, 28 Sep 2022. <a href="https://www.vogue.com/article/riccardo-tisci-exits-burberry-daniel-lee-hired">vogue.com</a></span></li>
-      <li><span class="k">8</span><span>"Burberry: Daniel Lee debuts by bringing back Britishness", FashionNetwork (cited on Wikipedia: Daniel Lee). <a href="https://in.fashionnetwork.com/news/Burberry-daniel-lee-debuts-by-bringing-back-britishness,1488686.html">fashionnetwork.com</a></span></li>
-      <li><span class="k">9</span><span>"Shygirl, John Glacier and a swan front Daniel Lee's first Burberry campaign", Dazed, 6 Feb 2023. <a href="https://www.dazeddigital.com/fashion/article/58121/1/shygirl-john-glacier-and-a-swan-front-daniel-lee-s-first-burberry-campaign">dazeddigital.com</a></span></li>
-    </ol>
-  </details>
 </article>
 
 <!-- ===================== 02 JAGUAR ===================== -->
@@ -428,14 +371,13 @@ sup.n a:hover{text-decoration:underline}
     <h2 class="ch-title rv" id="jaguar-h"><span class="w"><span>Jaguar</span></span></h2>
     <dl class="meta">
       <div><dt>Change</dt><dd>19 Nov 2024</dd></div>
-      <div><dt>Agency</dt><dd>Not named in the sources I could check</dd></div>
       <div><dt>Tagline</dt><dd>"Copy Nothing"</dd></div>
       <div><dt>Sector</dt><dd>Cars</dd></div>
     </dl>
   </div>
 
   <div class="grid">
-    <figure class="cmp" data-cmp='[
+    <figure class="cmp" aria-label="Jaguar logos before and after" data-cmp='[
       {"label":"Before → 2024","b":{"src":"img/jaguar-2021.svg","alt":"Jaguar logo before 2024: the leaping cat drawn in outline above JAGUAR in wide spaced capitals","tag":"Before 2024","fit":"tall"},"a":{"src":"img/jaguar-2024.svg","alt":"Jaguar 2024 wordmark: thin geometric letters reading JaGUar, mixing capital and lowercase shapes","tag":"Since 2024","fit":"xwide"}}
     ]'>
       <div class="cmp-top">
@@ -445,82 +387,33 @@ sup.n a:hover{text-decoration:underline}
       <div class="stage"></div>
       <div class="cmp-foot">
         <div class="seg jump" role="group" aria-label="Jump to"></div>
-        <figcaption>Logo files: Wikipedia and Wikimedia Commons (<a href="https://en.wikipedia.org/wiki/File:Jaguar_logo_2021.svg">before 2024</a>, non-free file used for commentary, <a href="https://commons.wikimedia.org/wiki/File:Jaguar_2024.svg">2024</a>).</figcaption>
       </div>
     </figure>
   </div>
 
   <section class="grid sec" aria-labelledby="ja-c">
     <h3 id="ja-c">What changed</h3>
-    <div class="body">
-      <p>Jaguar described the change as a new typeface, a new colour palette and a new device mark, in a direction it called "exuberant modernism".<sup class="n"><a href="#ja-n1">1</a></sup><sup class="n"><a href="#ja-n2">2</a></sup></p>
-      <dl class="changed" id="ja-changed">
-        <div><dt>Mark</dt><dd><span class="from">The leaping cat, long known on Jaguar cars as the "Leaper" mascot.<sup class="n"><a href="#ja-n3">3</a></sup></span><span class="arrow">→</span>No cat in the new wordmark. A separate new device mark sits alongside it.<sup class="n"><a href="#ja-n1">1</a></sup></dd></div>
-        <div><dt>Type</dt><dd><span class="from">Wide, evenly spaced capitals: JAGUAR, set under the leaping cat.</span><span class="arrow">→</span>A thin, geometric wordmark that mixes capital and lowercase shapes: J, a, G, U, a, r.</dd></div>
-        <div><dt>Colour</dt><dd><span class="from">The earlier palette.</span><span class="arrow">→</span>A new palette. The wordmark file itself is a dark grey. The Type 00 concept car that followed was shown in "Miami Pink" and "London Blue".<sup class="n"><a href="#ja-n7">7</a></sup></dd></div>
-        <div><dt>Tone</dt><dd><span class="from">Classic British luxury.</span><span class="arrow">→</span>Art-world and fashion-led. The concept car was revealed at Miami Art Week, not at a motor show.<sup class="n"><a href="#ja-n7">7</a></sup></dd></div>
-      </dl>
-    </div>
-    <aside class="side" aria-label="Notes">
-      <ol>
-        <li id="ja-n1"><span class="k">1</span><span>BBC, <a href="https://www.bbc.com/news/articles/cgr0pw00n7qo">Jaguar unveils new logo and branding ahead of electric-only future</a>, 20 Nov 2024.</span></li>
-        <li id="ja-n2"><span class="k">2</span><span>Dezeen, <a href="https://www.dezeen.com/2024/11/21/jaguar-rebrand-electric-car/">Jaguar unveils "unique and fearless" rebrand for "complete reset"</a>, 21 Nov 2024.</span></li>
-        <li id="ja-n7"><span class="k">7</span><span>Wikipedia, <a href="https://en.wikipedia.org/wiki/Jaguar_Type_00">Jaguar Type 00</a>.</span></li>
-      </ol>
-    </aside>
+    <table class="changed">
+      <thead><tr><th scope="col"><span class="vh">Element</span></th><th scope="col">Before</th><th scope="col">2024</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Mark</th><td class="from">The leaping cat</td><td class="to">No cat; a separate new device mark</td></tr>
+        <tr><th scope="row">Type</th><td class="from">Wide, evenly spaced capitals</td><td class="to">Thin geometric letters, upper and lower case mixed</td></tr>
+        <tr><th scope="row">Colour</th><td class="from">The earlier palette</td><td class="to">A new palette; "Miami Pink" and "London Blue" on the Type 00</td></tr>
+        <tr><th scope="row">Tone</th><td class="from">Classic British luxury</td><td class="to">Art-world and fashion-led</td></tr>
+      </tbody>
+    </table>
   </section>
 
-  <section class="grid sec" aria-labelledby="ja-w">
-    <h3 id="ja-w">Why</h3>
-    <div class="body">
-      <p>On 19 November 2024 Jaguar released an advert showing its new logo and branding, ahead of a relaunch in 2026 as an electric-only brand.<sup class="n"><a href="#ja-n1">1</a></sup> A year earlier its owner JLR had set out plans to move Jaguar further upmarket after years of poor sales, as a lower-volume maker competing closer to Bentley and Porsche.<sup class="n"><a href="#ja-n3">3</a></sup> Jaguar's own announcement was titled <span class="q">"Fearless. Exuberant. Compelling. This is Jaguar, reimagined"</span>.<sup class="n"><a href="#ja-n4">4</a></sup></p>
+  <section class="grid sec" aria-label="Background and opinion">
+    <div class="story">
+      <h3 class="lab">Why, and what happened</h3>
+      <p>Jaguar showed the new identity on 19 November 2024, ahead of a 2026 relaunch as an electric-only brand pitched further upmarket. It drew criticism, including from Elon Musk and Nigel Farage, while others called it a marketing success. The Type 00 concept followed in December 2024, and the production car will be called the Type 01.</p>
     </div>
-    <aside class="side" aria-label="Notes">
-      <ol>
-        <li id="ja-n3"><span class="k">3</span><span>Wikipedia, <a href="https://en.wikipedia.org/wiki/Jaguar_Cars">Jaguar Cars</a>, citing Automotive News Europe.</span></li>
-        <li id="ja-n4"><span class="k">4</span><span>Jaguar Media Newsroom, <a href="https://media.jaguar.com/en-gb/news/2024/11/fearless-exuberant-compelling-jaguar-reimagined">press release</a>, Nov 2024.</span></li>
-      </ol>
-    </aside>
-  </section>
-
-  <section class="grid sec" aria-labelledby="ja-x">
-    <h3 id="ja-x">What happened next</h3>
-    <div class="body">
-      <p>The change was openly controversial. It drew criticism online, including from Elon Musk, Stephen Colbert and Nigel Farage, and critics said it pushed away Jaguar's traditional customers.<sup class="n"><a href="#ja-n5">5</a></sup><sup class="n"><a href="#ja-n6">6</a></sup> Others called it a marketing success because it put Jaguar in front of a worldwide audience.<sup class="n"><a href="#ja-n8">8</a></sup></p>
-      <p>On 4 December 2024 Jaguar revealed the Type 00 concept, the first car to carry the new logo and badge. It divided opinion in the same way.<sup class="n"><a href="#ja-n7">7</a></sup> Jaguar stopped building combustion cars, with the last F-Pace made on 19 December 2025, and its sales fell to a small fraction of earlier levels in 2025. Wikipedia puts that drop down to the pause in new car production rather than to the rebrand itself.<sup class="n"><a href="#ja-n9">9</a></sup> In May 2026 Jaguar said the production car previewed by the Type 00 would be called the Type 01.<sup class="n"><a href="#ja-n7">7</a></sup></p>
-    </div>
-    <aside class="side" aria-label="Notes">
-      <ol>
-        <li id="ja-n5"><span class="k">5</span><span>Financial Times, <a href="https://www.ft.com/content/87b75a03-4fa3-4072-bfd2-0d23733dee8a">Jaguar's rebrand has divided opinion. Is 'Project Roar' the road to success?</a>, 14 Dec 2024.</span></li>
-        <li id="ja-n6"><span class="k">6</span><span>The Guardian, <a href="https://www.theguardian.com/world/2024/dec/04/wednesday-briefing-what-jaguars-radical-rebrand-reveals-about-the-shift-to-electric-cars">What Jaguar's radical rebrand reveals about the shift to electric cars</a>, 4 Dec 2024.</span></li>
-        <li id="ja-n8"><span class="k">8</span><span>Forbes, <a href="https://www.forbes.com/sites/jamesmorris/2024/11/23/jaguar-rebrand-is-absolute-geniusheres-the-reason-why/">Jaguar Rebrand Is Absolute Genius – Here's Why</a>, 23 Nov 2024.</span></li>
-        <li id="ja-n9"><span class="k">9</span><span>Wikipedia, <a href="https://en.wikipedia.org/wiki/Jaguar_Cars">Jaguar Cars</a>, citing Autocar India and The Independent.</span></li>
-      </ol>
-    </aside>
-  </section>
-
-  <section class="grid sec opinion" aria-labelledby="ja-t">
-    <h3 id="ja-t">My take</h3>
-    <div class="body take">
-      <p>I understand wanting a clean break when the product itself was being replaced, and the new wordmark is certainly distinctive. My concern is legibility: mixing upper and lower case shapes makes the reader work, and that is a real cost on a badge read from across a street. I would have carried one familiar cue, such as the leaping cat, across the change as a bridge for existing owners.</p>
-      <span class="who">Opinion · Loem Layheng</span>
+    <div class="take">
+      <h3 class="lab">My take</h3>
+      <p>The wordmark is distinctive, but mixing upper and lower case makes a badge harder to read from across a street. I would have carried one familiar cue, such as the leaping cat, across the change.</p>
     </div>
   </section>
-
-  <details class="sources">
-    <summary><span>Sources for this chapter · 9</span><span class="pm" aria-hidden="true">+</span></summary>
-    <ol>
-      <li><span class="k">1</span><span>Shehnaz Khan, "Jaguar unveils new logo and branding ahead of electric-only future", BBC News, 20 Nov 2024. <a href="https://www.bbc.com/news/articles/cgr0pw00n7qo">bbc.com</a></span></li>
-      <li><span class="k">2</span><span>"Jaguar unveils "unique and fearless" rebrand for "complete reset"", Dezeen, 21 Nov 2024. <a href="https://www.dezeen.com/2024/11/21/jaguar-rebrand-electric-car/">dezeen.com</a></span></li>
-      <li><span class="k">3</span><span>Nick Gibbs, "Jaguar EVs to be priced at Bentley, Porsche levels", Automotive News Europe, 23 Jun 2021 (cited on Wikipedia: Jaguar Cars). <a href="https://europe.autonews.com/automakers/jaguar-evs-be-priced-bentley-porsche-levels">autonews.com</a></span></li>
-      <li><span class="k">4</span><span>"Fearless. Exuberant. Compelling. This is Jaguar, reimagined", Jaguar Media Newsroom, Nov 2024. <a href="https://media.jaguar.com/en-gb/news/2024/11/fearless-exuberant-compelling-jaguar-reimagined">media.jaguar.com</a></span></li>
-      <li><span class="k">5</span><span>Kana Inagaki and Henry Mance, "Jaguar's rebrand has divided opinion. Is 'Project Roar' the road to success?", Financial Times, 14 Dec 2024. <a href="https://www.ft.com/content/87b75a03-4fa3-4072-bfd2-0d23733dee8a">ft.com</a></span></li>
-      <li><span class="k">6</span><span>Archie Bland, "Wednesday briefing: What Jaguar's radical rebrand reveals about the shift to electric cars", The Guardian, 4 Dec 2024. <a href="https://www.theguardian.com/world/2024/dec/04/wednesday-briefing-what-jaguars-radical-rebrand-reveals-about-the-shift-to-electric-cars">theguardian.com</a></span></li>
-      <li><span class="k">7</span><span>Wikipedia, "Jaguar Type 00", citing Car and Driver ("The Polarizing Type 00 Concept Is Exactly What Jaguar Needed", 4 Dec 2024) and Car and Driver on the Type 01 name, 13 May 2026. <a href="https://en.wikipedia.org/wiki/Jaguar_Type_00">en.wikipedia.org</a></span></li>
-      <li><span class="k">8</span><span>James Morris, "Jaguar Rebrand Is Absolute Genius – Here's Why", Forbes, 23 Nov 2024. <a href="https://www.forbes.com/sites/jamesmorris/2024/11/23/jaguar-rebrand-is-absolute-geniusheres-the-reason-why/">forbes.com</a></span></li>
-      <li><span class="k">9</span><span>Wikipedia, "Jaguar Cars", Electrification section, citing Autocar India ("Jaguar F-Pace production ends after 10 years") and The Independent ("Did Jaguar 'go woke and go broke'? No, it's more complicated than that", 6 Jul 2025). <a href="https://en.wikipedia.org/wiki/Jaguar_Cars">en.wikipedia.org</a></span></li>
-    </ol>
-  </details>
 </article>
 
 <!-- ===================== 03 MASTERCARD ===================== -->
@@ -530,14 +423,14 @@ sup.n a:hover{text-decoration:underline}
     <h2 class="ch-title rv" id="mastercard-h"><span class="w"><span>Master</span></span><span class="w"><span>card</span></span></h2>
     <dl class="meta">
       <div><dt>Changes</dt><dd>Jul 2016 · Jan 2019</dd></div>
-      <div><dt>Design</dt><dd>Mastercard and Pentagram, as credited on the Commons file page<sup class="n"><a href="#ma-n6">6</a></sup></dd></div>
+      <div><dt>Design</dt><dd>Mastercard and Pentagram</dd></div>
       <div><dt>Circles since</dt><dd>1969</dd></div>
       <div><dt>Sector</dt><dd>Payments</dd></div>
     </dl>
   </div>
 
   <div class="grid">
-    <figure class="cmp" data-cmp='[
+    <figure class="cmp" aria-label="Mastercard logos before and after" data-cmp='[
       {"label":"1996 → 2016","b":{"src":"img/mastercard-1996.svg","alt":"Mastercard logo 1996 to 2016: interlaced red and yellow circles with stripes, MasterCard in italic white type with a shadow","tag":"1996 to 2016","fit":"mid"},"a":{"src":"img/mastercard-2016.svg","alt":"Mastercard logo 2016 to 2019: two flat overlapping circles, red and yellow with an orange overlap, and mastercard in lowercase below","tag":"2016 to 2019","fit":"mid"}},
       {"label":"2016 → 2019","b":{"src":"img/mastercard-2016.svg","alt":"Mastercard logo 2016 to 2019: two flat overlapping circles with mastercard in lowercase below","tag":"2016 to 2019","fit":"mid"},"a":{"src":"img/mastercard-2019.svg","alt":"Mastercard logo since 2019: two flat overlapping circles, no name","tag":"Since 2019","fit":"mid"}}
     ]'>
@@ -548,75 +441,33 @@ sup.n a:hover{text-decoration:underline}
       <div class="stage"></div>
       <div class="cmp-foot">
         <div class="seg jump" role="group" aria-label="Jump to"></div>
-        <figcaption>Logo files: Wikimedia Commons (<a href="https://commons.wikimedia.org/wiki/File:MasterCard_Logo.svg">1996</a>, <a href="https://commons.wikimedia.org/wiki/File:Mastercard-logo.svg">2016</a>, <a href="https://commons.wikimedia.org/wiki/File:Mastercard_2019_logo.svg">2019</a>). Shown at matched size on the same plate.</figcaption>
       </div>
     </figure>
   </div>
 
   <section class="grid sec" aria-labelledby="ma-c">
     <h3 id="ma-c">What changed</h3>
-    <div class="body">
-      <dl class="changed">
-        <div><dt>Mark</dt><dd><span class="from">Interlaced circles with horizontal stripes where they meet.</span><span class="arrow">→</span>Two flat circles that simply overlap. In 2019 the circles became the whole logo.<sup class="n"><a href="#ma-n1">1</a></sup></dd></div>
-        <div><dt>Type</dt><dd><span class="from">"MasterCard" in bold italic, with a drop shadow, set inside the circles.</span><span class="arrow">→</span>"mastercard" in lowercase, set below the circles. The company also changed the written name from "MasterCard" to "mastercard".<sup class="n"><a href="#ma-n3">3</a></sup></dd></div>
-        <div><dt>Colour</dt><dd><span class="from">Red and yellow with shading.</span><span class="arrow">→</span>Flat red and yellow, with a third colour, orange, where they overlap.</dd></div>
-        <div><dt>Tone</dt><dd><span class="from">Embossed, 1990s card hardware.</span><span class="arrow">→</span>Flat and quiet, sized for screens as much as for plastic.</dd></div>
-      </dl>
-    </div>
-    <aside class="side" aria-label="Notes">
-      <ol>
-        <li id="ma-n1"><span class="k">1</span><span>Wikipedia, <a href="https://en.wikipedia.org/wiki/Mastercard#Branding">Mastercard, Branding</a>. Logo captions 1996 to 2016, 2016 to 2019, since 2019.</span></li>
-        <li id="ma-n3"><span class="k">3</span><span>Forbes, <a href="https://www.forbes.com/sites/steveolenski/2016/07/14/the-story-behind-mastercards-new-logo/">The Story Behind Mastercard's New Logo</a>, 14 Jul 2016.</span></li>
-      </ol>
-    </aside>
+    <table class="changed">
+      <thead><tr><th scope="col"><span class="vh">Element</span></th><th scope="col">1996</th><th scope="col">2016 · 2019</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Mark</th><td class="from">Interlaced circles with stripes</td><td class="to">Two flat overlapping circles; alone since 2019</td></tr>
+        <tr><th scope="row">Type</th><td class="from">"MasterCard", bold italic, drop shadow</td><td class="to">"mastercard" in lowercase, then no name</td></tr>
+        <tr><th scope="row">Colour</th><td class="from">Red and yellow with shading</td><td class="to">Flat red and yellow, orange overlap</td></tr>
+        <tr><th scope="row">Tone</th><td class="from">Embossed, 1990s card hardware</td><td class="to">Flat and quiet, made for screens</td></tr>
+      </tbody>
+    </table>
   </section>
 
-  <section class="grid sec" aria-labelledby="ma-w">
-    <h3 id="ma-w">Why</h3>
-    <div class="body">
-      <p>The overlapping circles go back to 1969, when Interbank combined the two overlapping circles of the Western States Bankcard Association with the name "Master Charge". It became MasterCard in 1979, and card designs have kept the circles ever since.<sup class="n"><a href="#ma-n2">2</a></sup><sup class="n"><a href="#ma-n1">1</a></sup></p>
-      <p>In July 2016 Mastercard introduced a new identity and corporate logo.<sup class="n"><a href="#ma-n3">3</a></sup> In January 2019 it removed its name from the logo, leaving only the circles.<sup class="n"><a href="#ma-n4">4</a></sup><sup class="n"><a href="#ma-n5">5</a></sup> Wikipedia does not record the company's own explanation. The trade coverage it cites framed the 2019 step as going <span class="q">"name-free"</span>, with <span class="q">"pitfalls and positives"</span>.<sup class="n"><a href="#ma-n4">4</a></sup></p>
+  <section class="grid sec" aria-label="Background and opinion">
+    <div class="story">
+      <h3 class="lab">Why, and what happened</h3>
+      <p>The overlapping circles date from 1969 and Master Charge, which became MasterCard in 1979. The company simplified them in July 2016 and dropped its name from the logo in January 2019. The symbol-only logo is still in use.</p>
     </div>
-    <aside class="side" aria-label="Notes">
-      <ol>
-        <li id="ma-n2"><span class="k">2</span><span>David L. Stearns, <a href="https://books.google.com/books?id=k2tTTBOImXMC&amp;pg=PA28">Electronic Value Exchange</a>, Springer, 2011, p. 28.</span></li>
-        <li id="ma-n4"><span class="k">4</span><span>Advertising Age, "From "Priceless" to Wordless", 21 Jan 2019 (print, no link).</span></li>
-        <li id="ma-n5"><span class="k">5</span><span>Fortune, <a href="http://fortune.com/2019/01/07/mastercard-drops-its-name-from-company-logo-post-text-future-target-nike-apple/">Mastercard Drops Its Name From Company Logo</a>, 7 Jan 2019.</span></li>
-      </ol>
-    </aside>
-  </section>
-
-  <section class="grid sec" aria-labelledby="ma-x">
-    <h3 id="ma-x">What happened next</h3>
-    <div class="body">
-      <p>The symbol-only logo is still in use. Wikipedia's infobox shows it as the logo since 2019, with the symbol itself dating from 2016.<sup class="n"><a href="#ma-n1">1</a></sup></p>
-    </div>
-    <aside class="side" aria-label="Notes">
-      <ol>
-        <li id="ma-n6"><span class="k">6</span><span>Wikimedia Commons, <a href="https://commons.wikimedia.org/wiki/File:Mastercard-logo.svg">File:Mastercard-logo.svg</a>. Author field: Mastercard Inc. and Pentagram Design.</span></li>
-      </ol>
-    </aside>
-  </section>
-
-  <section class="grid sec opinion" aria-labelledby="ma-t">
-    <h3 id="ma-t">My take</h3>
-    <div class="body take">
-      <p>This is the change I would point to as an example of doing less, well. Removing the stripes and the shadow made the circles work at the size of a phone wallet icon without losing anything people recognised. Dropping the name only works because the same two circles had been used for about fifty years; I would not advise a young brand to copy that step.</p>
-      <span class="who">Opinion · Loem Layheng</span>
+    <div class="take">
+      <h3 class="lab">My take</h3>
+      <p>Removing the stripes and the shadow made the circles work at the size of a phone wallet icon. Dropping the name only works after about fifty years of the same two circles, so I would not advise a young brand to copy it.</p>
     </div>
   </section>
-
-  <details class="sources">
-    <summary><span>Sources for this chapter · 6</span><span class="pm" aria-hidden="true">+</span></summary>
-    <ol>
-      <li><span class="k">1</span><span>Wikipedia, "Mastercard" (History and Branding, logo captions and infobox). <a href="https://en.wikipedia.org/wiki/Mastercard">en.wikipedia.org</a></span></li>
-      <li><span class="k">2</span><span>David L. Stearns, Electronic Value Exchange: Origins of the Visa Electronic Payment System, Springer, 2011, p. 28. <a href="https://books.google.com/books?id=k2tTTBOImXMC&amp;pg=PA28">books.google.com</a></span></li>
-      <li><span class="k">3</span><span>Steve Olenski, "The Story Behind Mastercard's New Logo", Forbes, 14 Jul 2016. <a href="https://www.forbes.com/sites/steveolenski/2016/07/14/the-story-behind-mastercards-new-logo/">forbes.com</a></span></li>
-      <li><span class="k">4</span><span>Ann-Christine Diaz, "From "Priceless" to Wordless: In dropping the moniker from its brandmark, Mastercard highlights the pitfalls and positives of going name-free", Advertising Age, vol. 90 no. 2, p. 20, 21 Jan 2019. Print, no URL.</span></li>
-      <li><span class="k">5</span><span>Laura Stampler, "Mastercard Drops Its Name From Company Logo", Fortune, 7 Jan 2019. <a href="http://fortune.com/2019/01/07/mastercard-drops-its-name-from-company-logo-post-text-future-target-nike-apple/">fortune.com</a></span></li>
-      <li><span class="k">6</span><span>Wikimedia Commons, "File:Mastercard-logo.svg", author field "Mastercard Inc. and Pentagram Design", source: Mastercard brand mark guidelines. <a href="https://commons.wikimedia.org/wiki/File:Mastercard-logo.svg">commons.wikimedia.org</a></span></li>
-    </ol>
-  </details>
 </article>
 
 <!-- ===================== 04 AIRBNB ===================== -->
@@ -626,14 +477,14 @@ sup.n a:hover{text-decoration:underline}
     <h2 class="ch-title rv" id="airbnb-h"><span class="w"><span>Airbnb</span></span></h2>
     <dl class="meta">
       <div><dt>Change</dt><dd>Jul 2014</dd></div>
-      <div><dt>Design</dt><dd>DesignStudio, as credited on the Commons file page<sup class="n"><a href="#ai-n4">4</a></sup></dd></div>
+      <div><dt>Design</dt><dd>DesignStudio</dd></div>
       <div><dt>Symbol</dt><dd>"Bélo"</dd></div>
       <div><dt>Sector</dt><dd>Travel, marketplace</dd></div>
     </dl>
   </div>
 
   <div class="grid">
-    <figure class="cmp" data-cmp='[
+    <figure class="cmp" aria-label="Airbnb logos before and after" data-cmp='[
       {"label":"Before → 2014","b":{"src":"img/airbnb-before.svg","alt":"Airbnb logo before 2014: the word airbnb in a rounded blue script with a white outline","tag":"Before 2014","fit":"wide"},"a":{"src":"img/airbnb-2014.svg","alt":"Airbnb logo since 2014: the Bélo symbol, a single looping line, next to airbnb in a rounded sans-serif, both in coral pink","tag":"Since 2014","fit":"wide"}}
     ]'>
       <div class="cmp-top">
@@ -643,96 +494,101 @@ sup.n a:hover{text-decoration:underline}
       <div class="stage"></div>
       <div class="cmp-foot">
         <div class="seg jump" role="group" aria-label="Jump to"></div>
-        <figcaption>Logo files: Wikimedia Commons (<a href="https://commons.wikimedia.org/wiki/File:Airbnb_Logo.svg">before</a>, <a href="https://commons.wikimedia.org/wiki/File:Airbnb_Logo_B%C3%A9lo.svg">2014</a>). Shown at matched size on the same plate.</figcaption>
       </div>
     </figure>
   </div>
 
   <section class="grid sec" aria-labelledby="ai-c">
     <h3 id="ai-c">What changed</h3>
-    <div class="body">
-      <dl class="changed">
-        <div><dt>Mark</dt><dd><span class="from">No symbol, the name alone.</span><span class="arrow">→</span>A symbol, the "Bélo": one continuous line that can stand on its own, for example as an app icon.<sup class="n"><a href="#ai-n2">2</a></sup></dd></div>
-        <div><dt>Type</dt><dd><span class="from">A puffy, rounded script with a white outline.</span><span class="arrow">→</span>A plain, rounded lowercase sans-serif.</dd></div>
-        <div><dt>Colour</dt><dd><span class="from">Sky blue with a light-to-dark blend.</span><span class="arrow">→</span>One flat coral pink.</dd></div>
-        <div><dt>Tone</dt><dd><span class="from">Friendly, early web.</span><span class="arrow">→</span>Calmer and more grown-up, closer to a global consumer brand.</dd></div>
-      </dl>
-    </div>
-    <aside class="side" aria-label="Notes">
-      <ol>
-        <li id="ai-n2"><span class="k">2</span><span>The Next Web, <a href="https://thenextweb.com/dd/2014/07/16/airbnb-updates-design-introduces-new-belo-logo/">Airbnb updates design and introduces controversial new Bélo logo</a>, 16 Jul 2014.</span></li>
-      </ol>
-    </aside>
+    <table class="changed">
+      <thead><tr><th scope="col"><span class="vh">Element</span></th><th scope="col">Before</th><th scope="col">2014</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Mark</th><td class="from">The name alone</td><td class="to">The Bélo, one continuous line that stands alone</td></tr>
+        <tr><th scope="row">Type</th><td class="from">Puffy, rounded script, white outline</td><td class="to">Plain, rounded lowercase sans-serif</td></tr>
+        <tr><th scope="row">Colour</th><td class="from">Sky blue, light-to-dark blend</td><td class="to">One flat coral pink</td></tr>
+        <tr><th scope="row">Tone</th><td class="from">Friendly, early web</td><td class="to">Calmer, a global consumer brand</td></tr>
+      </tbody>
+    </table>
   </section>
 
-  <section class="grid sec" aria-labelledby="ai-w">
-    <h3 id="ai-w">Why</h3>
-    <div class="body">
-      <p>In July 2014 Airbnb revealed a redesign of its website and mobile app and introduced a new logo at the same time.<sup class="n"><a href="#ai-n1">1</a></sup> Airbnb's explanation is in the coverage Wikipedia cites (Entrepreneur, "Airbnb, Why the New Logo?"), which I could not open, so I have left it out rather than repeat it second-hand.<sup class="n"><a href="#ai-n3">3</a></sup></p>
+  <section class="grid sec" aria-label="Background and opinion">
+    <div class="story">
+      <h3 class="lab">Why, and what happened</h3>
+      <p>Airbnb introduced the Bélo in July 2014, alongside a redesign of its website and app. Launch coverage called it "controversial". It is still the logo more than ten years on.</p>
     </div>
-    <aside class="side" aria-label="Notes">
-      <ol>
-        <li id="ai-n1"><span class="k">1</span><span>Wikipedia, <a href="https://en.wikipedia.org/wiki/Airbnb">Airbnb</a>, History.</span></li>
-        <li id="ai-n3"><span class="k">3</span><span>Entrepreneur, <a href="https://www.entrepreneur.com/article/235709">Airbnb, Why the New Logo?</a>, 17 Jul 2014.</span></li>
-      </ol>
-    </aside>
-  </section>
-
-  <section class="grid sec" aria-labelledby="ai-x">
-    <h3 id="ai-x">What happened next</h3>
-    <div class="body">
-      <p>The launch coverage cited on Wikipedia described the new logo as "controversial".<sup class="n"><a href="#ai-n2">2</a></sup> The Bélo is still Airbnb's logo, more than ten years on, and is the one shown in its Wikipedia infobox today.<sup class="n"><a href="#ai-n1">1</a></sup></p>
-    </div>
-    <aside class="side" aria-label="Notes">
-      <ol>
-        <li id="ai-n4"><span class="k">4</span><span>Wikimedia Commons, <a href="https://commons.wikimedia.org/wiki/File:Airbnb_Logo_B%C3%A9lo.svg">File:Airbnb Logo Bélo.svg</a>. Author field: DesignStudio.</span></li>
-      </ol>
-    </aside>
-  </section>
-
-  <section class="grid sec opinion" aria-labelledby="ai-t">
-    <h3 id="ai-t">My take</h3>
-    <div class="body take">
-      <p>The Bélo swapped a friendly but generic script for a symbol that can sit alone on a small square, which suited a redesign of the app. It is simple enough to draw from memory in one stroke, and I count that as its main strength. The "controversial" label at launch shows the risk of an abstract symbol: until people learn what it stands for, they bring their own readings to it.</p>
-      <span class="who">Opinion · Loem Layheng</span>
+    <div class="take">
+      <h3 class="lab">My take</h3>
+      <p>The Bélo is simple enough to draw from memory in one stroke, and it sits well alone on an app icon. The "controversial" label shows the risk of an abstract symbol: until people learn it, they bring their own readings.</p>
     </div>
   </section>
-
-  <details class="sources">
-    <summary><span>Sources for this chapter · 4</span><span class="pm" aria-hidden="true">+</span></summary>
-    <ol>
-      <li><span class="k">1</span><span>Wikipedia, "Airbnb" (History, infobox). <a href="https://en.wikipedia.org/wiki/Airbnb">en.wikipedia.org</a></span></li>
-      <li><span class="k">2</span><span>Roberto Baldwin, "Airbnb updates design and introduces controversial new Bélo logo", The Next Web, 16 Jul 2014. <a href="https://thenextweb.com/dd/2014/07/16/airbnb-updates-design-introduces-new-belo-logo/">thenextweb.com</a></span></li>
-      <li><span class="k">3</span><span>Catherine Clifford, "Airbnb, Why the New Logo?", Entrepreneur, 17 Jul 2014. <a href="https://www.entrepreneur.com/article/235709">entrepreneur.com</a></span></li>
-      <li><span class="k">4</span><span>Wikimedia Commons, "File:Airbnb Logo Bélo.svg", author field "DesignStudio", dated July 2014. <a href="https://commons.wikimedia.org/wiki/File:Airbnb_Logo_B%C3%A9lo.svg">commons.wikimedia.org</a></span></li>
-    </ol>
-  </details>
 </article>
+
+<!-- ===================== SOURCES ===================== -->
+<section class="srcs wrap grid" id="sources" aria-labelledby="src-h">
+  <h2 id="src-h">Sources</h2>
+  <div class="grp">
+    <h3>Burberry</h3>
+    <ul>
+      <li>Burberry plc, <a href="https://web.archive.org/web/20150622090514/http://www.burberryplc.com/about_burberry/company-history">Burberry History</a>, archived 22 Jun 2015</li>
+      <li>GQ, <a href="https://www.gq.com/story/new-burberry-logo-riccardo-tisci">Burberry Has a New Logo</a>, 2 Aug 2018</li>
+      <li>Vogue, <a href="https://www.vogue.com/article/burberry-new-logo-peter-saville">Riccardo Tisci Rebrands Burberry With a New Peter Saville Logo</a>, 2018</li>
+      <li>Vogue, <a href="https://www.vogue.com/article/riccardo-tisci-exits-burberry-daniel-lee-hired">Riccardo Tisci Is Out at Burberry, and Daniel Lee Has Been Hired to Replace Him</a>, 28 Sep 2022</li>
+      <li>Dezeen, <a href="https://www.dezeen.com/2023/02/07/burberry-daniel-lee-logo-equestrian-knight-design/">Burberry unveils "archive-inspired" charging knight logo</a>, 7 Feb 2023</li>
+      <li>GQ UK, <a href="https://www.gq-magazine.co.uk/fashion/article/new-burberry-daniel-lee-2023/amp">Burberry's big return to British eccentricity</a>, 6 Feb 2023</li>
+      <li>FashionNetwork, <a href="https://in.fashionnetwork.com/news/Burberry-daniel-lee-debuts-by-bringing-back-britishness,1488686.html">Burberry: Daniel Lee debuts by bringing back Britishness</a>, 2023</li>
+      <li>Dazed, <a href="https://www.dazeddigital.com/fashion/article/58121/1/shygirl-john-glacier-and-a-swan-front-daniel-lee-s-first-burberry-campaign">Daniel Lee's first Burberry campaign</a>, 6 Feb 2023</li>
+      <li>Wikipedia, <a href="https://en.wikipedia.org/wiki/Burberry">Burberry</a></li>
+      <li class="logo">Logo files, Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Logo_Burberry_02.svg">1999</a>, <a href="https://commons.wikimedia.org/wiki/File:Burberry_Logo.svg">2018</a>, <a href="https://commons.wikimedia.org/wiki/File:Logo_Burberry_01.svg">2023 wordmark</a></li>
+    </ul>
+  </div>
+  <div class="grp">
+    <h3>Jaguar</h3>
+    <ul>
+      <li>BBC News, <a href="https://www.bbc.com/news/articles/cgr0pw00n7qo">Jaguar unveils new logo and branding ahead of electric-only future</a>, 20 Nov 2024</li>
+      <li>Dezeen, <a href="https://www.dezeen.com/2024/11/21/jaguar-rebrand-electric-car/">Jaguar unveils "unique and fearless" rebrand for "complete reset"</a>, 21 Nov 2024</li>
+      <li>Jaguar Media Newsroom, <a href="https://media.jaguar.com/en-gb/news/2024/11/fearless-exuberant-compelling-jaguar-reimagined">This is Jaguar, reimagined</a>, Nov 2024</li>
+      <li>Automotive News Europe, <a href="https://europe.autonews.com/automakers/jaguar-evs-be-priced-bentley-porsche-levels">Jaguar EVs to be priced at Bentley, Porsche levels</a>, 23 Jun 2021</li>
+      <li>Financial Times, <a href="https://www.ft.com/content/87b75a03-4fa3-4072-bfd2-0d23733dee8a">Jaguar's rebrand has divided opinion</a>, 14 Dec 2024</li>
+      <li>The Guardian, <a href="https://www.theguardian.com/world/2024/dec/04/wednesday-briefing-what-jaguars-radical-rebrand-reveals-about-the-shift-to-electric-cars">What Jaguar's radical rebrand reveals about the shift to electric cars</a>, 4 Dec 2024</li>
+      <li>Forbes, <a href="https://www.forbes.com/sites/jamesmorris/2024/11/23/jaguar-rebrand-is-absolute-geniusheres-the-reason-why/">Jaguar Rebrand Is Absolute Genius</a>, 23 Nov 2024</li>
+      <li>Wikipedia, <a href="https://en.wikipedia.org/wiki/Jaguar_Type_00">Jaguar Type 00</a> and <a href="https://en.wikipedia.org/wiki/Jaguar_Cars">Jaguar Cars</a></li>
+      <li class="logo">Logo files: <a href="https://en.wikipedia.org/wiki/File:Jaguar_logo_2021.svg">before 2024</a> (non-free, English Wikipedia, for commentary), <a href="https://commons.wikimedia.org/wiki/File:Jaguar_2024.svg">2024</a> (Wikimedia Commons)</li>
+    </ul>
+  </div>
+  <div class="grp">
+    <h3>Mastercard</h3>
+    <ul>
+      <li>David L. Stearns, <a href="https://books.google.com/books?id=k2tTTBOImXMC&amp;pg=PA28">Electronic Value Exchange</a>, Springer, 2011, p. 28</li>
+      <li>Forbes, <a href="https://www.forbes.com/sites/steveolenski/2016/07/14/the-story-behind-mastercards-new-logo/">The Story Behind Mastercard's New Logo</a>, 14 Jul 2016</li>
+      <li>Advertising Age, From "Priceless" to Wordless, 21 Jan 2019 (print)</li>
+      <li>Fortune, <a href="http://fortune.com/2019/01/07/mastercard-drops-its-name-from-company-logo-post-text-future-target-nike-apple/">Mastercard Drops Its Name From Company Logo</a>, 7 Jan 2019</li>
+      <li>Wikipedia, <a href="https://en.wikipedia.org/wiki/Mastercard">Mastercard</a></li>
+      <li class="logo">Logo files, Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:MasterCard_Logo.svg">1996</a>, <a href="https://commons.wikimedia.org/wiki/File:Mastercard-logo.svg">2016</a> (credited to Mastercard and Pentagram), <a href="https://commons.wikimedia.org/wiki/File:Mastercard_2019_logo.svg">2019</a></li>
+    </ul>
+  </div>
+  <div class="grp">
+    <h3>Airbnb</h3>
+    <ul>
+      <li>The Next Web, <a href="https://thenextweb.com/dd/2014/07/16/airbnb-updates-design-introduces-new-belo-logo/">Airbnb updates design and introduces controversial new Bélo logo</a>, 16 Jul 2014</li>
+      <li>Entrepreneur, <a href="https://www.entrepreneur.com/article/235709">Airbnb, Why the New Logo?</a>, 17 Jul 2014</li>
+      <li>Wikipedia, <a href="https://en.wikipedia.org/wiki/Airbnb">Airbnb</a></li>
+      <li class="logo">Logo files, Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Airbnb_Logo.svg">before</a>, <a href="https://commons.wikimedia.org/wiki/File:Airbnb_Logo_B%C3%A9lo.svg">2014</a> (credited to DesignStudio)</li>
+    </ul>
+  </div>
+</section>
 </main>
 
 <footer class="foot" id="colophon">
   <div class="wrap grid">
     <h2>Colophon</h2>
     <div class="c1">
-      <h3>Notice</h3>
-      <p class="notice-f">Independent study. Not affiliated with or endorsed by any brand shown. Logos and trademarks belong to their owners.</p>
-      <h3 style="margin-top:24px">Method</h3>
-      <p>Every date, name, stated reason and reaction comes from Wikipedia or from a source cited there, listed under each chapter. Where I could not check a claim, I left it out. The "What changed" notes describe the logo files shown. "My take" is my own opinion.</p>
+      <p class="notice-f">Independent study. Not affiliated with any brand shown. Logos belong to their owners.</p>
     </div>
     <div class="c2">
-      <h3>Logo files</h3>
-      <ul class="credits">
-        <li>Burberry: <a href="https://commons.wikimedia.org/wiki/File:Logo_Burberry_02.svg">Logo Burberry 02</a>, <a href="https://commons.wikimedia.org/wiki/File:Burberry_Logo.svg">Burberry Logo</a>, <a href="https://commons.wikimedia.org/wiki/File:Logo_Burberry_01.svg">Logo Burberry 01</a></li>
-        <li>Jaguar: <a href="https://commons.wikimedia.org/wiki/File:Jaguar_2024.svg">Jaguar 2024</a>. Earlier logo: <a href="https://en.wikipedia.org/wiki/File:Jaguar_logo_2021.svg">Jaguar logo 2021</a>, a non-free file on English Wikipedia, shown for commentary.</li>
-        <li>Mastercard: <a href="https://commons.wikimedia.org/wiki/File:MasterCard_Logo.svg">MasterCard Logo</a>, <a href="https://commons.wikimedia.org/wiki/File:Mastercard-logo.svg">Mastercard-logo</a>, <a href="https://commons.wikimedia.org/wiki/File:Mastercard_2019_logo.svg">Mastercard 2019 logo</a></li>
-        <li>Airbnb: <a href="https://commons.wikimedia.org/wiki/File:Airbnb_Logo.svg">Airbnb Logo</a>, <a href="https://commons.wikimedia.org/wiki/File:Airbnb_Logo_B%C3%A9lo.svg">Airbnb Logo Bélo</a></li>
-        <li>All files shown come from Wikimedia Commons, where they are marked public domain (simple text logos or expired copyright). They remain trademarks of their owners and are shown here for commentary only.</li>
-      </ul>
+      <p>Research, writing, design and build by Loem Layheng. Type: Schibsted Grotesk, Newsreader and IBM Plex Mono.</p>
     </div>
     <div class="c3">
-      <h3>Credits</h3>
-      <p>Research, writing, design and build by Loem Layheng. Type: Schibsted Grotesk, Newsreader and IBM Plex Mono, via Google Fonts.</p>
-      <p style="margin-top:14px"><a href="../../#built">Back to the portfolio</a></p>
+      <p><a href="../../#built">Back to the portfolio</a></p>
     </div>
     <div class="bottom"><span>Rebrand Notes · Issue 01 · November 2026</span><a href="#top">Back to top ↑</a></div>
   </div>
@@ -765,6 +621,7 @@ sup.n a:hover{text-decoration:underline}
       prog.style.transform='scaleX('+(h>0?Math.min(1,y/h):0)+')';
       var name='Index', line=window.innerHeight*0.35;
       chs.forEach(function(c){ if(c.getBoundingClientRect().top<line) name=c.getAttribute('data-name'); });
+      if(document.getElementById('sources').getBoundingClientRect().top<line) name='Sources';
       if(document.getElementById('colophon').getBoundingClientRect().top<line) name='Colophon';
       if(cur.textContent!==name) cur.textContent=name;
       ticking=false;
