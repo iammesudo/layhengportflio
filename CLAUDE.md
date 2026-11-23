@@ -1,6 +1,6 @@
 # Loem Layheng: CV + Portfolio
 
-Personal CV and portfolio website. Owner: Loem Layheng, Product Owner (Digital Touchpoint Officer at Smart Axiata, SmartNas digital channels).
+Personal CV and portfolio website. Owner: Loem Layheng, presented as **Creative & product designer** (job title: Digital Touchpoint Officer / Product Owner for SmartNas at Smart Axiata). Built in Nov 2026 to apply to creative agencies (Melon Rouge, Phnom Penh).
 
 This repo (`iammesudo/layhengportflio`, public) is the whole project. Clone it, work in a branch, push, and Vercel builds a preview.
 
@@ -12,25 +12,40 @@ This repo (`iammesudo/layhengportflio`, public) is the whole project. Clone it, 
 | `CV/loem_layheng_cv_2026_v1-premium.*` | Earlier "premium" CV design | Backup only |
 | `CV/loem_layheng_cv.html` | Old CV (Youding era) | Archive |
 | `Portfolio 2026/` | **Current website** (the only folder Vercel serves) | Live |
-| `Archive/Portfolio 2026 classic/` | Previous site (light, big-type list) kept for rollback | Backup only |
-| `vercel.json` | Tells Vercel to serve `Portfolio 2026/` and holds the old-URL redirects | Keep |
+| `Archive/Portfolio 2026 classic/` | Previous site (light, big-type list), kept for rollback | Backup only |
+| `Archive/metamorphosis-gen/` | Generator for the Metamorphosis comic (build.py, template.html, stage.js) | Source |
+| `Archive/kambor-gen/` | Generator for the Atelier Kambor site (build.py + QA scripts; `sizes.json` missing, so re-running needs care) | Source |
+| `vercel.json` | Serves `Portfolio 2026/`, old-URL redirects, security headers (CSP etc.) | Keep |
 | `.claude/launch.json` | Local preview server config for the Claude desktop app | Optional |
 
 The old website (`Portfolio Website/`) is not in the repo. It lives in git history before commit `fa4562a`.
 
 ## Website (`Portfolio 2026/`)
 
-Redesigned Nov 2026 for creative-agency applications (Melon Rouge, Phnom Penh). The design is "Option B · Corridor": dark, image-led. The previous site is kept in `Archive/Portfolio 2026 classic/` (not served) and in git history before this change.
+Design "Option B · Corridor": dark, image-led, Bricolage Grotesque + Instrument Serif, per-project colours.
 
-- `index.html`: all CSS + JS inline. Home = huge cropped name "Layheng" + "designs it, then builds it", then 6 room panels in a sideways corridor (wheel or drag on desktop, stacked on phones). Content lives in arrays near the top of the script: `ROOMS`, `STUDIES` (case studies, add new ones here), `BUILDS` (web projects), `THEMES`, `TOOLS`, `XP`, `CASES`.
-- Rooms, in order: 01 The Metamorphosis and 02 Atelier Kambor (open their sample sites directly, with a curtain), `#cases` (Rebrand Notes; more studies planned: packaging, campaigns), `#web` (menu platform with its 6 themes on a drag canvas, 520 Staycation, EasySurvey, Odile sample), `#work` (product cases at `#work/<id>`), `#experience` (CV timeline + tools). Old `#built`, `#design`, `#toolkit` and `#smartnas` links redirect.
-- `samples/metamorphosis/` (Kafka as a full-screen woodcut-style illustrated vertical comic, hand-built SVG, quotes from Gutenberg #5200 Wyllie translation; re-check quotes against gutenberg.org, it was down during the build), `samples/rebrand/` (Rebrand Notes: Burberry, Jaguar, Mastercard, Airbnb, sourced from Wikipedia; the 2023 Burberry knight file was rate-limited, add `Logo_Burberry_04.svg` later), `samples/interior/` (Atelier Kambor, fictional Phnom Penh studio, Unsplash photos, photographers not yet credited by name).
-- `samples/odile/`: "Option A · Index" built as a portfolio for an invented designer, Odile Rask. Everything in it is fictional and every page carries a "Fictional sample" ribbon. Keep it labelled.
-- `img/og.jpg`: link preview image (1200x630, home page). Re-capture if the home page changes.
-- `img/`: webp screenshots of the live sites (captured with Playwright). The Phsar Toch logo is blurred. Re-capture if the live sites change.
-- `mocks.js`: SVG mock screens for the Product work cases (unchanged).
-- Motion: one curve (`--io`) with 4 durations (.3/.5/.7/.9s) plus expo-out for reveals. Khmer/English hello loader (once per visit, hard-cut word swaps), curtain page transition in the room colour, word-mask title reveals, blend cursor with labels, magnetic buttons (desktop only). Reduced motion turns it all off.
-- Fonts: Bricolage Grotesque + Instrument Serif (Google Fonts); theme display fonts load subset to the shop names; loader fonts self-hosted in `fonts/`.
+### Structure (`index.html`, all CSS + JS inline, hash routing)
+- **Home:** huge "Layheng" + "designs it, then builds it", then a sideways corridor of 6 room panels (wheel/drag on desktop, stacked on phones) ending in a "Get in touch" card. Home remembers its scroll position.
+- **Panels:** 01 The Metamorphosis → `#p/metamorphosis`, 02 Atelier Kambor → `#p/kambor`, 03 Case studies → `#cases`, 04 Web projects → `#web`, 05 Product work → `#work`, 06 Experience & tools → `#experience`. Every panel opens a page inside the portfolio.
+- **Project pages `#p/<slug>`:** one template for all 7 projects in the `PROJECTS` array (Metamorphosis, Kambor, Rebrand Notes, QR menu platform with its 6-theme drag canvas, 520 Staycation, EasySurvey, Odile). Hero, summary, what I did, live preview in a browser frame (iframe for same-origin samples, screenshot + "Open live site ↗" for external ones), prev/next, All work.
+- **Product cases `#work/<id>`:** SmartNas, EZorder, AI Chatbot, Dropship Store, Poster AI, with Problem, Journey diagram, What I did, Result, mock screens (`mocks.js`).
+- **Header:** Work (full-screen index dialog of all projects), About (`#about`), Resume (PDF), Contact (`#contact`).
+- **About:** yellow opener with a rounded portrait card (`img/me.webp`, transparent cut-out on amber; the source photo is only 360px, so keep it small), what I do, Now facts. **Contact:** Telegram, email with copy button, resume, Phnom Penh local time.
+- Data arrays near the top of the script: `ROOMS`, `PROJECTS`, `STUDIES` (add new case studies here), `BUILDS`, `THEMES`, `TOOLS`, `XP`, `CASES`.
+- Old hashes (`#built`, `#design`, `#toolkit`, `#smartnas`, etc.) redirect.
+
+### Sample sites (`samples/`, all `noindex`, all clearly labelled)
+- `metamorphosis/`: Kafka's novella as a pinned, full-screen woodcut-style comic. Scenes change in place on scroll (ink bleed, wipes, zooms). First 2 scenes inline, the rest lazy-loaded from `scenes/`. Quotes from Gutenberg #5200 (Wyllie translation). Edit via `Archive/metamorphosis-gen/`.
+- `interior/`: **Atelier Kambor**, a fictional Phnom Penh interior studio. 12 pages: home, projects index with filters, 6 project pages (House in Toul Kork keeps the room-by-room walk-through and floor plan), studio, services (stages, fees in words, FAQ), journal, contact (Telegram first, enquiry form that sends nothing). Shared `assets/kambor.css/js`. Unsplash photos with srcset.
+- `rebrand/`: **Rebrand Notes**, a short independent study of Burberry, Jaguar, Mastercard and Airbnb with before/after sliders; all sources in one section at the end. Real logos, labelled "Not affiliated".
+- `odile/`: a full portfolio for an invented designer, Odile Rask. Fictional ribbon on every page.
+- "Back to portfolio" in every sample returns to its `#p/<slug>` page (history.back() when coming from the portfolio).
+
+### Assets and tech
+- `img/`: webp screenshots (Playwright captures; Phsar Toch logo blurred), `img/thumb/` (720px room thumbnails, `cv.webp`), `img/og.jpg` (1200x630 link preview; re-capture if home changes).
+- `vendor/lenis.min.js`: self-hosted Lenis 1.1.13 (no third-party scripts).
+- Motion: one curve (`--io`), 4 durations, expo-out reveals. Khmer/English hello loader (once per visit), curtain transitions in the room colour, word-mask titles, blend cursor with labels, magnetic buttons, Lenis momentum scroll, drag canvas (menu themes), WebGL scroll warp on screenshots. Desktop / fine pointer only; reduced motion turns it all off. rAF loops stop when idle.
+- Works without JS (static room links, loader hidden). `robots.txt`, `sitemap.xml`, canonical.
 - `Loem_Layheng_CV.pdf`: copy of the current CV. **Re-copy it from `CV/` whenever the CV changes.**
 - Not shown on purpose: Learn Here, Everything (owner's choice), menu platform pricing and business plan.
 
@@ -38,52 +53,49 @@ Redesigned Nov 2026 for creative-agency applications (Melon Rouge, Phnom Penh). 
 `python -m http.server 5173 --directory "Portfolio 2026"` (also in `.claude/launch.json` as `portfolio`). Open http://localhost:5173.
 
 ### Rebuild the CV PDF
-The CV is `CV/loem_layheng_cv_2026.html`, printed with headless Chrome:
+The CV is `CV/loem_layheng_cv_2026.html`. Print with headless Chrome (or Playwright `page.pdf({preferCSSPageSize: true})`):
 
 `chrome --headless=new --disable-gpu --no-pdf-header-footer --virtual-time-budget=8000 --print-to-pdf=CV/loem_layheng_cv_2026.pdf file:///<full path>/CV/loem_layheng_cv_2026.html`
 
-Then check it is still **2 pages, A4**, and copy it to `Portfolio 2026/Loem_Layheng_CV.pdf`. The Computer Modern font loads from the jsDelivr CDN (`computer-modern@0.1.2`), so printing needs internet; without it the CV falls back to Georgia and the page count can change.
+Then check it is still **2 pages, A4**, and copy it to `Portfolio 2026/Loem_Layheng_CV.pdf`. The Computer Modern font loads from jsDelivr (`computer-modern@0.1.2`), so printing needs internet.
 
 ### Deploy
-- Live: **https://layheng-portfolio.vercel.app** (added 2026-11-15). The old misspelled https://layhengportflio.vercel.app still serves the same site; set it to redirect (308) to the new address in Vercel → Settings → Domains. The Vercel project and GitHub repo keep the old spelling `layhengportflio` (only visible to the owner).
-- Vercel auto-deploys from this repo, branch `main`. Every other branch gets a private preview URL.
-- Flow: commit to a branch → push → open the Vercel preview and test it → merge to `main` (fast-forward) → verify the live site. Preview URLs need a Vercel login (or a share link).
-- `vercel.json` redirects old page URLs (about.html, project-*.html, old CV filename) to the new site. Keep it. `/project-cstool.html` redirects to `/` (the QR project was removed).
-- Rollback: Vercel dashboard → Deployments → Instant Rollback.
-- The Vercel connector used in earlier sessions is read-only (domain/settings changes return 403). Do those in the Vercel dashboard.
+- Live: **https://layheng-portfolio.vercel.app**. The old misspelled https://layhengportflio.vercel.app still serves the same site; set it to redirect (308) in Vercel → Settings → Domains.
+- Vercel auto-deploys branch `main`; other branches get private preview URLs (need a Vercel login).
+- Flow: commit to a branch → push → test the preview → fast-forward `main` → verify the live site.
+- `vercel.json` holds redirects and headers (CSP allows self, Google Fonts, data/blob images; adding any new external host needs a CSP update).
+- Rollback: Vercel dashboard → Deployments → Instant Rollback, or restore `Archive/Portfolio 2026 classic/`.
+- The Vercel connector is read-only for settings (domain changes return 403). Do those in the dashboard.
 
 ## Rules for content
 
 - **No em dashes (—)** anywhere in CV or site. Use commas, colons, full stops or "·".
-- **No AI-sounding slogans** (the user rejected "Show it, don't just write it"). Plain, factual wording.
-- **No invented numbers.** Results are written in words. (The only real metric, "up to 75% faster" setup from the Bulk QR tool, is in the CV but no longer on the site.)
-- **Mock screens must not show real data:** no real phone numbers (use `0XX XXX XXX`), no real logos, mascot or photos. Each mock frame carries an italic confidentiality note.
-- Say "vibe coding" plainly, without explaining it in brackets.
-- CV title under the name is "Creative & Product Designer" (changed Nov 2026, matches the site). Call it "Resume" on the site, not "CV". The CV has a Selected Projects section (520 Staycation as a client project, Metamorphosis, Atelier Kambor); references are "Available on request".
+- **No instructional or meta text** on pages ("scroll", "click", "tap", "hover", "this site does…"). Pages say what things are, not how to use them.
+- **No AI-sounding slogans.** Plain, factual wording.
+- **No invented facts or numbers.** Results are written in words. Fictional things (Odile, Kambor) must stay clearly labelled.
+- **Mock screens must not show real data:** no real phone numbers (use `0XX XXX XXX`), no real logos or photos. Each mock frame carries an italic confidentiality note.
+- Say "vibe coding" plainly, without explaining it.
+- Title everywhere: **Creative & product designer** (CV: "Creative & Product Designer"). Call the CV **"Resume"** on the site. The CV has Selected Projects (520 Staycation as a client project, Metamorphosis, Atelier Kambor); references are "Available on request".
 
 ## Design taste (from the owner)
 
-- Judges against real award-style sites; wants crafted motion, not "generic text motion". Liked: minimal big-type project list (adriangnzl.es), Dennis Snellenberg's loader, Cuberto's text reveals. Rejected: a card-based "premium" template ("I hate it").
-- Wants every section interactive, a unique text highlight, per-project colours instead of one fixed accent.
-- Prefers real-looking mock-ups (laid out like the real app) with an italic confidentiality note over abstract placeholders.
-- Before visual work: study the reference sites, say what was borrowed, and test motion in a real browser (desktop, phone, tablet, keyboard) before showing it. Run a QA pass before each deploy.
+- Judges against award-style sites; wants crafted motion, not generic text motion. Liked: big-type project lists (adriangnzl.es), Dennis Snellenberg's loader, Cuberto's reveals, Lenis / inertia / drag canvas / WebGL scroll. Rejected: card-based "premium" templates, long one-page scrolls for stories (wants pinned, in-place scrollytelling), large photos of himself.
+- Wants every section interactive, per-project colours, real-looking mock-ups with a confidentiality note.
+- Wants navigation that keeps visitors inside the portfolio, and consistent behaviour across panels.
+- Prefers short agent output: just do the work and report briefly.
+- Before visual work: study references, test in a real browser (desktop, phone, tablet, keyboard), and run a QA pass before each deploy.
 
 ## Open items
 
-Review round 2 (Nov 2026): developer PASS, designer PASS; the visitor's only blocker (phone "Get in touch" card) was fixed after their round 2 but not re-checked. Still open:
-- Case pages: "Result" items read as claims; replace with things actually seen (e.g. shipped to restaurants after UAT). Open first "What I did" item on mobile.
-- iPad home: empty space under the corridor; make panels taller or use the stacked layout on tablet.
+- **Next:** more case studies (successful packaging, marketing campaigns, more visual) as new `STUDIES` / `PROJECTS` entries.
+- Case pages: "Result" items read as claims; replace with things actually seen. Open the first "What I did" item on mobile.
+- iPad home: empty space under the corridor; iPad scroll restore not fully tested.
 - EasySurvey screenshot shows the owner's email and an em dash from the live page; re-crop to the photo board.
-- "Get in touch" panel: give it colour or a big contact line. Themes canvas: cursor label covers cards.
-- Skills list: shorten "Wireframes & hi-fi prototypes". Metamorphosis ribbon text to 14px.
-- Perf (Low): interior photos need srcset; GL loop should pause when idle; m-*.webp thumbs to 320px; robots.txt Disallow /samples/ hides their noindex (use X-Robots-Tag instead); Metamorphosis no-JS placeholders.
-
-- Next session: build more case studies (successful packaging, marketing campaigns, more visual) as new entries in `STUDIES`.
-
-- Metamorphosis comic: re-check the 31 quotes against https://www.gutenberg.org/cache/epub/5200/pg5200.txt (site was down; checked against the GITenberg copy). Art is generated by the Python script in `Archive/metamorphosis-gen/`; edit it there and regenerate.
-- Motion: Lenis momentum scroll (rooms + samples), infinite drag canvas in Design systems, WebGL scroll warp on Built by me screenshots. All desktop / fine pointer only.
-
-- Not tested on Safari / iPhone or Firefox.
+- Check: the Kambor home hero shows a carved wall panel that may be real artwork; project colours for 520 / EasySurvey / Odile and the new Metamorphosis / Kambor summaries were picked by an agent.
+- Metamorphosis: re-check the 31 quotes against https://www.gutenberg.org/cache/epub/5200/pg5200.txt (was down; checked against the GITenberg copy). Ribbon text could be 14px.
+- Rebrand Notes: add the 2023 Burberry knight (`Logo_Burberry_04.svg`, was rate-limited). Kambor: credit Unsplash photographers by name.
+- Perf (Low): WebGL loop could pause when idle; `img/thumb/m-*.webp` to 320px; `robots.txt` Disallow /samples/ hides their noindex (use `X-Robots-Tag` instead); Metamorphosis no-JS placeholders; CSP still needs `'unsafe-inline'` for inline scripts.
+- Not tested on real Safari / iPhone or Firefox.
 - Smart Axiata start month and Youding Product Owner end month are placeholders ("2026").
 - Old misspelled address should redirect (308) to the new one (dashboard step).
 - Leftover branches `new-portfolio-2026` and `update-dropship-store` on GitHub can be deleted.
