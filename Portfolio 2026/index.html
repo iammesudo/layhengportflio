@@ -80,6 +80,8 @@
   .top .home-l i { width: 7px; height: 7px; border-radius: 50%; background: var(--sun); }
   .top { transition: transform var(--t3) var(--io), background-color var(--t2); }
   body.lock .top.solid { background: #121210; }
+  .top.dark:not(.solid) { color: #121210; }
+  .top.dark:not(.solid) .home-l i { background: #121210; }
   body.lock .top.away { transform: translateY(-100%); }
   .top > * { transition: transform 1s var(--out) .5s, opacity 1s var(--out) .5s; }
   body:not(.ready) .top > * { transform: translateY(-120%); opacity: 0; }
@@ -333,6 +335,40 @@
   .facts a { background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 100% 1px; transition: background-size var(--t2) var(--io); }
   .facts a:hover { background-size: 0 1px; background-position: 100% 100%; }
 
+  /* ---------- About ---------- */
+  .ab-hero { position: relative; min-height: 100svh; background: #F2B544; color: #121210; padding: 130px var(--g) 0; overflow: hidden; display: flex; flex-direction: column; }
+  .ab-hero .crumb { position: absolute; top: 74px; left: var(--g); font-size: 14px; }
+  .ab-hero h1 { position: relative; z-index: 2; font-weight: 700; font-size: clamp(64px, 12.5vw, 210px); letter-spacing: -.065em; line-height: .88; max-width: 9ch; margin-top: auto; padding-bottom: 6vh; }
+  .ab-role { position: absolute; z-index: 2; right: var(--g); top: 130px; font: italic 400 clamp(20px, 2vw, 30px)/1.1 var(--serif); }
+  .ab-me { position: absolute; right: 8vw; bottom: 0; height: min(78svh, 760px); width: auto; image-rendering: auto; transform: translateY(8%); opacity: 0; transition: transform 1.6s var(--out) .3s, opacity 1.2s var(--out) .3s; }
+  .shown .ab-me, .ab-hero:has(.ttl.shown) .ab-me { transform: none; opacity: 1; }
+  .ab-say { padding-top: 16vh; }
+  .ab-big { font-size: clamp(30px, 4vw, 64px); line-height: 1.08; letter-spacing: -.04em; max-width: 22ch; }
+  .ab-big mark { --pc: #F2B544; }
+  .ab-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 12vh; border-top: 1px solid var(--line); padding-top: 22px; }
+  .ab-cols p { margin-top: 10px; font-size: 17px; line-height: 1.5; color: var(--mute); }
+  .ab-facts { list-style: none; border-top: 1px solid var(--line); max-width: 980px; }
+  .ab-facts li { display: grid; grid-template-columns: 200px 1fr; padding: 16px 0; border-bottom: 1px solid var(--line); font-size: clamp(17px, 1.5vw, 22px); }
+  .ab-facts li span:first-child { color: var(--mute); font-size: 14px; }
+  /* ---------- Contact ---------- */
+  .ct-hero { min-height: 70svh; padding: 130px var(--g) 6vh; display: flex; flex-direction: column; justify-content: flex-end; position: relative; }
+  .ct-hero .crumb { position: absolute; top: 74px; left: var(--g); font-size: 14px; }
+  .ct-hero h1 { font-weight: 700; font-size: clamp(72px, 15vw, 250px); letter-spacing: -.065em; line-height: .86; }
+  .ct-sub { margin-top: 24px; font-size: clamp(18px, 1.6vw, 24px); color: var(--mute); max-width: 40ch; }
+  .ct-list { list-style: none; border-top: 1px solid var(--line); }
+  .ct-list li { position: relative; border-bottom: 1px solid var(--line); display: flex; align-items: center; }
+  .ct-list a { flex: 1; display: grid; grid-template-columns: 160px 1fr 50px; align-items: center; gap: 20px; padding: 26px 0; position: relative; isolation: isolate; }
+  .ct-list a::before { content: ''; position: absolute; inset: 0 calc(-1 * var(--g)); z-index: -1; background: var(--sun); transform: scaleY(0); transform-origin: bottom; transition: transform var(--t3) var(--io); }
+  .ct-list a:hover::before, .ct-list a:focus-visible::before { transform: none; }
+  .ct-list a:hover, .ct-list a:focus-visible { color: #121210; }
+  .ct-list a:hover .k { color: #121210; }
+  .ct-list b { font-size: clamp(26px, 4.4vw, 72px); letter-spacing: -.05em; line-height: 1.05; font-weight: 700; overflow-wrap: anywhere; }
+  .ct-list .ar { justify-self: end; font-size: 28px; transition: transform var(--t2) var(--io); }
+  .ct-list a:hover .ar { transform: rotate(-45deg); }
+  .copy { margin-left: 16px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 99px; font-size: 13px; position: relative; z-index: 1; }
+  .copy:hover { background: var(--ink); color: #121210; }
+  .ct-meta { display: flex; justify-content: space-between; gap: 20px; padding: 26px 0 0; color: var(--mute); font-size: 15px; }
+  .ct-meta b { color: var(--ink); font-weight: 500; }
   /* ---------- Phone and tablet ---------- */
   @media (max-width: 900px) {
     .themes { grid-template-columns: 1fr 1fr; }
@@ -367,6 +403,17 @@
     .pfoot .ball { display: none; }
     .phones { grid-template-columns: 1fr 1fr; } .phones img:nth-child(3) { display: none; }
   }
+  @media (max-width: 760px) {
+    .ab-hero { padding-top: 110px; } .ab-hero .crumb, .ct-hero .crumb { top: 64px; }
+    .ab-role { position: static; margin-top: 12px; order: 2; }
+    .ab-me { right: -6vw; height: 62svh; opacity: 1; }
+    .ab-hero h1 { margin-top: 0; padding-bottom: 0; }
+    .ab-cols { grid-template-columns: 1fr; }
+    .ab-facts li { grid-template-columns: 1fr; gap: 4px; }
+    .ct-list a { grid-template-columns: 1fr 30px; gap: 6px; } .ct-list a .k { grid-column: 1 / -1; }
+    .copy { display: none; }
+    .ct-meta { flex-direction: column; }
+  }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { transition-duration: .01ms !important; transition-delay: 0s !important; animation: none !important; }
     .loader, .curtain { display: none; }
@@ -383,9 +430,9 @@
 <header class="top" id="top">
   <a class="home-l" href="#" aria-label="Home"><i></i><span>Layheng</span><span>· Creative & product designer, Phnom Penh</span></a>
   <nav>
-    <button data-about><span class="roll"><span data-t="About">About</span></span></button>
+    <a href="#about"><span class="roll"><span data-t="About">About</span></span></a>
     <a href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener"><span class="roll"><span data-t="CV">CV</span></span></a>
-    <button data-about data-contact><span class="roll"><span data-t="Contact">Contact</span></span></button>
+    <a href="#contact"><span class="roll"><span data-t="Contact">Contact</span></span></a>
   </nav>
 </header>
 
@@ -399,28 +446,7 @@
 <section class="view" id="view" tabindex="-1" aria-hidden="true" inert></section>
 <canvas id="gl" aria-hidden="true"></canvas>
 
-<div class="scrim" data-close></div>
-<aside class="panel" id="panel" role="dialog" aria-modal="true" aria-label="About" aria-hidden="true" inert>
-  <div class="panel-top"><button data-close><span class="roll"><span data-t="Close ×">Close ×</span></span></button></div>
-  <h2>Hi, I’m <em>Layheng</em>.</h2>
-  <p>I’m <b>Loem Layheng</b>, a creative and product designer in Phnom Penh. My job title is Product Owner: at <b>Smart Axiata</b> I look after the <b>SmartNas digital channels</b>: planning features, handling issues, and bringing partners on board.</p>
-  <p>I design in <b>Figma</b>, then build with <b>vibe coding</b>. That is how the live sites on this page exist: I plan them, design them and ship them myself.</p>
-  <p>Before Smart I owned a POS product at Youding, redesigned its QR ordering app, and started in customer success, which is where I learned what users really struggle with.</p>
-  <h3>Quick facts</h3>
-  <ul class="facts">
-    <li><span>Now</span><span>Digital Touchpoint Officer, Smart Axiata</span></li>
-    <li><span>Tools</span><span>Figma, Canva, Claude Code, Shopify, Notion, Jira</span></li>
-    <li><span>Study</span><span>BBA Management, NUM · BA English, IFL</span></li>
-    <li><span>Languages</span><span>Khmer, English</span></li>
-  </ul>
-  <h3 id="contactHead">Contact</h3>
-  <ul class="facts">
-    <li><span>Telegram</span><a href="https://t.me/LayhengLoem" target="_blank" rel="noopener">t.me/LayhengLoem</a></li>
-    <li><span>Email</span><a href="mailto:loemlayheng@gmail.com">loemlayheng@gmail.com</a></li>
-    <li><span>CV</span><a href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener">Download PDF</a></li>
-    <li><span>Based in</span><span>Phnom Penh, Cambodia</span></li>
-  </ul>
-</aside>
+
 
 <script src="vendor/lenis.min.js"></script>
 <script src="mocks.js"></script>
@@ -544,7 +570,7 @@ const roomArt = {
   experience: `<img class="shot1 cv" src="img/thumb/cv.webp" alt="">`
 };
 $('#rooms').innerHTML = ROOMS.map((r, k) => `<a class="room${k ? '' : ' wide'}" href="${r.href || '#' + r.id}"${r.href ? ` data-ext="${r.name}"` : ''} style="--rc:${r.color};--k:${k}" data-cursor="${r.cursor}" data-room>
-  <span class="n">${r.n}</span>${roomArt[r.id]}<h2>${r.name}<small>${r.sub}</small></h2></a>`).join('') + `<button class="room end" style="--k:6;--rc:transparent" data-about data-contact data-cursor="Say hi"><h2>Get in touch<small>Telegram, email, CV</small></h2></button>`;
+  <span class="n">${r.n}</span>${roomArt[r.id]}<h2>${r.name}<small>${r.sub}</small></h2></a>`).join('') + `<a class="room end" href="#contact" style="--k:6;--rc:transparent" data-cursor="Say hi"><h2>Get in touch<small>Telegram, email, CV</small></h2></a>`;
 
 const corridor = $('#corridor'), barEl = $('#bar');
 const isRow = () => matchMedia('(min-width: 761px)').matches;
@@ -593,6 +619,7 @@ const themeWall = () => (loadThemeFonts(), `<section class="ds-wall" id="dsWall"
         <span class="spec">${esc(t.name)}</span><span class="pic"><img src="${t.img}" alt="${esc(t.name)} menu on a phone" loading="lazy"></span>
         <span class="ft"><span>${t.fonts}</span><span class="sw">${t.c.map(c => `<i style="--c:${c}"></i>`).join('')}</span></span></a>`).join('')}</div></section>`);
 const RM = id => ROOMS.find(r => r.id === id);
+const EXTRA = { about: { name: 'About', color: '#F2B544' }, contact: { name: 'Contact', color: '#121210' } };
 const PAGES = {
   cases() {
     return hero(['← All rooms', '#'], 'Case studies', 'Studies of real brands: what they changed, why, and what happened next.', `${STUDIES.length} ${STUDIES.length === 1 ? 'study' : 'studies'}`, RM('cases').color) +
@@ -615,6 +642,39 @@ const PAGES = {
     <div class="sec tk" style="--rc:${RM('experience').color}"><h2 class="tk-h rv">Tools</h2>${TOOLS.map(([g, ts]) => `<div class="tk-g rv"><h3>${g}</h3><ul>${ts.map(([t, d]) => `<li class="tool"><b>${t}</b><span>${d}</span></li>`).join('')}</ul></div>`).join('')}<p class="refs rv">References I keep open: Pinterest, Awwwards, Behance, SiteInspire.</p></div>` + foot('Back to the start', 'samples/metamorphosis/', 'The Metamorphosis', RM('metamorphosis').color);
   }
 };
+PAGES.about = () => `<div class="ab">
+  <header class="ab-hero"><a class="crumb" href="#">← All rooms</a>
+    <h1 class="ttl">${words('Hi, I’m Layheng.', .25)}</h1>
+    <p class="ab-role rv" style="--d:.6s">Creative & product designer · Phnom Penh</p>
+    <img class="ab-me" src="img/me.webp" alt="Portrait of Loem Layheng" width="360" height="360">
+  </header>
+  <section class="sec ab-say"><p class="ab-big rv">I design products, then <mark>build them myself</mark>. A prototype people can click says more than a long proposal.</p>
+    <div class="ab-cols">
+      <div class="rv"><span class="k">Design</span><p>Journey maps, wireframes and hi-fi prototypes in Figma. Visual systems like the six menu themes.</p></div>
+      <div class="rv" style="--d:.1s"><span class="k">Build</span><p>Working sites and sample UIs with vibe coding and Claude Code, from a booking site to an illustrated comic.</p></div>
+      <div class="rv" style="--d:.2s"><span class="k">Own</span><p>Product Owner for SmartNas at Smart Axiata: features, issues and partners, from idea to release.</p></div>
+    </div></section>
+  <section class="sec ab-now"><h2 class="tk-h rv">Now</h2>
+    <ul class="ab-facts rv">
+      <li><span>Work</span><span>Digital Touchpoint Officer, Smart Axiata</span></li>
+      <li><span>Study</span><span>BBA Management, NUM · BA English, IFL</span></li>
+      <li><span>Languages</span><span>Khmer, English</span></li>
+      <li><span>Tools</span><span>Figma, Canva, Claude Code, Shopify, Notion, Jira</span></li>
+      <li><span>Looking for</span><span>Creative and product design roles</span></li>
+    </ul>
+    <a class="pill rv" href="#experience" data-magnetic><span>The full path</span><span class="arr">→</span></a></section>
+</div>` + foot('Next', '#contact', 'Say hello', '#F2B544');
+PAGES.contact = () => `<div class="ct">
+  <header class="ct-hero"><a class="crumb" href="#">← All rooms</a>
+    <h1 class="ttl">${words('Let’s talk.', .25)}</h1>
+    <p class="ct-sub rv" style="--d:.5s">Open to creative and product design roles, in Phnom Penh or remote.</p></header>
+  <section class="sec"><ul class="ct-list">
+    <li class="rv"><a href="https://t.me/LayhengLoem" target="_blank" rel="noopener" data-cursor="Open"><span class="k">Telegram</span><b>t.me/LayhengLoem</b><span class="ar">↗</span></a></li>
+    <li class="rv"><a href="mailto:loemlayheng@gmail.com" data-cursor="Write"><span class="k">Email</span><b>loemlayheng@gmail.com</b><span class="ar">↗</span></a><button class="copy" data-copy="loemlayheng@gmail.com">Copy</button></li>
+    <li class="rv"><a href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener" data-cursor="Open"><span class="k">CV</span><b>Download PDF</b><span class="ar">↓</span></a></li>
+  </ul>
+  <div class="ct-meta rv"><span>Phnom Penh, Cambodia</span><span>Local time <b id="pptime">--:--</b></span></div></section>
+</div>` + `<footer class="pfoot"><div class="end"><a href="#">← All rooms</a><span>©2026 · Loem Layheng</span></div></footer>`;
 // old room links
 const ALIAS = { built: 'web', design: 'web', toolkit: 'experience' };
 function casePage(c) {
@@ -658,7 +718,7 @@ function route() {
   current = h;
   view.innerHTML = `<div class="vc">${html}</div>`; view.scrollTop = 0; smooth(); view.classList.add('on'); view.inert = false; view.setAttribute('aria-hidden', 'false');
   home.inert = true; document.body.classList.add('lock');
-  document.title = `${c ? c.name : ROOMS.find(r => r.id === room).name} · Layheng`;
+  document.title = `${c ? c.name : (ROOMS.find(r => r.id === room) || EXTRA[room]).name} · Layheng`;
   view.focus({ preventScroll: true });
   // reveals
   const show = () => view.querySelector('.ttl')?.classList.add('shown');
@@ -776,6 +836,12 @@ view.addEventListener('pointerover', e => {
   const wall = $('#dsWall'); if (!wall || !HOVER) return;
   const t = e.target.closest('.theme'); wall.style.backgroundColor = t ? t.dataset.bg + '22' : '';
 });
+// contact: copy email, Phnom Penh clock
+view.addEventListener('click', e => {
+  const b = e.target.closest('[data-copy]'); if (!b) return;
+  navigator.clipboard?.writeText(b.dataset.copy).then(() => { b.textContent = 'Copied'; setTimeout(() => b.textContent = 'Copy', 1600); }).catch(() => {});
+});
+setInterval(() => { const t = $('#pptime'); if (t) t.textContent = new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Phnom_Penh', hour: '2-digit', minute: '2-digit' }); }, 1000);
 // accordions (experience + case "what I did")
 view.addEventListener('click', e => {
   const b = e.target.closest('.xp > li > button, .did button'); if (!b) return;
@@ -784,7 +850,7 @@ view.addEventListener('click', e => {
 });
 // top bar stays readable: it blends over everything
 let lastY = 0;
-function setTop() { const t = $('#top'); if (!view.classList.contains('on')) { t.classList.remove('solid', 'away'); lastY = 0; return; } const y = view.scrollTop; t.classList.toggle('solid', y > 60); t.classList.toggle('away', y > 200 && y > lastY && !document.body.classList.contains('about')); lastY = y; }
+function setTop() { const t = $('#top'); t.classList.toggle('dark', current === 'about' && view.scrollTop < innerHeight * .85); if (!view.classList.contains('on')) { t.classList.remove('solid', 'away'); lastY = 0; return; } const y = view.scrollTop; t.classList.toggle('solid', y > 60); t.classList.toggle('away', y > 200 && y > lastY && !document.body.classList.contains('about')); lastY = y; }
 view.addEventListener('scroll', setTop, { passive: true });
 
 /* page change: curtain up (room colour + name), swap, curtain away */
@@ -795,7 +861,7 @@ function go(href) {
   hideCur();
   const [room, sub] = id.split('/');
   const c = room === 'work' && sub ? CASES.find(x => x.id === sub) : null;
-  const r = ROOMS.find(x => x.id === room);
+  const r = ROOMS.find(x => x.id === room) || EXTRA[room];
   const label = c ? c.name : r ? r.name : 'Layheng';
   const color = c ? c.color : r ? r.color : '#121210';
   if (reduce() || busy || !document.body.classList.contains('ready')) { location.hash = id; if (!id) history.replaceState(null, '', location.pathname); return; }
@@ -879,25 +945,9 @@ if (HOVER) {
   });
 }
 
-/* ======================= About panel ======================= */
-const panel = $('#panel');
-[...panel.children].forEach((el, k) => el.style.setProperty('--k', k));
-let opener = null;
-function setAbout(on, contact) {
-  if (on) opener = document.activeElement;
-  document.body.classList.toggle('about', on);
-  panel.setAttribute('aria-hidden', String(!on)); panel.inert = !on;
-  $('#top').inert = on; (view.classList.contains('on') ? view : home).inert = on;
-  hideCur();
-  if (on) { panel.querySelector('[data-close]').focus({ preventScroll: true }); panel.scrollTop = 0; if (contact) setTimeout(() => $('#contactHead').scrollIntoView({ block: 'start', behavior: 'smooth' }), 400); }
-  else opener?.focus?.({ preventScroll: true });
-}
-document.querySelectorAll('[data-about]').forEach(b => b.addEventListener('click', () => setAbout(true, b.hasAttribute('data-contact'))));
-document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => setAbout(false)));
 addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
-  if (document.body.classList.contains('about')) setAbout(false);
-  else if (current) { const [r, s] = current.split('/'); go(s ? '#' + r : '#'); }
+  if (current) { const [r, s] = current.split('/'); go(s ? '#' + r : '#'); }
 });
 
 route();
