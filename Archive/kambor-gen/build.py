@@ -45,7 +45,7 @@ def top(P, cur, home=False):
     plinks = "".join(f'<li><a href="{P}{h}"{" aria-current=%spage%s" % (chr(34),chr(34)) if k==cur else ""}>{t}<small>0{i+1}</small></a></li>' for i,(h,t,k) in enumerate(NAV))
     return f'''<body class="{"home" if home else "page-"+cur}">
 <a class="skip" href="#main">Skip to content</a>
-<div class="ribbon" role="note"><i aria-hidden="true"></i><span>Fictional studio<span class="dot"> · </span><span class="long">concept site </span>by Loem Layheng</span><span class="dot">·</span><a href="{P}../../">Back to portfolio</a></div>
+<div class="ribbon" role="note"><i aria-hidden="true"></i><span>Fictional studio<span class="dot"> · </span><span class="long">concept site </span>by Loem Layheng</span><span class="dot">·</span><a href="{P}../../#p/kambor" data-back>Back to portfolio</a></div>
 <div class="curtain" aria-hidden="true"></div>
 <header class="nav" id="nav">
   <a class="mark" href="{home_href}" aria-label="Atelier Kambor, home">Atelier <em>Kambor</em></a>
@@ -88,7 +88,7 @@ def footer(P):
   </div>
   <div class="fict">
     <p><strong>This studio does not exist.</strong> Names, people, projects and the address are invented. Photos: Unsplash.</p>
-    <p>Concept site designed and built by Loem Layheng · <a href="{P}../../">Back to portfolio</a></p>
+    <p>Concept site designed and built by Loem Layheng<span class="sep"> · </span><a href="{P}../../#p/kambor" data-back>Back to portfolio</a></p>
   </div>
 </footer>
 '''

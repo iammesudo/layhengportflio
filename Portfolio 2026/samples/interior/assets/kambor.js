@@ -1,5 +1,7 @@
 /* Atelier Kambor · fictional interior studio · concept site by Loem Layheng */
 (function(){
+/* Back to portfolio: return to where the visitor was (history), hide inside the portfolio's preview frame */
+(function(){var L=[].slice.call(document.querySelectorAll('a[data-back]'));if(!L.length)return;if(self!==top){L.forEach(function(a){a.style.display='none';var s=a.previousElementSibling;if(s&&/\b(dot|sep)\b/.test(s.className))s.style.display='none'});return}var r;try{r=new URL(document.referrer)}catch(e){return}L.forEach(function(a){a.addEventListener('click',function(e){var t=new URL(a.href);if(history.length>1&&r.origin===t.origin&&r.pathname===t.pathname){e.preventDefault();history.back()}})})})();
 const D=document,html=D.documentElement;
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const finePointer=matchMedia('(hover:hover) and (pointer:fine)');

@@ -121,7 +121,7 @@ em{font:italic 400 1.1em/1 "Instrument Serif",serif;letter-spacing:-.01em}
 </style>
 </head>
 <body>
-<div class="ribbon" role="note">Fictional sample · Odile and her work are invented <a href="../../">By Loem Layheng ↗</a></div>
+<div class="ribbon" role="note">Fictional sample · Odile and her work are invented <a href="../../#p/odile" data-back>Back to portfolio</a></div>
 
 <header class="top"><b>Odile Rask</b><nav><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav><span class="av"><i></i>Booking from March · Copenhagen</span></header>
 
@@ -252,6 +252,7 @@ addEventListener('keydown', e => { if (e.key === 'Escape' && sheet.classList.con
 open(location.hash.slice(1));
 requestAnimationFrame(() => document.body.classList.add('ready'));
 </script>
+<script>(function(){var L=[].slice.call(document.querySelectorAll('a[data-back]'));if(!L.length)return;if(self!==top){L.forEach(function(a){a.style.display='none';var s=a.previousElementSibling;if(s&&/\b(dot|sep)\b/.test(s.className))s.style.display='none'});return}var r;try{r=new URL(document.referrer)}catch(e){return}L.forEach(function(a){a.addEventListener('click',function(e){var t=new URL(a.href);if(history.length>1&&r.origin===t.origin&&r.pathname===t.pathname){e.preventDefault();history.back()}})})})();</script>
 <script src="../../vendor/lenis.min.js"></script>
 <script>
 if (window.Lenis && !matchMedia('(prefers-reduced-motion: reduce)').matches && matchMedia('(pointer: fine)').matches) {

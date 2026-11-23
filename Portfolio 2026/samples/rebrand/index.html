@@ -279,7 +279,7 @@ a{color:inherit}
 <div class="bar" role="banner">
   <div class="wrap bar-in">
     <div class="where"><b>Rebrand Notes</b><span class="cur" aria-live="off" id="cur">Index</span></div>
-    <div class="who"><span>Independent study</span><span aria-hidden="true">·</span><span class="by"><span class="byw">by </span>Loem Layheng</span><span class="sep" aria-hidden="true">·</span><a href="../../#cases">Back to portfolio</a></div>
+    <div class="who"><span>Independent study</span><span aria-hidden="true">·</span><span class="by"><span class="byw">by </span>Loem Layheng</span><span class="sep" aria-hidden="true">·</span><a href="../../#p/rebrand" data-back>Back to portfolio</a></div>
   </div>
   <div class="prog" id="prog"></div>
 </div>
@@ -588,7 +588,7 @@ a{color:inherit}
       <p>Research, writing, design and build by Loem Layheng. Type: Schibsted Grotesk, Newsreader and IBM Plex Mono.</p>
     </div>
     <div class="c3">
-      <p><a href="../../#cases">Back to the portfolio</a></p>
+      <p><a href="../../#p/rebrand" data-back>Back to the portfolio</a></p>
     </div>
     <div class="bottom"><span>Rebrand Notes · Issue 01 · November 2026</span><a href="#top">Back to top ↑</a></div>
   </div>
@@ -757,6 +757,7 @@ a{color:inherit}
   });
 })();
 </script>
+<script>(function(){var L=[].slice.call(document.querySelectorAll('a[data-back]'));if(!L.length)return;if(self!==top){L.forEach(function(a){a.style.display='none';var s=a.previousElementSibling;if(s&&/\b(dot|sep)\b/.test(s.className))s.style.display='none'});return}var r;try{r=new URL(document.referrer)}catch(e){return}L.forEach(function(a){a.addEventListener('click',function(e){var t=new URL(a.href);if(history.length>1&&r.origin===t.origin&&r.pathname===t.pathname){e.preventDefault();history.back()}})})})();</script>
 <script src="../../vendor/lenis.min.js"></script>
 <script>
 if (window.Lenis && !matchMedia('(prefers-reduced-motion: reduce)').matches && matchMedia('(pointer: fine)').matches) {

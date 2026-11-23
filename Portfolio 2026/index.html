@@ -314,6 +314,55 @@
   .shot.wide svg { width: 100%; height: auto; }
   .shot .note { position: absolute; left: 16px; right: 16px; bottom: 12px; font: italic 400 14px/1.35 var(--serif); color: #4a4a4a; }
 
+  /* ---------- Project page (one template for every project) ---------- */
+  .cases .th.im { padding: 0; }
+  .cases .th img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+  .p-did { list-style: none; border-top: 1px solid var(--line); font-size: clamp(17px, 1.4vw, 20px); }
+  .p-did li { padding: 14px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 48px 1fr; color: var(--mute); }
+  .p-did li b { color: var(--ink); font-weight: 500; }
+  .p-did .dn { font-size: 13px; color: var(--mute); padding-top: .3em; }
+  .p-note { font: italic 400 16px/1.4 var(--serif); color: var(--mute); margin-top: 18px; max-width: 52ch; }
+  .pv { margin-top: 14vh; }
+  .pv-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 18px; }
+  .pv-head .pill { margin-top: 0; }
+  .pv-head .pill i { font-style: normal; transition: transform var(--t2) var(--io); }
+  .pv-head .pill:hover i { transform: translate(2px, -2px); }
+  .pv-frame iframe { display: block; width: 100%; height: min(82vh, 60vw); border: 0; background: #fff; }
+  .pv .phones { margin-top: 14px; }
+  .pv .phones.one { grid-template-columns: minmax(0, 360px); justify-content: center; }
+  .r-shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr)); gap: 40px 14px; margin-top: 14vh; }
+  .r-shot { display: block; }
+  .r-shot .cap { display: flex; justify-content: space-between; gap: 12px; margin-top: 12px; font-size: 15px; }
+  .r-shot .cap span { color: var(--mute); }
+  .r-shot:hover .cap b { color: var(--pc); }
+  .r-shot b { font-weight: 500; transition: color var(--t1); }
+  .pfoot .end a:hover { color: var(--ink); }
+
+  /* ---------- Work index (full-screen dialog) ---------- */
+  .wi { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; border: 0; padding: 18px var(--g) 60px; background: var(--bg); color: var(--ink); overflow-y: auto; overscroll-behavior: contain; clip-path: inset(0 0 100% 0); transition: clip-path var(--t2) var(--io); }
+  .wi.show { clip-path: inset(0); }
+  .wi::backdrop { background: transparent; }
+  html.wi-open, html.wi-open body { overflow: hidden; }
+  .wi-top { display: flex; justify-content: space-between; align-items: center; font-size: 14px; min-height: 22px; }
+  .wi-top .k { margin: 0; }
+  .wi-x { padding: 10px 0; margin: -10px 0; font-size: 14px; }
+  .wl { list-style: none; margin-top: 8vh; border-top: 1px solid var(--line); }
+  .wl li { border-bottom: 1px solid var(--line); overflow: clip; }
+  .wl a { display: grid; grid-template-columns: 60px 1fr auto; align-items: baseline; gap: 20px; padding: 10px 0 12px; transform: translateY(105%); transition: transform var(--t3) var(--out), color var(--t1); transition-delay: calc(var(--k) * 30ms + .15s), 0s; }
+  .wi.show .wl a { transform: none; }
+  .wl .n { font-size: 13px; color: var(--mute); }
+  .wl .t { font-size: clamp(30px, 4.4vw, 72px); font-weight: 700; letter-spacing: -.05em; line-height: 1.02; }
+  .wl .m { font-size: 14px; color: var(--mute); text-align: right; }
+  .wl a:hover .t, .wl a:focus-visible .t { color: var(--pc); }
+  @media (hover: hover) { .wl:has(a:hover) a:not(:hover) { opacity: .4; } .wl a { transition-property: transform, opacity; } }
+  @media (max-width: 760px) {
+    .wl a { grid-template-columns: 30px 1fr; } .wl .m { grid-column: 2; text-align: left; margin-top: -4px; }
+    .pv-head { flex-direction: column; align-items: start; }
+    .pv-frame iframe { height: 78svh; }
+    .r-shots { gap: 30px; }
+  }
+  @media (min-width: 761px) and (max-width: 1100px) { .pv-frame iframe { height: min(78vh, 90vw); } }
+
   /* ---------- About panel ---------- */
   .scrim { position: fixed; inset: 0; z-index: 80; background: #0008; opacity: 0; pointer-events: none; transition: opacity var(--t2); }
   .panel { position: fixed; z-index: 81; top: 0; right: 0; bottom: 0; width: min(580px, 100%); background: var(--ink); color: #121210; overflow-y: auto; padding: 22px var(--g) 48px; clip-path: inset(0 0 0 100%); transition: clip-path var(--t4) var(--io); }
@@ -432,16 +481,22 @@
 <header class="top" id="top">
   <a class="home-l" href="#" aria-label="Home"><i></i><span>Layheng</span><span>· Creative & product designer, Phnom Penh</span></a>
   <nav>
+    <a href="#index" id="workBtn" aria-haspopup="dialog"><span class="roll"><span data-t="Work">Work</span></span></a>
     <a href="#about"><span class="roll"><span data-t="About">About</span></span></a>
     <a href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener"><span class="roll"><span data-t="Resume">Resume</span></span></a>
     <a href="#contact"><span class="roll"><span data-t="Contact">Contact</span></span></a>
   </nav>
 </header>
 
+<dialog class="wi" id="workIndex" aria-labelledby="wiH">
+  <div class="wi-top"><h2 class="k" id="wiH">All work</h2><button class="wi-x" type="button" data-close><span class="roll"><span data-t="Close">Close</span></span></button></div>
+  <ol class="wl" id="wiList"></ol>
+</dialog>
+
 <main class="home" id="home">
   <h1 class="name" aria-label="Layheng designs it, then builds it"><span class="clip" aria-hidden="true" id="nameL">Layheng</span><span class="tag" aria-hidden="true"><span>designs it, then builds it</span></span></h1>
   <p class="role-m">Creative & product designer · Phnom Penh</p>
-  <div class="corridor" id="corridor"><div class="rooms" id="rooms"><a class="room" href="samples/metamorphosis/" style="--rc:#8A3B1E"><h2>The Metamorphosis</h2></a><a class="room" href="samples/interior/" style="--rc:#6E5A45"><h2>Atelier Kambor</h2></a><a class="room" href="samples/rebrand/" style="--rc:#2335D9"><h2>Case studies</h2></a><a class="room" href="#web" style="--rc:#1F7A4D"><h2>Web projects</h2></a><a class="room" href="#work" style="--rc:#16A34A"><h2>Product work</h2></a><a class="room" href="Loem_Layheng_CV.pdf" style="--rc:#6B3FA0"><h2>Experience (resume)</h2></a></div></div>
+  <div class="corridor" id="corridor"><div class="rooms" id="rooms"><a class="room" href="#p/metamorphosis" style="--rc:#8A3B1E"><h2>The Metamorphosis</h2></a><a class="room" href="#p/kambor" style="--rc:#6E5A45"><h2>Atelier Kambor</h2></a><a class="room" href="#cases" style="--rc:#2335D9"><h2>Case studies</h2></a><a class="room" href="#web" style="--rc:#1F7A4D"><h2>Web projects</h2></a><a class="room" href="#work" style="--rc:#16A34A"><h2>Product work</h2></a><a class="room" href="#experience" style="--rc:#6B3FA0"><h2>Experience &amp; tools</h2></a></div></div>
   <div class="hint"><span class="drag-t">Selected work</span><span class="bar"><i id="bar"></i></span><span>©2026 · Phnom Penh</span></div>
 </main>
 
@@ -455,41 +510,51 @@
 <script>
 /* ======================= Content ======================= */
 const ROOMS = [
-  { id: 'metamorphosis', n: '01', name: 'The Metamorphosis', sub: 'Kafka, told as a woodcut comic', color: '#8A3B1E', cursor: 'Read', href: 'samples/metamorphosis/' },
-  { id: 'kambor', n: '02', name: 'Atelier Kambor', sub: 'An interior studio in Phnom Penh', color: '#6E5A45', cursor: 'Enter', href: 'samples/interior/' },
+  { id: 'metamorphosis', n: '01', name: 'The Metamorphosis', sub: 'Kafka, told as a woodcut comic', color: '#8A3B1E', cursor: 'Read', href: '#p/metamorphosis' },
+  { id: 'kambor', n: '02', name: 'Atelier Kambor', sub: 'An interior studio in Phnom Penh', color: '#6E5A45', cursor: 'Enter', href: '#p/kambor' },
   { id: 'cases', n: '03', name: 'Case studies', sub: 'How brands change, and why', color: '#2335D9', cursor: 'Enter' },
   { id: 'web', n: '04', name: 'Web projects', sub: 'A product, a booking site, a tool', color: '#1F7A4D', cursor: 'Enter' },
   { id: 'work', n: '05', name: 'Product work', sub: 'Five cases', color: '#16A34A', cursor: 'Enter' },
   { id: 'experience', n: '06', name: 'Experience & tools', sub: 'The resume, and what I work with', color: '#6B3FA0', cursor: 'Enter' }
 ];
 
-/* Case studies: add a new study by adding an entry here */
-const STUDIES = [
-  { name: 'Rebrand Notes', kind: 'Brand identity', url: 'samples/rebrand/', host: 'samples/rebrand', local: true,
+/* Every project has one page at #p/<slug>, built from this list by projectPage().
+   room: the home panel it belongs to. src: a sample on this site (shown live in a frame).
+   live: an external site (shown as a screenshot). New case studies go here with room: 'cases'. */
+const PROJECTS = [
+  { slug: 'metamorphosis', name: 'The Metamorphosis', room: 'metamorphosis', color: '#8A3B1E', kind: 'Illustrated web comic', year: '2026', role: 'Concept, drawing and code',
+    lede: 'Kafka’s novella retold as a full-screen vertical comic, with woodcut-style pictures and exact quotes from the public translation.',
+    did: [['Drawing', 'Woodcut-style scenes drawn in SVG, after German Expressionist prints'], ['Story', 'One pinned stage where the scenes change in place, one after another'], ['Text', 'Quotes from David Wyllie’s translation, via Project Gutenberg']],
+    note: 'Text: Franz Kafka, The Metamorphosis (1915), translated by David Wyllie. Excerpts only.',
+    src: 'samples/metamorphosis/', host: 'samples/metamorphosis', img: 'img/sample-metamorphosis.webp', thumb: 'img/thumb/room-metamorphosis.webp' },
+  { slug: 'kambor', name: 'Atelier Kambor', room: 'kambor', color: '#6E5A45', kind: 'Concept studio website', year: '2026', role: 'Design and build',
+    lede: 'A multi-page website for an interior studio in Phnom Penh. The studio, its people and its projects are invented.',
+    did: [['Pages', 'Home, projects, studio, services, journal and an enquiry form'], ['Projects', 'Six project pages, including a room-by-room house walk-through with a floor plan'], ['Details', 'A materials library, a project filter and page transitions between studio pages']],
+    note: 'Fictional studio. Photos from Unsplash.',
+    src: 'samples/interior/', host: 'samples/interior', img: 'img/sample-interior.webp', thumb: 'img/thumb/kambor.webp' },
+  { slug: 'rebrand', name: 'Rebrand Notes', room: 'cases', color: '#2335D9', kind: 'Brand identity study', year: '2026', role: 'Research, writing, design and build',
     lede: 'Four real rebrands side by side: Burberry, Jaguar, Mastercard and Airbnb. What changed, and my take on each.',
     did: [['Research', 'Dates and reasons from cited sources'], ['Design', 'Editorial layout with a before and after slider for every brand']],
     note: 'Not affiliated with any brand shown. Logos belong to their owners.',
-    img: ['img/sample-rebrand.webp'] }
-];
-
-const BUILDS = [
-  { name: 'QR menu platform', kind: 'Product · live', themes: true, url: 'https://menu-platform-orpin.vercel.app', host: 'menu-platform-orpin.vercel.app',
+    src: 'samples/rebrand/', host: 'samples/rebrand', img: 'img/sample-rebrand.webp', thumb: 'img/thumb/sample-rebrand.webp' },
+  { slug: 'menu-platform', name: 'QR menu platform', room: 'web', color: '#1F7A4D', kind: 'Product', status: 'Live, in progress', role: 'Plan, design and build', themes: true,
     lede: 'Digital menus for small shops in Cambodia. Diners scan a QR code and see the menu in Khmer and English, with prices in dollars and riel.',
     did: [['Plan', 'Product brief, roles and setup flow for shop owners'], ['Design', 'Landing page plus six menu themes, one per type of shop'], ['Build', 'Next.js site, admin portal and menu designer, with Claude Code']],
     note: 'Still in progress: the brand name is not chosen yet, so the landing page says [BRAND].',
-    img: ['img/menu-landing.webp'], phones: ['img/m-mango.webp', 'img/m-neon.webp', 'img/m-mlob.webp'] },
-  { name: '520 Staycation', kind: 'Booking · live', url: 'https://520-staycation.vercel.app', host: '520-staycation.vercel.app',
+    live: 'https://menu-platform-orpin.vercel.app', host: 'menu-platform-orpin.vercel.app', img: 'img/menu-landing.webp', thumb: 'img/thumb/menu-landing.webp', phones: ['img/m-mango.webp', 'img/m-neon.webp', 'img/m-mlob.webp'] },
+  { slug: 'staycation', name: '520 Staycation', room: 'web', color: '#B8562E', kind: 'Booking site', status: 'Live', role: 'Design and build',
     lede: 'A booking site for a river-view condo in Phnom Penh, rented by the half day, day or night.',
-    did: [['Design', 'Warm editorial look: Fraunces, burnt orange, full-bleed photos'], ['Feature', 'Five lighting moods you can switch between on the page'], ['Build', 'Gallery, booking calendar and a request form']],
-    img: ['img/staycation.webp'], phones: ['img/staycation-phone.webp'] },
-  { name: 'EasySurvey', kind: 'Tool · retired', url: 'https://easysurvey.vercel.app', host: 'easysurvey.vercel.app',
+    did: [['Design', 'Warm editorial look: Fraunces, burnt orange, full-bleed photos'], ['Feature', 'Five lighting moods to switch between on the page'], ['Build', 'Gallery, booking calendar and a request form']],
+    live: 'https://520-staycation.vercel.app', host: '520-staycation.vercel.app', img: 'img/staycation.webp', phones: ['img/staycation-phone.webp'] },
+  { slug: 'easysurvey', name: 'EasySurvey', room: 'web', color: '#3F5E73', kind: 'Tool', status: 'Retired', role: 'Build',
     lede: 'A survey tool I built for our field research. The research is over, so the tool is retired and the page is now a board of photos from it.',
     did: [['Build', 'The original survey tool, used during the research'], ['Retire', 'A photo board from the research in its place']],
-    img: ['img/easysurvey.webp'] },
-  { name: 'Sample portfolio', kind: 'Portfolio · fictional', url: 'samples/odile/', host: 'samples/odile', local: true,
+    live: 'https://easysurvey.vercel.app', host: 'easysurvey.vercel.app', img: 'img/easysurvey.webp' },
+  { slug: 'odile', name: 'Sample portfolio', room: 'web', color: '#55524A', kind: 'Portfolio · fictional', year: '2026', role: 'Design and build',
     lede: 'A full portfolio for a designer who does not exist. Odile Rask, her clients and her projects are all invented.',
     did: [['Design', 'Big-type project index with a preview window and case sheets'], ['Art', 'Product mock-ups drawn by hand in SVG']],
-    img: ['img/odile.webp'] }
+    note: 'Fictional sample. Every page carries a ribbon that says so.',
+    src: 'samples/odile/', host: 'samples/odile', img: 'img/odile.webp' }
 ];
 
 const THEMES = [
@@ -583,7 +648,7 @@ $('#rooms').addEventListener('pointerover', e => {
 });
 // vertical wheel moves the corridor sideways (desktop only, home only)
 addEventListener('wheel', e => {
-  if (!isRow() || view.classList.contains('on') || document.body.classList.contains('about')) return;
+  if (!isRow() || view.classList.contains('on') || wi.open || document.body.classList.contains('about')) return;
   if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
   corridor.scrollLeft += e.deltaY;
 }, { passive: true });
@@ -599,7 +664,6 @@ corridor.addEventListener('scroll', () => { const m = corridor.scrollWidth - cor
 
 /* ======================= Room and case pages ======================= */
 const view = $('#view');
-const tapWord = HOVER ? 'Click' : 'Tap';
 const foot = (k, nextHref, nextName, nextColor) => `<footer class="pfoot"><span class="k">${k}</span>
   <a class="nx" href="${nextHref}" style="--nc:${nextColor}" data-cursor="Next"><span class="nm">${nextName}</span><span class="ball">→</span></a>
   <div class="end"><a href="#">← All rooms</a><span>©2026 · Loem Layheng</span></div></footer>`;
@@ -607,14 +671,35 @@ const hero = (crumb, title, sub, side, color) => `<header class="hero" style="--
   <h1 class="ttl">${words(title, .25)}</h1><div class="sub rv" style="--d:.5s"><p>${sub}</p><span>${side}</span></div></header>`;
 const nextRoom = id => { const i = ROOMS.findIndex(r => r.id === id); return ROOMS[(i + 1) % ROOMS.length]; };
 
-const block = (b, i, list) => `<article class="build">
-      <div class="txt rv"><span class="num">${String(i + 1).padStart(2, '0')} / ${String(list.length).padStart(2, '0')} · ${b.kind}</span><h3>${b.name}</h3><p class="lede">${b.lede}</p>
-        <ul>${b.did.map(([k, v]) => `<li><span>·</span><span><b>${k}.</b> ${v}</span></li>`).join('')}</ul>
-        ${b.note ? `<p class="note">${b.note}</p>` : ''}
-        <a class="pill" href="${b.url}" ${b.local ? '' : 'target="_blank" rel="noopener"'} data-magnetic><span>${b.local ? 'Open' : 'Visit the live site'}</span><span class="arr">→</span></a></div>
-      <div class="media">${b.img.map(src => `<div class="browser rv"><div class="chrome"><i></i><i></i><i></i><span>${b.host}</span></div><img src="${src}" alt="${esc(b.name)} home page" loading="lazy"></div>`).join('')}
-        ${b.phones ? `<div class="phones${b.phones.length < 3 ? ' two' : ''}">${b.phones.map((p, j) => `<img class="rv" style="--d:${j * .1}s" src="${p}" alt="${esc(b.name)} on a phone" loading="lazy">`).join('')}</div>` : ''}</div>
-    </article>${b.themes ? themeWall() : ''}`;
+const pad = n => String(n).padStart(2, '0');
+const PJ = slug => PROJECTS.find(p => p.slug === slug);
+const frameTop = host => `<div class="chrome"><i></i><i></i><i></i><span>${host}</span></div>`;
+// a room lists its projects (big-type rows), then their screenshots; every item opens #p/<slug>
+const roomList = list => `<div class="sec"><ol class="cases">${list.map((p, i) => `<li><a href="#p/${p.slug}" style="--pc:${p.color}" data-cursor="View">
+      <span class="n">${pad(i + 1)}</span><span class="t">${p.name}</span><span class="m">${p.kind}<br>${p.year || p.status}</span><span class="ar">→</span>
+      <span class="th im" aria-hidden="true"><img src="${p.thumb || p.img}" alt="" loading="lazy"></span></a></li>`).join('')}</ol>
+    <div class="r-shots">${list.map(p => `<a class="r-shot" href="#p/${p.slug}" style="--pc:${p.color}" data-cursor="View" tabindex="-1" aria-hidden="true">
+      <div class="browser rv">${frameTop(p.host)}<img src="${p.img}" alt="" loading="lazy"></div><span class="cap"><b>${p.name}</b><span>${p.kind}</span></span></a>`).join('')}</div></div>`;
+// one template for every project: hero, what I did, live preview in a browser frame, prev / next
+function projectPage(p) {
+  const i = PROJECTS.indexOf(p), N = PROJECTS.length, pv = PROJECTS[(i - 1 + N) % N], nx = PROJECTS[(i + 1) % N];
+  const r = RM(p.room), own = r.href === '#p/' + p.slug;
+  const open = p.live
+    ? `<a class="pill" href="${p.live}" target="_blank" rel="noopener" data-magnetic><span>Open live site</span><i aria-hidden="true">↗</i><span class="sr"> (new tab)</span></a>`
+    : `<a class="pill" href="${p.src}" target="_blank" rel="noopener" data-magnetic><span>Open full site</span><i aria-hidden="true">↗</i><span class="sr"> (new tab)</span></a>`;
+  const frame = p.live
+    ? `<div class="browser rv">${frameTop(p.host)}<img src="${p.img}" alt="${esc(p.name)} home page" loading="lazy"></div>`
+    : `<div class="browser pv-frame rv">${frameTop(p.host)}<iframe src="${p.src}" loading="lazy" title="${esc(p.name)}, live preview"></iframe></div>`;
+  const ph = p.phones || [];
+  return `<div class="proj" style="--pc:${p.color}">` + hero(own ? ['← All rooms', '#'] : ['← ' + r.name, '#' + r.id], p.name, p.lede, `${p.kind}<br>${p.year || p.status}<br>${p.role}`, p.color) +
+    `<div class="sec"><section class="c-sec"><div class="lab rv">What I did</div><div class="rv"><ol class="p-did">${p.did.map(([k, v], j) => `<li><span class="dn">${pad(j + 1)}</span><span><b>${k}.</b> ${v}</span></li>`).join('')}</ol>${p.note ? `<p class="p-note">${p.note}</p>` : ''}</div></section>
+    <section class="pv" aria-label="Preview"><div class="pv-head rv"><span class="k">${p.live ? 'From the live site' : 'Live preview'}</span>${open}</div>${frame}
+      ${ph.length ? `<div class="phones${ph.length === 1 ? ' one' : ph.length === 2 ? ' two' : ''}">${ph.map((src, j) => `<img class="rv" style="--d:${j * .1}s" src="${src}" alt="${esc(p.name)} on a phone" loading="lazy">`).join('')}</div>` : ''}</section>
+    ${p.themes ? themeWall() : ''}</div></div>` +
+    `<footer class="pfoot"><span class="k">Next project · ${pad(i + 2 > N ? 1 : i + 2)} / ${pad(N)}</span>
+    <a class="nx" href="#p/${nx.slug}" style="--nc:${nx.color}" data-cursor="Next"><span class="nm">${nx.name}</span><span class="ball">→</span></a>
+    <div class="end"><a href="#p/${pv.slug}"><span class="sr">Previous project: </span>← ${pv.name}</a><a href="#index">All work</a><a href="#">Home</a></div></footer>`;
+}
 const themeWall = () => (loadThemeFonts(), `<section class="ds-wall" id="dsWall"><div class="ds-intro rv"><p><span class="k">Inside the platform</span><br>Six menu themes, one per type of shop. Same data underneath, its own fonts, colours and layout on top.</p></div>
       ${CANVAS() ? `<div class="ds-canvas" id="dsCanvas"></div>` : ''}<div class="themes"${CANVAS() ? ' hidden' : ''}>${THEMES.map((t, i) => `<a class="theme rv" style="--d:${(i % 3) * .1}s;--tb:${t.bg};--tt:${t.tx};--tf:'${t.font}',serif" href="https://menu-platform-orpin.vercel.app/${t.slug}" target="_blank" rel="noopener" data-cursor="Open menu" data-bg="${t.bg}">
         <span class="hd"><span>0${i + 1} · ${t.type}</span><span>↗</span></span>
@@ -624,12 +709,14 @@ const RM = id => ROOMS.find(r => r.id === id);
 const EXTRA = { about: { name: 'About', color: '#F2B544' }, contact: { name: 'Contact', color: '#121210' } };
 const PAGES = {
   cases() {
-    return hero(['← All rooms', '#'], 'Case studies', 'Studies of real brands: what they changed, why, and what happened next.', `${STUDIES.length} ${STUDIES.length === 1 ? 'study' : 'studies'}`, RM('cases').color) +
-    `<div class="sec">${STUDIES.map((b, i) => block(b, i, STUDIES)).join('')}</div>` + foot('Next room', '#web', 'Web projects', RM('web').color);
+    const list = PROJECTS.filter(p => p.room === 'cases');
+    return hero(['← All rooms', '#'], 'Case studies', 'Studies of real brands: what they changed, why, and what happened next.', `${list.length} ${list.length === 1 ? 'study' : 'studies'}`, RM('cases').color) +
+    roomList(list) + foot('Next room', '#web', 'Web projects', RM('web').color);
   },
   web() {
-    return hero(['← All rooms', '#'], 'Web projects', 'Sites I planned, designed and shipped, with Figma and vibe coding.', `${BUILDS.length} sites`, RM('web').color) +
-    `<div class="sec">${BUILDS.map((b, i) => block(b, i, BUILDS)).join('')}</div>` + foot('Next room', '#work', 'Product work', RM('work').color);
+    const list = PROJECTS.filter(p => p.room === 'web');
+    return hero(['← All rooms', '#'], 'Web projects', 'Sites I planned, designed and shipped, with Figma and vibe coding.', `${list.length} sites`, RM('web').color) +
+    roomList(list) + foot('Next room', '#work', 'Product work', RM('work').color);
   },
   work() {
     return hero(['← All rooms', '#'], 'Product work', 'Products I owned at work and on my own: features, redesigns, specs and a store.', 'Smart Axiata · Youding<br>Freelance · Own store', RM('work').color) +
@@ -641,7 +728,7 @@ const PAGES = {
     return hero(['← All rooms', '#'], 'Experience & tools', 'Product owner by job title, designer and builder by habit. Customer success is where I started.', `<a href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener" style="text-decoration:underline">Download the resume (PDF)</a>`, RM('experience').color) +
     `<div class="sec"><ol class="xp">${XP.map((x, i) => `<li class="rv${i ? '' : ' open'}"><button aria-expanded="${!i}"><span class="y">${x.y}</span><span class="r">${x.r}</span><span class="c">${x.c}</span><span class="pm"></span></button>
       <div class="dd"${i ? ' inert' : ''}><div><ul>${x.pts.map(p => `<li>${p}</li>`).join('')}</ul></div></div></li>`).join('')}</ol></div>
-    <div class="sec tk" style="--rc:${RM('experience').color}"><h2 class="tk-h rv">Tools</h2>${TOOLS.map(([g, ts]) => `<div class="tk-g rv"><h3>${g}</h3><ul>${ts.map(([t, d]) => `<li class="tool"><b>${t}</b><span>${d}</span></li>`).join('')}</ul></div>`).join('')}<p class="refs rv">References I keep open: Pinterest, Awwwards, Behance, SiteInspire.</p></div>` + foot('Back to the start', 'samples/metamorphosis/', 'The Metamorphosis', RM('metamorphosis').color);
+    <div class="sec tk" style="--rc:${RM('experience').color}"><h2 class="tk-h rv">Tools</h2>${TOOLS.map(([g, ts]) => `<div class="tk-g rv"><h3>${g}</h3><ul>${ts.map(([t, d]) => `<li class="tool"><b>${t}</b><span>${d}</span></li>`).join('')}</ul></div>`).join('')}<p class="refs rv">References I keep open: Pinterest, Awwwards, Behance, SiteInspire.</p></div>` + foot('Back to the start', '#p/metamorphosis', 'The Metamorphosis', RM('metamorphosis').color);
   }
 };
 PAGES.about = () => `<div class="ab">
@@ -702,25 +789,49 @@ function smooth() {
 let tickId = 0;
 function tickLenis() { cancelAnimationFrame(tickId); const t = ts => { if (!lenis) return; lenis.raf(ts); tickId = requestAnimationFrame(t); }; tickId = requestAnimationFrame(t); }
 const BASE = document.title;
+// home remembers where the corridor was (desktop: sideways, phone: page scroll)
+const HS = 'homeScroll';
+let restoreOnLoad = ['back_forward', 'reload'].includes(performance.getEntriesByType?.('navigation')[0]?.type);
+function saveHome() { if (current) return; try { sessionStorage.setItem(HS, JSON.stringify({ x: corridor.scrollLeft, y: scrollY })); } catch (e) {} }
+function restoreHome() { let s = null; try { s = JSON.parse(sessionStorage.getItem(HS)); } catch (e) {} if (!s) return; corridor.scrollLeft = s.x || 0; scrollTo(0, s.y || 0); }
+addEventListener('pagehide', saveHome);
+// the home panel a page belongs to (for focus on return)
+function panelFor(id) {
+  const [room, sub] = id.split('/');
+  const r = room === 'p' ? RM(PJ(sub)?.room) : RM(room);
+  return r ? $(`#rooms a[href="${r.href || '#' + r.id}"]`) : null;
+}
+// where Escape and "back up one level" go from a page
+function parentOf(id) {
+  const [room, sub] = id.split('/');
+  if (room === 'p') { const r = RM(PJ(sub)?.room); return r && !r.href ? '#' + r.id : '#'; }
+  return sub ? '#' + room : '#';
+}
 function route() {
   let h = location.hash.slice(1);
   if (CASES.some(c => c.id === h)) { history.replaceState(null, '', '#work/' + h); h = 'work/' + h; } // old links
   if (ALIAS[h]) { history.replaceState(null, '', '#' + ALIAS[h]); h = ALIAS[h]; }
+  if (h === 'index') { history.replaceState(null, '', location.pathname + location.search); h = ''; openIndex(); }
   const [room, sub] = h.split('/');
   const c = room === 'work' && sub ? CASES.find(x => x.id === sub) : null;
   if (room === 'work' && sub && !c) { history.replaceState(null, '', '#work'); return route(); }
-  const html = c ? casePage(c) : PAGES[room]?.();
+  const pj = room === 'p' ? PJ(sub) : null;
+  const html = c ? casePage(c) : pj ? projectPage(pj) : room === 'p' ? '' : PAGES[room]?.();
   if (!html) { // home
     if (h) history.replaceState(null, '', location.pathname + location.search);
     const prev = current; glGen++; dsAbort?.abort();
-    if (prev) setTimeout(() => $(`#rooms a[href="#${prev.split('/')[0]}"]`)?.focus({ preventScroll: true }), 0);
     lenis?.destroy(); lenis = null; current = null; view.classList.remove('gl-on'); $('#gl').style.display = 'none'; view.classList.remove('on'); view.inert = true; view.setAttribute('aria-hidden', 'true'); view.innerHTML = '';
-    home.inert = false; document.body.classList.remove('lock'); document.title = BASE; setTop(); return;
+    home.inert = false; document.body.classList.remove('lock'); document.title = BASE; setTop();
+    if (prev || restoreOnLoad) restoreHome();
+    restoreOnLoad = false;
+    if (prev && !wi.open) setTimeout(() => panelFor(prev)?.focus({ preventScroll: true }), 0);
+    return;
   }
+  restoreOnLoad = false;
   current = h;
   view.innerHTML = `<div class="vc">${html}</div>`; view.scrollTop = 0; smooth(); view.classList.add('on'); view.inert = false; view.setAttribute('aria-hidden', 'false');
   home.inert = true; document.body.classList.add('lock');
-  document.title = `${c ? c.name : (ROOMS.find(r => r.id === room) || EXTRA[room]).name} · Layheng`;
+  document.title = `${c ? c.name : pj ? pj.name : (ROOMS.find(r => r.id === room) || EXTRA[room]).name} · Layheng`;
   view.focus({ preventScroll: true });
   // reveals
   const show = () => view.querySelector('.ttl')?.classList.add('shown');
@@ -735,11 +846,12 @@ function route() {
 const home = $('#home');
 // WebGL: screenshots in Built by me bend with scroll speed (desktop, fine pointer)
 const glState = { gl: null };
+const warpHere = () => { const h = location.hash.slice(1); return h === 'web' || h === 'cases' || h.startsWith('p/'); };
 let glGen = 0;
 function glWarp() {
   const cv = $('#gl'); const gen = ++glGen;
   view.classList.remove('gl-on'); cv.style.display = 'none';
-  if (!HOVER || reduce() || !['web', 'cases'].includes(location.hash.slice(1))) return;
+  if (!HOVER || reduce() || !warpHere()) return;
   let gl = glState.gl;
   if (!gl) {
     gl = cv.getContext('webgl', { premultipliedAlpha: false, alpha: true }); if (!gl) return;
@@ -759,11 +871,12 @@ function glWarp() {
     glState.gl = gl; glState.n = pts.length / 2; glState.u = { r: gl.getUniformLocation(pr, 'r'), res: gl.getUniformLocation(pr, 'res'), v: gl.getUniformLocation(pr, 'v'), vf: gl.getUniformLocation(pr, 'vf') };
     glState.tex = new Map();
   }
-  const imgs = [...view.querySelectorAll('.browser img')];
+  const imgs = [...view.querySelectorAll('.browser img')]; // screenshots only: iframes are never drawn over
+  if (!imgs.length) return;
   const ready = imgs.map(img => new Promise(ok => img.complete && img.naturalWidth ? ok() : img.addEventListener('load', ok, { once: true })));
   imgs.forEach(img => img.loading = 'eager');
   Promise.all(ready).then(() => {
-    if (gen !== glGen || !['web', 'cases'].includes(location.hash.slice(1))) return;
+    if (gen !== glGen || !warpHere()) return;
     imgs.forEach(img => { if (glState.tex.has(img.src)) return; const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
@@ -859,15 +972,23 @@ view.addEventListener('scroll', setTop, { passive: true });
 let busy = false;
 function go(href) {
   const id = href.slice(1);
-  if (id === (current || '')) return;
-  hideCur();
+  if (id === 'index') return openIndex();
+  const fromIndex = wi.open;
+  if (id === (current || '')) { if (fromIndex) closeIndex(true); return; }
+  hideCur(); saveHome();
   const [room, sub] = id.split('/');
   const c = room === 'work' && sub ? CASES.find(x => x.id === sub) : null;
+  const pj = room === 'p' ? PJ(sub) : null;
   const r = ROOMS.find(x => x.id === room) || EXTRA[room];
-  const label = c ? c.name : r ? r.name : 'Layheng';
-  const color = c ? c.color : r ? r.color : '#121210';
-  if (reduce() || busy || !document.body.classList.contains('ready')) { location.hash = id; if (!id) history.replaceState(null, '', location.pathname); return; }
+  const label = c ? c.name : pj ? pj.name : r ? r.name : 'Layheng';
+  const color = c ? c.color : pj ? pj.color : r ? r.color : '#121210';
+  if (reduce() || busy || !document.body.classList.contains('ready')) {
+    if (fromIndex) closeIndex(false, true);
+    if (id) location.hash = id; else { history.pushState(null, '', location.pathname); route(); }
+    return;
+  }
   busy = true;
+  if (fromIndex) closeIndex(false);
   const cu = $('#curtain'); cu.style.setProperty('--cc', color); $('#curtainT').textContent = label;
   cu.className = 'curtain'; void cu.offsetWidth; cu.classList.add('in');
   setTimeout(() => {
@@ -876,21 +997,46 @@ function go(href) {
     setTimeout(() => { cu.className = 'curtain'; busy = false; }, 820);
   }, 600);
 }
-// featured rooms open their own site: curtain in the room colour, then leave
-document.addEventListener('click', e => {
-  const a = e.target.closest('a[data-ext]'); if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
-  if (reduce() || !document.body.classList.contains('ready')) return;
-  e.preventDefault(); hideCur();
-  const cu = $('#curtain'); cu.style.setProperty('--cc', a.style.getPropertyValue('--rc')); $('#curtainT').textContent = a.dataset.ext;
-  cu.className = 'curtain'; void cu.offsetWidth; cu.classList.add('in');
-  setTimeout(() => { location.href = a.href; }, 600);
-});
 addEventListener('pageshow', e => { if (e.persisted) $('#curtain').className = 'curtain'; });
 document.addEventListener('click', e => {
   const a = e.target.closest('a[href^="#"]'); if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
   e.preventDefault(); go(a.getAttribute('href'));
 });
 addEventListener('hashchange', route);
+
+/* ======================= Work index (header "Work") ======================= */
+const wi = $('#workIndex');
+{
+  const rows = [
+    ...PROJECTS.map(p => ({ href: '#p/' + p.slug, name: p.name, color: p.color, meta: p.kind })),
+    ...CASES.map(c => ({ href: '#work/' + c.id, name: c.name, color: c.color, meta: c.tag })),
+    { href: '#experience', name: 'Experience & tools', color: RM('experience').color, meta: 'Resume' }
+  ];
+  $('#wiList').innerHTML = rows.map((r, k) => `<li><a href="${r.href}" style="--pc:${r.color};--k:${Math.min(k, 12)}"><span class="n">${pad(k + 1)}</span><span class="t">${r.name}</span><span class="m">${r.meta}</span></a></li>`).join('');
+}
+let wiOpener = null, wiTimer = 0;
+function openIndex() {
+  if (wi.open) return;
+  hideCur(); clearTimeout(wiTimer); wiOpener = document.activeElement;
+  wi.showModal(); document.documentElement.classList.add('wi-open'); wi.scrollTop = 0;
+  const here = current ? '#' + current : '';
+  wi.querySelectorAll('a').forEach(a => a.getAttribute('href') === here ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
+  $('#workBtn').setAttribute('aria-expanded', 'true');
+  reduce() ? wi.classList.add('show') : requestAnimationFrame(() => requestAnimationFrame(() => wi.classList.add('show')));
+}
+// refocus: back to whatever opened it (not when a project was chosen); instant: no animation
+function closeIndex(refocus = true, instant = false) {
+  if (!wi.open) return;
+  wi.classList.remove('show'); $('#workBtn').setAttribute('aria-expanded', 'false');
+  const done = () => { wi.close(); document.documentElement.classList.remove('wi-open'); if (refocus && wiOpener?.isConnected) wiOpener.focus({ preventScroll: true }); wiOpener = null; };
+  clearTimeout(wiTimer);
+  instant || reduce() ? done() : (wiTimer = setTimeout(done, 520));
+}
+$('#workBtn').setAttribute('aria-expanded', 'false');
+wi.addEventListener('cancel', e => { e.preventDefault(); closeIndex(); });
+wi.addEventListener('click', e => { if (e.target.closest('[data-close]')) closeIndex(); });
+// the live preview frames swallow pointer events: hide the custom cursor over them
+view.addEventListener('pointerover', e => { if (e.target.tagName === 'IFRAME') { hideCur(); $('#cur').classList.add('hide'); } });
 
 /* ======================= Loader ======================= */
 const loader = $('#loader'), hello = $('#hello');
@@ -948,8 +1094,8 @@ if (HOVER) {
 }
 
 addEventListener('keydown', e => {
-  if (e.key !== 'Escape') return;
-  if (current) { const [r, s] = current.split('/'); go(s ? '#' + r : '#'); }
+  if (e.key !== 'Escape' || wi.open) return;
+  if (current) go(parentOf(current));
 });
 
 route();
