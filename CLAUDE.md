@@ -59,7 +59,7 @@ Then check it is still **2 pages, A4**, and copy it to `Portfolio 2026/Loem_Layh
 - **No invented numbers.** Results are written in words. (The only real metric, "up to 75% faster" setup from the Bulk QR tool, is in the CV but no longer on the site.)
 - **Mock screens must not show real data:** no real phone numbers (use `0XX XXX XXX`), no real logos, mascot or photos. Each mock frame carries an italic confidentiality note.
 - Say "vibe coding" plainly, without explaining it in brackets.
-- CV title under the name is "Creative & Product Designer" (changed Nov 2026, matches the site). Call it "Resume" on the site, not "CV". The CV has a Selected Projects section (Metamorphosis, Atelier Kambor); references are "Available on request".
+- CV title under the name is "Creative & Product Designer" (changed Nov 2026, matches the site). Call it "Resume" on the site, not "CV". The CV has a Selected Projects section (520 Staycation as a client project, Metamorphosis, Atelier Kambor); references are "Available on request".
 
 ## Design taste (from the owner)
 
