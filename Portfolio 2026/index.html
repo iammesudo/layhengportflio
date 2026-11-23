@@ -340,7 +340,8 @@
   .ab-hero .crumb { position: absolute; top: 74px; left: var(--g); font-size: 14px; }
   .ab-hero h1 { position: relative; z-index: 2; font-weight: 700; font-size: clamp(64px, 12.5vw, 210px); letter-spacing: -.065em; line-height: .88; max-width: 9ch; margin-top: auto; padding-bottom: 6vh; }
   .ab-role { position: absolute; z-index: 2; right: var(--g); top: 130px; font: italic 400 clamp(20px, 2vw, 30px)/1.1 var(--serif); }
-  .ab-me { position: absolute; right: var(--g); top: 190px; width: clamp(120px, 13vw, 200px); height: auto; aspect-ratio: 1; border-radius: 50%; object-fit: cover; transform: scale(.85); opacity: 0; transition: transform 1.4s var(--out) .4s, opacity 1s var(--out) .4s; }
+  .ab-me { position: absolute; right: var(--g); top: 190px; width: clamp(180px, 17vw, 260px); aspect-ratio: 7 / 9; border-radius: 18px; overflow: hidden; background: linear-gradient(170deg, #E9AE45, #C98428 85%); box-shadow: 0 30px 60px -30px #6b3f0080; transform: translateY(24px); opacity: 0; transition: transform 1.4s var(--out) .4s, opacity 1s var(--out) .4s; }
+  .ab-me img { position: absolute; left: 0; bottom: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
   .shown .ab-me, .ab-hero:has(.ttl.shown) .ab-me { transform: none; opacity: 1; }
   .ab-say { padding-top: 16vh; }
   .ab-big { font-size: clamp(30px, 4vw, 64px); line-height: 1.08; letter-spacing: -.04em; max-width: 22ch; }
@@ -406,7 +407,7 @@
   @media (max-width: 760px) {
     .ab-hero { padding-top: 110px; } .ab-hero .crumb, .ct-hero .crumb { top: 64px; }
     .ab-role { position: static; margin-top: 12px; order: 2; }
-    .ab-me { position: static; order: -1; margin: 0 0 22px; width: 110px; opacity: 1; transform: none; }
+    .ab-me { position: relative; order: -1; margin: 0 0 22px; width: 150px; top: 0; right: 0; opacity: 1; transform: none; }
     .ab-hero { min-height: 70svh; }
     .ab-hero h1 { margin-top: 0; padding-bottom: 0; }
     .ab-cols { grid-template-columns: 1fr; }
@@ -432,7 +433,7 @@
   <a class="home-l" href="#" aria-label="Home"><i></i><span>Layheng</span><span>· Creative & product designer, Phnom Penh</span></a>
   <nav>
     <a href="#about"><span class="roll"><span data-t="About">About</span></span></a>
-    <a href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener"><span class="roll"><span data-t="CV">CV</span></span></a>
+    <a href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener"><span class="roll"><span data-t="Resume">Resume</span></span></a>
     <a href="#contact"><span class="roll"><span data-t="Contact">Contact</span></span></a>
   </nav>
 </header>
@@ -440,7 +441,7 @@
 <main class="home" id="home">
   <h1 class="name" aria-label="Layheng designs it, then builds it"><span class="clip" aria-hidden="true" id="nameL">Layheng</span><span class="tag" aria-hidden="true"><span>designs it, then builds it</span></span></h1>
   <p class="role-m">Creative & product designer · Phnom Penh</p>
-  <div class="corridor" id="corridor"><div class="rooms" id="rooms"><a class="room" href="samples/metamorphosis/" style="--rc:#8A3B1E"><h2>The Metamorphosis</h2></a><a class="room" href="samples/interior/" style="--rc:#6E5A45"><h2>Atelier Kambor</h2></a><a class="room" href="samples/rebrand/" style="--rc:#2335D9"><h2>Case studies</h2></a><a class="room" href="#web" style="--rc:#1F7A4D"><h2>Web projects</h2></a><a class="room" href="#work" style="--rc:#16A34A"><h2>Product work</h2></a><a class="room" href="Loem_Layheng_CV.pdf" style="--rc:#6B3FA0"><h2>Experience (CV)</h2></a></div></div>
+  <div class="corridor" id="corridor"><div class="rooms" id="rooms"><a class="room" href="samples/metamorphosis/" style="--rc:#8A3B1E"><h2>The Metamorphosis</h2></a><a class="room" href="samples/interior/" style="--rc:#6E5A45"><h2>Atelier Kambor</h2></a><a class="room" href="samples/rebrand/" style="--rc:#2335D9"><h2>Case studies</h2></a><a class="room" href="#web" style="--rc:#1F7A4D"><h2>Web projects</h2></a><a class="room" href="#work" style="--rc:#16A34A"><h2>Product work</h2></a><a class="room" href="Loem_Layheng_CV.pdf" style="--rc:#6B3FA0"><h2>Experience (resume)</h2></a></div></div>
   <div class="hint"><span class="drag-t">Selected work</span><span class="bar"><i id="bar"></i></span><span>©2026 · Phnom Penh</span></div>
 </main>
 
@@ -459,7 +460,7 @@ const ROOMS = [
   { id: 'cases', n: '03', name: 'Case studies', sub: 'How brands change, and why', color: '#2335D9', cursor: 'Enter' },
   { id: 'web', n: '04', name: 'Web projects', sub: 'A product, a booking site, a tool', color: '#1F7A4D', cursor: 'Enter' },
   { id: 'work', n: '05', name: 'Product work', sub: 'Five cases', color: '#16A34A', cursor: 'Enter' },
-  { id: 'experience', n: '06', name: 'Experience & tools', sub: 'The CV, and what I work with', color: '#6B3FA0', cursor: 'Enter' }
+  { id: 'experience', n: '06', name: 'Experience & tools', sub: 'The resume, and what I work with', color: '#6B3FA0', cursor: 'Enter' }
 ];
 
 /* Case studies: add a new study by adding an entry here */
@@ -571,7 +572,7 @@ const roomArt = {
   experience: `<img class="shot1 cv" src="img/thumb/cv.webp" alt="">`
 };
 $('#rooms').innerHTML = ROOMS.map((r, k) => `<a class="room${k ? '' : ' wide'}" href="${r.href || '#' + r.id}"${r.href ? ` data-ext="${r.name}"` : ''} style="--rc:${r.color};--k:${k}" data-cursor="${r.cursor}" data-room>
-  <span class="n">${r.n}</span>${roomArt[r.id]}<h2>${r.name}<small>${r.sub}</small></h2></a>`).join('') + `<a class="room end" href="#contact" style="--k:6;--rc:transparent" data-cursor="Say hi"><h2>Get in touch<small>Telegram, email, CV</small></h2></a>`;
+  <span class="n">${r.n}</span>${roomArt[r.id]}<h2>${r.name}<small>${r.sub}</small></h2></a>`).join('') + `<a class="room end" href="#contact" style="--k:6;--rc:transparent" data-cursor="Say hi"><h2>Get in touch<small>Telegram, email, resume</small></h2></a>`;
 
 const corridor = $('#corridor'), barEl = $('#bar');
 const isRow = () => matchMedia('(min-width: 761px)').matches;
@@ -637,7 +638,7 @@ const PAGES = {
       <span class="th" aria-hidden="true">${mocks[c.shots[0]](c.color)}</span></a></li>`).join('')}</ol></div>` + foot('Next room', '#experience', 'Experience & tools', RM('experience').color);
   },
   experience() {
-    return hero(['← All rooms', '#'], 'Experience & tools', 'Product owner by job title, designer and builder by habit. Customer success is where I started.', `<a href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener" style="text-decoration:underline">Download the CV (PDF)</a>`, RM('experience').color) +
+    return hero(['← All rooms', '#'], 'Experience & tools', 'Product owner by job title, designer and builder by habit. Customer success is where I started.', `<a href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener" style="text-decoration:underline">Download the resume (PDF)</a>`, RM('experience').color) +
     `<div class="sec"><ol class="xp">${XP.map((x, i) => `<li class="rv${i ? '' : ' open'}"><button aria-expanded="${!i}"><span class="y">${x.y}</span><span class="r">${x.r}</span><span class="c">${x.c}</span><span class="pm"></span></button>
       <div class="dd"${i ? ' inert' : ''}><div><ul>${x.pts.map(p => `<li>${p}</li>`).join('')}</ul></div></div></li>`).join('')}</ol></div>
     <div class="sec tk" style="--rc:${RM('experience').color}"><h2 class="tk-h rv">Tools</h2>${TOOLS.map(([g, ts]) => `<div class="tk-g rv"><h3>${g}</h3><ul>${ts.map(([t, d]) => `<li class="tool"><b>${t}</b><span>${d}</span></li>`).join('')}</ul></div>`).join('')}<p class="refs rv">References I keep open: Pinterest, Awwwards, Behance, SiteInspire.</p></div>` + foot('Back to the start', 'samples/metamorphosis/', 'The Metamorphosis', RM('metamorphosis').color);
@@ -647,7 +648,7 @@ PAGES.about = () => `<div class="ab">
   <header class="ab-hero"><a class="crumb" href="#">← All rooms</a>
     <h1 class="ttl">${words('Hi, I’m Layheng.', .25)}</h1>
     <p class="ab-role rv" style="--d:.6s">Creative & product designer · Phnom Penh</p>
-    <img class="ab-me" src="img/me.webp" alt="Portrait of Loem Layheng" width="220" height="220">
+    <span class="ab-me"><img src="img/me.webp" alt="Portrait of Loem Layheng" width="280" height="360"></span>
   </header>
   <section class="sec ab-say"><p class="ab-big rv">I design products, then <mark>build them myself</mark>. A prototype people can click says more than a long proposal.</p>
     <div class="ab-cols">
@@ -672,7 +673,7 @@ PAGES.contact = () => `<div class="ct">
   <section class="sec"><ul class="ct-list">
     <li class="rv"><a href="https://t.me/LayhengLoem" target="_blank" rel="noopener" data-cursor="Open"><span class="k">Telegram</span><b>t.me/LayhengLoem</b><span class="ar">↗</span></a></li>
     <li class="rv"><a href="mailto:loemlayheng@gmail.com" data-cursor="Write"><span class="k">Email</span><b>loemlayheng@gmail.com</b><span class="ar">↗</span></a><button class="copy" data-copy="loemlayheng@gmail.com">Copy</button></li>
-    <li class="rv"><a href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener" data-cursor="Open"><span class="k">CV</span><b>Download PDF</b><span class="ar">↓</span></a></li>
+    <li class="rv"><a href="Loem_Layheng_CV.pdf" target="_blank" rel="noopener" data-cursor="Open"><span class="k">Resume</span><b>Download resume</b><span class="ar">↗</span></a></li>
   </ul>
   <div class="ct-meta rv"><span>Phnom Penh, Cambodia</span><span>Local time <b id="pptime">--:--</b></span></div></section>
 </div>` + `<footer class="pfoot"><div class="end"><a href="#">← All rooms</a><span>©2026 · Loem Layheng</span></div></footer>`;
