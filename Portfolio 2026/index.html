@@ -340,7 +340,7 @@
   .ab-hero .crumb { position: absolute; top: 74px; left: var(--g); font-size: 14px; }
   .ab-hero h1 { position: relative; z-index: 2; font-weight: 700; font-size: clamp(64px, 12.5vw, 210px); letter-spacing: -.065em; line-height: .88; max-width: 9ch; margin-top: auto; padding-bottom: 6vh; }
   .ab-role { position: absolute; z-index: 2; right: var(--g); top: 130px; font: italic 400 clamp(20px, 2vw, 30px)/1.1 var(--serif); }
-  .ab-me { position: absolute; right: 8vw; bottom: 0; height: min(78svh, 760px); width: auto; image-rendering: auto; transform: translateY(8%); opacity: 0; transition: transform 1.6s var(--out) .3s, opacity 1.2s var(--out) .3s; }
+  .ab-me { position: absolute; right: var(--g); top: 190px; width: clamp(120px, 13vw, 200px); height: auto; aspect-ratio: 1; border-radius: 50%; object-fit: cover; transform: scale(.85); opacity: 0; transition: transform 1.4s var(--out) .4s, opacity 1s var(--out) .4s; }
   .shown .ab-me, .ab-hero:has(.ttl.shown) .ab-me { transform: none; opacity: 1; }
   .ab-say { padding-top: 16vh; }
   .ab-big { font-size: clamp(30px, 4vw, 64px); line-height: 1.08; letter-spacing: -.04em; max-width: 22ch; }
@@ -406,7 +406,8 @@
   @media (max-width: 760px) {
     .ab-hero { padding-top: 110px; } .ab-hero .crumb, .ct-hero .crumb { top: 64px; }
     .ab-role { position: static; margin-top: 12px; order: 2; }
-    .ab-me { right: -6vw; height: 62svh; opacity: 1; }
+    .ab-me { position: static; order: -1; margin: 0 0 22px; width: 110px; opacity: 1; transform: none; }
+    .ab-hero { min-height: 70svh; }
     .ab-hero h1 { margin-top: 0; padding-bottom: 0; }
     .ab-cols { grid-template-columns: 1fr; }
     .ab-facts li { grid-template-columns: 1fr; gap: 4px; }
@@ -646,7 +647,7 @@ PAGES.about = () => `<div class="ab">
   <header class="ab-hero"><a class="crumb" href="#">← All rooms</a>
     <h1 class="ttl">${words('Hi, I’m Layheng.', .25)}</h1>
     <p class="ab-role rv" style="--d:.6s">Creative & product designer · Phnom Penh</p>
-    <img class="ab-me" src="img/me.webp" alt="Portrait of Loem Layheng" width="360" height="360">
+    <img class="ab-me" src="img/me.webp" alt="Portrait of Loem Layheng" width="220" height="220">
   </header>
   <section class="sec ab-say"><p class="ab-big rv">I design products, then <mark>build them myself</mark>. A prototype people can click says more than a long proposal.</p>
     <div class="ab-cols">
