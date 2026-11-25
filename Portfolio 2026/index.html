@@ -327,7 +327,7 @@
   .pv-head .pill { margin-top: 0; }
   .pv-head .pill i { font-style: normal; transition: transform var(--t2) var(--io); }
   .pv-head .pill:hover i { transform: translate(2px, -2px); }
-  .pv-frame iframe { display: block; width: 100%; height: min(82vh, 60vw); border: 0; background: #fff; }
+  .pv-frame iframe, .pv-frame .pv-poster { display: block; width: 100%; height: min(82vh, 60vw); border: 0; background: #fff; }
   .pv .phones { margin-top: 14px; }
   .pv .phones.one { grid-template-columns: minmax(0, 360px); justify-content: center; }
   .r-shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr)); gap: 40px 14px; margin-top: 14vh; }
@@ -358,10 +358,10 @@
   @media (max-width: 760px) {
     .wl a { grid-template-columns: 30px 1fr; } .wl .m { grid-column: 2; text-align: left; margin-top: -4px; }
     .pv-head { flex-direction: column; align-items: start; }
-    .pv-frame iframe { height: 78svh; }
+    .pv-frame iframe, .pv-frame .pv-poster { height: 78svh; }
     .r-shots { gap: 30px; }
   }
-  @media (min-width: 761px) and (max-width: 1100px) { .pv-frame iframe { height: min(78vh, 90vw); } }
+  @media (min-width: 761px) and (max-width: 1100px) { .pv-frame iframe, .pv-frame .pv-poster { height: min(78vh, 90vw); } }
 
   /* ---------- About panel ---------- */
   .scrim { position: fixed; inset: 0; z-index: 80; background: #0008; opacity: 0; pointer-events: none; transition: opacity var(--t2); }
@@ -384,6 +384,10 @@
   .facts a { background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 100% 1px; transition: background-size var(--t2) var(--io); }
   .facts a:hover { background-size: 0 1px; background-position: 100% 100%; }
 
+  .pv-poster { position: relative; height: 100%; }
+  .pv-poster img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .pv-play { position: absolute; left: 50%; top: 50%; translate: -50% -50%; padding: 16px 26px; border-radius: 99px; background: var(--ink); color: #121210; font-size: 15px; box-shadow: 0 20px 40px -20px #000; transition: transform var(--t2) var(--io), background var(--t1); }
+  .pv-play:hover, .pv-play:focus-visible { background: var(--sun); transform: scale(1.05); }
   /* ---------- About ---------- */
   .ab-hero { position: relative; min-height: 100svh; background: #F2B544; color: #121210; padding: 130px var(--g) 0; overflow: hidden; display: flex; flex-direction: column; }
   .ab-hero .crumb { position: absolute; top: 74px; left: var(--g); font-size: 14px; }
@@ -689,7 +693,7 @@ function projectPage(p) {
     : `<a class="pill" href="${p.src}" target="_blank" rel="noopener" data-magnetic><span>Open full site</span><i aria-hidden="true">↗</i><span class="sr"> (new tab)</span></a>`;
   const frame = p.live
     ? `<div class="browser rv">${frameTop(p.host)}<img src="${p.img}" alt="${esc(p.name)} home page" loading="lazy"></div>`
-    : `<div class="browser pv-frame rv">${frameTop(p.host)}<iframe src="${p.src}" loading="lazy" title="${esc(p.name)}, live preview"></iframe></div>`;
+    : `<div class="browser pv-frame rv">${frameTop(p.host)}<div class="pv-poster" data-src="${p.src}" data-title="${esc(p.name)}, live preview"><img src="${p.img}" alt="${esc(p.name)} home page" loading="lazy"><button class="pv-play" type="button"><span>Play live preview</span></button></div></div>`;
   const ph = p.phones || [];
   return `<div class="proj" style="--pc:${p.color}">` + hero(own ? ['← All rooms', '#'] : ['← ' + r.name, '#' + r.id], p.name, p.lede, `${p.kind}<br>${p.year || p.status}<br>${p.role}`, p.color) +
     `<div class="sec"><section class="c-sec"><div class="lab rv">What I did</div><div class="rv"><ol class="p-did">${p.did.map(([k, v], j) => `<li><span class="dn">${pad(j + 1)}</span><span><b>${k}.</b> ${v}</span></li>`).join('')}</ol>${p.note ? `<p class="p-note">${p.note}</p>` : ''}</div></section>
@@ -871,7 +875,7 @@ function glWarp() {
     glState.gl = gl; glState.n = pts.length / 2; glState.u = { r: gl.getUniformLocation(pr, 'r'), res: gl.getUniformLocation(pr, 'res'), v: gl.getUniformLocation(pr, 'v'), vf: gl.getUniformLocation(pr, 'vf') };
     glState.tex = new Map();
   }
-  const imgs = [...view.querySelectorAll('.browser img')]; // screenshots only: iframes are never drawn over
+  const imgs = [...view.querySelectorAll('.browser img:not(.pv-poster img)')]; // screenshots only: iframes are never drawn over
   if (!imgs.length) return;
   const ready = imgs.map(img => new Promise(ok => img.complete && img.naturalWidth ? ok() : img.addEventListener('load', ok, { once: true })));
   imgs.forEach(img => img.loading = 'eager');
@@ -894,7 +898,7 @@ function glWarp() {
       for (const img of imgs) {
         const b = img.getBoundingClientRect(); if (b.bottom < -50 || b.top > h + 50) continue;
         // clip-path reveal on the frame: only draw once the frame is shown
-        if (!img.closest('.browser').classList.contains('shown')) continue;
+        const bw = img.closest('.browser'); if (!bw || !bw.classList.contains('shown')) continue;
         const fr = img.closest('.browser').getBoundingClientRect(), top = Math.max(fr.top, 64);
         gl.scissor(fr.left * dpr, (h - fr.bottom) * dpr, fr.width * dpr, Math.max(0, fr.bottom - top) * dpr);
         gl.bindTexture(gl.TEXTURE_2D, glState.tex.get(img.src));
@@ -950,6 +954,12 @@ function dsCanvas() {
 view.addEventListener('pointerover', e => {
   const wall = $('#dsWall'); if (!wall || !HOVER) return;
   const t = e.target.closest('.theme'); wall.style.backgroundColor = t ? t.dataset.bg + '22' : '';
+});
+// live previews load only when asked (an iframe on load can look like phishing to some blockers)
+view.addEventListener('click', e => {
+  const b = e.target.closest('.pv-play'); if (!b) return;
+  const box = b.closest('.pv-poster'), f = document.createElement('iframe');
+  f.src = box.dataset.src; f.title = box.dataset.title; box.replaceWith(f); f.focus();
 });
 // contact: copy email, Phnom Penh clock
 view.addEventListener('click', e => {
