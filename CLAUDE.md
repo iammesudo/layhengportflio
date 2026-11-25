@@ -69,6 +69,8 @@ Then check it is still **2 pages, A4**, and copy it to `Portfolio 2026/Loem_Layh
 
 ## Rules for content
 
+- **Tab titles on `vercel.app` must not contain brand words that Malwarebytes Browser Guard treats as phishing** (its rules block e.g. titles containing `meta`, `instagram`, `netflix`, `whatsapp`, `meta for business` on *.vercel.app). That is why the Metamorphosis pages are titled "Die Verwandlung". A custom domain removes this whole class of problem.
+
 - **No em dashes (—)** anywhere in CV or site. Use commas, colons, full stops or "·".
 - **No instructional or meta text** on pages ("scroll", "click", "tap", "hover", "this site does…"). Pages say what things are, not how to use them.
 - **No AI-sounding slogans.** Plain, factual wording.

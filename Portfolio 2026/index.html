@@ -530,7 +530,7 @@ const PROJECTS = [
     lede: 'Kafka’s novella retold as a full-screen vertical comic, with woodcut-style pictures and exact quotes from the public translation.',
     did: [['Drawing', 'Woodcut-style scenes drawn in SVG, after German Expressionist prints'], ['Story', 'One pinned stage where the scenes change in place, one after another'], ['Text', 'Quotes from David Wyllie’s translation, via Project Gutenberg']],
     note: 'Text: Franz Kafka, The Metamorphosis (1915), translated by David Wyllie. Excerpts only.',
-    src: 'samples/metamorphosis/', host: 'samples/metamorphosis', img: 'img/sample-metamorphosis.webp', thumb: 'img/thumb/room-metamorphosis.webp' },
+    tab: 'Die Verwandlung, Kafka in woodcut', src: 'samples/metamorphosis/', host: 'samples/metamorphosis', img: 'img/sample-metamorphosis.webp', thumb: 'img/thumb/room-metamorphosis.webp' },
   { slug: 'kambor', name: 'Atelier Kambor', room: 'kambor', color: '#6E5A45', kind: 'Concept studio website', year: '2026', role: 'Design and build',
     lede: 'A multi-page website for an interior studio in Phnom Penh. The studio, its people and its projects are invented.',
     did: [['Pages', 'Home, projects, studio, services, journal and an enquiry form'], ['Projects', 'Six project pages, including a room-by-room house walk-through with a floor plan'], ['Details', 'A materials library, a project filter and page transitions between studio pages']],
@@ -835,7 +835,8 @@ function route() {
   current = h;
   view.innerHTML = `<div class="vc">${html}</div>`; view.scrollTop = 0; smooth(); view.classList.add('on'); view.inert = false; view.setAttribute('aria-hidden', 'false');
   home.inert = true; document.body.classList.add('lock');
-  document.title = `${c ? c.name : pj ? pj.name : (ROOMS.find(r => r.id === room) || EXTRA[room]).name} · Layheng`;
+  // tab titles avoid the word 'meta': some blockers flag it on vercel.app as a Meta phishing page
+  document.title = `${c ? c.name : pj ? (pj.tab || pj.name) : (ROOMS.find(r => r.id === room) || EXTRA[room]).name} · Layheng`;
   view.focus({ preventScroll: true });
   // reveals
   const show = () => view.querySelector('.ttl')?.classList.add('shown');
